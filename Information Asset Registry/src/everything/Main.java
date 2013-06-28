@@ -1,9 +1,15 @@
 package everything;
 
+import java.sql.Connection;
+
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println("test");
+        new Main().test();
     }
-
+    
+    public void test() {
+        Connection conn = DBUtil.getConnection();
+        System.out.println(conn != null);
+    }
 }
