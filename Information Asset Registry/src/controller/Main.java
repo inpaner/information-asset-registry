@@ -1,31 +1,33 @@
 package controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 import view.LogInFrame;
+import view.LoginEvent;
+import view.LoginListener;
 import model.User;
 
-public class Main {
+public class Main implements LoginListener{
     private User user;
-    private LogInFrame frame;
+    private LogInFrame loginFrame;
     
     public static void main(String[] args) {
-        new Main().login();
+        Main main = new Main();
+        main.login();
     }
     
     private void login() {
-        frame = new LogInFrame();
-        frame.addLoginListener(loginListener());
+        loginFrame = new LogInFrame();
+        loginFrame.setLoginListener(this);
     }
     
-    private ActionListener loginListener() {
-        return new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            user = User.login(frame.username(), frame.password());
-            System.out.println(user.username());
-        }
-        };
-    }
+	
+	public void LoginPerformed(LoginEvent event) {
+		user = User.login(event.getUsername(), event.getPassword());
+		if (user != null){
+			System.out.println("The user: " + user.username() + " was found.");
+		}else{
+			JOptionPane.showMessageDialog(null, "There was no such user found.");
+		}
+	}
 }

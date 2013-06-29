@@ -2,6 +2,7 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
@@ -13,29 +14,17 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 
-public class LogInFrame extends JFrame {
+import model.User;
+
+public class LogInFrame extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JTextField txtUsername;
 	private JPasswordField pwdLogin;
 	private JLabel lblNewLabel;
-    private JButton btnLogin;
+	private JButton btnLogin;
+	private LoginListener loginListener;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					LogInFrame frame = new LogInFrame();
-				} 
-				catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -44,7 +33,9 @@ public class LogInFrame extends JFrame {
 		setResizable(false);
 		setTitle("Asset management system");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 321, 300);
+		setSize(321, 300);
+		setLocationRelativeTo(null);
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -81,7 +72,7 @@ public class LogInFrame extends JFrame {
 				SpringLayout.EAST, lblPassword);
 		sl_contentPane.putConstraint(SpringLayout.EAST, pwdLogin, 0,
 				SpringLayout.EAST, txtUsername);
-		pwdLogin.setText("darren");
+		pwdLogin.setText("dren");
 		contentPane.add(pwdLogin);
 
 		lblNewLabel = new JLabel("Small company logo for asset management");
@@ -99,19 +90,27 @@ public class LogInFrame extends JFrame {
 		sl_contentPane.putConstraint(SpringLayout.EAST, btnLogin, -10,
 				SpringLayout.EAST, contentPane);
 		contentPane.add(btnLogin);
-		
+
+		initializeListeners();
 		setVisible(true);
 	}
-	
-	public String username() {
-	    return txtUsername.getText();
+
+	private void initializeListeners() {
+		btnLogin.addActionListener(this);
 	}
-	
-	public char[] password() {
-	    return pwdLogin.getPassword();
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		String username = txtUsername.getText();
+		char[] password = pwdLogin.getPassword();
+
+		if (loginListener != null) {
+			LoginEvent event = new LoginEvent(username, password);
+			loginListener.LoginPerformed(event);
+		}
 	}
-	
-	public void addLoginListener(ActionListener listener) {
-	    btnLogin.addActionListener(listener);
+
+	public void setLoginListener(LoginListener listener) {
+		this.loginListener = listener;
 	}
 }
