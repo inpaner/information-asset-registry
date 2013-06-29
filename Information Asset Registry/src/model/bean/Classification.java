@@ -44,7 +44,7 @@ public class Classification {
                 "VALUES (?, ?)"                
             );
             ps.setInt(1, assetFk);
-            ps.setString(1, replacement);
+            ps.setString(2, replacement);
             
         }
         catch (SQLException ex) {
