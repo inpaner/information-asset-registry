@@ -2,20 +2,16 @@ package controller;
 
 import javax.swing.JOptionPane;
 
-import view.LogInFrame;
 import view.MainFrame;
 import view.View;
 import view.ViewAssetFrame;
 import view.eventhandling.AssetEvent;
 import view.eventhandling.AssetListener;
-import view.eventhandling.LoginEvent;
-import view.eventhandling.LoginListener;
 import model.DeleteAssetModel;
 import model.MainFrameModel;
 import model.Model;
 import model.NewAssetModel;
 import model.UpdateAssetModel;
-import model.bean.RegException;
 import model.bean.User;
 
 public class MainController implements AssetListener {
