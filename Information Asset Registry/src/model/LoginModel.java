@@ -10,7 +10,16 @@ public class LoginModel extends Model {
 		if (user != null){
 			System.out.println("The user: " + user.username() + " was found.");
 		}else{
-			throw new Exception("There was no such user found.");
+			/*
+			 * TODO
+			 * Instead of having an extremely vague error message like
+			 * "The login was invalid", there can be different exceptions 
+			 * thrown, such as
+			 * 
+			 * a) The username was not a valid registered user. 
+			 * b) The password was invalid.
+			 */
+			throw new Exception("The login was invalid.");
 		}
 		return user;
 	}

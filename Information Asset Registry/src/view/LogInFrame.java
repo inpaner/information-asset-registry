@@ -1,7 +1,5 @@
 package view;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,18 +11,17 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
-
-import model.bean.User;
+import java.awt.Color;
 
 public class LogInFrame extends View implements ActionListener {
 
 	private JPanel contentPane;
 	private JTextField txtUsername;
 	private JPasswordField pwdLogin;
-	private JLabel lblNewLabel;
+	private JLabel lblCompanyLogo;
 	private JButton btnLogin;
 	private LoginListener loginListener;
-
+	private JLabel lblErrorMessage;
 
 	/**
 	 * Create the frame.
@@ -43,53 +40,64 @@ public class LogInFrame extends View implements ActionListener {
 		contentPane.setLayout(sl_contentPane);
 
 		JLabel lblUsername = new JLabel("Username");
-		sl_contentPane.putConstraint(SpringLayout.WEST, lblUsername, 8,
-				SpringLayout.WEST, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.SOUTH, lblUsername, -38,
-				SpringLayout.SOUTH, contentPane);
 		contentPane.add(lblUsername);
 
 		JLabel lblPassword = new JLabel("Password");
-		sl_contentPane.putConstraint(SpringLayout.WEST, lblPassword, 0,
-				SpringLayout.WEST, lblUsername);
+		sl_contentPane.putConstraint(SpringLayout.EAST, lblUsername, 0,
+				SpringLayout.EAST, lblPassword);
 		contentPane.add(lblPassword);
 
 		txtUsername = new JTextField();
-		sl_contentPane.putConstraint(SpringLayout.NORTH, txtUsername, -3,
-				SpringLayout.NORTH, lblUsername);
-		sl_contentPane.putConstraint(SpringLayout.WEST, txtUsername, 11,
-				SpringLayout.EAST, lblUsername);
-		sl_contentPane.putConstraint(SpringLayout.EAST, txtUsername, 137,
-				SpringLayout.EAST, lblUsername);
+		sl_contentPane.putConstraint(SpringLayout.NORTH, lblUsername, 3,
+				SpringLayout.NORTH, txtUsername);
+		sl_contentPane.putConstraint(SpringLayout.WEST, txtUsername, 79,
+				SpringLayout.WEST, contentPane);
 		txtUsername.setText("darrensapalo");
 		contentPane.add(txtUsername);
 		txtUsername.setColumns(10);
 
 		pwdLogin = new JPasswordField();
-		sl_contentPane.putConstraint(SpringLayout.NORTH, pwdLogin, -3,
-				SpringLayout.NORTH, lblPassword);
-		sl_contentPane.putConstraint(SpringLayout.WEST, pwdLogin, 13,
-				SpringLayout.EAST, lblPassword);
-		sl_contentPane.putConstraint(SpringLayout.EAST, pwdLogin, 0,
-				SpringLayout.EAST, txtUsername);
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, txtUsername, -11,
+				SpringLayout.NORTH, pwdLogin);
+		sl_contentPane.putConstraint(SpringLayout.NORTH, lblPassword, 3,
+				SpringLayout.NORTH, pwdLogin);
+		sl_contentPane.putConstraint(SpringLayout.EAST, lblPassword, -6,
+				SpringLayout.WEST, pwdLogin);
+		sl_contentPane.putConstraint(SpringLayout.WEST, pwdLogin, 79,
+				SpringLayout.WEST, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.EAST, txtUsername, 0,
+				SpringLayout.EAST, pwdLogin);
+		sl_contentPane.putConstraint(SpringLayout.NORTH, pwdLogin, 206,
+				SpringLayout.NORTH, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.EAST, pwdLogin, -11,
+				SpringLayout.EAST, contentPane);
 		pwdLogin.setText("dren");
 		contentPane.add(pwdLogin);
 
-		lblNewLabel = new JLabel("Small company logo for asset management");
-		sl_contentPane.putConstraint(SpringLayout.NORTH, lblNewLabel, 0,
+		lblCompanyLogo = new JLabel("Small company logo for asset management");
+		sl_contentPane.putConstraint(SpringLayout.NORTH, lblCompanyLogo, 0,
 				SpringLayout.NORTH, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.WEST, lblNewLabel, 0,
-				SpringLayout.WEST, lblUsername);
-		contentPane.add(lblNewLabel);
+		sl_contentPane.putConstraint(SpringLayout.WEST, lblCompanyLogo, 8,
+				SpringLayout.WEST, contentPane);
+		contentPane.add(lblCompanyLogo);
 
 		btnLogin = new JButton("Log in\r\n");
-		sl_contentPane.putConstraint(SpringLayout.NORTH, lblPassword, 4,
-				SpringLayout.NORTH, btnLogin);
 		sl_contentPane.putConstraint(SpringLayout.SOUTH, btnLogin, -5,
 				SpringLayout.SOUTH, contentPane);
 		sl_contentPane.putConstraint(SpringLayout.EAST, btnLogin, -10,
 				SpringLayout.EAST, contentPane);
 		contentPane.add(btnLogin);
+
+		lblErrorMessage = new JLabel("Error message here");
+		sl_contentPane.putConstraint(SpringLayout.NORTH, lblErrorMessage, 4,
+				SpringLayout.NORTH, btnLogin);
+		sl_contentPane.putConstraint(SpringLayout.WEST, lblErrorMessage, 0,
+				SpringLayout.WEST, lblUsername);
+		sl_contentPane.putConstraint(SpringLayout.EAST, lblErrorMessage, -15,
+				SpringLayout.WEST, btnLogin);
+		lblErrorMessage.setForeground(Color.RED);
+		lblErrorMessage.setVisible(false);
+		contentPane.add(lblErrorMessage);
 
 		initializeListeners();
 		setVisible(true);
@@ -116,7 +124,7 @@ public class LogInFrame extends View implements ActionListener {
 
 	public void displayError(Exception e) {
 		String errormessage = e.getMessage();
-		// TODO There should be a JLabel indicating the type of error.
-		
+		lblErrorMessage.setVisible(true);
+		lblErrorMessage.setText(errormessage);
 	}
 }
