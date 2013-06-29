@@ -2,6 +2,8 @@ package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -17,7 +19,7 @@ import view.eventhandling.LoginListener;
 
 import java.awt.Color;
 
-public class LogInFrame extends View implements ActionListener {
+public class LogInFrame extends View implements ActionListener, KeyListener {
 
 	private JPanel contentPane;
 	private JTextField txtUsername;
@@ -103,6 +105,8 @@ public class LogInFrame extends View implements ActionListener {
 		lblErrorMessage.setVisible(false);
 		contentPane.add(lblErrorMessage);
 
+		txtUsername.addKeyListener(this);
+		pwdLogin.addKeyListener(this);
 		initializeListeners();
 		setVisible(true);
 	}
@@ -130,5 +134,16 @@ public class LogInFrame extends View implements ActionListener {
 		String errormessage = e.getMessage();
 		lblErrorMessage.setVisible(true);
 		lblErrorMessage.setText(errormessage);
+	}
+
+	public void keyPressed(KeyEvent e) {
+	}
+
+	public void keyReleased(KeyEvent e) {
+		if (e.getKeyCode() == KeyEvent.VK_ENTER)
+			actionPerformed(null);
+	}
+
+	public void keyTyped(KeyEvent e) {
 	}
 }

@@ -43,22 +43,6 @@ public class MainFrame extends View implements ActionListener {
 	private AssetListener assetListener;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MainFrame frame = new MainFrame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the frame.
 	 */
 	public MainFrame() {
@@ -225,7 +209,7 @@ public class MainFrame extends View implements ActionListener {
 			} else if (action.equals("delete")) {
 				ArrayList<Asset> assets = getSelectedAssets();
 				AssetEvent assetEvent = new AssetEvent(assets);
-				assetListener.UpdateAssetHandling(assetEvent);
+				assetListener.DeleteAssetHandling(assetEvent);
 			}
 		}
 

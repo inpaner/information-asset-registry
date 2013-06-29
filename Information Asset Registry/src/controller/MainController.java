@@ -1,5 +1,7 @@
 package controller;
 
+import javax.swing.JOptionPane;
+
 import view.LogInFrame;
 import view.MainFrame;
 import view.View;
@@ -101,13 +103,13 @@ public class MainController implements LoginListener, AssetListener{
 	}
 
 	public void UpdateAssetHandling(AssetEvent event) {
-		display(viewAssetFrame);
 		viewAssetFrame.InitializeUpdateAssetForm();
+		display(viewAssetFrame);
 		this.model = updateAssetModel;
 	}
 
 	public void DeleteAssetHandling(AssetEvent event) {
-		display(viewAssetFrame);
 		this.model = deleteAssetModel;
+		JOptionPane.showConfirmDialog(view, "Are you sure you wish to delete these X pcs. assets?", "Confirm delete", JOptionPane.YES_NO_OPTION); 
 	}
 }
