@@ -13,13 +13,47 @@ import everything.DBUtil;
 
 public class Classification {
     private static Vector<Classification> types;
-    private String name;
+    private String classification;
+    private int assetFk;
     
-    private Classification(String name) {
-        this.name = name;
+    public static void main(String[] args) {
+        Classification a = Classification.latest(1);
+        System.out.println(a.classification);
     }
     
-    public void update(String name) {
+    public String name() {
+        return classification;
+    }
+    
+    public String toString() {
+        return name();
+    }
+    
+    private Classification() {
+    }
+    
+    public void update(String replacement) {
+        if (classification.equals(replacement)) return;
+        // early return
+        
+        Connection conn = DBUtil.getConnection();
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement(
+                "INSERT INTO Classification (assetFk, replacement) " +
+                "VALUES (?, ?)"                
+            );
+            ps.setInt(1, assetFk);
+            ps.setString(1, replacement);
+            
+        }
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        finally {
+            DBUtil.close(ps);
+            DBUtil.close(conn);
+        }
         
     }
     
@@ -40,12 +74,15 @@ public class Classification {
             rs = ps.executeQuery();
             rs.next();
             
-            latest = new Classification(rs.getString("classification"));
+            latest = new Classification();
+            latest.assetFk = assetFk;
+            latest.classification = rs.getString("classification");
         }
         catch (SQLException ex) {
             ex.printStackTrace();
         }
         finally {
+            DBUtil.close(rs);
             DBUtil.close(ps);
             DBUtil.close(conn);
         }
