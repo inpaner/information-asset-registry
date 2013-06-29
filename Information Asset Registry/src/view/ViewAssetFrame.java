@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -22,6 +21,7 @@ import java.awt.Font;
 import javax.swing.JComboBox;
 
 import view.eventhandling.AssetListener;
+import view.eventhandling.LogListener;
 
 import java.awt.Color;
 
@@ -38,6 +38,7 @@ public class ViewAssetFrame extends View {
 	private JTextField txtMaintenancePeriodValue;
 
 	private AssetListener assetListener;
+	private LogListener logListener;
 
 	/**
 	 * Create the frame.
@@ -428,5 +429,8 @@ public class ViewAssetFrame extends View {
 		txtIdentifierValue.setEditable(false);
 
 	}
+	public void setLogListener(LogListener listener) {
+		this.logListener = listener;
 
+	}
 }

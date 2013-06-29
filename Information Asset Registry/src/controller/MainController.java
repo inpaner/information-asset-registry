@@ -18,7 +18,7 @@ import model.UpdateAssetModel;
 import model.bean.RegException;
 import model.bean.User;
 
-public class MainController AssetListener {
+public class MainController implements AssetListener {
 	
 	// current logged in user
     private User user;
