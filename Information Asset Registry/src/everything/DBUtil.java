@@ -23,12 +23,12 @@ public class DBUtil {
     
 
     private static void setup() {
-        ResourceBundle rb = ResourceBundle.getBundle("everything.db");
+        ResourceBundle rb = ResourceBundle.getBundle("everything.db2");
         dbUrl = rb.getString("dbUrl");
         dbName = rb.getString("dbName");
         dbDriver = rb.getString("dbDriver");
         username = rb.getString("username");
-        password = rb.getString("password ");
+        password = rb.getString("password");
     }
     
     
@@ -41,11 +41,10 @@ public class DBUtil {
         catch(Exception e){
             e.printStackTrace();
         }
-        
         return conn;
     }
 
-    protected void close(Connection connection) {
+    protected static void close(Connection connection) {
         try {
             if (connection != null) {
                 connection.close();
@@ -56,7 +55,7 @@ public class DBUtil {
         }
     }
 
-    protected void close(Statement st) {
+    protected static void close(Statement st) {
         try {
             if (st != null)
                 st.close();
@@ -66,7 +65,7 @@ public class DBUtil {
         }
     }
 
-    protected void close(PreparedStatement st) {
+    protected static void close(PreparedStatement st) {
         try {
             if (st != null)
                 st.close();
@@ -76,7 +75,7 @@ public class DBUtil {
         }
     }
     
-    protected void close(ResultSet rs) {
+    protected static void close(ResultSet rs) {
         try {
             if (rs != null)
                 rs.close();
@@ -86,7 +85,7 @@ public class DBUtil {
         }
     }
 
-    protected void commit(Connection connection) {
+    protected static void commit(Connection connection) {
         try {
             if (connection != null) 
                 connection.commit();
@@ -96,7 +95,7 @@ public class DBUtil {
         }
     }
     
-    protected void rollback(Connection connection) {
+    protected static void rollback(Connection connection) {
         try {
             if (connection != null)   
                 connection.rollback();
