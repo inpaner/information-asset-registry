@@ -31,6 +31,7 @@ import model.bean.Asset;
 import model.bean.User;
 import view.eventhandling.AssetEvent;
 import view.eventhandling.AssetListener;
+import view.eventhandling.LogListener;
 
 import java.awt.SystemColor;
 import java.util.ArrayList;
@@ -41,6 +42,7 @@ public class MainFrame extends View implements ActionListener {
 	private JTable tableData;
 	private JTextField txtSearchPanel;
 	private AssetListener assetListener;
+	private LogListener logListener;
 
 	/**
 	 * Create the frame.
@@ -228,5 +230,10 @@ public class MainFrame extends View implements ActionListener {
 
 	public void setAssetListener(AssetListener assetListener) {
 		this.assetListener = assetListener;
+	}
+
+	public void setLogListener(LogListener listener) {
+		this.logListener = listener;
+
 	}
 }

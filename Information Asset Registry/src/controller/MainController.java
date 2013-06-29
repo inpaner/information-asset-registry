@@ -8,6 +8,8 @@ import view.View;
 import view.ViewAssetFrame;
 import view.eventhandling.AssetEvent;
 import view.eventhandling.AssetListener;
+import view.eventhandling.LogEvent;
+import view.eventhandling.LogListener;
 import view.eventhandling.LoginEvent;
 import view.eventhandling.LoginListener;
 import model.DeleteAssetModel;
@@ -18,7 +20,7 @@ import model.NewAssetModel;
 import model.UpdateAssetModel;
 import model.bean.User;
 
-public class MainController implements LoginListener, AssetListener{
+public class MainController implements LoginListener, AssetListener, LogListener{
 	
 	// current logged in user
     private User user;
@@ -45,16 +47,15 @@ public class MainController implements LoginListener, AssetListener{
     
     public MainController (){
         prepareListeners();
-    	
     	prepareForLogin();
-        
-        
     }
     
     private void prepareListeners() {
     	loginFrame.setLoginListener(this);
     	mainFrame.setAssetListener(this);
+    	mainFrame.setLogListener(this);
     	viewAssetFrame.setAssetListener(this);
+    	viewAssetFrame.setLogListener(this);
 	}
 
 	private void prepareForLogin() {
@@ -111,5 +112,9 @@ public class MainController implements LoginListener, AssetListener{
 	public void DeleteAssetHandling(AssetEvent event) {
 		this.model = deleteAssetModel;
 		JOptionPane.showConfirmDialog(view, "Are you sure you wish to delete these X pcs. assets?", "Confirm delete", JOptionPane.YES_NO_OPTION); 
+	}
+
+	public void recordUserAction(LogEvent event) {
+		// TODO record user action
 	}
 }
