@@ -1,7 +1,7 @@
 package model;
 
 import model.bean.User;
-import view.LoginEvent;
+import view.eventhandling.LoginEvent;
 
 public class LoginModel extends Model {
 

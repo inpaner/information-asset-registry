@@ -1,17 +1,19 @@
 package controller;
 
 import view.LogInFrame;
-import view.LoginEvent;
-import view.LoginListener;
 import view.MainFrame;
 import view.View;
 import view.ViewAssetFrame;
+import view.eventhandling.AssetEvent;
+import view.eventhandling.AssetListener;
+import view.eventhandling.LoginEvent;
+import view.eventhandling.LoginListener;
 import model.LoginModel;
 import model.MainFrameModel;
 import model.Model;
 import model.bean.User;
 
-public class MainController implements LoginListener{
+public class MainController implements LoginListener, AssetListener{
 	
 	// current logged in user
     private User user;
@@ -74,6 +76,13 @@ public class MainController implements LoginListener{
 			// Handle the error by displaying a message
 			loginFrame.displayError(e);
 		}
+	}
 
+	public void NewAssetHandling(AssetEvent event) {
+		
+	}
+
+	public void UpdateAssetHandling(AssetEvent event) {
+		
 	}
 }

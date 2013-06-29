@@ -7,28 +7,39 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
 import java.awt.FlowLayout;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JButton;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.border.BevelBorder;
 import javax.swing.UIManager;
+
+import model.bean.Asset;
+import model.bean.User;
+import view.eventhandling.AssetEvent;
+import view.eventhandling.AssetListener;
+
 import java.awt.SystemColor;
 
-public class MainFrame extends View {
+public class MainFrame extends View implements ActionListener {
 
 	private JPanel contentPane;
 	private JTable tableData;
 	private JTextField txtSearchPanel;
+	private AssetListener assetListener;
 
 	/**
 	 * Launch the application.
@@ -194,5 +205,20 @@ public class MainFrame extends View {
 		lblYouHaveSelected.setFont(UIManager.getFont("Label.font"));
 		lblYouHaveSelected.setBackground(SystemColor.menu);
 		informationPanel.add(lblYouHaveSelected);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		/*
+		 * Asset asset; User user; AssetEvent assetEvent = new AssetEvent(asset,
+		 * user); assetListener.NewAssetHandling(assetEvent);
+		 * assetListener.UpdateAssetHandling(assetEvent);
+		 * 
+		 * How this function should look like - unfinished
+		 */
+	}
+
+	public void setAssetListener(AssetListener assetListener) {
+		this.assetListener = assetListener;
 	}
 }

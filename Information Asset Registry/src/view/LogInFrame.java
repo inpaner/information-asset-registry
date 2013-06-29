@@ -11,6 +11,10 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
+
+import view.eventhandling.LoginEvent;
+import view.eventhandling.LoginListener;
+
 import java.awt.Color;
 
 public class LogInFrame extends View implements ActionListener {
