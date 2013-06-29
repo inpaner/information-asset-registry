@@ -90,7 +90,11 @@ public class Log implements Comparable<Log> {
         }
         return allLogs;
     }
-
+    
+    public static void updateAttribute(int assetFk, String attribute) {
+        
+    }
+    
     @Override
     public int compareTo(Log other) {
         int comparison = this.date.compareTo(other.date);
