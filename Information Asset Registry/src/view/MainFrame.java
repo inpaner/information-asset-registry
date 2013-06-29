@@ -35,7 +35,7 @@ import javax.swing.UIManager;
 import java.awt.SystemColor;
 import javax.swing.border.TitledBorder;
 
-public class MainFrame extends JFrame {
+public class MainFrame extends View {
 
 	private JPanel contentPane;
 	private JTable tableData;
@@ -64,7 +64,8 @@ public class MainFrame extends JFrame {
 		setResizable(false);
 		setTitle("Asset management system");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 800, 600);
+		setSize(800, 600);
+		setLocationRelativeTo(null);
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);

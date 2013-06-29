@@ -14,9 +14,9 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 
-import model.User;
+import model.bean.User;
 
-public class LogInFrame extends JFrame implements ActionListener {
+public class LogInFrame extends View implements ActionListener {
 
 	private JPanel contentPane;
 	private JTextField txtUsername;

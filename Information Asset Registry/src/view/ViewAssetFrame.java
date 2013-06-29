@@ -30,7 +30,7 @@ import java.awt.Font;
 import javax.swing.JComboBox;
 import java.awt.Color;
 
-public class ViewAssetFrame extends JFrame {
+public class ViewAssetFrame extends View {
 
 	private JPanel contentPane;
 	private JLabel txtCurrentItem;
