@@ -1,27 +1,38 @@
-package model;
+package controller;
 
+
+import model.bean.RegException;
 import model.bean.User;
+import view.LogInFrame;
 import view.eventhandling.LoginEvent;
+import view.eventhandling.LoginListener;
 
-public class LoginModel extends Model {
+public class LoginController implements LoginListener {
+    private LogInFrame loginFrame;
+    
+    
+    protected LoginController() {
+        loginFrame = new LogInFrame();
+        loginFrame.setLoginListener(this);
+        MainController.display(loginFrame);
+    }
+    
+    /**
+     * This function handles the login attempt of the user.
+     * Should it fail, An exception is thrown to the login frame to display an error.  
+     */
+    @Override
+    public void LoginPerformed(LoginEvent event) {
+        try {
+            User.login(event.getUsername(), event.getPassword());
+            // Success! Go to main frame, where all assets are listed down.
 
-	public User login(LoginEvent event) throws Exception {
-		User user = User.login(event.getUsername(), event.getPassword());
-		if (user != null){
-			System.out.println("The user: " + user.username() + " was found.");
-		}else{
-			/*
-			 * TODO
-			 * Instead of having an extremely vague error message like
-			 * "The login was invalid", there can be different exceptions 
-			 * thrown, such as
-			 * 
-			 * a) The username was not a valid registered user. 
-			 * b) The password was invalid.
-			 */
-			throw new Exception("The login was invalid.");
-		}
-		return user;
-	}
+        } 
+        catch (RegException e){
+            // Handle the error by displaying a message
+            loginFrame.displayError(e);
+        }
+        
+    }
 	
 }
