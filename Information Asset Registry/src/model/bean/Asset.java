@@ -27,9 +27,9 @@ public class Asset {
     
     public static void main(String[] args) {
         Asset a = Asset.get(1);
-        System.out.println(a.name);
+        System.out.println(a.classification);
         Asset b = Asset.get(1);
-        System.out.println(b.name);
+        System.out.println(b.classification);
     }
     
     protected int pk() {
@@ -83,8 +83,6 @@ public class Asset {
     public static Asset get(int pk) {
         Asset toGet = cache.get(pk);
         if (toGet == null) {
-            System.out.println("here");
-            
             toGet = getFromDB(pk);
         }
         return toGet;
@@ -112,6 +110,7 @@ public class Asset {
             //TODO toGet.setType(rs.getString("type"));
             toGet.setDateAcquired(rs.getDate("dateAcquired"));
             //TODO toGet.setRetentionPeriod(rs.getDate("retentionPeriod");
+            toGet.classification = Classification.latest(pk);
             
             cache.put(pk, toGet);
         }
@@ -122,7 +121,6 @@ public class Asset {
             DBUtil.close(ps);
             DBUtil.close(conn);
         }
-            
         return toGet;
     }
 }
