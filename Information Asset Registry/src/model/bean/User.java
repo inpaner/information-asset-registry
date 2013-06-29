@@ -25,7 +25,7 @@ public class User {
         return username;
     }
     
-    public static User login(String username, char[] password) {
+    public static User login(String username, char[] password) throws RegException {
         Connection conn = DBUtil.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -47,11 +47,15 @@ public class User {
             ps = conn.prepareStatement(query.toString()); 
             ps.setString(1, username);
             rs = ps.executeQuery();
+            
             if (rs.next()) {
                 int pk = rs.getInt("pk");
                 user = new User(pk, username);
+                currentUser = user;
             }
-                
+            else {
+                throw new RegException("Invalid login.");
+            }
         }
         catch (SQLException ex) {
             ex.printStackTrace();
