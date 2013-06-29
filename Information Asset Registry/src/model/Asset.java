@@ -1,4 +1,4 @@
-package everything;
+package model;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Vector;
+
+import everything.DBUtil;
 
 public class Asset {
     private static HashMap<Integer, Asset> cache;

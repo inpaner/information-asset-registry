@@ -1,4 +1,4 @@
-package everything;
+package model;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.util.Collections;
 import java.util.Vector;
+
+import everything.DBUtil;
 
 public class Classification {
     private static Vector<Classification> types;

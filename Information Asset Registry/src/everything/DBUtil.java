@@ -32,7 +32,7 @@ public class DBUtil {
     }
     
     
-    protected static Connection getConnection() {            
+    public static Connection getConnection() {            
         try {
             Class.forName(dbDriver).newInstance();
             conn = DriverManager.getConnection(dbUrl+dbName,username,password);
@@ -44,7 +44,7 @@ public class DBUtil {
         return conn;
     }
 
-    protected static void close(Connection connection) {
+    public static void close(Connection connection) {
         try {
             if (connection != null) {
                 connection.close();
@@ -55,7 +55,7 @@ public class DBUtil {
         }
     }
 
-    protected static void close(Statement st) {
+    public static void close(Statement st) {
         try {
             if (st != null)
                 st.close();
@@ -75,7 +75,7 @@ public class DBUtil {
         }
     }
     
-    protected static void close(ResultSet rs) {
+    public static void close(ResultSet rs) {
         try {
             if (rs != null)
                 rs.close();
