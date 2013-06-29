@@ -113,4 +113,10 @@ public class LogInFrame extends View implements ActionListener {
 	public void setLoginListener(LoginListener listener) {
 		this.loginListener = listener;
 	}
+
+	public void displayError(Exception e) {
+		String errormessage = e.getMessage();
+		// TODO There should be a JLabel indicating the type of error.
+		
+	}
 }

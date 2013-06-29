@@ -1,7 +1,5 @@
 package controller;
 
-import javax.swing.JOptionPane;
-
 import view.LogInFrame;
 import view.LoginEvent;
 import view.LoginListener;
@@ -32,8 +30,7 @@ public class MainController implements LoginListener{
     private MainFrameModel mainFrameModel = new MainFrameModel();
     
     public static void main(String[] args) {
-        MainController main = new MainController();
-        
+        new MainController();
     }
     
     public MainController (){
@@ -49,6 +46,10 @@ public class MainController implements LoginListener{
         loginFrame.setLoginListener(this);
     }
     
+    /**
+     * This function begins by hiding the current view, updating the current view, and finally displays the selected view.
+     * @param view - The frame that you wish to display
+     */
     public void display(View view){
     	if (this.view != null)
     		this.view.setVisible(false);
@@ -57,12 +58,21 @@ public class MainController implements LoginListener{
     	this.view.setVisible(true);
     }
     
+    /**
+     * This function handles the login attempt of the user.
+     * Should it fail, An exception is thrown to the login frame to display an error.  
+     */
 	public void LoginPerformed(LoginEvent event) {
-		if ((user = loginModel.login(event)) != null){
-			
-			// Go to main frame, where all assets are listed down.
-			display(mainFrame);
-			this.model = mainFrameModel;
+		try {
+			user = loginModel.login(event);
+			if (user != null){	
+				// Success! Go to main frame, where all assets are listed down.
+				display(mainFrame);
+				this.model = mainFrameModel;
+			}
+		}catch (Exception e){
+			// Handle the error by displaying a message
+			loginFrame.displayError(e);
 		}
 
 	}
