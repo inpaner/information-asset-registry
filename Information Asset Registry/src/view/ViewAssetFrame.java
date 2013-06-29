@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -15,8 +16,13 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
 import java.awt.Font;
+
 import javax.swing.JComboBox;
+
+import view.eventhandling.AssetListener;
+
 import java.awt.Color;
 
 public class ViewAssetFrame extends View {
@@ -31,21 +37,7 @@ public class ViewAssetFrame extends View {
 	private JTextField txtRetentionPeriodValue;
 	private JTextField txtMaintenancePeriodValue;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ViewAssetFrame frame = new ViewAssetFrame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private AssetListener assetListener;
 
 	/**
 	 * Create the frame.
@@ -54,7 +46,8 @@ public class ViewAssetFrame extends View {
 		setResizable(false);
 		setTitle("Asset management system : Identifier - Asset Name");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 800, 600);
+		setSize(800, 600);
+		setLocationRelativeTo(null);
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -421,6 +414,19 @@ public class ViewAssetFrame extends View {
 		JButton btnSave = new JButton("Save");
 		btnSave.setFocusable(false);
 		panel.add(btnSave);
+	}
+
+	public void setAssetListener(AssetListener assetListener) {
+		this.assetListener = assetListener;
+	}
+
+	public void InitializeNewAssetForm() {
+		txtIdentifierValue.setEditable(true);
+	}
+
+	public void InitializeUpdateAssetForm() {
+		txtIdentifierValue.setEditable(false);
+
 	}
 
 }

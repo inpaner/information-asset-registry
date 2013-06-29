@@ -33,6 +33,7 @@ import view.eventhandling.AssetEvent;
 import view.eventhandling.AssetListener;
 
 import java.awt.SystemColor;
+import java.util.ArrayList;
 
 public class MainFrame extends View implements ActionListener {
 
@@ -174,19 +175,21 @@ public class MainFrame extends View implements ActionListener {
 
 		JButton btnNewButton = new JButton("New asset");
 		btnNewButton.setFocusable(false);
+		btnNewButton.addActionListener(this);
+		btnNewButton.setActionCommand("new");
 		choices.add(btnNewButton);
 
 		JButton btnUpdateAsset = new JButton("Update asset");
+		btnUpdateAsset.setActionCommand("update");
 		btnUpdateAsset.setFocusable(false);
+		btnUpdateAsset.addActionListener(this);
 		choices.add(btnUpdateAsset);
 
 		JButton btnDeleteSelected = new JButton("Delete asset/s");
+		btnDeleteSelected.setActionCommand("delete");
 		btnDeleteSelected.setFocusable(false);
 		choices.add(btnDeleteSelected);
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
+		btnDeleteSelected.addActionListener(this);
 		tableData
 				.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		mainPanel.add(tableData);
@@ -209,13 +212,34 @@ public class MainFrame extends View implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		/*
-		 * Asset asset; User user; AssetEvent assetEvent = new AssetEvent(asset,
-		 * user); assetListener.NewAssetHandling(assetEvent);
-		 * assetListener.UpdateAssetHandling(assetEvent);
-		 * 
-		 * How this function should look like - unfinished
-		 */
+		if (assetListener != null) {
+			String action = e.getActionCommand();
+			if (action.equals("new")) {
+				Asset asset = null;
+				AssetEvent assetEvent = new AssetEvent(asset);
+				assetListener.NewAssetHandling(assetEvent);
+			} else if (action.equals("update")) {
+				Asset asset = getSelectedAsset();
+				AssetEvent assetEvent = new AssetEvent(asset);
+				assetListener.UpdateAssetHandling(assetEvent);
+			} else if (action.equals("delete")) {
+				ArrayList<Asset> assets = getSelectedAssets();
+				AssetEvent assetEvent = new AssetEvent(assets);
+				assetListener.UpdateAssetHandling(assetEvent);
+			}
+		}
+
+	}
+
+	private ArrayList<Asset> getSelectedAssets() {
+		// TODO get the selected assets from the table. Can select more than
+		// one.
+		return null;
+	}
+
+	private Asset getSelectedAsset() {
+		// TODO get the selected asset from the table. Should only select one.
+		return null;
 	}
 
 	public void setAssetListener(AssetListener assetListener) {
