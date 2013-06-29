@@ -23,7 +23,7 @@ public class DBUtil {
     
 
     private static void setup() {
-        ResourceBundle rb = ResourceBundle.getBundle("everything.db2");
+        ResourceBundle rb = ResourceBundle.getBundle("everything.db");
         dbUrl = rb.getString("dbUrl");
         dbName = rb.getString("dbName");
         dbDriver = rb.getString("dbDriver");

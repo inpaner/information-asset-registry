@@ -2,6 +2,7 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -18,6 +19,7 @@ public class LogInFrame extends JFrame {
 	private JTextField txtUsername;
 	private JPasswordField pwdLogin;
 	private JLabel lblNewLabel;
+    private JButton btnLogin;
 
 	/**
 	 * Launch the application.
@@ -27,8 +29,8 @@ public class LogInFrame extends JFrame {
 			public void run() {
 				try {
 					LogInFrame frame = new LogInFrame();
-					frame.setVisible(true);
-				} catch (Exception e) {
+				} 
+				catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
@@ -89,13 +91,27 @@ public class LogInFrame extends JFrame {
 				SpringLayout.WEST, lblUsername);
 		contentPane.add(lblNewLabel);
 
-		JButton btnNewButton = new JButton("Log in\r\n");
+		btnLogin = new JButton("Log in\r\n");
 		sl_contentPane.putConstraint(SpringLayout.NORTH, lblPassword, 4,
-				SpringLayout.NORTH, btnNewButton);
-		sl_contentPane.putConstraint(SpringLayout.SOUTH, btnNewButton, -5,
+				SpringLayout.NORTH, btnLogin);
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, btnLogin, -5,
 				SpringLayout.SOUTH, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.EAST, btnNewButton, -10,
+		sl_contentPane.putConstraint(SpringLayout.EAST, btnLogin, -10,
 				SpringLayout.EAST, contentPane);
-		contentPane.add(btnNewButton);
+		contentPane.add(btnLogin);
+		
+		setVisible(true);
+	}
+	
+	public String username() {
+	    return txtUsername.getText();
+	}
+	
+	public char[] password() {
+	    return pwdLogin.getPassword();
+	}
+	
+	public void addLoginListener(ActionListener listener) {
+	    btnLogin.addActionListener(listener);
 	}
 }
