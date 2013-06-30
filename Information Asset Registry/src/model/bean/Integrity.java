@@ -5,13 +5,13 @@ import java.sql.SQLException;
 
 import everything.DBUtil;
 
-public class Financial extends IntAttribute {
+public class Integrity extends IntAttribute {
 
     static {
-        attribute = "Financial";
+        attribute = "Integrity";
     }
     
-    private Financial() {
+    private Integrity() {
     }
     
     @Override
@@ -19,14 +19,14 @@ public class Financial extends IntAttribute {
         update(replacement);
     }
 
-    protected static Financial latest(int assetFk) {
+    protected static Integrity latest(int assetFk) {
         ResultSet rs = null;
-        Financial latest = null;
+        Integrity latest = null;
         try {
             rs = latestRS(assetFk);
             rs.next();
             
-            latest = new Financial();
+            latest = new Integrity();
             latest.assetFk = assetFk;
             latest.value = rs.getInt("value");
         }

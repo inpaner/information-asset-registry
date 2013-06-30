@@ -2,33 +2,29 @@ package model.bean;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Vector;
 
 import everything.DBUtil;
 
-public class Financial extends IntAttribute {
-
+public class Custodian extends StringAttribute {
+    
     static {
-        attribute = "Financial";
+        attribute = "Custodian";
     }
     
-    private Financial() {
+    private Custodian() {
     }
     
-    @Override
-    public void update(int replacement) {
-        update(replacement);
-    }
-
-    protected static Financial latest(int assetFk) {
+    protected static Custodian latest(int assetFk) {
         ResultSet rs = null;
-        Financial latest = null;
+        Custodian latest = null;
         try {
             rs = latestRS(assetFk);
             rs.next();
             
-            latest = new Financial();
+            latest = new Custodian();
             latest.assetFk = assetFk;
-            latest.value = rs.getInt("value");
+            latest.value = rs.getString("value");
         }
         catch (SQLException ex) {
             ex.printStackTrace();
@@ -39,4 +35,6 @@ public class Financial extends IntAttribute {
             
         return latest;
     }
+    
+
 }
