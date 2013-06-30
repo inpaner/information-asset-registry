@@ -14,6 +14,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JButton;
+import javax.swing.JScrollPane;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -35,6 +36,12 @@ import view.eventhandling.LogListener;
 
 import java.awt.SystemColor;
 import java.util.ArrayList;
+
+import javax.swing.JScrollBar;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.BoxLayout;
+import java.awt.Component;
+import java.awt.BorderLayout;
 
 public class MainFrame extends View implements ActionListener {
 
@@ -100,61 +107,56 @@ public class MainFrame extends View implements ActionListener {
 		tableData = new JTable();
 		tableData.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null,
 				null, null));
-		tableData.setModel(new DefaultTableModel(
-				new Object[][] {
-						{ "Identifier", "Name", "Owner", "Custodian",
-								"Date acquired" },
-						{ null, null, null, null, null },
-						{ null, null, null, null, null },
-						{ null, null, null, null, null },
-						{ null, null, null, null, null },
-						{ null, null, null, null, null },
-						{ null, null, null, null, null },
-						{ null, null, null, null, null },
-						{ null, null, null, null, null },
-						{ null, null, null, null, null },
-						{ null, null, null, null, null },
-						{ null, null, null, null, null },
-						{ null, null, null, null, null },
-						{ null, null, null, null, null },
-						{ null, null, null, null, null },
-						{ null, null, null, null, null },
-						{ null, null, null, null, null },
-						{ null, null, null, null, null },
-						{ null, null, null, null, null },
-						{ null, null, null, null, null },
-						{ null, null, null, null, null },
-						{ null, null, null, null, null },
-						{ null, null, null, null, null },
-						{ null, null, null, null, null },
-						{ null, null, null, null, null }, }, new String[] {
-						"Identifier", "Name", "Owner", "Custodian",
-						"Date acquired" }) {
+		tableData.setModel(new DefaultTableModel(new Object[][] {
+				{ null, null, null, null, null },
+				{ null, null, null, null, null },
+				{ null, null, null, null, null },
+				{ null, null, null, null, null },
+				{ null, null, null, null, null },
+				{ null, null, null, null, null },
+				{ null, null, null, null, null },
+				{ null, null, null, null, null },
+				{ null, null, null, null, null },
+				{ null, null, null, null, null },
+				{ null, null, null, null, null },
+				{ null, null, null, null, null },
+				{ null, null, null, null, null },
+				{ null, null, null, null, null },
+				{ null, null, null, null, null },
+				{ null, null, null, null, null },
+				{ null, null, null, null, null },
+				{ null, null, null, null, null },
+				{ null, null, null, null, null },
+				{ null, null, null, null, null },
+				{ null, null, null, null, null },
+				{ null, null, null, null, null },
+				{ null, null, null, null, null },
+				{ null, null, null, null, null },
+				{ null, null, null, null, null }, }, new String[] {
+				"Identifier", "Name", "Owner", "Custodian", "Date acquired" }) {
 			Class[] columnTypes = new Class[] { String.class, Object.class,
 					Object.class, Object.class, Object.class };
 
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
-
-			boolean[] columnEditables = new boolean[] { false, true, true,
-					true, true };
-
-			public boolean isCellEditable(int row, int column) {
-				return false;
-			}
 		});
-		tableData.getColumnModel().getColumn(0).setPreferredWidth(100);
-		tableData.getColumnModel().getColumn(0).setMaxWidth(100);
-		tableData.getColumnModel().getColumn(1).setPreferredWidth(180);
-		tableData.getColumnModel().getColumn(1).setMaxWidth(180);
+		tableData.getColumnModel().getColumn(0).setPreferredWidth(130);
+		tableData.getColumnModel().getColumn(0).setMinWidth(130);
+		tableData.getColumnModel().getColumn(0).setMaxWidth(130);
+		tableData.getColumnModel().getColumn(1).setPreferredWidth(200);
+		tableData.getColumnModel().getColumn(1).setMinWidth(200);
+		tableData.getColumnModel().getColumn(1).setMaxWidth(200);
 		tableData.getColumnModel().getColumn(2).setPreferredWidth(150);
+		tableData.getColumnModel().getColumn(2).setMinWidth(150);
 		tableData.getColumnModel().getColumn(2).setMaxWidth(150);
 		tableData.getColumnModel().getColumn(3).setPreferredWidth(150);
+		tableData.getColumnModel().getColumn(3).setMinWidth(150);
 		tableData.getColumnModel().getColumn(3).setMaxWidth(150);
 		tableData.getColumnModel().getColumn(4).setPreferredWidth(150);
+		tableData.getColumnModel().getColumn(4).setMinWidth(150);
 		tableData.getColumnModel().getColumn(4).setMaxWidth(150);
-		mainPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
 		JPanel choices = new JPanel();
 		mainPanel.add(choices);
@@ -178,7 +180,7 @@ public class MainFrame extends View implements ActionListener {
 		btnDeleteSelected.addActionListener(this);
 		tableData
 				.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		mainPanel.add(tableData);
+		// mainPanel.add(tableData);
 
 		JPanel informationPanel = new JPanel();
 		GridBagConstraints gbc_informationPanel = new GridBagConstraints();
@@ -189,6 +191,11 @@ public class MainFrame extends View implements ActionListener {
 
 		JLabel lblYouHaveSelected = new JLabel();
 		lblYouHaveSelected.setLabelFor(tableData);
+
+		JScrollPane scrollPane = new JScrollPane(tableData);
+		scrollPane
+				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		mainPanel.add(scrollPane);
 		lblYouHaveSelected
 				.setText("You have selected (15) rows, which is more rows than the current elements in the database.");
 		lblYouHaveSelected.setFont(UIManager.getFont("Label.font"));

@@ -7,14 +7,13 @@ import view.LogInFrame;
 import view.eventhandling.LoginEvent;
 import view.eventhandling.LoginListener;
 
-public class LoginController implements LoginListener {
+public class LoginController extends Controller implements LoginListener {
     private LogInFrame loginFrame;
     
     
     protected LoginController() {
         loginFrame = new LogInFrame();
         loginFrame.setLoginListener(this);
-        MainController.display(loginFrame);
     }
     
     /**
@@ -26,7 +25,7 @@ public class LoginController implements LoginListener {
         try {
             User.login(event.getUsername(), event.getPassword());
             // Success! Go to main frame, where all assets are listed down.
-
+            Driver.changeControls(Driver.menuController);
         } 
         catch (RegException e){
             // Handle the error by displaying a message
@@ -34,5 +33,8 @@ public class LoginController implements LoginListener {
         }
         
     }
-	
+
+	public void initialize() {
+		Driver.display(loginFrame);
+	}	
 }
