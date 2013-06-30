@@ -9,29 +9,24 @@ import everything.DBUtil;
 public class Classification extends StringAttribute {
     private static Vector<Classification> types;
     
-    public static void main(String[] args) {
-        Classification a = Classification.latest(1);
-        System.out.println(a.value);
+    static {
+        attribute = "Classification";
     }
-    
-
     
     private Classification() {
     }
-    
-    public void update(String replacement) {
-        if (value.equals(replacement)) 
-            return;
-        // early return
-        
-        genericUpdate("Classification", replacement);
+
+    public static void main(String[] args) {
+        Classification a = Classification.latest(1);
+        a.update("Confidential");
+        System.out.println(a.value);
     }
     
     protected static Classification latest(int assetFk) {
         ResultSet rs = null;
         Classification latest = null;
         try {
-            rs = latestRS("Classification", assetFk);
+            rs = latestRS(assetFk);
             rs.next();
             
             latest = new Classification();

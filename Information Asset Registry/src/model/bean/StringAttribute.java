@@ -10,7 +10,6 @@ import everything.DBUtil;
 public abstract class StringAttribute extends Attribute {
     protected String value;
     
-    public abstract void update(String replacement);
     // protected static Classification latest(int assetFk);
         // Java doesn't do abstract static, but latest() 
         // is required by all attributes
@@ -23,13 +22,17 @@ public abstract class StringAttribute extends Attribute {
         return value;
     }
     
-    protected void genericUpdate(String attribute, String replacement) {
+    protected void update(String replacement) {
+        if (value.equals(replacement)) 
+            return;
+        // early return
+        
         Connection conn = DBUtil.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
             String update = 
-                "INSERT INTO " + attribute + " + (assetFk, value) " +
+                "INSERT INTO " + attribute + " (assetFk, value) " +
                 "VALUES (?, ?)";
             ps = conn.prepareStatement(update);                
             ps.setInt(1, assetFk);
