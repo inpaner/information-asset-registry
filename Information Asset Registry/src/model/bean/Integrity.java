@@ -6,12 +6,14 @@ import java.sql.SQLException;
 import everything.DBUtil;
 
 public class Integrity extends IntAttribute {
-
-    static {
-        attribute = "Integrity";
-    }
+    private static final String attribute = "Integrity"; 
     
-    private Integrity() {
+    protected Integrity() {
+    }
+
+    @Override
+    protected String attribute() {
+        return attribute;
     }
     
     @Override
@@ -23,7 +25,7 @@ public class Integrity extends IntAttribute {
         ResultSet rs = null;
         Integrity latest = null;
         try {
-            rs = latestRS(assetFk);
+            rs = latestRS(assetFk, null);
             rs.next();
             
             latest = new Integrity();

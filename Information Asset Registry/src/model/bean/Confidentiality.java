@@ -6,20 +6,21 @@ import java.sql.SQLException;
 import everything.DBUtil;
 
 public class Confidentiality extends IntAttribute {
+    private static final String attribute = "Confidentiality"; 
     
-    static {
-        attribute = "Confidentiality";
-    }
-        
-    private Confidentiality() {
+    protected Confidentiality() {
     }
     
+    @Override
+    protected String attribute() {
+        return attribute;
+    }
 
     protected static Confidentiality latest(int assetFk) {
         ResultSet rs = null;
         Confidentiality latest = null;
         try {
-            rs = latestRS(assetFk);
+            rs = latestRS(assetFk, null);
             rs.next();
             
             latest = new Confidentiality();

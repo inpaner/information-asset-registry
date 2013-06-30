@@ -7,19 +7,22 @@ import java.util.Vector;
 import everything.DBUtil;
 
 public class Custodian extends StringAttribute {
+    private static final String attribute = "Custodian"; 
     
-    static {
-        attribute = "Custodian";
+    protected Custodian() {
     }
     
-    private Custodian() {
+
+    protected void add(int assetFk) throws RegException {
+        super.add(assetFk);
     }
+    
     
     protected static Custodian latest(int assetFk) {
         ResultSet rs = null;
         Custodian latest = null;
         try {
-            rs = latestRS(assetFk);
+            rs = latestRS(assetFk, null);
             rs.next();
             
             latest = new Custodian();
@@ -34,6 +37,12 @@ public class Custodian extends StringAttribute {
         }
             
         return latest;
+    }
+
+
+    @Override
+    protected String attribute() {
+        return attribute;
     }
     
 

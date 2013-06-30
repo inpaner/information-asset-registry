@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Vector;
@@ -16,20 +17,106 @@ public class Asset {
     
     private int pk;
     private String name;
-    private String identifier;
+    private Owner owner;
+    private Custodian custodian;
+    private String type;
     private Date dateAcquired;
     private Date retentionPeriod;
+    private Financial financial;
+    private Confidentiality confidentiality;
+    private Integrity integrity;
+    private Availability availability;
     private Classification classification;
+    private Storage storage;
     
     static {
         cache = new HashMap<>();
     }
     
     public static void main(String[] args) {
-        Asset a = Asset.get(1);
-        System.out.println(a.classification);
-        Asset b = Asset.get(1);
-        System.out.println(b.classification);
+        Asset a = new Asset();
+        try {
+            a.setName("Table");
+            a.setType("Paper");
+            a.setDateAcquired(new Date(System.currentTimeMillis()));
+            a.setRetentionPeriod(new Date(System.currentTimeMillis()));
+            a.setClassification("Internal");
+            System.out.println(a.classification().value);
+            a.add();
+        }
+        catch (RegException e) {
+            e.printStackTrace();
+        }
+            
+    }
+    
+    private void setType(String type) {
+        this.type = type;
+    }
+
+    private Asset() {
+        pk = 0;
+        owner = new Owner();
+        custodian = new Custodian();
+        financial = new Financial();
+        confidentiality = new Confidentiality();
+        integrity = new Integrity();
+        availability = new Availability();
+        classification = new Classification();
+        storage = new Storage();
+    }
+    
+    public void add() throws RegException {
+        if (pk != 0) {
+            String message = "Asset " + pk + " already added.";
+            throw new RegException(message);
+        }
+        
+        Connection conn = DBUtil.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            ps = conn.prepareStatement(
+                "INSERT INTO Asset (name, type, dateAcquired, retentionPeriod) " +
+                "VALUES (?, ?, ?, ?)");             
+            
+            ps.setString(1, name);
+            ps.setString(2, type);
+            ps.setDate(3, dateAcquired);
+            ps.setDate(4, retentionPeriod);
+            ps.executeUpdate();
+          
+            ps = conn.prepareStatement("SELECT pk FROM Asset ORDER BY pk desc");
+            rs = ps.executeQuery();
+            rs.next();
+            pk = rs.getInt("pk");
+            
+            classification.add(pk);
+            
+            
+            /*            
+            owner.add(pk);
+            custodian.add(pk);
+            financial.add(pk);
+            confidentiality.add(pk);
+            integrity.add(pk);
+            availability.add(pk);
+            classification.add(pk);
+            storage.add(pk);
+            */
+            
+            // TODO Log.add();
+            
+            cache.put(pk, this);
+        }
+
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            DBUtil.close(ps);
+            DBUtil.close(conn);
+        }
     }
     
     protected int pk() {
@@ -46,14 +133,6 @@ public class Asset {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String identifier() {
-        return identifier;
-    }
-
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier;
     }
 
     public Date dateAcquired() {
@@ -75,27 +154,27 @@ public class Asset {
     public Classification classification() {
         return classification;
     }
-
-    public void setClassification(Classification classification) {
-        this.classification = classification;
+    
+    public void setClassification(String value) {
+        classification.setValue(value);
     }
 
     public static Asset get(int pk) {
         Asset toGet = cache.get(pk);
         if (toGet == null) {
-            toGet = getFromDB(pk);
+            toGet = new Asset();
+            toGet.getFromDB(pk);
         }
         return toGet;
     }
     
-    private static Asset getFromDB(int pk) {
+    private void getFromDB(int pk) {
         Connection conn = DBUtil.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
-        Asset toGet = new Asset();
         try {
             ps = conn.prepareStatement(
-                "SELECT pk, identifier, name, type" +
+                "SELECT identifier, name, type" +
                 "       dateAcquired, retentionPeriod " + 
                 "FROM Asset " +
                 "WHERE pk = (?) "
@@ -104,15 +183,22 @@ public class Asset {
             rs = ps.executeQuery();
             rs.next();
             
-            toGet.setPk(rs.getInt("pk"));
-            toGet.setIdentifier(rs.getString("identifier"));
-            toGet.setName(rs.getString("name"));
-            //TODO toGet.setType(rs.getString("type"));
-            toGet.setDateAcquired(rs.getDate("dateAcquired"));
-            //TODO toGet.setRetentionPeriod(rs.getDate("retentionPeriod");
-            toGet.classification = Classification.latest(pk);
+            this.pk = pk;
+            name = rs.getString("name");
+            type = rs.getString("type");
+            dateAcquired = rs.getDate("dateAcquired");
+            retentionPeriod = rs.getDate("retentionPeriod");
+                      
+            owner = Owner.latest(pk);
+            custodian = Custodian.latest(pk);
+            financial = Financial.latest(pk);
+            confidentiality = Confidentiality.latest(pk);
+            integrity = Integrity.latest(pk);
+            availability = Availability.latest(pk);
+            classification = Classification.latest(pk);
+            storage = Storage.latest(pk);
             
-            cache.put(pk, toGet);
+            cache.put(pk, this);
         }
         catch (SQLException ex) {
             ex.printStackTrace();
@@ -121,6 +207,5 @@ public class Asset {
             DBUtil.close(ps);
             DBUtil.close(conn);
         }
-        return toGet;
     }
 }

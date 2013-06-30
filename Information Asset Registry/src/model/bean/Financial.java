@@ -6,12 +6,14 @@ import java.sql.SQLException;
 import everything.DBUtil;
 
 public class Financial extends IntAttribute {
-
-    static {
-        attribute = "Financial";
-    }
+    private static final String attribute = "Financial"; 
     
-    private Financial() {
+    protected Financial() {
+    }
+
+    @Override
+    protected String attribute() {
+        return attribute;
     }
     
     @Override
@@ -23,7 +25,7 @@ public class Financial extends IntAttribute {
         ResultSet rs = null;
         Financial latest = null;
         try {
-            rs = latestRS(assetFk);
+            rs = latestRS(assetFk, null);
             rs.next();
             
             latest = new Financial();

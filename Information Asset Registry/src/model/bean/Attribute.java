@@ -9,17 +9,14 @@ import everything.DBUtil;
 
 public abstract class Attribute {
     protected int assetFk;
-    protected static String attribute;
-    
-    public String attribute() {
-        return attribute;
-    }
+    protected boolean isNew = true;
     
     // protected static Classification latest(int assetFk);
         // Java doesn't do abstract static, but latest() 
         // is required by all attributes
-        
-    protected static ResultSet latestRS(int assetFk) {
+    protected abstract String attribute();
+    
+    protected static ResultSet latestRS(int assetFk, String attribute) {
         Connection conn = DBUtil.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;

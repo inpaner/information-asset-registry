@@ -7,19 +7,22 @@ import java.util.Vector;
 import everything.DBUtil;
 
 public class Owner extends StringAttribute {
+    private static final String attribute = "Owner"; 
     
-    static {
-        attribute = "Classification";
+    protected Owner() {
     }
     
-    private Owner() {
+
+    protected void add(int assetFk) throws RegException {
+        super.add(assetFk);
     }
+    
     
     protected static Owner latest(int assetFk) {
         ResultSet rs = null;
         Owner latest = null;
         try {
-            rs = latestRS(assetFk);
+            rs = latestRS(assetFk, null);
             rs.next();
             
             latest = new Owner();
@@ -34,6 +37,12 @@ public class Owner extends StringAttribute {
         }
             
         return latest;
+    }
+
+
+    @Override
+    protected String attribute() {
+        return attribute;
     }
     
 

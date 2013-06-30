@@ -36,7 +36,7 @@ public abstract class IntAttribute extends Attribute {
         ResultSet rs = null;
         try {
             String update = 
-                "INSERT INTO " + attribute + " (assetFk, value) " +
+                "INSERT INTO " + attribute() + " (assetFk, value) " +
                 "VALUES (?, ?)";
             ps = conn.prepareStatement(update);                
             ps.setInt(1, assetFk);
@@ -48,7 +48,7 @@ public abstract class IntAttribute extends Attribute {
             rs.next();
             int attributeFk = rs.getInt("fk");
                     
-            Log.updateAttribute(assetFk, attribute, attributeFk);
+            Log.updateAttribute(assetFk, attribute(), attributeFk);
             value = replacement;
         }
         catch (SQLException ex) {

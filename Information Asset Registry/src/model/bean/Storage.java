@@ -7,19 +7,21 @@ import java.util.Vector;
 import everything.DBUtil;
 
 public class Storage extends StringAttribute {
+    private static final String attribute = "Storage "; 
     
-    static {
-        attribute = "Storage";
+    protected Storage() {
     }
-    
-    private Storage() {
+
+    @Override
+    protected String attribute() {
+        return attribute;
     }
     
     protected static Storage latest(int assetFk) {
         ResultSet rs = null;
         Storage latest = null;
         try {
-            rs = latestRS(assetFk);
+            rs = latestRS(assetFk, null);
             rs.next();
             
             latest = new Storage();

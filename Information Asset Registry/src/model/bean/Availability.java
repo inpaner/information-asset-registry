@@ -6,12 +6,14 @@ import java.sql.SQLException;
 import everything.DBUtil;
 
 public class Availability extends IntAttribute {
+    private static final String attribute = "Availability"; 
 
-    static {
-        attribute = "Availability";
+    protected Availability() {
     }
-    
-    private Availability() {
+
+    @Override
+    protected String attribute() {
+        return attribute;
     }
     
     @Override
@@ -23,7 +25,7 @@ public class Availability extends IntAttribute {
         ResultSet rs = null;
         Availability latest = null;
         try {
-            rs = latestRS(assetFk);
+            rs = latestRS(assetFk, null);
             rs.next();
             
             latest = new Availability();
