@@ -11,6 +11,13 @@ import view.ViewAssetFrame;
 import view.eventhandling.AssetEvent;
 import view.eventhandling.AssetListener;
 
+import model.DeleteAssetModel;
+import model.MainFrameModel;
+import model.Model;
+import model.NewAssetModel;
+import model.UpdateAssetModel;
+import model.bean.User;
+
 public class MainController extends Controller implements AssetListener {
 
 	// current settings

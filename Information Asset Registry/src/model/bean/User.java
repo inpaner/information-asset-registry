@@ -12,6 +12,10 @@ public class User {
     private String username;
     private static User currentUser;
     
+    protected static User currentUser() {
+        return currentUser;
+    }
+    
     private User(int pk, String username) {
         this.pk = pk;
         this.username = username;

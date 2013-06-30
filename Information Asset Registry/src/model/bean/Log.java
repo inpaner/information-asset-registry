@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.util.Collections;
 import java.util.Vector;
+import java.sql.Timestamp;
+
 
 import everything.DBUtil;
 
@@ -20,7 +22,7 @@ public class Log implements Comparable<Log> {
     private String attribute;
     
     public static void main(String[] args) {
-        Log.allLogs(1);
+        Log.updateAttribute(1, "Classification", 4);
     }
     
     public Log() {
@@ -85,13 +87,33 @@ public class Log implements Comparable<Log> {
         }
         
         Collections.sort(allLogs);
-        for (Log log : allLogs) {
-            System.out.println(log.action);
-        }
         return allLogs;
     }
     
-    public static void updateAttribute(int assetFk, String attribute) {
+    public static void updateAttribute(int assetFk, String attribute, int attributeFk) {       
+        Connection conn = DBUtil.getConnection();
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement(
+                "INSERT INTO Log (userFk, action, dateTime, " +
+                "                 assetFk, attribute, attributeFk) " +
+                "VALUES (?, ?, ?, ?, ?, ?)"                
+            );
+            ps.setInt(1, 1);
+            ps.setString(2, "Edit");
+            ps.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
+            ps.setInt(4, assetFk);
+            ps.setString(5, attribute);
+            ps.setInt(6, attributeFk);
+            ps.executeUpdate();
+        }
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        finally {
+            DBUtil.close(ps);
+            DBUtil.close(conn);
+        }
         
     }
     

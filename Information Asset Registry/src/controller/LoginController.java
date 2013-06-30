@@ -36,6 +36,5 @@ public class LoginController extends Controller implements LoginListener {
 
 	public void initialize() {
 		Driver.display(loginFrame);
-	}
-	
+	}	
 }

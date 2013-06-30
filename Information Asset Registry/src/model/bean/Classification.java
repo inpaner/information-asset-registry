@@ -18,7 +18,7 @@ public class Classification {
     
     public static void main(String[] args) {
         Classification a = Classification.latest(1);
-        System.out.println(a.classification);
+        a.update("Sensitive");
     }
     
     public String name() {
@@ -38,14 +38,23 @@ public class Classification {
         
         Connection conn = DBUtil.getConnection();
         PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             ps = conn.prepareStatement(
-                "INSERT INTO Classification (assetFk, replacement) " +
+                "INSERT INTO Classification (assetFk, classification) " +
                 "VALUES (?, ?)"                
             );
             ps.setInt(1, assetFk);
-            ps.setString(1, replacement);
+            ps.setString(2, replacement);
+            ps.executeUpdate();
             
+            ps = conn.prepareStatement("SELECT LAST_INSERT_ID() AS fk");
+            rs = ps.executeQuery();
+            rs.next();
+            int attributeFk = rs.getInt("fk");
+                    
+            Log.updateAttribute(assetFk, "Classification", attributeFk);
+            classification = replacement;
         }
         catch (SQLException ex) {
             ex.printStackTrace();
