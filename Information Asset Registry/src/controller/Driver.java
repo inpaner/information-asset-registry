@@ -32,7 +32,6 @@ public class Driver{
     }
     
     protected void BeginApplication(User user){
-    	this.user = User.curr;
     	changeControls(menuController);
     }
     
