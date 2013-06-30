@@ -12,7 +12,7 @@ public class User {
     private String username;
     private static User currentUser;
     
-    protected static User currentUser() {
+    public static User currentUser() {
         return currentUser;
     }
     
