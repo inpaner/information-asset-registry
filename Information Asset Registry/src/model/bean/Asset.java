@@ -48,11 +48,6 @@ public class Asset {
         classification = new Classification();
         storage = new Storage();
     }
-
-    public static void main(String[] args) {
-        getAll();
-    }
-
     public Name name() {
         return name;
     }

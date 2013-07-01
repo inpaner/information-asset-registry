@@ -9,7 +9,7 @@ import java.util.Vector;
 import everything.DBUtil;
 
 public class Type extends StringAttribute {
-    private static Vector<String> validValues;
+    private static Vector<String> validValues = new Vector<String>();
     private static final String attribute = "Type"; 
     
     protected Type() {

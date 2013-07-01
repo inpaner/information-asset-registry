@@ -12,7 +12,7 @@ import everything.DBUtil;
 
 public abstract class RateableAttribute extends Attribute {
     // TODO change to 
-    private static Vector<Integer> validValues; 
+    private static Vector<Integer> validValues = new Vector<Integer>(); 
     protected int value = 0;
     protected int replacement;
     
