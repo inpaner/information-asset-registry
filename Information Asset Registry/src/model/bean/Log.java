@@ -15,11 +15,11 @@ import everything.DBUtil;
 
 public class Log implements Comparable<Log> {
     private User user;
-    private Date date;
-    private Time time;
-    private String asset; // questionable
+    private Timestamp timestamp;
     private String action;
+    private Asset asset; 
     private String attribute;
+    private int attributeFk;
     
     public static void main(String[] args) {
         Log.updateAttribute(1, "Classification", 4);
@@ -27,28 +27,8 @@ public class Log implements Comparable<Log> {
     
     public Log() {
     }
-    
-    public Time time() {
-        return time;
-    }
-    
-    public void setTime(Time time) {
-        this.time = time;
-    }
-    
-    public Date date() {
-        return date;
-    }
-    
-    public void setDate(Date date) {
-        this.date = date;
-    }
-    
-    public void setAction(String action) {
-        this.action = action;
-    }
-    
-    public static Vector<Log> allLogs(int user) {
+
+    public static Vector<Log> getAll(int user) {
         Connection conn = DBUtil.newConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -57,11 +37,9 @@ public class Log implements Comparable<Log> {
         try {
             // Get from Logs
             ps = conn.prepareStatement(
-                "SELECT date(dateTime) AS date, time(dateTime) AS time, " + 
-                "    action, attribute, identifier, attributeFk " +
-                "FROM Log " +
-                "    LEFT JOIN Asset ON assetFk = Asset.pk " +
-                "WHERE userFk = (?) " 
+                "SELECT userFk, dateTime, action, " +
+                "   assetFk, attribute, attributeFk " +
+                "FROM Log "
             );
             ps.setInt(1, user);
             rs = ps.executeQuery();
@@ -71,9 +49,13 @@ public class Log implements Comparable<Log> {
                 Time time = rs.getTime("time");
                 Date date = rs.getDate("date");
                 
-                currentLog.setTime(time);
-                currentLog.setDate(date);
-                currentLog.setAction(rs.getString("action"));
+                currentLog.user = User.get(rs.getInt("userFk"));
+                currentLog.timestamp = rs.getTimestamp("dateTime");
+                currentLog.action = rs.getString("action");
+                currentLog.asset = Asset.get(rs.getInt("assetFk"));
+                currentLog.attribute = rs.getString("attribute");
+                currentLog.attributeFk = rs.getInt("attributeFk");
+                
                 allLogs.add(currentLog);
             }
         }
@@ -169,9 +151,7 @@ public class Log implements Comparable<Log> {
     
     @Override
     public int compareTo(Log other) {
-        int comparison = this.date.compareTo(other.date);
-        if (comparison == 0)
-            comparison = this.time.compareTo(other.time);
+        int comparison = this.timestamp.compareTo(other.timestamp);
         return comparison;
     }
 }
