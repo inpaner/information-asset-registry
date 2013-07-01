@@ -1,6 +1,7 @@
 package model.bean;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -39,6 +40,8 @@ public class Asset {
         owner = new Owner();
         custodian = new Custodian();
         type = new Type();
+        dateAcquired = new DateAcquired();
+        retentionPeriod = new RetentionPeriod();
         financial = new Financial();
         confidentiality = new Confidentiality();
         integrity = new Integrity();
@@ -114,14 +117,22 @@ public class Asset {
         custodian.setValue(value);
     }
 
-    public void setDateAcquired(Timestamp value) {
+    public void setDateAcquired(Date value) {
         dateAcquired.setValue(value);
     }
 
-    public void setRetentionPeriod(Timestamp value) {
+    public void setDateAcquired(String text) throws RegException {
+        dateAcquired.setValue(text);
+    }
+    
+    public void setRetentionPeriod(Date value) {
         retentionPeriod.setValue(value);
     }
 
+    public void setRetentionPeriod(String text) throws RegException {
+        retentionPeriod.setValue(text);
+    }
+    
     public void setFinancial(int value) {
         financial.setValue(value);
     }

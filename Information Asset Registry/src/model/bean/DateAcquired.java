@@ -6,7 +6,7 @@ import java.util.Vector;
 
 import everything.DBUtil;
 
-public class DateAcquired extends DateTimeAttribute {
+public class DateAcquired extends DateAttribute {
     private static final String attribute = "DateAcquired"; 
     
     protected DateAcquired() {
@@ -26,7 +26,7 @@ public class DateAcquired extends DateTimeAttribute {
             
             latest = new DateAcquired();
             latest.assetFk = assetFk;
-            latest.value = rs.getTimestamp("value");
+            latest.value = rs.getDate("value");
         }
         catch (SQLException ex) {
             ex.printStackTrace();

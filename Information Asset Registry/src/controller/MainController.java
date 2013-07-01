@@ -68,7 +68,6 @@ public class MainController extends Controller implements AssetListener, LogoutL
 		
 	}
 
-
 	@Override
 	public void logout() {
 		Driver.changeControls(new LoginController());

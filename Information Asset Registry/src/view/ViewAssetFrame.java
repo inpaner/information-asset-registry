@@ -24,7 +24,9 @@ import javax.swing.JComboBox;
 import model.bean.Asset;
 import model.bean.Classification;
 import model.bean.Confidentiality;
+import model.bean.Custodian;
 import model.bean.RateableAttribute;
+import model.bean.RegException;
 import model.bean.Type;
 import view.eventhandling.AssetEvent;
 import view.eventhandling.AssetListener;
@@ -589,52 +591,10 @@ public class ViewAssetFrame extends View implements ActionListener {
 			if (e.getActionCommand().equals("back")) {
 				assetListener.ReturnToMain();
 
-			} else if (e.getActionCommand().equals("save")) {
-
-				if (HasErrors() == false) {
-					Asset asset = new Asset();
-
-					int availability = comboBoxAvailability.getSelectedIndex();
-					asset.setAvailability(availability);
-
-					String classification = comboBoxTypeOfClassification
-							.getSelectedItem().toString();
-					asset.setClassification(classification);
-
-					int confidentiality = (int) comboBoxConfidentiality
-							.getSelectedItem();
-					asset.setConfidentiality(confidentiality);
-
-					String custodian = txtCustodianNameValue.getText();
-					asset.setCustodian(custodian);
-
-					Timestamp date;
-					asset.setDateAcquired(date);	// TODO currently unset. Have to parse user's input text into time stamp
-
-					int financial = (int) comboBoxFinancial.getSelectedItem();
-					asset.setFinancial(financial);
-
-					String identifier = txtIdentifierValue.getText();
-					asset.setIdentifier(identifier);
-
-					int integrity = (int) comboBoxIntegrity.getSelectedItem();
-					asset.setIntegrity(integrity);
-
-					String name = txtAssetNameValue.getText();
-					asset.setName(name);
-
-					String owner = txtOwnerNameValue.getText();
-					asset.setOwner(owner);
-
-					Timestamp retention;
-					asset.setRetentionPeriod(retention);
-
-					String storage = txtStorage.getText();
-					asset.setStorage(storage);
-
-					String type = comboBoxTypeOfAsset.getSelectedItem().toString();
-					asset.setType(type);
-					
+			} 
+			else if (e.getActionCommand().equals("save")) {
+				Asset asset = new Asset();
+			    if (HasErrors(asset) == false) {
 					AssetEvent event = new AssetEvent(asset);
 					assetListener.NewAssetHandling(event);
 					assetListener.ReturnToMain();
@@ -643,8 +603,77 @@ public class ViewAssetFrame extends View implements ActionListener {
 		}
 	}
 
-	private boolean HasErrors() {
-		// TODO Auto-generated method stub
-		return false;
+
+	
+	private boolean HasErrors(Asset asset) {
+		boolean hasErrors = false;
+		
+        int availability = comboBoxAvailability.getSelectedIndex();
+        asset.setAvailability(availability);
+        
+        
+        String classification = comboBoxTypeOfClassification
+                .getSelectedItem().toString();
+        asset.setClassification(classification);
+
+        int confidentiality = (int) comboBoxConfidentiality.getSelectedItem();
+        asset.setConfidentiality(confidentiality);
+        
+        if (txtCustodianNameValue.getText().isEmpty()) {
+            hasErrors = true;
+        }
+        String custodian = txtCustodianNameValue.getText();
+        asset.setCustodian(custodian);
+        
+        int financial = (int) comboBoxFinancial.getSelectedItem();
+        asset.setFinancial(financial);
+
+        String identifier = txtIdentifierValue.getText();
+        asset.setIdentifier(identifier);
+
+        int integrity = (int) comboBoxIntegrity.getSelectedItem();
+        asset.setIntegrity(integrity);
+        
+        if (txtAssetNameValue.getText().isEmpty()) {
+            hasErrors = true;
+        }
+        String name = txtAssetNameValue.getText();
+        asset.setName(name);
+
+        if (txtOwnerNameValue.getText().isEmpty()) {
+            hasErrors = true;
+        }
+        
+        String owner = txtOwnerNameValue.getText();
+        asset.setOwner(owner);
+
+        String dateAcquired = txtDateAcquiredValue.getText();
+        try {
+            asset.setDateAcquired(dateAcquired);    
+        }
+        catch (RegException e) {
+            hasErrors = true;
+            System.out.println(e.getMessage());
+        }
+        
+        String retentionPeriod = txtRetentionPeriodValue.getText();
+        try {
+            asset.setRetentionPeriod(retentionPeriod);    
+        }
+        catch (RegException e) {
+            hasErrors = true;
+            System.out.println("Error");
+        }
+        
+        if (txtStorage.getText().isEmpty()) {
+            hasErrors = true;
+        }
+        String storage = txtStorage.getText();
+        asset.setStorage(storage);
+
+        String type = comboBoxTypeOfAsset.getSelectedItem().toString();
+        asset.setType(type);
+		
+	    return hasErrors;
 	}
 }
