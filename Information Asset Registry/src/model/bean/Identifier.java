@@ -16,6 +16,8 @@ public class Identifier extends StringAttribute {
         return attribute;
     }
     
+    // Force setting unique. Maybe a cache.
+    
     protected static Identifier latest(int assetFk) {
         ResultSet rs = null;
         Identifier latest = null;
@@ -32,10 +34,8 @@ public class Identifier extends StringAttribute {
         }
         finally {
             DBUtil.close(rs);
-        }
-            
+        }            
         return latest;
     }
-    
 
 }

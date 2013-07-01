@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 import everything.DBUtil;
 
-public class Integrity extends IntAttribute {
+public class Integrity extends RateableAttribute {
     private static final String attribute = "Integrity"; 
     
     protected Integrity() {

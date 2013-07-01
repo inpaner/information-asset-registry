@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 import everything.DBUtil;
 
-public class Confidentiality extends IntAttribute {
+public class Confidentiality extends RateableAttribute {
     private static final String attribute = "Confidentiality"; 
     
     protected Confidentiality() {

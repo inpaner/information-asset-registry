@@ -38,7 +38,6 @@ public class MainController extends Controller implements AssetListener {
     }
 
     
-    
     public void NewAssetHandling(AssetEvent event) {
         viewAssetFrame.InitializeNewAssetForm();
         Driver.display(viewAssetFrame);

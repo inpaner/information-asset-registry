@@ -34,6 +34,20 @@ public class Asset {
         cache = new HashMap<>();
     }
     
+    private Asset() {
+        pk = 0;
+        name = new Name();
+        identifier = new Identifier();
+        owner = new Owner();
+        custodian = new Custodian();
+        financial = new Financial();
+        confidentiality = new Confidentiality();
+        integrity = new Integrity();
+        availability = new Availability();
+        classification = new Classification();
+        storage = new Storage();
+    }
+
     public static void main(String[] args) {
         Asset a = new Asset();
         
@@ -153,20 +167,6 @@ public class Asset {
         this.type = type;
     }
 
-    private Asset() {
-        pk = 0;
-        name = new Name();
-        identifier = new Identifier();
-        owner = new Owner();
-        custodian = new Custodian();
-        financial = new Financial();
-        confidentiality = new Confidentiality();
-        integrity = new Integrity();
-        availability = new Availability();
-        classification = new Classification();
-        storage = new Storage();
-    }
-    
     public void add() throws RegException {
         if (pk != 0) {
             String message = "Asset already added.";

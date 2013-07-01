@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 import everything.DBUtil;
 
-public class Financial extends IntAttribute {
+public class Financial extends RateableAttribute {
     private static final String attribute = "Financial"; 
     
     protected Financial() {

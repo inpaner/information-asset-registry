@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 import everything.DBUtil;
 
-public class Availability extends IntAttribute {
+public class Availability extends RateableAttribute {
     private static final String attribute = "Availability"; 
 
     protected Availability() {

@@ -4,19 +4,53 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Vector;
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 import everything.DBUtil;
 
-public abstract class IntAttribute extends Attribute {
+public abstract class RateableAttribute extends Attribute {
+    // TODO change to 
+    private static Vector<Integer> validValues; 
     protected int value = 0;
     protected int replacement;
     
     // protected static <Attribute> latest(int assetFk);
         // Java doesn't do abstract static, but latest() 
         // is required by all attributes
- 
+    
+    static {
+        queryValids();
+    }
+    
+    private static void queryValids() {
+        Connection conn = DBUtil.newConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            ps = conn.prepareStatement(
+                "SELECT value " +
+                "FROM Rating "
+            ); 
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                validValues.add(rs.getInt("value"));
+            }
+        }
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        finally {
+            DBUtil.close(ps);
+            DBUtil.close(conn);
+        }
+    }
+    
+    public static Vector<Integer> validValues() {
+        return validValues;
+    }
+    
     public int value() {
         return value;
     }

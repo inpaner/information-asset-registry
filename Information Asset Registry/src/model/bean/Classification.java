@@ -1,5 +1,7 @@
 package model.bean;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
@@ -7,10 +9,41 @@ import java.util.Vector;
 import everything.DBUtil;
 
 public class Classification extends StringAttribute {
-    private static Vector<Classification> types;
+    private static Vector<String> validValues;
     private static final String attribute = "Classification"; 
     
     protected Classification() {
+    }
+    
+    static {
+        queryValids();
+    }
+    
+    private static void queryValids() {
+        Connection conn = DBUtil.newConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            ps = conn.prepareStatement(
+                "SELECT value " +
+                "FROM ClassificationList "
+            ); 
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                validValues.add(rs.getString("value"));
+            }
+        }
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        finally {
+            DBUtil.close(ps);
+            DBUtil.close(conn);
+        }
+    }
+    
+    public static Vector<String> validValues() {
+        return validValues;
     }
     
     protected String attribute() {
