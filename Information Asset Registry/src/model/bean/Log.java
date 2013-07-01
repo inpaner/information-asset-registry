@@ -20,7 +20,10 @@ public class Log implements Comparable<Log> {
     private int attributeFk;
     
     public static void main(String[] args) {
-        Log.updateAttribute(1, "Classification", 4);
+        for (Log l : Log.getAll()) {
+            System.out.println(l.plaintext());
+        }
+        
     }
     
     public Log() {
@@ -50,7 +53,7 @@ public class Log implements Comparable<Log> {
         return attributeFk;
     }
     
-    public String text() {
+    public String plaintext() {
         String text;
         switch (action) {
             case "Login" :  text = "Logged in.";
@@ -62,13 +65,14 @@ public class Log implements Comparable<Log> {
                             break;
             case "Edit" :   text = "Edited asset " + asset.identifier() + " " + 
                                     attribute + ".";
+                            break;
             default : text = "Unknown action.";
         }
         
         return text;
     }
     
-    public static Vector<Log> getAll(int user) {
+    public static Vector<Log> getAll() {
         Connection conn = DBUtil.newConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -81,7 +85,6 @@ public class Log implements Comparable<Log> {
                 "   assetFk, attribute, attributeFk " +
                 "FROM Log "
             );
-            ps.setInt(1, user);
             rs = ps.executeQuery();
             
             while (rs.next()) {
