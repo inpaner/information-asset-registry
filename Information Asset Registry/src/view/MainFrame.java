@@ -33,6 +33,7 @@ import model.bean.User;
 import view.eventhandling.AssetEvent;
 import view.eventhandling.AssetListener;
 import view.eventhandling.LogListener;
+import view.eventhandling.LogoutListener;
 
 import java.awt.SystemColor;
 import java.util.ArrayList;
@@ -50,7 +51,8 @@ public class MainFrame extends View implements ActionListener {
 	private JTextField txtSearchPanel;
 	private AssetListener assetListener;
 	private LogListener logListener;
-
+	private LogoutListener logoutListener;
+	
 	/**
 	 * Create the frame.
 	 */
@@ -63,6 +65,7 @@ public class MainFrame extends View implements ActionListener {
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
+	
 
 		JMenu mnFile = new JMenu("File");
 		menuBar.add(mnFile);
@@ -85,6 +88,7 @@ public class MainFrame extends View implements ActionListener {
 		gbl_contentPane.rowWeights = new double[] { 0.0, 0.0, 1.0,
 				Double.MIN_VALUE };
 		contentPane.setLayout(gbl_contentPane);
+        mntmLogout.addActionListener(this);
 
 		txtSearchPanel = new JTextField();
 		txtSearchPanel.setText("Search here");
@@ -234,6 +238,13 @@ public class MainFrame extends View implements ActionListener {
 				// assetListener.DeleteAssetHandling(assetEvent);
 			}
 		}
+        
+        if (logoutListener != null) {
+        	String action = e.getActionCommand();
+        	if (action.equals("Logout")) {
+        		logoutListener.logout();
+        	}
+        }
 
 	}
 
@@ -252,6 +263,10 @@ public class MainFrame extends View implements ActionListener {
 		this.assetListener = assetListener;
 	}
 
+    public void setLogoutListener(LogoutListener logoutListener) {
+    	this.logoutListener = logoutListener;
+    }
+    
 	public void setLogListener(LogListener listener) {
 		this.logListener = listener;
 

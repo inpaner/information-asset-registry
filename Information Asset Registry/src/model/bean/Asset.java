@@ -20,7 +20,7 @@ public class Asset {
     private Identifier identifier;
     private Owner owner;
     private Custodian custodian;
-    private String type;
+    private Type type;
     private DateAcquired dateAcquired;
     private RetentionPeriod retentionPeriod;
     private Financial financial;
@@ -40,6 +40,7 @@ public class Asset {
         identifier = new Identifier();
         owner = new Owner();
         custodian = new Custodian();
+        type = new Type();
         financial = new Financial();
         confidentiality = new Confidentiality();
         integrity = new Integrity();
@@ -49,18 +50,7 @@ public class Asset {
     }
 
     public static void main(String[] args) {
-        Asset a = new Asset();
-        
-        try {
-            a.setType("Paper");
-            a.setIntegrity(3);
-            a.add();
-            System.out.println("here");
-            
-        }
-        catch (RegException e) {
-            e.printStackTrace();
-        }
+        getAll();
     }
 
     public Name name() {
@@ -79,7 +69,7 @@ public class Asset {
         return custodian;
     }
 
-    public String type() {
+    public Type type() {
         return type;
     }
 
@@ -163,8 +153,8 @@ public class Asset {
         storage.setValue(value);
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setType(String value) {
+        type.setValue(value);
     }
 
     public void add() throws RegException {
@@ -179,10 +169,9 @@ public class Asset {
         try {
             conn.setAutoCommit(false);
             ps = conn.prepareStatement(
-                "INSERT INTO Asset (type) " +
-                "VALUES (?)");             
+                "INSERT INTO Asset () " +
+                "VALUES ()");             
             
-            ps.setString(1, type);
             ps.executeUpdate();
           
             ps = conn.prepareStatement("SELECT pk FROM Asset ORDER BY pk desc");
@@ -194,6 +183,7 @@ public class Asset {
             identifier.add(pk);
             owner.add(pk);
             custodian.add(pk);
+            type.add(pk);
             dateAcquired.add(pk);
             retentionPeriod.add(pk);
             financial.add(pk);
@@ -227,11 +217,12 @@ public class Asset {
         PreparedStatement ps = null;
         try {
             conn.setAutoCommit(false);
-            /*
+            
             name.update();
             identifier.update();
             owner.update();
             custodian.update();
+            type.update();
             dateAcquired.update();
             retentionPeriod.update();
             financial.update();
@@ -240,7 +231,7 @@ public class Asset {
             availability.update();
             classification.update();
             storage.update();
-            */
+            
             
             integrity.update();
             // TODO Log.update();
@@ -267,6 +258,34 @@ public class Asset {
         return pk;
     }
 
+    public static Vector<Asset> getAll() {
+        Vector<Asset> allAssets = new Vector<>();
+        Connection conn = DBUtil.newConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            ps = conn.prepareStatement(
+                "SELECT pk " +
+                "FROM Asset "
+            ); 
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int pk = rs.getInt("pk");
+                allAssets.add(get(pk));
+            }
+        }
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        finally {
+            DBUtil.close(rs);
+            DBUtil.close(ps);
+            DBUtil.close(conn);
+        }
+
+        return allAssets;
+    }
+    
     public static Asset get(int pk) {
         Asset toGet = cache.get(pk);
         if (toGet == null) {
@@ -293,11 +312,10 @@ public class Asset {
             this.pk = pk;
             name = Name.latest(pk);
             identifier = Identifier.latest(pk);
-            type = rs.getString("type");
-                      
             owner = Owner.latest(pk);
             custodian = Custodian.latest(pk);
             dateAcquired = DateAcquired.latest(pk);
+            type = Type.latest(pk);
             retentionPeriod = RetentionPeriod.latest(pk);
             financial = Financial.latest(pk);
             confidentiality = Confidentiality.latest(pk);
@@ -312,6 +330,7 @@ public class Asset {
             ex.printStackTrace();
         }
         finally {
+            DBUtil.close(rs);
             DBUtil.close(ps);
             DBUtil.close(conn);
         }

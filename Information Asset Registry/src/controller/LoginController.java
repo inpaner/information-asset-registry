@@ -1,6 +1,7 @@
 package controller;
 
 
+import model.bean.Log;
 import model.bean.RegException;
 import model.bean.User;
 import view.LogInFrame;
@@ -26,6 +27,7 @@ public class LoginController extends Controller implements LoginListener {
             User.login(event.getUsername(), event.getPassword());
             // Success! Go to main frame, where all assets are listed down.
             Driver.changeControls(Driver.menuController);
+            Log.loggedIn();
         } 
         catch (RegException e){
             // Handle the error by displaying a message
