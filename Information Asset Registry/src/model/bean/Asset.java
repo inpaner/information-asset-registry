@@ -1,12 +1,10 @@
 package model.bean;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Vector;
 
@@ -302,22 +300,22 @@ public class Asset {
             ); 
             ps.setInt(1, pk);
             rs = ps.executeQuery();
-            rs.next();
-            
-            this.pk = pk;
-            name = Name.latest(pk);
-            identifier = Identifier.latest(pk);
-            owner = Owner.latest(pk);
-            custodian = Custodian.latest(pk);
-            dateAcquired = DateAcquired.latest(pk);
-            type = Type.latest(pk);
-            retentionPeriod = RetentionPeriod.latest(pk);
-            financial = Financial.latest(pk);
-            confidentiality = Confidentiality.latest(pk);
-            integrity = Integrity.latest(pk);
-            availability = Availability.latest(pk);
-            classification = Classification.latest(pk);
-            storage = Storage.latest(pk);
+            if (rs.next()) {
+                this.pk = pk;
+                name = Name.latest(pk);
+                identifier = Identifier.latest(pk);
+                owner = Owner.latest(pk);
+                custodian = Custodian.latest(pk);
+                dateAcquired = DateAcquired.latest(pk);
+                type = Type.latest(pk);
+                retentionPeriod = RetentionPeriod.latest(pk);
+                financial = Financial.latest(pk);
+                confidentiality = Confidentiality.latest(pk);
+                integrity = Integrity.latest(pk);
+                availability = Availability.latest(pk);
+                classification = Classification.latest(pk);
+                storage = Storage.latest(pk);
+            }
             
             cache.put(pk, this);
         }

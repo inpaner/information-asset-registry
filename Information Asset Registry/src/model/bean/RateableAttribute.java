@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.Vector;
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
@@ -37,6 +38,7 @@ public abstract class RateableAttribute extends Attribute {
             while (rs.next()) {
                 validValues.add(rs.getInt("value"));
             }
+            Collections.sort(validValues);
         }
         catch (SQLException ex) {
             ex.printStackTrace();
