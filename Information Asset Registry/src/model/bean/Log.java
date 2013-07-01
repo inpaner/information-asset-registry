@@ -1,11 +1,9 @@
 package model.bean;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.util.Collections;
 import java.util.Vector;
 import java.sql.Timestamp;
@@ -26,8 +24,50 @@ public class Log implements Comparable<Log> {
     }
     
     public Log() {
+    }    
+    
+    public User user() {
+        return user;
     }
 
+    public Timestamp timestamp() {
+        return timestamp;
+    }
+
+    public String action() {
+        return action;
+    }
+
+    public Asset asset() {
+        return asset;
+    }
+
+    public String attribute() {
+        return attribute;
+    }
+
+    public int attributeFk() {
+        return attributeFk;
+    }
+    
+    public String text() {
+        String text;
+        switch (action) {
+            case "Login" :  text = "Logged in.";
+                            break;
+            case "Logout" : text = "Logged out.";
+                            break;
+                            
+            case "Add" :    text = "Added asset " + asset.identifier() + ".";
+                            break;
+            case "Edit" :   text = "Edited asset " + asset.identifier() + " " + 
+                                    attribute + ".";
+            default : text = "Unknown action.";
+        }
+        
+        return text;
+    }
+    
     public static Vector<Log> getAll(int user) {
         Connection conn = DBUtil.newConnection();
         PreparedStatement ps = null;
@@ -46,8 +86,6 @@ public class Log implements Comparable<Log> {
             
             while (rs.next()) {
                 Log currentLog = new Log();
-                Time time = rs.getTime("time");
-                Date date = rs.getDate("date");
                 
                 currentLog.user = User.get(rs.getInt("userFk"));
                 currentLog.timestamp = rs.getTimestamp("dateTime");
@@ -58,6 +96,7 @@ public class Log implements Comparable<Log> {
                 
                 allLogs.add(currentLog);
             }
+            
         }
         catch (SQLException e) {
             e.printStackTrace();

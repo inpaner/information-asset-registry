@@ -24,7 +24,9 @@ import javax.swing.JComboBox;
 import model.bean.Asset;
 import model.bean.Classification;
 import model.bean.Confidentiality;
+import model.bean.Custodian;
 import model.bean.RateableAttribute;
+import model.bean.RegException;
 import model.bean.Type;
 import view.eventhandling.AssetEvent;
 import view.eventhandling.AssetListener;
@@ -77,7 +79,7 @@ public class ViewAssetFrame extends View implements ActionListener {
 	private JLabel lblStorageError;
 	private JPanel infoPanel;
 	private JLabel label;
-	private JPanel donePanel;
+	private JPanel panel;
 
 	/**
 	 * Create the frame.
@@ -108,14 +110,14 @@ public class ViewAssetFrame extends View implements ActionListener {
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[] { 675, 0 };
-		gbl_contentPane.rowHeights = new int[] { 31, 428, 0 };
+		gbl_contentPane.rowHeights = new int[] { 30, 428, 0, 0 };
 		gbl_contentPane.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-		gbl_contentPane.rowWeights = new double[] { 1.0, 1.0, Double.MIN_VALUE };
+		gbl_contentPane.rowWeights = new double[] { 1.0, 0.0, 1.0,
+				Double.MIN_VALUE };
 		contentPane.setLayout(gbl_contentPane);
 
 		infoPanel = new JPanel();
 		GridBagConstraints gbc_infoPanel = new GridBagConstraints();
-		gbc_infoPanel.insets = new Insets(0, 0, 5, 0);
 		gbc_infoPanel.fill = GridBagConstraints.BOTH;
 		gbc_infoPanel.gridx = 0;
 		gbc_infoPanel.gridy = 0;
@@ -125,12 +127,6 @@ public class ViewAssetFrame extends View implements ActionListener {
 		label = new JLabel();
 		label.setText("Current asset: IDENTIFIER - NAME");
 		infoPanel.add(label);
-
-		lblNotification = new JLabel(
-				"Please be informed that your actions are logged as Darren Sapalo.");
-		infoPanel.add(lblNotification);
-		lblNotification.setFont(lblNotification.getFont().deriveFont(
-				lblNotification.getFont().getStyle() | Font.ITALIC));
 
 		JPanel mainPanel = new JPanel();
 		GridBagConstraints gbc_mainPanel = new GridBagConstraints();
@@ -148,10 +144,12 @@ public class ViewAssetFrame extends View implements ActionListener {
 				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		mainPanel.setLayout(gbl_mainPanel);
 
-		JLabel lblIdentifier = new JLabel("Identifier");
+		Insets setting = new Insets(0, 0, 10, 10);
+
+		JLabel lblIdentifier = new JLabel("Identifier *");
 		lblIdentifier.setHorizontalAlignment(SwingConstants.RIGHT);
 		GridBagConstraints gbc_lblIdentifier = new GridBagConstraints();
-		gbc_lblIdentifier.insets = new Insets(0, 0, 20, 20);
+		gbc_lblIdentifier.insets = setting;
 		gbc_lblIdentifier.anchor = GridBagConstraints.EAST;
 		gbc_lblIdentifier.gridx = 0;
 		gbc_lblIdentifier.gridy = 0;
@@ -162,7 +160,7 @@ public class ViewAssetFrame extends View implements ActionListener {
 		txtIdentifierValue.setText("Identifier value");
 		GridBagConstraints gbc_txtIdentifierValue = new GridBagConstraints();
 		gbc_txtIdentifierValue.anchor = GridBagConstraints.NORTH;
-		gbc_txtIdentifierValue.insets = new Insets(0, 0, 5, 5);
+		gbc_txtIdentifierValue.insets = setting;
 		gbc_txtIdentifierValue.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtIdentifierValue.gridx = 1;
 		gbc_txtIdentifierValue.gridy = 0;
@@ -173,16 +171,16 @@ public class ViewAssetFrame extends View implements ActionListener {
 		lblIdentifierError.setForeground(Color.RED);
 		GridBagConstraints gbc_lblIdentifierError = new GridBagConstraints();
 		gbc_lblIdentifierError.anchor = GridBagConstraints.NORTHWEST;
-		gbc_lblIdentifierError.insets = new Insets(0, 0, 5, 0);
+		gbc_lblIdentifierError.insets = setting;
 		gbc_lblIdentifierError.gridx = 2;
 		gbc_lblIdentifierError.gridy = 0;
 		mainPanel.add(lblIdentifierError, gbc_lblIdentifierError);
 
-		JLabel lblNameOfAsset = new JLabel("Name of asset");
+		JLabel lblNameOfAsset = new JLabel("Name of asset *");
 		lblNameOfAsset.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_lblNameOfAsset = new GridBagConstraints();
 		gbc_lblNameOfAsset.anchor = GridBagConstraints.EAST;
-		gbc_lblNameOfAsset.insets = new Insets(0, 0, 20, 20);
+		gbc_lblNameOfAsset.insets = setting;
 		gbc_lblNameOfAsset.gridx = 0;
 		gbc_lblNameOfAsset.gridy = 1;
 		mainPanel.add(lblNameOfAsset, gbc_lblNameOfAsset);
@@ -191,7 +189,7 @@ public class ViewAssetFrame extends View implements ActionListener {
 		txtAssetNameValue.setText("Asset name value");
 		GridBagConstraints gbc_txtAssetNameValue = new GridBagConstraints();
 		gbc_txtAssetNameValue.anchor = GridBagConstraints.NORTH;
-		gbc_txtAssetNameValue.insets = new Insets(0, 0, 5, 5);
+		gbc_txtAssetNameValue.insets = setting;
 		gbc_txtAssetNameValue.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtAssetNameValue.gridx = 1;
 		gbc_txtAssetNameValue.gridy = 1;
@@ -202,16 +200,16 @@ public class ViewAssetFrame extends View implements ActionListener {
 		lblAssetNameError.setForeground(Color.RED);
 		GridBagConstraints gbc_lblAssetNameError = new GridBagConstraints();
 		gbc_lblAssetNameError.anchor = GridBagConstraints.NORTHWEST;
-		gbc_lblAssetNameError.insets = new Insets(0, 0, 5, 0);
+		gbc_lblAssetNameError.insets = setting;
 		gbc_lblAssetNameError.gridx = 2;
 		gbc_lblAssetNameError.gridy = 1;
 		mainPanel.add(lblAssetNameError, gbc_lblAssetNameError);
 
-		JLabel lblNameOfOwner = new JLabel("Name of owner");
+		JLabel lblNameOfOwner = new JLabel("Name of owner *");
 		lblNameOfOwner.setHorizontalAlignment(SwingConstants.RIGHT);
 		GridBagConstraints gbc_lblNameOfOwner = new GridBagConstraints();
 		gbc_lblNameOfOwner.anchor = GridBagConstraints.EAST;
-		gbc_lblNameOfOwner.insets = new Insets(0, 0, 20, 20);
+		gbc_lblNameOfOwner.insets = setting;
 		gbc_lblNameOfOwner.gridx = 0;
 		gbc_lblNameOfOwner.gridy = 2;
 		mainPanel.add(lblNameOfOwner, gbc_lblNameOfOwner);
@@ -220,7 +218,7 @@ public class ViewAssetFrame extends View implements ActionListener {
 		txtOwnerNameValue.setText("Owner name value");
 		GridBagConstraints gbc_txtOwnerNameValue = new GridBagConstraints();
 		gbc_txtOwnerNameValue.anchor = GridBagConstraints.NORTH;
-		gbc_txtOwnerNameValue.insets = new Insets(0, 0, 5, 5);
+		gbc_txtOwnerNameValue.insets = setting;
 		gbc_txtOwnerNameValue.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtOwnerNameValue.gridx = 1;
 		gbc_txtOwnerNameValue.gridy = 2;
@@ -231,16 +229,16 @@ public class ViewAssetFrame extends View implements ActionListener {
 		lblOwnerNameError.setForeground(Color.RED);
 		GridBagConstraints gbc_lblOwnerNameError = new GridBagConstraints();
 		gbc_lblOwnerNameError.anchor = GridBagConstraints.NORTHWEST;
-		gbc_lblOwnerNameError.insets = new Insets(0, 0, 5, 0);
+		gbc_lblOwnerNameError.insets = setting;
 		gbc_lblOwnerNameError.gridx = 2;
 		gbc_lblOwnerNameError.gridy = 2;
 		mainPanel.add(lblOwnerNameError, gbc_lblOwnerNameError);
 
-		JLabel lblNameOfCustodian = new JLabel("Name of custodian");
+		JLabel lblNameOfCustodian = new JLabel("Name of custodian *");
 		lblNameOfCustodian.setHorizontalAlignment(SwingConstants.RIGHT);
 		GridBagConstraints gbc_lblNameOfCustodian = new GridBagConstraints();
 		gbc_lblNameOfCustodian.anchor = GridBagConstraints.EAST;
-		gbc_lblNameOfCustodian.insets = new Insets(0, 0, 20, 20);
+		gbc_lblNameOfCustodian.insets = setting;
 		gbc_lblNameOfCustodian.gridx = 0;
 		gbc_lblNameOfCustodian.gridy = 3;
 		mainPanel.add(lblNameOfCustodian, gbc_lblNameOfCustodian);
@@ -249,7 +247,7 @@ public class ViewAssetFrame extends View implements ActionListener {
 		txtCustodianNameValue.setText("Custodian name value");
 		GridBagConstraints gbc_txtCustodianNameValue = new GridBagConstraints();
 		gbc_txtCustodianNameValue.anchor = GridBagConstraints.NORTH;
-		gbc_txtCustodianNameValue.insets = new Insets(0, 0, 5, 5);
+		gbc_txtCustodianNameValue.insets = setting;
 		gbc_txtCustodianNameValue.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtCustodianNameValue.gridx = 1;
 		gbc_txtCustodianNameValue.gridy = 3;
@@ -260,7 +258,7 @@ public class ViewAssetFrame extends View implements ActionListener {
 		lblCustodianNameError.setForeground(Color.RED);
 		GridBagConstraints gbc_lblCustodianNameError = new GridBagConstraints();
 		gbc_lblCustodianNameError.anchor = GridBagConstraints.NORTHWEST;
-		gbc_lblCustodianNameError.insets = new Insets(0, 0, 5, 0);
+		gbc_lblCustodianNameError.insets = setting;
 		gbc_lblCustodianNameError.gridx = 2;
 		gbc_lblCustodianNameError.gridy = 3;
 		mainPanel.add(lblCustodianNameError, gbc_lblCustodianNameError);
@@ -269,7 +267,7 @@ public class ViewAssetFrame extends View implements ActionListener {
 		lblTypeOfAsset.setHorizontalAlignment(SwingConstants.RIGHT);
 		GridBagConstraints gbc_lblTypeOfAsset = new GridBagConstraints();
 		gbc_lblTypeOfAsset.anchor = GridBagConstraints.NORTHEAST;
-		gbc_lblTypeOfAsset.insets = new Insets(0, 0, 20, 20);
+		gbc_lblTypeOfAsset.insets = setting;
 		gbc_lblTypeOfAsset.gridx = 0;
 		gbc_lblTypeOfAsset.gridy = 4;
 		mainPanel.add(lblTypeOfAsset, gbc_lblTypeOfAsset);
@@ -277,7 +275,7 @@ public class ViewAssetFrame extends View implements ActionListener {
 		comboBoxTypeOfAsset = new JComboBox();
 		GridBagConstraints gbc_comboBoxTypeOfAsset = new GridBagConstraints();
 		gbc_comboBoxTypeOfAsset.anchor = GridBagConstraints.NORTH;
-		gbc_comboBoxTypeOfAsset.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBoxTypeOfAsset.insets = setting;
 		gbc_comboBoxTypeOfAsset.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBoxTypeOfAsset.gridx = 1;
 		gbc_comboBoxTypeOfAsset.gridy = 4;
@@ -287,16 +285,16 @@ public class ViewAssetFrame extends View implements ActionListener {
 		lblTypeOfAssetError.setForeground(Color.RED);
 		GridBagConstraints gbc_lblTypeOfAssetError = new GridBagConstraints();
 		gbc_lblTypeOfAssetError.anchor = GridBagConstraints.NORTHWEST;
-		gbc_lblTypeOfAssetError.insets = new Insets(0, 0, 5, 0);
+		gbc_lblTypeOfAssetError.insets = setting;
 		gbc_lblTypeOfAssetError.gridx = 2;
 		gbc_lblTypeOfAssetError.gridy = 4;
 		mainPanel.add(lblTypeOfAssetError, gbc_lblTypeOfAssetError);
 
-		JLabel lblDateAcquired = new JLabel("Date acquired");
+		JLabel lblDateAcquired = new JLabel("Date acquired *");
 		lblDateAcquired.setHorizontalAlignment(SwingConstants.RIGHT);
 		GridBagConstraints gbc_lblDateAcquired = new GridBagConstraints();
 		gbc_lblDateAcquired.anchor = GridBagConstraints.EAST;
-		gbc_lblDateAcquired.insets = new Insets(0, 0, 20, 20);
+		gbc_lblDateAcquired.insets = setting;
 		gbc_lblDateAcquired.gridx = 0;
 		gbc_lblDateAcquired.gridy = 5;
 		mainPanel.add(lblDateAcquired, gbc_lblDateAcquired);
@@ -305,7 +303,7 @@ public class ViewAssetFrame extends View implements ActionListener {
 		txtDateAcquiredValue.setText("Date acquired value");
 		GridBagConstraints gbc_txtDateAcquiredValue = new GridBagConstraints();
 		gbc_txtDateAcquiredValue.anchor = GridBagConstraints.NORTH;
-		gbc_txtDateAcquiredValue.insets = new Insets(0, 0, 5, 5);
+		gbc_txtDateAcquiredValue.insets = setting;
 		gbc_txtDateAcquiredValue.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtDateAcquiredValue.gridx = 1;
 		gbc_txtDateAcquiredValue.gridy = 5;
@@ -316,16 +314,16 @@ public class ViewAssetFrame extends View implements ActionListener {
 		lblDateAcquiredError.setForeground(Color.RED);
 		GridBagConstraints gbc_lblDateAcquiredError = new GridBagConstraints();
 		gbc_lblDateAcquiredError.anchor = GridBagConstraints.NORTHWEST;
-		gbc_lblDateAcquiredError.insets = new Insets(0, 0, 5, 0);
+		gbc_lblDateAcquiredError.insets = setting;
 		gbc_lblDateAcquiredError.gridx = 2;
 		gbc_lblDateAcquiredError.gridy = 5;
 		mainPanel.add(lblDateAcquiredError, gbc_lblDateAcquiredError);
 
-		JLabel lblRetentionPeriod = new JLabel("Retention period");
+		JLabel lblRetentionPeriod = new JLabel("Retention period *");
 		lblRetentionPeriod.setHorizontalAlignment(SwingConstants.RIGHT);
 		GridBagConstraints gbc_lblRetentionPeriod = new GridBagConstraints();
 		gbc_lblRetentionPeriod.anchor = GridBagConstraints.EAST;
-		gbc_lblRetentionPeriod.insets = new Insets(0, 0, 20, 20);
+		gbc_lblRetentionPeriod.insets = setting;
 		gbc_lblRetentionPeriod.gridx = 0;
 		gbc_lblRetentionPeriod.gridy = 6;
 		mainPanel.add(lblRetentionPeriod, gbc_lblRetentionPeriod);
@@ -334,7 +332,7 @@ public class ViewAssetFrame extends View implements ActionListener {
 		txtRetentionPeriodValue.setText("Retention period value");
 		GridBagConstraints gbc_txtRetentionPeriodValue = new GridBagConstraints();
 		gbc_txtRetentionPeriodValue.anchor = GridBagConstraints.NORTH;
-		gbc_txtRetentionPeriodValue.insets = new Insets(0, 0, 5, 5);
+		gbc_txtRetentionPeriodValue.insets = setting;
 		gbc_txtRetentionPeriodValue.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtRetentionPeriodValue.gridx = 1;
 		gbc_txtRetentionPeriodValue.gridy = 6;
@@ -345,7 +343,7 @@ public class ViewAssetFrame extends View implements ActionListener {
 		lblRetentionPeriodError.setForeground(Color.RED);
 		GridBagConstraints gbc_lblRetentionPeriodError = new GridBagConstraints();
 		gbc_lblRetentionPeriodError.anchor = GridBagConstraints.NORTHWEST;
-		gbc_lblRetentionPeriodError.insets = new Insets(0, 0, 5, 0);
+		gbc_lblRetentionPeriodError.insets = setting;
 		gbc_lblRetentionPeriodError.gridx = 2;
 		gbc_lblRetentionPeriodError.gridy = 6;
 		mainPanel.add(lblRetentionPeriodError, gbc_lblRetentionPeriodError);
@@ -353,7 +351,7 @@ public class ViewAssetFrame extends View implements ActionListener {
 		JLabel lblMaintenancePeriod = new JLabel("Maintenance period");
 		GridBagConstraints gbc_lblMaintenancePeriod = new GridBagConstraints();
 		gbc_lblMaintenancePeriod.anchor = GridBagConstraints.EAST;
-		gbc_lblMaintenancePeriod.insets = new Insets(0, 0, 20, 20);
+		gbc_lblMaintenancePeriod.insets = setting;
 		gbc_lblMaintenancePeriod.gridx = 0;
 		gbc_lblMaintenancePeriod.gridy = 7;
 		mainPanel.add(lblMaintenancePeriod, gbc_lblMaintenancePeriod);
@@ -362,7 +360,7 @@ public class ViewAssetFrame extends View implements ActionListener {
 		txtMaintenancePeriodValue.setText("Maintenance period value");
 		GridBagConstraints gbc_txtMaintenancePeriodValue = new GridBagConstraints();
 		gbc_txtMaintenancePeriodValue.anchor = GridBagConstraints.NORTH;
-		gbc_txtMaintenancePeriodValue.insets = new Insets(0, 0, 5, 5);
+		gbc_txtMaintenancePeriodValue.insets = setting;
 		gbc_txtMaintenancePeriodValue.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtMaintenancePeriodValue.gridx = 1;
 		gbc_txtMaintenancePeriodValue.gridy = 7;
@@ -373,15 +371,15 @@ public class ViewAssetFrame extends View implements ActionListener {
 		lblMaintenancePeriodError.setForeground(Color.RED);
 		GridBagConstraints gbc_lblMaintenancePeriodError = new GridBagConstraints();
 		gbc_lblMaintenancePeriodError.anchor = GridBagConstraints.NORTHWEST;
-		gbc_lblMaintenancePeriodError.insets = new Insets(0, 0, 5, 0);
+		gbc_lblMaintenancePeriodError.insets = setting;
 		gbc_lblMaintenancePeriodError.gridx = 2;
 		gbc_lblMaintenancePeriodError.gridy = 7;
 		mainPanel.add(lblMaintenancePeriodError, gbc_lblMaintenancePeriodError);
 
-		lblStorage = new JLabel("Storage");
+		lblStorage = new JLabel("Storage *");
 		GridBagConstraints gbc_lblStorage = new GridBagConstraints();
 		gbc_lblStorage.anchor = GridBagConstraints.EAST;
-		gbc_lblStorage.insets = new Insets(0, 0, 20, 20);
+		gbc_lblStorage.insets = setting;
 		gbc_lblStorage.gridx = 0;
 		gbc_lblStorage.gridy = 8;
 		mainPanel.add(lblStorage, gbc_lblStorage);
@@ -391,7 +389,7 @@ public class ViewAssetFrame extends View implements ActionListener {
 		txtStorage.setColumns(10);
 		GridBagConstraints gbc_txtStorage = new GridBagConstraints();
 		gbc_txtStorage.anchor = GridBagConstraints.NORTH;
-		gbc_txtStorage.insets = new Insets(0, 0, 5, 5);
+		gbc_txtStorage.insets = setting;
 		gbc_txtStorage.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtStorage.gridx = 1;
 		gbc_txtStorage.gridy = 8;
@@ -409,15 +407,15 @@ public class ViewAssetFrame extends View implements ActionListener {
 		JLabel lblFinancialValue = new JLabel("Financial value");
 		GridBagConstraints gbc_lblFinancialValue = new GridBagConstraints();
 		gbc_lblFinancialValue.anchor = GridBagConstraints.NORTHEAST;
-		gbc_lblFinancialValue.insets = new Insets(0, 0, 20, 20);
+		gbc_lblFinancialValue.insets = setting;
 		gbc_lblFinancialValue.gridx = 0;
 		gbc_lblFinancialValue.gridy = 9;
 		mainPanel.add(lblFinancialValue, gbc_lblFinancialValue);
 
-		comboBoxFinancial = new JComboBox();
+		comboBoxFinancial = new JComboBox<Integer>();
 		GridBagConstraints gbc_comboBoxFinancial = new GridBagConstraints();
 		gbc_comboBoxFinancial.anchor = GridBagConstraints.NORTH;
-		gbc_comboBoxFinancial.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBoxFinancial.insets = setting;
 		gbc_comboBoxFinancial.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBoxFinancial.gridx = 1;
 		gbc_comboBoxFinancial.gridy = 9;
@@ -426,15 +424,15 @@ public class ViewAssetFrame extends View implements ActionListener {
 		lblConfidentialityValue = new JLabel("Confidentiality value");
 		GridBagConstraints gbc_lblConfidentialityValue = new GridBagConstraints();
 		gbc_lblConfidentialityValue.anchor = GridBagConstraints.NORTHEAST;
-		gbc_lblConfidentialityValue.insets = new Insets(0, 0, 20, 20);
+		gbc_lblConfidentialityValue.insets = setting;
 		gbc_lblConfidentialityValue.gridx = 0;
 		gbc_lblConfidentialityValue.gridy = 10;
 		mainPanel.add(lblConfidentialityValue, gbc_lblConfidentialityValue);
 
-		comboBoxConfidentiality = new JComboBox();
+		comboBoxConfidentiality = new JComboBox<Integer>();
 		GridBagConstraints gbc_comboBoxConfidentiality = new GridBagConstraints();
 		gbc_comboBoxConfidentiality.anchor = GridBagConstraints.NORTH;
-		gbc_comboBoxConfidentiality.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBoxConfidentiality.insets = setting;
 		gbc_comboBoxConfidentiality.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBoxConfidentiality.gridx = 1;
 		gbc_comboBoxConfidentiality.gridy = 10;
@@ -443,15 +441,15 @@ public class ViewAssetFrame extends View implements ActionListener {
 		lblIntegrityValue = new JLabel("Integrity value");
 		GridBagConstraints gbc_lblIntegrityValue = new GridBagConstraints();
 		gbc_lblIntegrityValue.anchor = GridBagConstraints.NORTHEAST;
-		gbc_lblIntegrityValue.insets = new Insets(0, 0, 20, 20);
+		gbc_lblIntegrityValue.insets = setting;
 		gbc_lblIntegrityValue.gridx = 0;
 		gbc_lblIntegrityValue.gridy = 11;
 		mainPanel.add(lblIntegrityValue, gbc_lblIntegrityValue);
 
-		comboBoxIntegrity = new JComboBox();
+		comboBoxIntegrity = new JComboBox<Integer>();
 		GridBagConstraints gbc_comboBoxIntegrity = new GridBagConstraints();
 		gbc_comboBoxIntegrity.anchor = GridBagConstraints.NORTH;
-		gbc_comboBoxIntegrity.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBoxIntegrity.insets = setting;
 		gbc_comboBoxIntegrity.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBoxIntegrity.gridx = 1;
 		gbc_comboBoxIntegrity.gridy = 11;
@@ -460,15 +458,15 @@ public class ViewAssetFrame extends View implements ActionListener {
 		lblAvailability = new JLabel("Availability value");
 		GridBagConstraints gbc_lblAvailability = new GridBagConstraints();
 		gbc_lblAvailability.anchor = GridBagConstraints.EAST;
-		gbc_lblAvailability.insets = new Insets(0, 0, 20, 20);
+		gbc_lblAvailability.insets = setting;
 		gbc_lblAvailability.gridx = 0;
 		gbc_lblAvailability.gridy = 12;
 		mainPanel.add(lblAvailability, gbc_lblAvailability);
 
-		comboBoxAvailability = new JComboBox();
+		comboBoxAvailability = new JComboBox<Integer>();
 		GridBagConstraints gbc_comboBoxAvailability = new GridBagConstraints();
 		gbc_comboBoxAvailability.anchor = GridBagConstraints.NORTH;
-		gbc_comboBoxAvailability.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBoxAvailability.insets = setting;
 		gbc_comboBoxAvailability.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBoxAvailability.gridx = 1;
 		gbc_comboBoxAvailability.gridy = 12;
@@ -477,37 +475,42 @@ public class ViewAssetFrame extends View implements ActionListener {
 		JLabel lblClassification = new JLabel("Classification");
 		GridBagConstraints gbc_lblClassification = new GridBagConstraints();
 		gbc_lblClassification.anchor = GridBagConstraints.NORTHEAST;
-		gbc_lblClassification.insets = new Insets(0, 0, 20, 20);
+		gbc_lblClassification.insets = setting;
 		gbc_lblClassification.gridx = 0;
 		gbc_lblClassification.gridy = 13;
 		mainPanel.add(lblClassification, gbc_lblClassification);
 
-		comboBoxTypeOfClassification = new JComboBox();
+		comboBoxTypeOfClassification = new JComboBox<String>();
 		GridBagConstraints gbc_comboBoxTypeOfClassification = new GridBagConstraints();
+		gbc_comboBoxTypeOfClassification.insets = new Insets(0, 0, 10, 10);
 		gbc_comboBoxTypeOfClassification.anchor = GridBagConstraints.NORTH;
-		gbc_comboBoxTypeOfClassification.insets = new Insets(0, 0, 0, 5);
 		gbc_comboBoxTypeOfClassification.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBoxTypeOfClassification.gridx = 1;
 		gbc_comboBoxTypeOfClassification.gridy = 13;
 		mainPanel.add(comboBoxTypeOfClassification,
 				gbc_comboBoxTypeOfClassification);
 
-		donePanel = new JPanel();
-		GridBagConstraints gbc_donePanel = new GridBagConstraints();
-		gbc_donePanel.fill = GridBagConstraints.BOTH;
-		gbc_donePanel.gridx = 2;
-		gbc_donePanel.gridy = 13;
-		mainPanel.add(donePanel, gbc_donePanel);
-		donePanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
+		panel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 5, 5));
+		GridBagConstraints gbc_panel = new GridBagConstraints();
+		gbc_panel.fill = GridBagConstraints.BOTH;
+		gbc_panel.gridx = 0;
+		gbc_panel.gridy = 2;
+		contentPane.add(panel, gbc_panel);
+
+		lblNotification = new JLabel(
+				"Please be informed that your actions are logged as Darren Sapalo.");
+		panel.add(lblNotification);
+		lblNotification.setFont(lblNotification.getFont().deriveFont(
+				lblNotification.getFont().getStyle() | Font.ITALIC));
 
 		JButton btnCancel = new JButton("Cancel");
-		donePanel.add(btnCancel);
+		panel.add(btnCancel);
 		btnCancel.setFocusable(false);
 		btnCancel.addActionListener(this);
 		btnCancel.setActionCommand("back");
 
 		JButton btnSave = new JButton("Save");
-		donePanel.add(btnSave);
+		panel.add(btnSave);
 		btnSave.setFocusable(false);
 		btnSave.setActionCommand("save");
 		btnSave.addActionListener(this);
@@ -540,7 +543,6 @@ public class ViewAssetFrame extends View implements ActionListener {
 		lblDateAcquiredError.setText("");
 		lblRetentionPeriodError.setText("");
 		lblMaintenancePeriodError.setText("");
-		lblNotification.setText("");
 		lblStorageError.setText("");
 	}
 
@@ -636,64 +638,93 @@ public class ViewAssetFrame extends View implements ActionListener {
 				assetListener.ReturnToMain();
 
 			} else if (e.getActionCommand().equals("save")) {
-
-				if (HasErrors() == false) {
-					Asset asset = new Asset();
-
-					int availability = comboBoxAvailability.getSelectedIndex();
-					asset.setAvailability(availability);
-
-					String classification = comboBoxTypeOfClassification
-							.getSelectedItem().toString();
-					asset.setClassification(classification);
-
-					int confidentiality = (int) comboBoxConfidentiality
-							.getSelectedItem();
-					asset.setConfidentiality(confidentiality);
-
-					String custodian = txtCustodianNameValue.getText();
-					asset.setCustodian(custodian);
-
-					Timestamp date = new Timestamp(1) ;
-					asset.setDateAcquired(date); // TODO currently unset. Have
-													// to parse user's input
-													// text into time stamp
-
-					int financial = (int) comboBoxFinancial.getSelectedItem();
-					asset.setFinancial(financial);
-
-					String identifier = txtIdentifierValue.getText();
-					asset.setIdentifier(identifier);
-
-					int integrity = (int) comboBoxIntegrity.getSelectedItem();
-					asset.setIntegrity(integrity);
-
-					String name = txtAssetNameValue.getText();
-					asset.setName(name);
-
-					String owner = txtOwnerNameValue.getText();
-					asset.setOwner(owner);
-
-					Timestamp retention = new Timestamp(7);
-					asset.setRetentionPeriod(retention);
-
-					String storage = txtStorage.getText();
-					asset.setStorage(storage);
-
-					String type = comboBoxTypeOfAsset.getSelectedItem()
-							.toString();
-					asset.setType(type);
-
+				Asset asset = new Asset();
+				if (HasErrors(asset) == false) {
 					AssetEvent event = new AssetEvent(asset);
-					assetListener.NewAssetHandling(event);
-					assetListener.ReturnToMain();
+					assetListener.CreateNewAsset(event);
+					lblNotification.setText("Asset successfully added.");
 				}
 			}
 		}
 	}
 
-	private boolean HasErrors() {
-		// TODO Auto-generated method stub
-		return false;
+	private boolean HasErrors(Asset asset) {
+		boolean hasErrors = false;
+
+		int availability = comboBoxAvailability.getSelectedIndex();
+		asset.setAvailability(availability);
+
+		String classification = comboBoxTypeOfClassification.getSelectedItem()
+				.toString();
+		asset.setClassification(classification);
+
+		int confidentiality = (int) comboBoxConfidentiality.getSelectedItem();
+		asset.setConfidentiality(confidentiality);
+
+		String custodian = txtCustodianNameValue.getText();
+		asset.setCustodian(custodian);
+
+		int financial = (int) comboBoxFinancial.getSelectedItem();
+		asset.setFinancial(financial);
+
+		String identifier = txtIdentifierValue.getText();
+		asset.setIdentifier(identifier);
+
+		int integrity = (int) comboBoxIntegrity.getSelectedItem();
+		asset.setIntegrity(integrity);
+
+		String name = txtAssetNameValue.getText();
+		asset.setName(name);
+
+		String owner = txtOwnerNameValue.getText();
+		asset.setOwner(owner);
+
+		String dateAcquired = txtDateAcquiredValue.getText();
+		try {
+			asset.setDateAcquired(dateAcquired);
+		} catch (RegException e) {
+			hasErrors = true;
+			lblDateAcquiredError.setText(e.getMessage());
+		}
+
+		String retentionPeriod = txtRetentionPeriodValue.getText();
+		try {
+			asset.setRetentionPeriod(retentionPeriod);
+		} catch (RegException e) {
+			hasErrors = true;
+			lblRetentionPeriodError.setText(e.getMessage());
+		}
+
+		String storage = txtStorage.getText();
+		asset.setStorage(storage);
+
+		String type = comboBoxTypeOfAsset.getSelectedItem().toString();
+		asset.setType(type);
+
+		if (txtStorage.getText().isEmpty()) {
+			hasErrors = true;
+			lblStorageError.setText("Required field");
+		}
+		if (txtAssetNameValue.getText().isEmpty()) {
+			hasErrors = true;
+			lblAssetNameError.setText("Required field");
+		}
+
+		if (txtOwnerNameValue.getText().isEmpty()) {
+			hasErrors = true;
+			lblOwnerNameError.setText("Required field");
+		}
+
+		if (txtIdentifierValue.getText().isEmpty()) {
+			hasErrors = true;
+			lblIdentifierError.setText("Required field");
+		}
+
+		if (txtCustodianNameValue.getText().isEmpty()) {
+			hasErrors = true;
+			lblCustodianNameError.setText("Required field");
+		}
+
+		return hasErrors;
 	}
 }

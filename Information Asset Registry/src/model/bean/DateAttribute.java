@@ -1,23 +1,26 @@
 package model.bean;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import everything.DBUtil;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
-public abstract class DateTimeAttribute extends Attribute {
-    protected Timestamp value;
-    protected Timestamp replacement;
+public abstract class DateAttribute extends Attribute {
+    protected Date value;
+    protected Date replacement;
     
     // protected static Classification latest(int assetFk);
         // Java doesn't do abstract static, but latest() 
         // is required by all attributes
     
-    public Timestamp value() {
+    public Date value() {
         return value;
     }
     
@@ -26,10 +29,21 @@ public abstract class DateTimeAttribute extends Attribute {
         return value.toString();
     }
 
-    public void setValue(Timestamp value) {
+    public void setValue(Date value) {
         replacement = value;
         if (isNew) {
             this.value = value;
+        }
+    }
+
+    public void setValue(String text) throws RegException {
+        try {
+            java.util.Date sdf = new SimpleDateFormat("MM/dd/yyyy").parse(text);
+            Date date = new Date(sdf.getTime());
+            setValue(date);
+        }
+        catch (ParseException e) {
+            throw new RegException("Date format: MM/dd/yyyy");
         }
     }
 
@@ -43,7 +57,7 @@ public abstract class DateTimeAttribute extends Attribute {
                 "VALUES (?, ?)";
             ps = conn.prepareStatement(update);                
             ps.setInt(1, assetFk);
-            ps.setTimestamp(2, value);
+            ps.setDate(2, value);
             ps.executeUpdate();
             
             isNew = false;
@@ -52,7 +66,7 @@ public abstract class DateTimeAttribute extends Attribute {
         catch (MySQLIntegrityConstraintViolationException e) {
             e.printStackTrace();
             String message = "Invalid value for " + attribute() + ".";
-            throw new RegException(message);
+            throw new RegException(message);	
         }
         catch (SQLException e) {
             e.printStackTrace();

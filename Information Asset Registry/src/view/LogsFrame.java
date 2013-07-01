@@ -154,11 +154,11 @@ public class LogsFrame extends View implements ActionListener {
 			if (action.equals("new")) {
 				Asset asset = null;
 				AssetEvent assetEvent = new AssetEvent(asset);
-				assetListener.NewAssetHandling(assetEvent);
+				assetListener.MoveToNewAssetHandling(assetEvent);
 			} else if (action.equals("update")) {
 				Asset asset = getSelectedAsset();
 				AssetEvent assetEvent = new AssetEvent(asset);
-				assetListener.UpdateAssetHandling(assetEvent);
+				assetListener.MoveToUpdateAssetHandling(assetEvent);
 			} else if (action.equals("delete")) {
 				ArrayList<Asset> assets = getSelectedAssets();
 				AssetEvent assetEvent = new AssetEvent(assets);

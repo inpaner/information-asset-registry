@@ -38,7 +38,7 @@ public abstract class StringAttribute extends Attribute {
         try {
             Connection conn = DBUtil.getConnection();
             String update = 
-                "INSERT INTO " + attribute() + " (assetFk, value) " +
+                "INSERT INTO `" + attribute() + "` (assetFk, value) " +
                 "VALUES (?, ?)";
             ps = conn.prepareStatement(update);                
             ps.setInt(1, assetFk);

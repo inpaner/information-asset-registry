@@ -6,7 +6,7 @@ import java.util.Vector;
 
 import everything.DBUtil;
 
-public class RetentionPeriod extends DateTimeAttribute {
+public class RetentionPeriod extends DateAttribute {
     private static final String attribute = "RetentionPeriod"; 
     
     protected RetentionPeriod() {
@@ -26,7 +26,7 @@ public class RetentionPeriod extends DateTimeAttribute {
             
             latest = new RetentionPeriod();
             latest.assetFk = assetFk;
-            latest.value = rs.getTimestamp("value");
+            latest.value = rs.getDate("value");
         }
         catch (SQLException ex) {
             ex.printStackTrace();
