@@ -521,6 +521,17 @@ public class ViewAssetFrame extends View implements ActionListener {
 		txtIdentifierValue.setEditable(true);
 
 		// Begin new form, erase all errors
+		EraseAllErrors();
+
+		// Begin new form, erase all form inputs
+		CleanForm();
+
+		// Load choices
+		LoadChoices();
+
+	}
+
+	private void EraseAllErrors() {
 		lblIdentifierError.setText("");
 		lblAssetNameError.setText("");
 		lblOwnerNameError.setText("");
@@ -530,8 +541,10 @@ public class ViewAssetFrame extends View implements ActionListener {
 		lblRetentionPeriodError.setText("");
 		lblMaintenancePeriodError.setText("");
 		lblNotification.setText("");
+		lblStorageError.setText("");
+	}
 
-		// Begin new form, erase all form inputs
+	private void CleanForm() {
 		txtIdentifierValue.setText("");
 		txtAssetNameValue.setText("");
 		txtOwnerNameValue.setText("");
@@ -539,10 +552,7 @@ public class ViewAssetFrame extends View implements ActionListener {
 		txtDateAcquiredValue.setText("");
 		txtRetentionPeriodValue.setText("");
 		txtMaintenancePeriodValue.setText("");
-
-		// Load choices
-		LoadChoices();
-
+		txtStorage.setText("");
 	}
 
 	public void LoadChoices() {
@@ -554,6 +564,10 @@ public class ViewAssetFrame extends View implements ActionListener {
 
 	private void LoadValues() {
 		Vector<Integer> validValues = RateableAttribute.validValues();
+		comboBoxConfidentiality.removeAllItems();
+		comboBoxIntegrity.removeAllItems();
+		comboBoxAvailability.removeAllItems();
+		comboBoxFinancial.removeAllItems();
 		for (int i = 0; i < validValues.size(); i++) {
 			comboBoxConfidentiality.addItem(validValues.elementAt(i));
 			comboBoxIntegrity.addItem(validValues.elementAt(i));
@@ -563,12 +577,14 @@ public class ViewAssetFrame extends View implements ActionListener {
 	}
 
 	private void LoadTypes() {
+		comboBoxTypeOfAsset.removeAllItems();
 		Vector<String> validValues = model.bean.Type.validValues();
 		for (int i = 0; i < validValues.size(); i++)
 			comboBoxTypeOfAsset.addItem(validValues.elementAt(i));
 	}
 
 	private void LoadClassification() {
+		comboBoxTypeOfClassification.removeAllItems();
 		Vector<String> validValues = Classification.validValues();
 		for (int i = 0; i < validValues.size(); i++)
 			comboBoxTypeOfClassification.addItem(validValues.elementAt(i));
@@ -576,6 +592,36 @@ public class ViewAssetFrame extends View implements ActionListener {
 
 	public void InitializeUpdateAssetForm(Asset asset) {
 		txtIdentifierValue.setEditable(false);
+		EraseAllErrors();
+		LoadChoices();
+
+		// Assign values to the text fields
+
+		String identifier = asset.identifier().toString();
+		txtIdentifierValue.setText(identifier);
+
+		String name = asset.name().toString();
+		txtAssetNameValue.setText(name);
+
+		String owner = asset.owner().toString();
+		txtOwnerNameValue.setText(owner);
+
+		String custodian = asset.custodian().toString();
+		txtCustodianNameValue.setText(custodian);
+
+		String date = asset.dateAcquired().toString();
+		txtDateAcquiredValue.setText(date);
+
+		String retention = asset.retentionPeriod().toString();
+		txtRetentionPeriodValue.setText(retention);
+
+		String maintenance = "HEHE WALA PA"; // TODO We are missing maintenance
+												// period text field on asset
+												// object
+		txtMaintenancePeriodValue.setText(maintenance);
+
+		String storage = asset.storage().toString();
+		txtStorage.setText(storage);
 
 	}
 
@@ -608,8 +654,10 @@ public class ViewAssetFrame extends View implements ActionListener {
 					String custodian = txtCustodianNameValue.getText();
 					asset.setCustodian(custodian);
 
-					Timestamp date;
-					asset.setDateAcquired(date);	// TODO currently unset. Have to parse user's input text into time stamp
+					Timestamp date = new Timestamp(1) ;
+					asset.setDateAcquired(date); // TODO currently unset. Have
+													// to parse user's input
+													// text into time stamp
 
 					int financial = (int) comboBoxFinancial.getSelectedItem();
 					asset.setFinancial(financial);
@@ -626,15 +674,16 @@ public class ViewAssetFrame extends View implements ActionListener {
 					String owner = txtOwnerNameValue.getText();
 					asset.setOwner(owner);
 
-					Timestamp retention;
+					Timestamp retention = new Timestamp(7);
 					asset.setRetentionPeriod(retention);
 
 					String storage = txtStorage.getText();
 					asset.setStorage(storage);
 
-					String type = comboBoxTypeOfAsset.getSelectedItem().toString();
+					String type = comboBoxTypeOfAsset.getSelectedItem()
+							.toString();
 					asset.setType(type);
-					
+
 					AssetEvent event = new AssetEvent(asset);
 					assetListener.NewAssetHandling(event);
 					assetListener.ReturnToMain();
