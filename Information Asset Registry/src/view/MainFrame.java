@@ -1,47 +1,36 @@
 package view;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-
-import java.awt.FlowLayout;
-
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JButton;
-import javax.swing.JScrollPane;
-
-import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionListener;
+import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.border.BevelBorder;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.UIManager;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import model.bean.Asset;
-import model.bean.User;
 import view.eventhandling.AssetEvent;
 import view.eventhandling.AssetListener;
 import view.eventhandling.LogListener;
-
-import java.awt.SystemColor;
-import java.util.ArrayList;
-
-import javax.swing.JScrollBar;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.BoxLayout;
-import java.awt.Component;
-import java.awt.BorderLayout;
+import view.eventhandling.LogoutListener;
 
 public class MainFrame extends View implements ActionListener {
 
@@ -50,6 +39,7 @@ public class MainFrame extends View implements ActionListener {
     private JTextField txtSearchPanel;
     private AssetListener assetListener;
     private LogListener logListener;
+	private LogoutListener logoutListener;
 
     /**
      * Create the frame.
@@ -69,6 +59,7 @@ public class MainFrame extends View implements ActionListener {
 
         JMenuItem mntmLogout = new JMenuItem("Logout");
         mnFile.add(mntmLogout);
+        mntmLogout.addActionListener(this);
 
         JMenu mnHelp = new JMenu("Help");
         menuBar.add(mnHelp);
@@ -221,6 +212,13 @@ public class MainFrame extends View implements ActionListener {
                 assetListener.DeleteAssetHandling(assetEvent);
             }
         }
+        
+        if (logoutListener != null) {
+        	String action = e.getActionCommand();
+        	if (action.equals("Logout")) {
+        		logoutListener.logout();
+        	}
+        }
 
     }
 
@@ -239,6 +237,10 @@ public class MainFrame extends View implements ActionListener {
         this.assetListener = assetListener;
     }
 
+    public void setLogoutListener(LogoutListener logoutListener) {
+    	this.logoutListener = logoutListener;
+    }
+    
     public void setLogListener(LogListener listener) {
         this.logListener = listener;
 

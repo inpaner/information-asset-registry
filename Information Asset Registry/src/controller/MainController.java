@@ -5,20 +5,15 @@ import javax.swing.JOptionPane;
 
 import model.DeleteAssetModel;
 import model.MainFrameModel;
+import model.bean.Log;
 import model.bean.User;
 import view.MainFrame;
 import view.ViewAssetFrame;
 import view.eventhandling.AssetEvent;
 import view.eventhandling.AssetListener;
+import view.eventhandling.LogoutListener;
 
-import model.DeleteAssetModel;
-import model.MainFrameModel;
-import model.Model;
-import model.NewAssetModel;
-import model.UpdateAssetModel;
-import model.bean.User;
-
-public class MainController extends Controller implements AssetListener {
+public class MainController extends Controller implements AssetListener, LogoutListener {
 
     // current settings
     private User user;
@@ -34,6 +29,7 @@ public class MainController extends Controller implements AssetListener {
     
     protected MainController() {
         mainFrame.setAssetListener(this);
+        mainFrame.setLogoutListener(this);
         viewAssetFrame.setAssetListener(this);
     }
 
@@ -70,6 +66,13 @@ public class MainController extends Controller implements AssetListener {
 	public void ReturnToMain() {
 		// TODO Auto-generated method stub
 		
+	}
+
+
+	@Override
+	public void logout() {
+		Driver.changeControls(new LoginController());
+		Log.loggedOut();
 	}
     
 }
