@@ -56,5 +56,21 @@ public class MainController extends Controller implements AssetListener {
     public void initialize() {
         Driver.display(mainFrame);
     }
+
+
+
+	@Override
+	public void ViewLogsHandling() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void ReturnToMain() {
+		// TODO Auto-generated method stub
+		
+	}
     
 }
