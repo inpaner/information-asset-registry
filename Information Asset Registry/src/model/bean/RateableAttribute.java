@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.Vector;
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
@@ -48,6 +49,7 @@ public abstract class RateableAttribute extends Attribute {
     }
     
     public static Vector<Integer> validValues() {
+        Collections.sort(validValues);
         return validValues;
     }
     
