@@ -58,7 +58,7 @@ public class LogInFrame extends View implements ActionListener, KeyListener {
 				SpringLayout.NORTH, txtUsername);
 		sl_contentPane.putConstraint(SpringLayout.WEST, txtUsername, 79,
 				SpringLayout.WEST, contentPane);
-		txtUsername.setText("darrensapalo");
+		txtUsername.setText("admin");
 		contentPane.add(txtUsername);
 		txtUsername.setColumns(10);
 
@@ -77,7 +77,7 @@ public class LogInFrame extends View implements ActionListener, KeyListener {
 				SpringLayout.NORTH, contentPane);
 		sl_contentPane.putConstraint(SpringLayout.EAST, pwdLogin, -11,
 				SpringLayout.EAST, contentPane);
-		pwdLogin.setText("dren");
+		pwdLogin.setText("1234");
 		contentPane.add(pwdLogin);
 
 		lblCompanyLogo = new JLabel("Small company logo for asset management");
