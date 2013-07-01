@@ -7,31 +7,13 @@ CREATE SCHEMA IF NOT EXISTS `Information Asset Registry` ;
 USE `Information Asset Registry` ;
 
 -- -----------------------------------------------------
--- Table `Information Asset Registry`.`TypeList`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `Information Asset Registry`.`TypeList` ;
-
-CREATE  TABLE IF NOT EXISTS `Information Asset Registry`.`TypeList` (
-  `pk` VARCHAR(45) NOT NULL ,
-  PRIMARY KEY (`pk`) )
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `Information Asset Registry`.`Asset`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `Information Asset Registry`.`Asset` ;
 
 CREATE  TABLE IF NOT EXISTS `Information Asset Registry`.`Asset` (
   `pk` INT NOT NULL AUTO_INCREMENT ,
-  `type` VARCHAR(45) NOT NULL ,
-  PRIMARY KEY (`pk`) ,
-  INDEX `fk_Asset_TypeList1_idx` (`type` ASC) ,
-  CONSTRAINT `fk_Asset_TypeList1`
-    FOREIGN KEY (`type` )
-    REFERENCES `Information Asset Registry`.`TypeList` (`pk` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`pk`) )
 ENGINE = InnoDB;
 
 
@@ -74,13 +56,26 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Information Asset Registry`.`PossibleRatings`
+-- Table `Information Asset Registry`.`TypeList`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Information Asset Registry`.`PossibleRatings` ;
+DROP TABLE IF EXISTS `Information Asset Registry`.`TypeList` ;
 
-CREATE  TABLE IF NOT EXISTS `Information Asset Registry`.`PossibleRatings` (
-  `value` INT NOT NULL ,
+CREATE  TABLE IF NOT EXISTS `Information Asset Registry`.`TypeList` (
+  `value` VARCHAR(45) NOT NULL ,
   PRIMARY KEY (`value`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Information Asset Registry`.`Rating`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `Information Asset Registry`.`Rating` ;
+
+CREATE  TABLE IF NOT EXISTS `Information Asset Registry`.`Rating` (
+  `value` INT NOT NULL ,
+  `name` VARCHAR(45) NOT NULL ,
+  PRIMARY KEY (`value`) ,
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC) )
 ENGINE = InnoDB;
 
 
@@ -98,7 +93,7 @@ CREATE  TABLE IF NOT EXISTS `Information Asset Registry`.`Financial` (
   INDEX `fk_FinancialValue_Asset1_idx` (`assetFk` ASC) ,
   CONSTRAINT `fk_FinancialValue_PossibleValues1`
     FOREIGN KEY (`value` )
-    REFERENCES `Information Asset Registry`.`PossibleRatings` (`value` )
+    REFERENCES `Information Asset Registry`.`Rating` (`value` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_FinancialValue_Asset1`
@@ -123,7 +118,7 @@ CREATE  TABLE IF NOT EXISTS `Information Asset Registry`.`Confidentiality` (
   INDEX `fk_Confidentiality_Asset1_idx` (`assetFk` ASC) ,
   CONSTRAINT `fk_Confidentiality_PossibleValues1`
     FOREIGN KEY (`value` )
-    REFERENCES `Information Asset Registry`.`PossibleRatings` (`value` )
+    REFERENCES `Information Asset Registry`.`Rating` (`value` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Confidentiality_Asset1`
@@ -148,7 +143,7 @@ CREATE  TABLE IF NOT EXISTS `Information Asset Registry`.`Integrity` (
   INDEX `fk_Integrity_Asset1_idx` (`assetFk` ASC) ,
   CONSTRAINT `fk_Integrity_PossibleValues1`
     FOREIGN KEY (`value` )
-    REFERENCES `Information Asset Registry`.`PossibleRatings` (`value` )
+    REFERENCES `Information Asset Registry`.`Rating` (`value` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Integrity_Asset1`
@@ -178,7 +173,7 @@ CREATE  TABLE IF NOT EXISTS `Information Asset Registry`.`Availability` (
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Availability_PossibleValues1`
     FOREIGN KEY (`value` )
-    REFERENCES `Information Asset Registry`.`PossibleRatings` (`value` )
+    REFERENCES `Information Asset Registry`.`Rating` (`value` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -304,9 +299,9 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `Information Asset Registry`.`ClassificationList` ;
 
 CREATE  TABLE IF NOT EXISTS `Information Asset Registry`.`ClassificationList` (
-  `pk` VARCHAR(45) NOT NULL ,
-  PRIMARY KEY (`pk`) ,
-  UNIQUE INDEX `pk_UNIQUE` (`pk` ASC) )
+  `value` VARCHAR(45) NOT NULL ,
+  PRIMARY KEY (`value`) ,
+  UNIQUE INDEX `pk_UNIQUE` (`value` ASC) )
 ENGINE = InnoDB;
 
 
@@ -324,7 +319,7 @@ CREATE  TABLE IF NOT EXISTS `Information Asset Registry`.`Classification` (
   INDEX `fk_Classification_Asset1_idx` (`assetFk` ASC) ,
   CONSTRAINT `fk_Classification_ClassTypeList1`
     FOREIGN KEY (`value` )
-    REFERENCES `Information Asset Registry`.`ClassificationList` (`pk` )
+    REFERENCES `Information Asset Registry`.`ClassificationList` (`value` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Classification_Asset1`
@@ -410,6 +405,31 @@ CREATE  TABLE IF NOT EXISTS `Information Asset Registry`.`RetentionPeriod` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `Information Asset Registry`.`Type`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `Information Asset Registry`.`Type` ;
+
+CREATE  TABLE IF NOT EXISTS `Information Asset Registry`.`Type` (
+  `pk` INT NOT NULL AUTO_INCREMENT ,
+  `value` VARCHAR(45) NOT NULL ,
+  `assetFk` INT NOT NULL ,
+  PRIMARY KEY (`pk`) ,
+  INDEX `fk_table1_Asset1_idx` (`assetFk` ASC) ,
+  INDEX `fk_table1_TypeList1_idx` (`value` ASC) ,
+  CONSTRAINT `fk_table1_Asset1`
+    FOREIGN KEY (`assetFk` )
+    REFERENCES `Information Asset Registry`.`Asset` (`pk` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_table1_TypeList1`
+    FOREIGN KEY (`value` )
+    REFERENCES `Information Asset Registry`.`TypeList` (`value` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
 USE `Information Asset Registry` ;
 
 -- -----------------------------------------------------
@@ -431,33 +451,33 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 -- -----------------------------------------------------
--- Data for table `Information Asset Registry`.`TypeList`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `Information Asset Registry`;
-INSERT INTO `Information Asset Registry`.`TypeList` (`pk`) VALUES ('Paper');
-INSERT INTO `Information Asset Registry`.`TypeList` (`pk`) VALUES ('Electronic');
-INSERT INTO `Information Asset Registry`.`TypeList` (`pk`) VALUES ('Physical');
-
-COMMIT;
-
--- -----------------------------------------------------
 -- Data for table `Information Asset Registry`.`Asset`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `Information Asset Registry`;
-INSERT INTO `Information Asset Registry`.`Asset` (`pk`, `type`) VALUES (1, 'Physical');
+INSERT INTO `Information Asset Registry`.`Asset` (`pk`) VALUES (1);
 
 COMMIT;
 
 -- -----------------------------------------------------
--- Data for table `Information Asset Registry`.`PossibleRatings`
+-- Data for table `Information Asset Registry`.`TypeList`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `Information Asset Registry`;
-INSERT INTO `Information Asset Registry`.`PossibleRatings` (`value`) VALUES (1);
-INSERT INTO `Information Asset Registry`.`PossibleRatings` (`value`) VALUES (2);
-INSERT INTO `Information Asset Registry`.`PossibleRatings` (`value`) VALUES (3);
+INSERT INTO `Information Asset Registry`.`TypeList` (`value`) VALUES ('Paper');
+INSERT INTO `Information Asset Registry`.`TypeList` (`value`) VALUES ('Electronic');
+INSERT INTO `Information Asset Registry`.`TypeList` (`value`) VALUES ('Physical');
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `Information Asset Registry`.`Rating`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `Information Asset Registry`;
+INSERT INTO `Information Asset Registry`.`Rating` (`value`, `name`) VALUES (1, 'High');
+INSERT INTO `Information Asset Registry`.`Rating` (`value`, `name`) VALUES (2, 'Mid');
+INSERT INTO `Information Asset Registry`.`Rating` (`value`, `name`) VALUES (3, 'Low');
 
 COMMIT;
 
@@ -528,10 +548,10 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `Information Asset Registry`;
-INSERT INTO `Information Asset Registry`.`ClassificationList` (`pk`) VALUES ('Sensitive');
-INSERT INTO `Information Asset Registry`.`ClassificationList` (`pk`) VALUES ('Confidential');
-INSERT INTO `Information Asset Registry`.`ClassificationList` (`pk`) VALUES ('Internal');
-INSERT INTO `Information Asset Registry`.`ClassificationList` (`pk`) VALUES ('Public');
+INSERT INTO `Information Asset Registry`.`ClassificationList` (`value`) VALUES ('Sensitive');
+INSERT INTO `Information Asset Registry`.`ClassificationList` (`value`) VALUES ('Confidential');
+INSERT INTO `Information Asset Registry`.`ClassificationList` (`value`) VALUES ('Internal');
+INSERT INTO `Information Asset Registry`.`ClassificationList` (`value`) VALUES ('Public');
 
 COMMIT;
 
