@@ -17,11 +17,12 @@ public class Custodian extends StringAttribute {
         Custodian latest = null;
         try {
             rs = latestRS(assetFk, attribute);
-            rs.next();
-            
+            if (rs.next()){
             latest = new Custodian();
             latest.assetFk = assetFk;
             latest.value = rs.getString("value");
+            }else
+            	throw new SQLException("There weren't any custodian found for that asset. That's weird.");
         }
         catch (SQLException ex) {
             ex.printStackTrace();

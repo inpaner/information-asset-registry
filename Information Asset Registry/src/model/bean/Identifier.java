@@ -23,11 +23,12 @@ public class Identifier extends StringAttribute {
         Identifier latest = null;
         try {
             rs = latestRS(assetFk, attribute);
-            rs.next();
-            
-            latest = new Identifier();
-            latest.assetFk = assetFk;
-            latest.value = rs.getString("value");
+            if (rs.next()){
+	            latest = new Identifier();
+	            latest.assetFk = assetFk;
+	            latest.value = rs.getString("value");
+	        }else
+	        	throw new SQLException("There weren't any identifiers found for that asset. That's weird.");
         }
         catch (SQLException ex) {
             ex.printStackTrace();

@@ -25,6 +25,7 @@ import model.bean.Asset;
 import model.bean.Classification;
 import model.bean.Confidentiality;
 import model.bean.Custodian;
+import model.bean.Log;
 import model.bean.RateableAttribute;
 import model.bean.RegException;
 import model.bean.Type;
@@ -644,6 +645,7 @@ public class ViewAssetFrame extends View implements ActionListener {
 				if (HasErrors(asset) == false) {
 					AssetEvent event = new AssetEvent(asset);
 					assetListener.CreateNewAsset(event);
+					Log.addAsset(event.getAsset().pk());
 					lblNotification.setText("Asset successfully added.");
 				}
 			}

@@ -1,14 +1,11 @@
 package view;
 
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import java.awt.FlowLayout;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -26,22 +23,18 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.border.BevelBorder;
-import javax.swing.UIManager;
 
 import model.bean.Asset;
-import model.bean.User;
+import model.bean.Log;
 import view.eventhandling.AssetEvent;
 import view.eventhandling.AssetListener;
 import view.eventhandling.LogListener;
 
-import java.awt.SystemColor;
 import java.util.ArrayList;
+import java.util.Vector;
 
-import javax.swing.JScrollBar;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.BoxLayout;
-import java.awt.Component;
-import java.awt.BorderLayout;
 
 public class LogsFrame extends View implements ActionListener {
 
@@ -50,6 +43,7 @@ public class LogsFrame extends View implements ActionListener {
 	private JTextField txtSearchPanel;
 	private AssetListener assetListener;
 	private LogListener logListener;
+	private DefaultTableModel tableModel;
 
 	/**
 	 * Create the frame.
@@ -107,18 +101,24 @@ public class LogsFrame extends View implements ActionListener {
 		tableData = new JTable();
 		tableData.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null,
 				null, null));
-		tableData.setModel(new DefaultTableModel(new Object[][] { { null },
+		tableModel = new DefaultTableModel(new Object[][] { { null },
 				{ null }, { null }, { null }, { null }, { null }, { null },
 				{ null }, { null }, { null }, { null }, { null }, { null },
 				{ null }, { null }, { null }, { null }, { null }, { null },
 				{ null }, { null }, { null }, { null }, { null }, { null }, },
 				new String[] { "Log" }) {
 			Class[] columnTypes = new Class[] { String.class };
-
+			
+			
+			
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
-		});
+		};
+		
+		
+	
+		tableData.setModel(tableModel);
 		tableData.getColumnModel().getColumn(0).setPreferredWidth(780);
 		tableData.getColumnModel().getColumn(0).setMinWidth(780);
 		tableData.getColumnModel().getColumn(0).setMaxWidth(780);
@@ -151,36 +151,31 @@ public class LogsFrame extends View implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (assetListener != null) {
 			String action = e.getActionCommand();
-			if (action.equals("new")) {
-				Asset asset = null;
-				AssetEvent assetEvent = new AssetEvent(asset);
-				assetListener.MoveToNewAssetHandling(assetEvent);
-			} else if (action.equals("update")) {
-				Asset asset = getSelectedAsset();
-				AssetEvent assetEvent = new AssetEvent(asset);
-				assetListener.MoveToUpdateAssetHandling(assetEvent);
-			} else if (action.equals("delete")) {
-				ArrayList<Asset> assets = getSelectedAssets();
-				AssetEvent assetEvent = new AssetEvent(assets);
-				assetListener.DeleteAssetHandling(assetEvent);
-			}else if (action.equals("back")){
+			if (action.equals("back")){
 				assetListener.ReturnToMain();
 			}
 		}
-
+	}
+	
+	public void initialize(){
+		Vector<Log> logs = Log.getAll();
+		String[][] data = new String[logs.size()][1];
+		
+		for (Log l : Log.getAll()) {
+            System.out.println(l.plaintext());
+        }
+		
+		// Remove all rows of logs
+		while (tableModel.getRowCount() > 0)
+			tableModel.removeRow(0);
+		
+		for (int i = 0; i < data.length; i++){
+			data[i][0] = logs.elementAt(i).plaintext();
+			tableModel.addRow(data[i]);
+		}
 	}
 
-	private ArrayList<Asset> getSelectedAssets() {
-		// TODO get the selected assets from the table. Can select more than
-		// one.
-		return null;
-	}
-
-	private Asset getSelectedAsset() {
-		// TODO get the selected asset from the table. Should only select one.
-		return null;
-	}
-
+	
 	public void setAssetListener(AssetListener assetListener) {
 		this.assetListener = assetListener;
 	}
