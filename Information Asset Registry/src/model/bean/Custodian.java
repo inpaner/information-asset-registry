@@ -18,10 +18,10 @@ public class Custodian extends StringAttribute {
         try {
             rs = latestRS(assetFk, attribute);
             if (rs.next()){
-            latest = new Custodian();
-            latest.assetFk = assetFk;
-            latest.value = rs.getString("value");
-            }else
+                latest = new Custodian();
+                latest.assetFk = assetFk;
+                latest.value = rs.getString("value");
+                }else
             	throw new SQLException("There weren't any custodian found for that asset. That's weird.");
         }
         catch (SQLException ex) {

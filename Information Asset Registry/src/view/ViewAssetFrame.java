@@ -655,7 +655,7 @@ public class ViewAssetFrame extends View implements ActionListener {
 	private boolean HasErrors(Asset asset) {
 		boolean hasErrors = false;
 
-		int availability = comboBoxAvailability.getSelectedIndex();
+		int availability = (int) comboBoxAvailability.getSelectedItem();
 		asset.setAvailability(availability);
 
 		String classification = comboBoxTypeOfClassification.getSelectedItem()
@@ -676,7 +676,8 @@ public class ViewAssetFrame extends View implements ActionListener {
 
 		int integrity = (int) comboBoxIntegrity.getSelectedItem();
 		asset.setIntegrity(integrity);
-
+		
+		
 		String name = txtAssetNameValue.getText();
 		asset.setName(name);
 
