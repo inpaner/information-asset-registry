@@ -34,7 +34,7 @@ public class Asset {
         cache = new HashMap<>();
     }
     
-    private Asset() {
+    public Asset() {
         pk = 0;
         name = new Name();
         identifier = new Identifier();
