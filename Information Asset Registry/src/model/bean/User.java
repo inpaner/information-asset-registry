@@ -77,6 +77,10 @@ public class User {
         return username;
     }
     
+    public String toString(){
+    	return username;
+    }
+    
     public static User login(String username, char[] password) throws RegException {
         Connection conn = DBUtil.newConnection();
         PreparedStatement ps = null;

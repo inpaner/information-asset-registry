@@ -23,11 +23,12 @@ public class Owner extends StringAttribute {
         Owner latest = null;
         try {
             rs = latestRS(assetFk, attribute);
-            rs.next();
-            
+            if (rs.next()){
             latest = new Owner();
             latest.assetFk = assetFk;
             latest.value = rs.getString("value");
+            }else
+            	throw new SQLException("There weren't any owners found for that asset. That's weird.");
         }
         catch (SQLException ex) {
             ex.printStackTrace();

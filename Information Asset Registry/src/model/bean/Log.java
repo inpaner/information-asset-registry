@@ -56,14 +56,14 @@ public class Log implements Comparable<Log> {
     public String plaintext() {
         String text;
         switch (action) {
-            case "Login" :  text = "Logged in.";
+            case "Login" :  text = user + " logged in.";
                             break;
-            case "Logout" : text = "Logged out.";
+            case "Logout" : text = user + " logged out.";
                             break;
                             
-            case "Add" :    text = "Added asset " + asset.identifier() + ".";
+            case "Add" :    text = user + " added asset " + asset.identifier() + ".";
                             break;
-            case "Edit" :   text = "Edited asset " + asset.identifier() + " " + 
+            case "Edit" :   text = user + " edited asset " + asset.identifier() + " " + 
                                     attribute + ".";
                             break;
             default : text = "Unknown action.";

@@ -21,11 +21,12 @@ public class Name extends StringAttribute {
         Name latest = null;
         try {
             rs = latestRS(assetFk, attribute);
-            rs.next();
-            
-            latest = new Name();
-            latest.assetFk = assetFk;
-            latest.value = rs.getString("value");
+            if (rs.next()){
+	            latest = new Name();
+	            latest.assetFk = assetFk;
+	            latest.value = rs.getString("value");
+            }else
+            	throw new SQLException("There weren't any names found for that asset. That's weird.");
         }
         catch (SQLException ex) {
             ex.printStackTrace();

@@ -70,6 +70,7 @@ public class MainController extends Controller implements AssetListener, LogoutL
 	}
 	
 	public void ViewLogsHandling(){
+		logsFrame.initialize();
 		Driver.display(logsFrame);
 	}
 

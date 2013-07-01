@@ -177,8 +177,8 @@ public class Asset {
                 "VALUES ()");             
             
             ps.executeUpdate();
-          
-            ps = conn.prepareStatement("SELECT pk FROM Asset ORDER BY pk desc");
+           
+            ps = conn.prepareStatement("SELECT `pk` FROM `Asset` ORDER BY `pk` DESC LIMIT 1");
             rs = ps.executeQuery();
             rs.next();
             pk = rs.getInt("pk");
@@ -258,7 +258,7 @@ public class Asset {
         }
     }
     
-    protected int pk() {
+    public int pk() {
         return pk;
     }
 
