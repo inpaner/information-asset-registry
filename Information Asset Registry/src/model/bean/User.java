@@ -4,16 +4,64 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 import everything.DBUtil;
 
 public class User {
+    private static HashMap<Integer, User> cache;
+    
     private int pk;
     private String username;
     private static User currentUser;
     
+    static {
+        cache = new HashMap<>();
+    }
+    
     public static User currentUser() {
         return currentUser;
+    }
+    
+    public static User get(int pk) {
+        User toGet = cache.get(pk);
+        if (toGet == null) {
+            toGet = new User();
+            toGet.getFromDB(pk);
+        }
+    
+        return toGet;
+    }
+    
+    private void getFromDB(int pk) {
+        Connection conn = DBUtil.newConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            ps = conn.prepareStatement(
+                "SELECT username " +
+                "FROM User " +
+                "WHERE pk = (?) "
+            ); 
+            ps.setInt(1, pk);
+            rs = ps.executeQuery();
+            rs.next();
+            
+            this.pk = pk;
+            username = rs.getString("username");
+            
+        }
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        finally {
+            DBUtil.close(rs);
+            DBUtil.close(ps);
+            DBUtil.close(conn);
+        }
+    }
+    
+    private User() {
     }
     
     private User(int pk, String username) {
