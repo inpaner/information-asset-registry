@@ -33,10 +33,10 @@ public abstract class StringAttribute extends Attribute {
     }
 
     private void insert(int assetFk) throws RegException {
-        Connection conn = DBUtil.newConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
+            Connection conn = DBUtil.getConnection();
             String update = 
                 "INSERT INTO " + attribute() + " (assetFk, value) " +
                 "VALUES (?, ?)";
@@ -59,7 +59,6 @@ public abstract class StringAttribute extends Attribute {
         finally {
             DBUtil.close(rs);
             DBUtil.close(ps);
-            DBUtil.close(conn);
         }   
     }
 
@@ -85,12 +84,11 @@ public abstract class StringAttribute extends Attribute {
             return;
         // early return
         
-        Connection conn = DBUtil.newConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
             insert(assetFk);
-
+            Connection conn = DBUtil.getConnection();
             ps = conn.prepareStatement("SELECT LAST_INSERT_ID() AS fk");
             rs = ps.executeQuery();
             rs.next();
@@ -103,7 +101,6 @@ public abstract class StringAttribute extends Attribute {
         finally {
             DBUtil.close(rs);
             DBUtil.close(ps);
-            DBUtil.close(conn);
         }   
     }
 }

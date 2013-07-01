@@ -68,14 +68,11 @@ public abstract class IntAttribute extends Attribute {
             String message = attribute() + " already exists.";
             throw new RegException(message);            
         }
-        
         if (value == 0) {
             String message = attribute() + " not set.";
             throw new RegException(message);            
         }
-        
         insert(assetFk);
-        
     }
     
     protected void update() throws RegException {

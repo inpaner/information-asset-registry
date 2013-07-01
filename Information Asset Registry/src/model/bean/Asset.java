@@ -47,7 +47,6 @@ public class Asset {
         catch (RegException e) {
             e.printStackTrace();
         }
-            
     }
 
     public Name name() {
@@ -157,6 +156,7 @@ public class Asset {
     private Asset() {
         pk = 0;
         name = new Name();
+        identifier = new Identifier();
         owner = new Owner();
         custodian = new Custodian();
         financial = new Financial();
@@ -189,7 +189,7 @@ public class Asset {
             rs = ps.executeQuery();
             rs.next();
             pk = rs.getInt("pk");
-            /*
+            
             name.add(pk);
             identifier.add(pk);
             owner.add(pk);
@@ -202,11 +202,8 @@ public class Asset {
             availability.add(pk);
             classification.add(pk);
             storage.add(pk);
-            */
             
-            integrity.add(pk);
             // TODO Log.add();
-            System.out.println("here");
             
             cache.put(pk, this);
             DBUtil.commit(conn);
@@ -223,7 +220,6 @@ public class Asset {
             DBUtil.close(ps);
             DBUtil.setAutoCommit(conn, true);
         }
-        
     }
     
     public void update() throws RegException {
@@ -261,6 +257,7 @@ public class Asset {
             e.printStackTrace();
         }
         finally {
+            DBUtil.setAutoCommit(conn, true);
             DBUtil.close(ps);
             DBUtil.close(conn);
         }
