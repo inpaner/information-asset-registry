@@ -20,12 +20,15 @@ import java.awt.Font;
 
 import javax.swing.JComboBox;
 
+import model.bean.Asset;
 import view.eventhandling.AssetListener;
 import view.eventhandling.LogListener;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class ViewAssetFrame extends View {
+public class ViewAssetFrame extends View implements ActionListener {
 
 	private JPanel contentPane;
 	private JLabel txtCurrentItem;
@@ -410,10 +413,14 @@ public class ViewAssetFrame extends View {
 
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.setFocusable(false);
+		btnCancel.addActionListener(this);
+		btnCancel.setActionCommand("back");
 		panel.add(btnCancel);
 
 		JButton btnSave = new JButton("Save");
 		btnSave.setFocusable(false);
+		btnSave.setActionCommand("save");
+		btnSave.addActionListener(this);
 		panel.add(btnSave);
 	}
 
@@ -425,12 +432,26 @@ public class ViewAssetFrame extends View {
 		txtIdentifierValue.setEditable(true);
 	}
 
-	public void InitializeUpdateAssetForm() {
+	public void InitializeUpdateAssetForm(Asset asset) {
 		txtIdentifierValue.setEditable(false);
 
 	}
+
 	public void setLogListener(LogListener listener) {
 		this.logListener = listener;
 
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		if (assetListener != null) {
+			if (e.getActionCommand().equals("back")) {
+				assetListener.ReturnToMain();
+
+			} else if (e.getActionCommand().equals("save")) {
+
+				// Save code
+				assetListener.ReturnToMain();
+			}
+		}
 	}
 }

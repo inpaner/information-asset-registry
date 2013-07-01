@@ -43,7 +43,7 @@ import javax.swing.BoxLayout;
 import java.awt.Component;
 import java.awt.BorderLayout;
 
-public class MainFrame extends View implements ActionListener {
+public class LogsFrame extends View implements ActionListener {
 
 	private JPanel contentPane;
 	private JTable tableData;
@@ -54,7 +54,7 @@ public class MainFrame extends View implements ActionListener {
 	/**
 	 * Create the frame.
 	 */
-	public MainFrame() {
+	public LogsFrame() {
 		setResizable(false);
 		setTitle("Asset management system");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -107,84 +107,22 @@ public class MainFrame extends View implements ActionListener {
 		tableData = new JTable();
 		tableData.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null,
 				null, null));
-		tableData.setModel(new DefaultTableModel(new Object[][] {
-				{ null, null, null, null, null },
-				{ null, null, null, null, null },
-				{ null, null, null, null, null },
-				{ null, null, null, null, null },
-				{ null, null, null, null, null },
-				{ null, null, null, null, null },
-				{ null, null, null, null, null },
-				{ null, null, null, null, null },
-				{ null, null, null, null, null },
-				{ null, null, null, null, null },
-				{ null, null, null, null, null },
-				{ null, null, null, null, null },
-				{ null, null, null, null, null },
-				{ null, null, null, null, null },
-				{ null, null, null, null, null },
-				{ null, null, null, null, null },
-				{ null, null, null, null, null },
-				{ null, null, null, null, null },
-				{ null, null, null, null, null },
-				{ null, null, null, null, null },
-				{ null, null, null, null, null },
-				{ null, null, null, null, null },
-				{ null, null, null, null, null },
-				{ null, null, null, null, null },
-				{ null, null, null, null, null }, }, new String[] {
-				"Identifier", "Name", "Owner", "Custodian", "Date acquired" }) {
-			Class[] columnTypes = new Class[] { String.class, Object.class,
-					Object.class, Object.class, Object.class };
+		tableData.setModel(new DefaultTableModel(new Object[][] { { null },
+				{ null }, { null }, { null }, { null }, { null }, { null },
+				{ null }, { null }, { null }, { null }, { null }, { null },
+				{ null }, { null }, { null }, { null }, { null }, { null },
+				{ null }, { null }, { null }, { null }, { null }, { null }, },
+				new String[] { "Log" }) {
+			Class[] columnTypes = new Class[] { String.class };
 
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
 		});
-		tableData.getColumnModel().getColumn(0).setPreferredWidth(130);
-		tableData.getColumnModel().getColumn(0).setMinWidth(130);
-		tableData.getColumnModel().getColumn(0).setMaxWidth(130);
-		tableData.getColumnModel().getColumn(1).setPreferredWidth(200);
-		tableData.getColumnModel().getColumn(1).setMinWidth(200);
-		tableData.getColumnModel().getColumn(1).setMaxWidth(200);
-		tableData.getColumnModel().getColumn(2).setPreferredWidth(150);
-		tableData.getColumnModel().getColumn(2).setMinWidth(150);
-		tableData.getColumnModel().getColumn(2).setMaxWidth(150);
-		tableData.getColumnModel().getColumn(3).setPreferredWidth(150);
-		tableData.getColumnModel().getColumn(3).setMinWidth(150);
-		tableData.getColumnModel().getColumn(3).setMaxWidth(150);
-		tableData.getColumnModel().getColumn(4).setPreferredWidth(150);
-		tableData.getColumnModel().getColumn(4).setMinWidth(150);
-		tableData.getColumnModel().getColumn(4).setMaxWidth(150);
+		tableData.getColumnModel().getColumn(0).setPreferredWidth(780);
+		tableData.getColumnModel().getColumn(0).setMinWidth(780);
+		tableData.getColumnModel().getColumn(0).setMaxWidth(780);
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-
-		JPanel choices = new JPanel();
-		mainPanel.add(choices);
-
-		JButton btnNewButton = new JButton("New asset");
-		btnNewButton.setFocusable(false);
-		btnNewButton.addActionListener(this);
-		btnNewButton.setActionCommand("new");
-		choices.add(btnNewButton);
-
-		JButton btnUpdateAsset = new JButton("Update asset");
-		btnUpdateAsset.setActionCommand("update");
-		btnUpdateAsset.setFocusable(false);
-		btnUpdateAsset.addActionListener(this);
-		choices.add(btnUpdateAsset);
-
-		JButton btnDeleteSelected = new JButton("Delete asset/s");
-		btnDeleteSelected.setActionCommand("delete");
-		btnDeleteSelected.setFocusable(false);
-		btnDeleteSelected.addActionListener(this);
-		choices.add(btnDeleteSelected);
-
-		JButton btnLogs = new JButton("View logs");
-		choices.add(btnLogs);
-		btnLogs.setFocusable(false);
-		btnLogs.setActionCommand("logs");
-		btnLogs.addActionListener(this);
-		
 		tableData
 				.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		// mainPanel.add(tableData);
@@ -196,18 +134,17 @@ public class MainFrame extends View implements ActionListener {
 		gbc_informationPanel.gridy = 2;
 		contentPane.add(informationPanel, gbc_informationPanel);
 
-		JLabel lblYouHaveSelected = new JLabel();
-		lblYouHaveSelected.setLabelFor(tableData);
+		JButton btnBack = new JButton("Back to main menu");
+		informationPanel.add(btnBack);
+		btnBack.setFocusable(false);
+		btnBack.addActionListener(this);
+		btnBack.setActionCommand("back");
+		
 
 		JScrollPane scrollPane = new JScrollPane(tableData);
 		scrollPane
 				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		mainPanel.add(scrollPane);
-		lblYouHaveSelected
-				.setText("You have selected (15) rows, which is more rows than the current elements in the database.");
-		lblYouHaveSelected.setFont(UIManager.getFont("Label.font"));
-		lblYouHaveSelected.setBackground(SystemColor.menu);
-		informationPanel.add(lblYouHaveSelected);
 	}
 
 	@Override
@@ -226,12 +163,8 @@ public class MainFrame extends View implements ActionListener {
 				ArrayList<Asset> assets = getSelectedAssets();
 				AssetEvent assetEvent = new AssetEvent(assets);
 				assetListener.DeleteAssetHandling(assetEvent);
-			} else if (action.equals("logs")) {
-				assetListener.ViewLogsHandling();
-
-				// Does not need to log that the user is viewing the logs...
-				// AssetEvent assetEvent = new AssetEvent(assets);
-				// assetListener.DeleteAssetHandling(assetEvent);
+			}else if (action.equals("back")){
+				assetListener.ReturnToMain();
 			}
 		}
 
