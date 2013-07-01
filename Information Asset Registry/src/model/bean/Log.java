@@ -91,15 +91,15 @@ public class Log implements Comparable<Log> {
     }
     
     public static void updateAttribute(int assetFk, String attribute, int attributeFk) {       
-        Connection conn = DBUtil.newConnection();
         PreparedStatement ps = null;
         try {
+            Connection conn = DBUtil.getConnection();
             ps = conn.prepareStatement(
                 "INSERT INTO Log (userFk, action, dateTime, " +
                 "                 assetFk, attribute, attributeFk) " +
                 "VALUES (?, ?, ?, ?, ?, ?)"                
             );
-            ps.setInt(1, 1);
+            ps.setInt(1, User.currentUser().pk());
             ps.setString(2, "Edit");
             ps.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
             ps.setInt(4, assetFk);
@@ -112,9 +112,59 @@ public class Log implements Comparable<Log> {
         }
         finally {
             DBUtil.close(ps);
+        }
+    }
+
+    public static void addAsset(int assetFk) {       
+        PreparedStatement ps = null;
+        try {
+            Connection conn = DBUtil.getConnection();
+            ps = conn.prepareStatement(
+                "INSERT INTO Log (userFk, action, dateTime, assetFk) " +
+                "VALUES (?, ?, ?, ?)"                
+            );
+            ps.setInt(1, User.currentUser().pk());
+            ps.setString(2, "Add");
+            ps.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
+            ps.setInt(4, assetFk);
+            ps.executeUpdate();
+        }
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        finally {
+            DBUtil.close(ps);
+        }
+    }
+    
+    private static void userLogged(String action) {
+        Connection conn = DBUtil.newConnection();
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement(
+                "INSERT INTO Log (userFk, action, dateTime) " +
+                "VALUES (?, ?, ?)"                
+            );
+            ps.setInt(1, User.currentUser().pk());
+            ps.setString(2, action);
+            ps.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
+            ps.executeUpdate();
+        }
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        finally {
+            DBUtil.close(ps);
             DBUtil.close(conn);
         }
-        
+    }
+    
+    public static void loggedIn() {
+        userLogged("Login");
+    }
+    
+    public static void loggedOut() {
+        userLogged("Logout");
     }
     
     @Override
