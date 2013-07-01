@@ -38,6 +38,7 @@ public abstract class RateableAttribute extends Attribute {
             while (rs.next()) {
                 validValues.add(rs.getInt("value"));
             }
+            Collections.sort(validValues);
         }
         catch (SQLException ex) {
             ex.printStackTrace();
@@ -49,7 +50,6 @@ public abstract class RateableAttribute extends Attribute {
     }
     
     public static Vector<Integer> validValues() {
-        Collections.sort(validValues);
         return validValues;
     }
     
