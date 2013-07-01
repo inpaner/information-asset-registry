@@ -305,7 +305,7 @@ public class Asset {
         ResultSet rs = null;
         try {
             ps = conn.prepareStatement(
-                "SELECT type " +
+                "SELECT pk " +
                 "FROM Asset " +
                 "WHERE pk = (?) "
             ); 
@@ -313,6 +313,7 @@ public class Asset {
             rs = ps.executeQuery();
             if (rs.next()) {
                 this.pk = pk;
+                /*
                 name = Name.latest(pk);
                 identifier = Identifier.latest(pk);
                 owner = Owner.latest(pk);
@@ -325,7 +326,7 @@ public class Asset {
                 integrity = Integrity.latest(pk);
                 availability = Availability.latest(pk);
                 classification = Classification.latest(pk);
-                storage = Storage.latest(pk);
+                storage = Storage.latest(pk);*/
             }
             
             cache.put(pk, this);
