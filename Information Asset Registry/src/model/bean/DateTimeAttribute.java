@@ -4,28 +4,29 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 import everything.DBUtil;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
-public abstract class StringAttribute extends Attribute {
-    protected String value;
-    protected String replacement;
+public abstract class DateTimeAttribute extends Attribute {
+    protected Timestamp value;
+    protected Timestamp replacement;
     
-    // protected static <Attribute> latest(int assetFk);
+    // protected static Classification latest(int assetFk);
         // Java doesn't do abstract static, but latest() 
         // is required by all attributes
     
-    public String value() {
+    public Timestamp value() {
         return value;
     }
     
     @Override
     public String toString() {
-        return value;
+        return value.toString();
     }
 
-    public void setValue(String value) {
+    public void setValue(Timestamp value) {
         replacement = value;
         if (isNew) {
             this.value = value;
@@ -42,7 +43,7 @@ public abstract class StringAttribute extends Attribute {
                 "VALUES (?, ?)";
             ps = conn.prepareStatement(update);                
             ps.setInt(1, assetFk);
-            ps.setString(2, value);
+            ps.setTimestamp(2, value);
             ps.executeUpdate();
             
             isNew = false;

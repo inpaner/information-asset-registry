@@ -2,24 +2,28 @@ package model.bean;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Vector;
 
 import everything.DBUtil;
 
-public class Custodian extends StringAttribute {
-    private static final String attribute = "Custodian"; 
+public class Name extends StringAttribute {
+    private static final String attribute = "Name"; 
     
-    protected Custodian() {
+    protected Name() {
     }
     
-    protected static Custodian latest(int assetFk) {
+    @Override
+    protected String attribute() {
+        return attribute;
+    }
+    
+    protected static Name latest(int assetFk) {
         ResultSet rs = null;
-        Custodian latest = null;
+        Name latest = null;
         try {
             rs = latestRS(assetFk, attribute);
             rs.next();
             
-            latest = new Custodian();
+            latest = new Name();
             latest.assetFk = assetFk;
             latest.value = rs.getString("value");
         }
@@ -31,12 +35,6 @@ public class Custodian extends StringAttribute {
         }
             
         return latest;
-    }
-
-
-    @Override
-    protected String attribute() {
-        return attribute;
     }
     
 

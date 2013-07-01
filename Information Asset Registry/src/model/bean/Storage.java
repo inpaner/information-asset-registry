@@ -2,12 +2,11 @@ package model.bean;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Vector;
 
 import everything.DBUtil;
 
 public class Storage extends StringAttribute {
-    private static final String attribute = "Storage "; 
+    private static final String attribute = "Storage"; 
     
     protected Storage() {
     }
@@ -21,7 +20,7 @@ public class Storage extends StringAttribute {
         ResultSet rs = null;
         Storage latest = null;
         try {
-            rs = latestRS(assetFk, null);
+            rs = latestRS(assetFk, attribute);
             rs.next();
             
             latest = new Storage();

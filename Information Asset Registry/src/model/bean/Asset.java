@@ -16,12 +16,13 @@ public class Asset {
     private static HashMap<Integer, Asset> cache;
     
     private int pk;
-    private String name;
+    private Name name;
+    private Identifier identifier;
     private Owner owner;
     private Custodian custodian;
     private String type;
-    private Date dateAcquired;
-    private Date retentionPeriod;
+    private DateAcquired dateAcquired;
+    private RetentionPeriod retentionPeriod;
     private Financial financial;
     private Confidentiality confidentiality;
     private Integrity integrity;
@@ -35,27 +36,127 @@ public class Asset {
     
     public static void main(String[] args) {
         Asset a = new Asset();
+        
         try {
-            a.setName("Table");
             a.setType("Paper");
-            a.setDateAcquired(new Date(System.currentTimeMillis()));
-            a.setRetentionPeriod(new Date(System.currentTimeMillis()));
-            a.setClassification("Internal");
-            System.out.println(a.classification().value);
+            a.setIntegrity(3);
             a.add();
+            System.out.println("here");
+            
         }
         catch (RegException e) {
             e.printStackTrace();
         }
             
     }
-    
-    private void setType(String type) {
+
+    public Name name() {
+        return name;
+    }
+
+    public Identifier identifier() {
+        return identifier;
+    }
+
+    public Owner owner() {
+        return owner;
+    }
+
+    public Custodian custodian() {
+        return custodian;
+    }
+
+    public String type() {
+        return type;
+    }
+
+    public DateAcquired dateAcquired() {
+        return dateAcquired;
+    }
+
+    public RetentionPeriod retentionPeriod() {
+        return retentionPeriod;
+    }
+
+    public Financial getFinancial() {
+        return financial;
+    }
+
+    public Confidentiality confidentiality() {
+        return confidentiality;
+    }
+
+    public Integrity integrity() {
+        return integrity;
+    }
+
+    public Availability availability() {
+        return availability;
+    }
+
+    public Classification classification() {
+        return classification;
+    }
+
+    public Storage storage() {
+        return storage;
+    }
+
+    public void setName(String value) {
+        name.setValue(value);
+    }
+
+    public void setIdentifier(String value) {
+        identifier.setValue(value);
+    }
+
+    public void setOwner(String value) {
+        owner.setValue(value);
+    }
+
+    public void setCustodian(String value) {
+        custodian.setValue(value);
+    }
+
+    public void setDateAcquired(Timestamp value) {
+        dateAcquired.setValue(value);
+    }
+
+    public void setRetentionPeriod(Timestamp value) {
+        retentionPeriod.setValue(value);
+    }
+
+    public void setFinancial(int value) {
+        financial.setValue(value);
+    }
+
+    public void setConfidentiality(int value) {
+        confidentiality.setValue(value);
+    }
+
+    public void setIntegrity(int value) {
+        integrity.setValue(value);
+    }
+
+    public void setAvailability(int value) {
+        availability.setValue(value);
+    }
+
+    public void setClassification(String value) {
+        classification.setValue(value);
+    }
+
+    public void setStorage(String value) {
+        storage.setValue(value);
+    }
+
+    public void setType(String type) {
         this.type = type;
     }
 
     private Asset() {
         pk = 0;
+        name = new Name();
         owner = new Owner();
         custodian = new Custodian();
         financial = new Financial();
@@ -68,35 +169,33 @@ public class Asset {
     
     public void add() throws RegException {
         if (pk != 0) {
-            String message = "Asset " + pk + " already added.";
+            String message = "Asset already added.";
             throw new RegException(message);
         }
         
-        Connection conn = DBUtil.getConnection();
+        Connection conn = DBUtil.newConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
+            conn.setAutoCommit(false);
             ps = conn.prepareStatement(
-                "INSERT INTO Asset (name, type, dateAcquired, retentionPeriod) " +
-                "VALUES (?, ?, ?, ?)");             
+                "INSERT INTO Asset (type) " +
+                "VALUES (?)");             
             
-            ps.setString(1, name);
-            ps.setString(2, type);
-            ps.setDate(3, dateAcquired);
-            ps.setDate(4, retentionPeriod);
+            ps.setString(1, type);
             ps.executeUpdate();
           
             ps = conn.prepareStatement("SELECT pk FROM Asset ORDER BY pk desc");
             rs = ps.executeQuery();
             rs.next();
             pk = rs.getInt("pk");
-            
-            classification.add(pk);
-            
-            
-            /*            
+            /*
+            name.add(pk);
+            identifier.add(pk);
             owner.add(pk);
             custodian.add(pk);
+            dateAcquired.add(pk);
+            retentionPeriod.add(pk);
             financial.add(pk);
             confidentiality.add(pk);
             integrity.add(pk);
@@ -105,11 +204,59 @@ public class Asset {
             storage.add(pk);
             */
             
+            integrity.add(pk);
             // TODO Log.add();
+            System.out.println("here");
             
             cache.put(pk, this);
+            DBUtil.commit(conn);
+            
         }
-
+        catch (RegException e) {
+            DBUtil.rollback(conn);
+            throw e;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            DBUtil.close(ps);
+            DBUtil.setAutoCommit(conn, true);
+        }
+        
+    }
+    
+    public void update() throws RegException {
+        Connection conn = DBUtil.newConnection();
+        PreparedStatement ps = null;
+        try {
+            conn.setAutoCommit(false);
+            /*
+            name.update();
+            identifier.update();
+            owner.update();
+            custodian.update();
+            dateAcquired.update();
+            retentionPeriod.update();
+            financial.update();
+            confidentiality.update();
+            integrity.update();
+            availability.update();
+            classification.update();
+            storage.update();
+            */
+            
+            integrity.update();
+            // TODO Log.update();
+            
+            cache.put(pk, this);
+            DBUtil.commit(conn);
+        }
+        catch (AssertionError e) {
+            DBUtil.rollback(conn);
+            String message = e.toString() + " not set.";
+            throw new RegException(message);
+        }
         catch (SQLException e) {
             e.printStackTrace();
         }
@@ -123,42 +270,6 @@ public class Asset {
         return pk;
     }
 
-    private void setPk(int pk) {
-        this.pk = pk;
-    }
-
-    public String name() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Date dateAcquired() {
-        return dateAcquired;
-    }
-
-    public void setDateAcquired(Date dateAcquired) {
-        this.dateAcquired = dateAcquired;
-    }
-
-    public Date retentionPeriod() {
-        return retentionPeriod;
-    }
-
-    public void setRetentionPeriod(Date retentionPeriod) {
-        this.retentionPeriod = retentionPeriod;
-    }
-
-    public Classification classification() {
-        return classification;
-    }
-    
-    public void setClassification(String value) {
-        classification.setValue(value);
-    }
-
     public static Asset get(int pk) {
         Asset toGet = cache.get(pk);
         if (toGet == null) {
@@ -169,13 +280,12 @@ public class Asset {
     }
     
     private void getFromDB(int pk) {
-        Connection conn = DBUtil.getConnection();
+        Connection conn = DBUtil.newConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
             ps = conn.prepareStatement(
-                "SELECT identifier, name, type" +
-                "       dateAcquired, retentionPeriod " + 
+                "SELECT type " +
                 "FROM Asset " +
                 "WHERE pk = (?) "
             ); 
@@ -184,13 +294,14 @@ public class Asset {
             rs.next();
             
             this.pk = pk;
-            name = rs.getString("name");
+            name = Name.latest(pk);
+            identifier = Identifier.latest(pk);
             type = rs.getString("type");
-            dateAcquired = rs.getDate("dateAcquired");
-            retentionPeriod = rs.getDate("retentionPeriod");
                       
             owner = Owner.latest(pk);
             custodian = Custodian.latest(pk);
+            dateAcquired = DateAcquired.latest(pk);
+            retentionPeriod = RetentionPeriod.latest(pk);
             financial = Financial.latest(pk);
             confidentiality = Confidentiality.latest(pk);
             integrity = Integrity.latest(pk);

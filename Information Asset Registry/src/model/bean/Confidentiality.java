@@ -20,7 +20,7 @@ public class Confidentiality extends IntAttribute {
         ResultSet rs = null;
         Confidentiality latest = null;
         try {
-            rs = latestRS(assetFk, null);
+            rs = latestRS(assetFk, attribute);
             rs.next();
             
             latest = new Confidentiality();

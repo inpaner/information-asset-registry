@@ -6,22 +6,27 @@ import java.util.Vector;
 
 import everything.DBUtil;
 
-public class Custodian extends StringAttribute {
-    private static final String attribute = "Custodian"; 
+public class DateAcquired extends DateTimeAttribute {
+    private static final String attribute = "DateAcquired"; 
     
-    protected Custodian() {
+    protected DateAcquired() {
     }
     
-    protected static Custodian latest(int assetFk) {
+    @Override
+    protected String attribute() {
+        return attribute;
+    }
+
+    protected static DateAcquired latest(int assetFk) {
         ResultSet rs = null;
-        Custodian latest = null;
+        DateAcquired latest = null;
         try {
             rs = latestRS(assetFk, attribute);
             rs.next();
             
-            latest = new Custodian();
+            latest = new DateAcquired();
             latest.assetFk = assetFk;
-            latest.value = rs.getString("value");
+            latest.value = rs.getTimestamp("value");
         }
         catch (SQLException ex) {
             ex.printStackTrace();
@@ -31,12 +36,6 @@ public class Custodian extends StringAttribute {
         }
             
         return latest;
-    }
-
-
-    @Override
-    protected String attribute() {
-        return attribute;
     }
     
 

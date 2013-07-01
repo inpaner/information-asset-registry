@@ -16,16 +16,11 @@ public class Availability extends IntAttribute {
         return attribute;
     }
     
-    @Override
-    public void update(int replacement) {
-        update(replacement);
-    }
-
     protected static Availability latest(int assetFk) {
         ResultSet rs = null;
         Availability latest = null;
         try {
-            rs = latestRS(assetFk, null);
+            rs = latestRS(assetFk, attribute);
             rs.next();
             
             latest = new Availability();

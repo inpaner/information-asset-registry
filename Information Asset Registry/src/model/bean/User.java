@@ -30,7 +30,7 @@ public class User {
     }
     
     public static User login(String username, char[] password) throws RegException {
-        Connection conn = DBUtil.getConnection();
+        Connection conn = DBUtil.newConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
         User user = null;

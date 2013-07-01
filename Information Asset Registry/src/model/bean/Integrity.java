@@ -15,17 +15,12 @@ public class Integrity extends IntAttribute {
     protected String attribute() {
         return attribute;
     }
-    
-    @Override
-    public void update(int replacement) {
-        update(replacement);
-    }
 
     protected static Integrity latest(int assetFk) {
         ResultSet rs = null;
         Integrity latest = null;
         try {
-            rs = latestRS(assetFk, null);
+            rs = latestRS(assetFk, attribute);
             rs.next();
             
             latest = new Integrity();

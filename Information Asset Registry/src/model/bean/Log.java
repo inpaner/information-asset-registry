@@ -49,7 +49,7 @@ public class Log implements Comparable<Log> {
     }
     
     public static Vector<Log> allLogs(int user) {
-        Connection conn = DBUtil.getConnection();
+        Connection conn = DBUtil.newConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
         
@@ -91,7 +91,7 @@ public class Log implements Comparable<Log> {
     }
     
     public static void updateAttribute(int assetFk, String attribute, int attributeFk) {       
-        Connection conn = DBUtil.getConnection();
+        Connection conn = DBUtil.newConnection();
         PreparedStatement ps = null;
         try {
             ps = conn.prepareStatement(

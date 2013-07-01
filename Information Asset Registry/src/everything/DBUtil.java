@@ -31,17 +31,30 @@ public class DBUtil {
         password = rb.getString("password");
     }
     
+    public static Connection getConnection() {
+        return conn;
+    }
     
-    public static Connection getConnection() {            
+    public static Connection newConnection() {            
         try {
             Class.forName(dbDriver).newInstance();
             conn = DriverManager.getConnection(dbUrl+dbName,username,password);
-            //conn.setSavepoint();
         }
         catch(Exception e){
             e.printStackTrace();
         }
         return conn;
+    }
+
+    public static void setAutoCommit(Connection connection, boolean status) {            
+        try {
+            if (connection != null) {
+                connection.setAutoCommit(status);
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void close(Connection connection) {

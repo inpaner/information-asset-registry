@@ -17,7 +17,7 @@ public abstract class Attribute {
     protected abstract String attribute();
     
     protected static ResultSet latestRS(int assetFk, String attribute) {
-        Connection conn = DBUtil.getConnection();
+        Connection conn = DBUtil.newConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {

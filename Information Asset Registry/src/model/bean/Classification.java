@@ -17,12 +17,6 @@ public class Classification extends StringAttribute {
         return attribute;
     }
     
-    
-    public static void main(String[] args) {
-        Classification a = new Classification();
-        System.out.println(a.value);
-    }
-    
     @Override
     public void setValue(String value) {
         //TODO check if invalid value

@@ -15,17 +15,12 @@ public class Financial extends IntAttribute {
     protected String attribute() {
         return attribute;
     }
-    
-    @Override
-    public void update(int replacement) {
-        update(replacement);
-    }
-
+   
     protected static Financial latest(int assetFk) {
         ResultSet rs = null;
         Financial latest = null;
         try {
-            rs = latestRS(assetFk, null);
+            rs = latestRS(assetFk, attribute);
             rs.next();
             
             latest = new Financial();
