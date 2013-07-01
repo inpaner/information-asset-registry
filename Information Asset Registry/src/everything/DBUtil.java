@@ -65,7 +65,7 @@ public class DBUtil {
         }
     }
 
-    protected static void close(PreparedStatement st) {
+    public static void close(PreparedStatement st) {
         try {
             if (st != null)
                 st.close();
@@ -85,7 +85,7 @@ public class DBUtil {
         }
     }
 
-    protected static void commit(Connection connection) {
+    public static void commit(Connection connection) {
         try {
             if (connection != null) 
                 connection.commit();
@@ -95,7 +95,7 @@ public class DBUtil {
         }
     }
     
-    protected static void rollback(Connection connection) {
+    public static void rollback(Connection connection) {
         try {
             if (connection != null)   
                 connection.rollback();

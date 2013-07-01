@@ -5,16 +5,13 @@ import model.bean.User;
 
 public class Driver{
 	
-	// current logged in user
-    private User user;
-    
     // current settings
     public static View view;
     public static Controller controller;
     
     // controller
-    public static LoginController loginController = new LoginController();
-    public static MainController menuController = new MainController();
+    public static LoginController loginController;
+    public static MainController menuController;
     
     public static void main(String[] args) {
     	// Begin the application
@@ -22,6 +19,9 @@ public class Driver{
     }
     
     public Driver (){
+        loginController = new LoginController();
+        menuController = new MainController();
+        
     	// When you start the application, begin by logging in.
         Login();
     }
@@ -32,7 +32,6 @@ public class Driver{
     }
     
     protected void BeginApplication(User user){
-    	this.user = user;
     	changeControls(menuController);
     }
     
