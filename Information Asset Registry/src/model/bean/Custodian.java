@@ -33,7 +33,6 @@ public class Custodian extends StringAttribute {
         return latest;
     }
 
-
     @Override
     protected String attribute() {
         return attribute;
