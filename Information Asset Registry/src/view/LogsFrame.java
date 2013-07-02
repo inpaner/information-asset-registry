@@ -81,7 +81,8 @@ public class LogsFrame extends View implements ActionListener {
 		contentPane.setLayout(gbl_contentPane);
 
 		txtSearchPanel = new JTextField();
-		txtSearchPanel.setText("Search here");
+		txtSearchPanel.setText("Search here - Not yet implemented");
+		txtSearchPanel.setEnabled(false);
 		GridBagConstraints gbc_txtSearchPanel = new GridBagConstraints();
 		gbc_txtSearchPanel.insets = new Insets(0, 0, 5, 0);
 		gbc_txtSearchPanel.fill = GridBagConstraints.HORIZONTAL;

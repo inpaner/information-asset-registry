@@ -94,7 +94,8 @@ public class MainFrame extends View implements ActionListener {
         mntmLogout.addActionListener(this);
 
 		txtSearchPanel = new JTextField();
-		txtSearchPanel.setText("Search here");
+		txtSearchPanel.setText("Search here - Not yet implemented");
+		txtSearchPanel.setEnabled(false);
 		GridBagConstraints gbc_txtSearchPanel = new GridBagConstraints();
 		gbc_txtSearchPanel.insets = new Insets(0, 0, 5, 0);
 		gbc_txtSearchPanel.fill = GridBagConstraints.HORIZONTAL;
@@ -216,7 +217,9 @@ public class MainFrame extends View implements ActionListener {
 				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		mainPanel.add(scrollPane);
 		lblYouHaveSelected
-				.setText("You have selected (15) rows, which is more rows than the current elements in the database.");
+		.setText("You have selected (15) rows, which is more rows than the current elements in the database.");
+		lblYouHaveSelected
+		.setText("");
 		lblYouHaveSelected.setFont(UIManager.getFont("Label.font"));
 		lblYouHaveSelected.setBackground(SystemColor.menu);
 		informationPanel.add(lblYouHaveSelected);
