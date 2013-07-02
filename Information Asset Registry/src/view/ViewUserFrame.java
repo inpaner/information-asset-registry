@@ -49,8 +49,6 @@ public class ViewUserFrame extends View implements ActionListener {
 	private JTextField txtAssetNameValue;
 	private JTextField txtOwnerNameValue;
 
-	private ControlListener logListener;
-
 	private JLabel lblUsernameError;
 	private JLabel lblPasswordError;
 	private JLabel lblPassword2Error;
@@ -299,11 +297,6 @@ public class ViewUserFrame extends View implements ActionListener {
 	}
 
 	public void loadUserGroups() {
-
-	}
-
-	public void setLogListener(ControlListener listener) {
-		this.logListener = listener;
 
 	}
 

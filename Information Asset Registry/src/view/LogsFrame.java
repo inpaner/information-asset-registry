@@ -64,6 +64,8 @@ public class LogsFrame extends View implements ActionListener {
 
 		JMenuItem mntmLogout = new JMenuItem("Logout");
 		mnFile.add(mntmLogout);
+		mntmLogout.setActionCommand("logout");
+		mntmLogout.addActionListener(this);
 
 		JMenu mnHelp = new JMenu("Help");
 		menuBar.add(mnHelp);
@@ -157,6 +159,8 @@ public class LogsFrame extends View implements ActionListener {
 			String action = e.getActionCommand();
 			if (action.equals("back")){
 				controlListener.GoToMain();
+			}else if (action.equals("logout")){
+				
 			}
 		}
 	}

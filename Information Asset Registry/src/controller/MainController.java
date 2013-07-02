@@ -90,7 +90,7 @@ public class MainController extends Controller implements AssetListener, LogoutL
 	}
 
 	public void logout() {
-		Driver.changeControls(new LoginController());
+		Driver.changeControls(Driver.loginController);
 		Log.loggedOut();
 	}
 
