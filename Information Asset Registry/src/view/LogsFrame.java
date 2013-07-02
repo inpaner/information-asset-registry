@@ -28,7 +28,7 @@ import model.bean.Asset;
 import model.bean.Log;
 import view.eventhandling.AssetEvent;
 import view.eventhandling.AssetListener;
-import view.eventhandling.LogListener;
+import view.eventhandling.ControlListener;
 
 import java.util.ArrayList;
 import java.util.Vector;
@@ -42,8 +42,9 @@ public class LogsFrame extends View implements ActionListener {
 	private JTable tableData;
 	private JTextField txtSearchPanel;
 	private AssetListener assetListener;
-	private LogListener logListener;
+	private ControlListener logListener;
 	private DefaultTableModel tableModel;
+	private ControlListener controlListener;
 
 	/**
 	 * Create the frame.
@@ -155,7 +156,7 @@ public class LogsFrame extends View implements ActionListener {
 		if (assetListener != null) {
 			String action = e.getActionCommand();
 			if (action.equals("back")){
-				assetListener.GoToMain();
+				controlListener.GoToMain();
 			}
 		}
 	}
@@ -179,8 +180,12 @@ public class LogsFrame extends View implements ActionListener {
 		this.assetListener = assetListener;
 	}
 
-	public void setLogListener(LogListener listener) {
+	public void setLogListener(ControlListener listener) {
 		this.logListener = listener;
 
+	}
+
+	public void setControlListener(ControlListener controlListener) {
+		this.controlListener = controlListener;
 	}
 }

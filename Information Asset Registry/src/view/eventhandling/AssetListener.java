@@ -6,6 +6,4 @@ public interface AssetListener {
 	public void DeleteAssetHandling(AssetEvent event);
 	public void CreateNewAsset(AssetEvent event);
 	public void UpdateAsset(AssetEvent event);
-	public void ViewLogsHandling();
-	public void GoToMain();
 }

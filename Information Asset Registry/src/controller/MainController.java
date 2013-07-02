@@ -12,11 +12,13 @@ import model.bean.User;
 import view.LogsFrame;
 import view.MainFrame;
 import view.ViewAssetFrame;
+import view.ViewUserFrame;
 import view.eventhandling.AssetEvent;
 import view.eventhandling.AssetListener;
+import view.eventhandling.ControlListener;
 import view.eventhandling.LogoutListener;
 
-public class MainController extends Controller implements AssetListener, LogoutListener {
+public class MainController extends Controller implements AssetListener, LogoutListener, ControlListener {
 
 	// current settings
 	private User user;
@@ -24,6 +26,7 @@ public class MainController extends Controller implements AssetListener, LogoutL
     // views
     private MainFrame mainFrame = new MainFrame();
     private ViewAssetFrame viewAssetFrame = new ViewAssetFrame();
+    private ViewUserFrame viewUserFrame = new ViewUserFrame();
     private LogsFrame logsFrame = new LogsFrame();
     
     // model	
@@ -32,10 +35,16 @@ public class MainController extends Controller implements AssetListener, LogoutL
     
     
     protected MainController() {
-        mainFrame.setAssetListener(this);
-        mainFrame.setLogoutListener(this);
+    	mainFrame.setLogoutListener(this);
+    	
+    	mainFrame.setAssetListener(this);
         viewAssetFrame.setAssetListener(this);
         logsFrame.setAssetListener(this);
+        
+        mainFrame.setControlListener(this);
+        viewAssetFrame.setControlListener(this);
+        logsFrame.setControlListener(this);
+        viewUserFrame.setControlListener(this);
     }
 
     
@@ -69,10 +78,6 @@ public class MainController extends Controller implements AssetListener, LogoutL
 		// Deletion code here
 	}
 	
-	public void ViewLogsHandling(){
-		logsFrame.initialize();
-		Driver.display(logsFrame);
-	}
 
 	public void initialize() {
 		GoToMain();
@@ -84,10 +89,23 @@ public class MainController extends Controller implements AssetListener, LogoutL
 		
 	}
 
-	@Override
 	public void logout() {
 		Driver.changeControls(new LoginController());
 		Log.loggedOut();
 	}
-    
+
+	public void ViewLogs() {
+		logsFrame.initialize();
+		Driver.display(logsFrame);
+	}
+
+	public void NewUser() {
+		viewUserFrame.InitializeNewUserForm();
+		Driver.display(viewUserFrame);
+	}
+	
+
+	public void ViewUsers() {
+		
+	}
 }
