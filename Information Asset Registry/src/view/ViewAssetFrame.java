@@ -586,7 +586,7 @@ public class ViewAssetFrame extends View implements ActionListener {
 	public void initializeNewAssetForm() {
 	    this.asset = new Asset();
 	    txtIdentifierValue.setEditable(true);
-    	
+	    label.setText("Creating a new asset");
     	// Begin new form, erase all errors
     	eraseAllErrors();
     
@@ -600,7 +600,8 @@ public class ViewAssetFrame extends View implements ActionListener {
 
     public void initializeUpdateAssetForm(Asset asset) {
 		this.asset = asset;
-	    txtIdentifierValue.setEditable(false);
+		label.setText("Updating asset: [" + asset.identifier() + "] " + asset.name() );
+	    txtIdentifierValue.setEditable(true);
 		eraseAllErrors();
 		loadChoices();
 

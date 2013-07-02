@@ -60,6 +60,7 @@ public class MainFrame extends View implements ActionListener {
 	private LogoutListener logoutListener;
 	private DefaultTableModel tableModel;
     private Vector<Asset> assets;
+	private JLabel lblYouHaveSelected;
 
 	/**
 	 * Create the frame.
@@ -195,12 +196,14 @@ public class MainFrame extends View implements ActionListener {
 		btnDeleteSelected.setActionCommand("delete");
 		btnDeleteSelected.setFocusable(false);
 		btnDeleteSelected.addActionListener(this);
+		btnDeleteSelected.setEnabled(false);
 		choices.add(btnDeleteSelected);
 
 		JButton btnNewUser = new JButton("New user");
 		btnNewUser.setFocusable(false);
 		btnNewUser.setActionCommand("newusers");
 		btnNewUser.addActionListener(this);
+		btnNewUser.setEnabled(false);
 		choices.add(btnNewUser);
 
 		JButton btnViewUsers = new JButton("View users");
@@ -227,7 +230,7 @@ public class MainFrame extends View implements ActionListener {
 		gbc_informationPanel.gridy = 2;
 		contentPane.add(informationPanel, gbc_informationPanel);
 
-		JLabel lblYouHaveSelected = new JLabel();
+		lblYouHaveSelected = new JLabel();
 		lblYouHaveSelected.setLabelFor(tableData);
 
 		JScrollPane scrollPane = new JScrollPane(tableData);
@@ -242,7 +245,6 @@ public class MainFrame extends View implements ActionListener {
 		informationPanel.add(lblYouHaveSelected);
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (mainMenuListener != null) {
 			String action = e.getActionCommand();
@@ -253,8 +255,12 @@ public class MainFrame extends View implements ActionListener {
 			} 
 			else if (action.equals("update")) {
 				Asset asset = getSelectedAsset();
-				AssetEvent assetEvent = new AssetEvent(asset);
-				mainMenuListener.updateAsset(assetEvent);
+				if (asset != null){
+					AssetEvent assetEvent = new AssetEvent(asset);
+					mainMenuListener.updateAsset(assetEvent);
+				}else{
+					lblYouHaveSelected.setText("Please select an asset to update.");
+				}
 			} 
 			else if (action.equals("delete")) {
 				ArrayList<Asset> assets = getSelectedAssets();
@@ -298,6 +304,7 @@ public class MainFrame extends View implements ActionListener {
 
 	public void initialize() {
 		loadAssets();
+		lblYouHaveSelected.setText("");
 	}
 
 	private void loadAssets() {
