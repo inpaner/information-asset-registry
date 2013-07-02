@@ -263,7 +263,8 @@ public class ViewUserFrame extends View implements ActionListener {
 		btnCancel.addActionListener(this);
 		btnCancel.setActionCommand("back");
 
-		JButton btnSave = new JButton("Save");
+		JButton btnSave = new JButton("Add user - not yet implemented");
+		btnSave.setEnabled(false);
 		panel.add(btnSave);
 		btnSave.setFocusable(false);
 		btnSave.setActionCommand("save");
