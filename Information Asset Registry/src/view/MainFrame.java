@@ -58,9 +58,8 @@ public class MainFrame extends View implements ActionListener {
 	private ControlListener controlListener;
 	private LogoutListener logoutListener;
 	private DefaultTableModel tableModel;
-
     private Vector<Asset> assets;
-	
+
 	/**
 	 * Create the frame.
 	 */
@@ -253,34 +252,16 @@ public class MainFrame extends View implements ActionListener {
 			} 
 			else if (action.equals("update")) {
 				Asset asset = getSelectedAsset();
-
 				AssetEvent assetEvent = new AssetEvent(asset);
 				mainMenuListener.updateAsset(assetEvent);
 			} 
 			else if (action.equals("delete")) {
-
-				if (asset != null)
-				{
-					AssetEvent assetEvent = new AssetEvent(asset);
-					assetListener.MoveToUpdateAssetHandling(assetEvent);	
-				}
-				else{
-					JOptionPane.showMessageDialog(this, "There wasn't any asset selected.");
-				}
-			} else if (action.equals("delete")) {
-
 				ArrayList<Asset> assets = getSelectedAssets();
 				AssetEvent assetEvent = new AssetEvent(assets);
-
 				mainMenuListener.updateAsset(assetEvent);
 			} 
 			else if (action.equals("logs")) {
 				mainMenuListener.viewLogs();
-
-				assetListener.DeleteAssetHandling(assetEvent);
-			} else if (action.equals("logs")) {
-				controlListener.ViewLogs();
-
 
 				// Does not need to log that the user is viewing the logs...
 				// AssetEvent assetEvent = new AssetEvent(assets);
@@ -343,7 +324,6 @@ public class MainFrame extends View implements ActionListener {
 		this.assetListener = listener;
 	}
 
-
     public void setLogoutListener(LogoutListener listener) {
     	this.logoutListener = listener;
     }
@@ -354,11 +334,6 @@ public class MainFrame extends View implements ActionListener {
     
 	public void setLogListener(LogListener listener) {
 		this.logListener = listener;
-
-	public void setLogoutListener(LogoutListener logoutListener) {
-		this.logoutListener = logoutListener;
-	}
-
 
 	public void setControlListener(ControlListener controlListener) {
 		this.controlListener = controlListener;

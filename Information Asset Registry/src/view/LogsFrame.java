@@ -187,7 +187,7 @@ public class LogsFrame extends View implements ActionListener {
 		this.assetListener = assetListener;
 	}
 
-	public void setLogListener(ControlListener listener) {
+	public void setLogListener(LogListener listener) {
 		this.logListener = listener;
 
 	}
