@@ -525,17 +525,17 @@ public class ViewAssetFrame extends View implements ActionListener {
 		txtIdentifierValue.setEditable(true);
 
 		// Begin new form, erase all errors
-		EraseAllErrors();
+		eraseAllErrors();
 
 		// Begin new form, erase all form inputs
-		CleanForm();
+		cleanForm();
 
 		// Load choices
-		LoadChoices();
+		loadChoices();
 
 	}
 
-	private void EraseAllErrors() {
+	private void eraseAllErrors() {
 		lblIdentifierError.setText("");
 		lblAssetNameError.setText("");
 		lblOwnerNameError.setText("");
@@ -547,7 +547,7 @@ public class ViewAssetFrame extends View implements ActionListener {
 		lblStorageError.setText("");
 	}
 
-	private void CleanForm() {
+	private void cleanForm() {
 		txtIdentifierValue.setText("");
 		txtAssetNameValue.setText("");
 		txtOwnerNameValue.setText("");
@@ -558,45 +558,47 @@ public class ViewAssetFrame extends View implements ActionListener {
 		txtStorage.setText("");
 	}
 
-	public void LoadChoices() {
-		LoadTypes();
-		LoadValues();
-		LoadClassification();
+	public void loadChoices() {
+		loadTypes();
+		loadValues();
+		loadClassification();
 
 	}
 
-	private void LoadValues() {
+	private void loadValues() {
 		Vector<Integer> validValues = RateableAttribute.validValues();
 		comboBoxConfidentiality.removeAllItems();
 		comboBoxIntegrity.removeAllItems();
 		comboBoxAvailability.removeAllItems();
 		comboBoxFinancial.removeAllItems();
-		for (int i = 0; i < validValues.size(); i++) {
-			comboBoxConfidentiality.addItem(validValues.elementAt(i));
-			comboBoxIntegrity.addItem(validValues.elementAt(i));
-			comboBoxAvailability.addItem(validValues.elementAt(i));
-			comboBoxFinancial.addItem(validValues.elementAt(i));
+		for (Integer value : validValues) {
+		    comboBoxConfidentiality.addItem(value);
+            comboBoxIntegrity.addItem(value);
+            comboBoxAvailability.addItem(value);
+            comboBoxFinancial.addItem(value);
 		}
 	}
 
-	private void LoadTypes() {
+	private void loadTypes() {
 		comboBoxTypeOfAsset.removeAllItems();
 		Vector<String> validValues = model.bean.Type.validValues();
-		for (int i = 0; i < validValues.size(); i++)
-			comboBoxTypeOfAsset.addItem(validValues.elementAt(i));
+		for (String value : validValues) {
+		    comboBoxTypeOfAsset.addItem(value);
+		}
 	}
 
-	private void LoadClassification() {
+	private void loadClassification() {
 		comboBoxTypeOfClassification.removeAllItems();
 		Vector<String> validValues = Classification.validValues();
-		for (int i = 0; i < validValues.size(); i++)
-			comboBoxTypeOfClassification.addItem(validValues.elementAt(i));
+	      for (String value : validValues) {
+	            comboBoxTypeOfClassification.addItem(value);
+	        }
 	}
 
-	public void InitializeUpdateAssetForm(Asset asset) {
+	public void initializeUpdateAssetForm(Asset asset) {
 		txtIdentifierValue.setEditable(false);
-		EraseAllErrors();
-		LoadChoices();
+		eraseAllErrors();
+		loadChoices();
 
 		// Assign values to the text fields
 
@@ -674,7 +676,8 @@ public class ViewAssetFrame extends View implements ActionListener {
 
 		int integrity = (int) comboBoxIntegrity.getSelectedItem();
 		asset.setIntegrity(integrity);
-
+		
+		
 		String name = txtAssetNameValue.getText();
 		asset.setName(name);
 

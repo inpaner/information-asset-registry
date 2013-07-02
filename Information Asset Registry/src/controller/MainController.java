@@ -59,7 +59,7 @@ public class MainController extends Controller implements AssetListener, LogoutL
 	}
 
 	public void MoveToUpdateAssetHandling(AssetEvent event) {
-		viewAssetFrame.InitializeUpdateAssetForm(event.getAsset());
+		viewAssetFrame.initializeUpdateAssetForm(event.getAsset());
 		Driver.display(viewAssetFrame);
 	}
 
