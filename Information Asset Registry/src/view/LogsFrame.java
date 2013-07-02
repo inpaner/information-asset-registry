@@ -109,12 +109,14 @@ public class LogsFrame extends View implements ActionListener {
 				new String[] { "Log" }) {
 			Class[] columnTypes = new Class[] { String.class };
 			
-			
+			 public boolean isCellEditable(int row, int col)
+		        { return false; }
 			
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
 		};
+		
 		
 		
 	
@@ -160,10 +162,6 @@ public class LogsFrame extends View implements ActionListener {
 	public void initialize(){
 		Vector<Log> logs = Log.getAll();
 		String[][] data = new String[logs.size()][1];
-		
-		for (Log l : Log.getAll()) {
-            System.out.println(l.plaintext());
-        }
 		
 		// Remove all rows of logs
 		while (tableModel.getRowCount() > 0)

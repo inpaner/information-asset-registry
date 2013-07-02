@@ -144,6 +144,9 @@ public class MainFrame extends View implements ActionListener {
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
+			
+			 public boolean isCellEditable(int row, int col)
+		        { return false; }
 		});
 		tableData.getColumnModel().getColumn(0).setPreferredWidth(130);
 		tableData.getColumnModel().getColumn(0).setMinWidth(130);
