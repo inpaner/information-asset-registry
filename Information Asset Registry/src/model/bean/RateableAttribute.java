@@ -63,9 +63,6 @@ public abstract class RateableAttribute extends Attribute {
 
     public void setValue(int value) {
         replacement = value;
-        if (isNew) {
-            this.value = value;
-        }
     }
     
     private void insert(int assetFk) throws RegException {
@@ -79,7 +76,7 @@ public abstract class RateableAttribute extends Attribute {
                 "VALUES (?, ?)";
             ps = conn.prepareStatement(update);                
             ps.setInt(1, assetFk);
-            ps.setInt(2, value);
+            ps.setInt(2, replacement);
             ps.executeUpdate();
             
             isNew = false;
@@ -132,6 +129,7 @@ public abstract class RateableAttribute extends Attribute {
             
             int attributeFk = rs.getInt("fk");
             Log.updateAttribute(assetFk, attribute(), attributeFk);
+            value = replacement;
         }
         catch (SQLException ex) {
             ex.printStackTrace();

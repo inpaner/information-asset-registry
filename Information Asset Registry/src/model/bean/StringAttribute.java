@@ -27,9 +27,6 @@ public abstract class StringAttribute extends Attribute {
 
     public void setValue(String value) {
         replacement = value;
-        if (isNew) {
-            this.value = value;
-        }
     }
 
     private void insert(int assetFk) throws RegException {
@@ -42,7 +39,7 @@ public abstract class StringAttribute extends Attribute {
                 "VALUES (?, ?)";
             ps = conn.prepareStatement(update);                
             ps.setInt(1, assetFk);
-            ps.setString(2, value);
+            ps.setString(2, replacement);
             ps.executeUpdate();
             
             isNew = false;
@@ -92,8 +89,10 @@ public abstract class StringAttribute extends Attribute {
             ps = conn.prepareStatement("SELECT LAST_INSERT_ID() AS fk");
             rs = ps.executeQuery();
             rs.next();
+            
             int attributeFk = rs.getInt("fk");
             Log.updateAttribute(assetFk, attribute(), attributeFk);
+            value = replacement;
         }
         catch (SQLException ex) {
             ex.printStackTrace();
@@ -102,5 +101,7 @@ public abstract class StringAttribute extends Attribute {
             DBUtil.close(rs);
             DBUtil.close(ps);
         }   
+        
+        
     }
 }

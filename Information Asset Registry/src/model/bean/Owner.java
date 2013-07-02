@@ -24,9 +24,10 @@ public class Owner extends StringAttribute {
         try {
             rs = latestRS(assetFk, attribute);
             if (rs.next()){
-            latest = new Owner();
-            latest.assetFk = assetFk;
-            latest.value = rs.getString("value");
+                latest = new Owner();
+                latest.assetFk = assetFk;
+                latest.value = rs.getString("value");
+                latest.isNew = false;
             }else
             	throw new SQLException("There weren't any owners found for asset (" + assetFk + "). That's weird.");
         }

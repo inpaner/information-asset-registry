@@ -151,10 +151,10 @@ public class LogsFrame extends View implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (assetListener != null) {
+		if (logListener != null) {
 			String action = e.getActionCommand();
 			if (action.equals("back")){
-				assetListener.goToMain();
+				logListener.back(null);
 			}
 		}
 	}

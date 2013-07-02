@@ -26,6 +26,7 @@ public class Storage extends StringAttribute {
             latest = new Storage();
             latest.assetFk = assetFk;
             latest.value = rs.getString("value");
+            latest.isNew = false;
         }
         catch (SQLException ex) {
             ex.printStackTrace();

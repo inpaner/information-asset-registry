@@ -1,7 +1,6 @@
 package controller;
 
 import view.View;
-import model.bean.User;
 
 public class Driver{
 	public static View view;

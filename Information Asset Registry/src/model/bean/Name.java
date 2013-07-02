@@ -25,8 +25,10 @@ public class Name extends StringAttribute {
 	            latest = new Name();
 	            latest.assetFk = assetFk;
 	            latest.value = rs.getString("value");
+	            latest.isNew = false;
             }else
             	throw new SQLException("There weren't any names found for asset (" + assetFk + "). That's weird.");
+            
         }
         catch (SQLException ex) {
             ex.printStackTrace();

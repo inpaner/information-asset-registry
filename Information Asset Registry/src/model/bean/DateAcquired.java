@@ -27,6 +27,7 @@ public class DateAcquired extends DateAttribute {
             latest = new DateAcquired();
             latest.assetFk = assetFk;
             latest.value = rs.getDate("value");
+            latest.isNew = false;
         }
         catch (SQLException ex) {
             ex.printStackTrace();

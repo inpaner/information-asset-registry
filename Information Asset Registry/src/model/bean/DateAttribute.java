@@ -33,9 +33,6 @@ public abstract class DateAttribute extends Attribute {
 
     public void setValue(Date value) {
         replacement = value;
-        if (isNew) {
-            this.value = value;
-        }
     }
 
     public void setValue(String text) throws RegException {
@@ -59,7 +56,7 @@ public abstract class DateAttribute extends Attribute {
                 "VALUES (?, ?)";
             ps = conn.prepareStatement(update);                
             ps.setInt(1, assetFk);
-            ps.setDate(2, value);
+            ps.setDate(2, replacement);
             ps.executeUpdate();
             
             isNew = false;
@@ -112,6 +109,7 @@ public abstract class DateAttribute extends Attribute {
             rs.next();
             int attributeFk = rs.getInt("fk");
             Log.updateAttribute(assetFk, attribute(), attributeFk);
+            value = replacement;
         }
         catch (SQLException ex) {
             ex.printStackTrace();
@@ -119,6 +117,8 @@ public abstract class DateAttribute extends Attribute {
         finally {
             DBUtil.close(rs);
             DBUtil.close(ps);
-        }   
+        }
+        
+        
     }
 }

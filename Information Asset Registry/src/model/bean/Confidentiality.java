@@ -26,6 +26,7 @@ public class Confidentiality extends RateableAttribute {
             latest = new Confidentiality();
             latest.assetFk = assetFk;
             latest.value = rs.getInt("value");
+            latest.isNew = false;
         }
         catch (SQLException ex) {
             ex.printStackTrace();

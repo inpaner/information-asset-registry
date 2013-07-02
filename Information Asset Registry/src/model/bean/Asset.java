@@ -201,7 +201,7 @@ public class Asset {
             
             cache.put(pk, this);
             DBUtil.commit(conn);
-            
+            Log.addAsset(pk);
         }
         catch (RegException e) {
             DBUtil.rollback(conn);

@@ -26,6 +26,7 @@ public class Availability extends RateableAttribute {
             latest = new Availability();
             latest.assetFk = assetFk;
             latest.value = rs.getInt("value");
+            latest.isNew = false;
         }
         catch (SQLException ex) {
             ex.printStackTrace();

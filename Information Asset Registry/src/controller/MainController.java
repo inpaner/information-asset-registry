@@ -1,20 +1,10 @@
 package controller;
 
-
-import javax.swing.JOptionPane;
-
-import model.DeleteAssetModel;
-import model.MainFrameModel;
-import model.UpdateAssetModel;
-import model.bean.Asset;
-import model.bean.Log;
-import model.bean.RegException;
-import model.bean.User;
 import view.LogsFrame;
 import view.MainFrame;
 import view.ViewAssetFrame;
 import view.eventhandling.AssetEvent;
-import view.eventhandling.AssetListener;
+
 import view.eventhandling.LogoutListener;
 import view.eventhandling.MainMenuListener;
 
@@ -30,6 +20,7 @@ public class MainController extends Controller implements MainMenuListener, Logo
         mainFrame = new MainFrame();
         mainFrame.setMainMenuListener(this);
         mainFrame.setLogoutListener(this);
+        mainFrame.initialize();
         Driver.display(mainFrame);
     }
     
@@ -60,8 +51,7 @@ public class MainController extends Controller implements MainMenuListener, Logo
 	
 	@Override
     public void viewLogs() {
-        logsFrame.initialize();
-        Driver.display(logsFrame);
+        new LogController();
     }
 
 	public void initialize() {

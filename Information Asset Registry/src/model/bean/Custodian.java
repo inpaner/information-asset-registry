@@ -21,7 +21,9 @@ public class Custodian extends StringAttribute {
                 latest = new Custodian();
                 latest.assetFk = assetFk;
                 latest.value = rs.getString("value");
-                }else
+                latest.isNew = false;
+            }
+            else
             	throw new SQLException("There weren't any custodian found for asset (" + assetFk + "). That's weird.");
         }
         catch (SQLException ex) {

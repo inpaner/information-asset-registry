@@ -26,6 +26,7 @@ public class Integrity extends RateableAttribute {
             latest = new Integrity();
             latest.assetFk = assetFk;
             latest.value = rs.getInt("value");
+            latest.isNew = false;
         }
         catch (SQLException ex) {
             ex.printStackTrace();

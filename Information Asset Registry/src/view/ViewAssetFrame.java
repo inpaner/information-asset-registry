@@ -42,7 +42,8 @@ import java.util.Vector;
 import javax.swing.BoxLayout;
 
 public class ViewAssetFrame extends View implements ActionListener {
-
+    private Asset asset;
+    
 	private JPanel contentPane;
 	private JTextField txtIdentifierValue;
 	private JTextField txtAssetNameValue;
@@ -521,20 +522,6 @@ public class ViewAssetFrame extends View implements ActionListener {
 		this.assetListener = assetListener;
 	}
 
-	public void initializeNewAssetForm() {
-		txtIdentifierValue.setEditable(true);
-
-		// Begin new form, erase all errors
-		eraseAllErrors();
-
-		// Begin new form, erase all form inputs
-		cleanForm();
-
-		// Load choices
-		loadChoices();
-
-	}
-
 	private void eraseAllErrors() {
 		lblIdentifierError.setText("");
 		lblAssetNameError.setText("");
@@ -595,8 +582,24 @@ public class ViewAssetFrame extends View implements ActionListener {
 	        }
 	}
 
-	public void initializeUpdateAssetForm(Asset asset) {
-		txtIdentifierValue.setEditable(false);
+	public void initializeNewAssetForm() {
+	    this.asset = new Asset();
+	    txtIdentifierValue.setEditable(true);
+    	
+    	// Begin new form, erase all errors
+    	eraseAllErrors();
+    
+    	// Begin new form, erase all form inputs
+    	cleanForm();
+    
+    	// Load choices
+    	loadChoices();
+    
+    }
+
+    public void initializeUpdateAssetForm(Asset asset) {
+		this.asset = asset;
+	    txtIdentifierValue.setEditable(false);
 		eraseAllErrors();
 		loadChoices();
 
@@ -640,7 +643,6 @@ public class ViewAssetFrame extends View implements ActionListener {
 				assetListener.goToMain();
 
 			} else if (e.getActionCommand().equals("save")) {
-				Asset asset = new Asset();
 				if (hasErrors(asset) == false) {
 					AssetEvent event = new AssetEvent(asset);
 					assetListener.savedAsset(event);

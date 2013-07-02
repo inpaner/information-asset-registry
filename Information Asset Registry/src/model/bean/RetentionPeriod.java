@@ -27,6 +27,7 @@ public class RetentionPeriod extends DateAttribute {
             latest = new RetentionPeriod();
             latest.assetFk = assetFk;
             latest.value = rs.getDate("value");
+            latest.isNew = false;
         }
         catch (SQLException ex) {
             ex.printStackTrace();
