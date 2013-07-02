@@ -75,10 +75,11 @@ public class MainController extends Controller implements AssetListener, LogoutL
 	}
 
 	public void initialize() {
-		Driver.display(mainFrame);
+		GoToMain();
 	}
 
-	public void ReturnToMain() {
+	public void GoToMain() {
+		mainFrame.initialize();
 		Driver.display(mainFrame);
 		
 	}

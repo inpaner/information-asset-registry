@@ -26,7 +26,7 @@ public class Name extends StringAttribute {
 	            latest.assetFk = assetFk;
 	            latest.value = rs.getString("value");
             }else
-            	throw new SQLException("There weren't any names found for that asset. That's weird.");
+            	throw new SQLException("There weren't any names found for asset (" + assetFk + "). That's weird.");
         }
         catch (SQLException ex) {
             ex.printStackTrace();

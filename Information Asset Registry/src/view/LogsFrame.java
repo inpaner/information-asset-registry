@@ -154,7 +154,7 @@ public class LogsFrame extends View implements ActionListener {
 		if (assetListener != null) {
 			String action = e.getActionCommand();
 			if (action.equals("back")){
-				assetListener.ReturnToMain();
+				assetListener.GoToMain();
 			}
 		}
 	}

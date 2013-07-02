@@ -7,5 +7,5 @@ public interface AssetListener {
 	public void CreateNewAsset(AssetEvent event);
 	public void UpdateAsset(AssetEvent event);
 	public void ViewLogsHandling();
-	public void ReturnToMain();
+	public void GoToMain();
 }

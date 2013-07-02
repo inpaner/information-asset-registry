@@ -37,10 +37,12 @@ import view.eventhandling.LogoutListener;
 
 import java.awt.SystemColor;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.swing.JScrollBar;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.BoxLayout;
+
 import java.awt.Component;
 import java.awt.BorderLayout;
 
@@ -52,6 +54,7 @@ public class MainFrame extends View implements ActionListener {
 	private AssetListener assetListener;
 	private LogListener logListener;
 	private LogoutListener logoutListener;
+	private DefaultTableModel tableModel;
 	
 	/**
 	 * Create the frame.
@@ -111,7 +114,7 @@ public class MainFrame extends View implements ActionListener {
 		tableData = new JTable();
 		tableData.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null,
 				null, null));
-		tableData.setModel(new DefaultTableModel(new Object[][] {
+		tableModel = new DefaultTableModel(new Object[][] {
 				{ null, null, null, null, null },
 				{ null, null, null, null, null },
 				{ null, null, null, null, null },
@@ -147,7 +150,9 @@ public class MainFrame extends View implements ActionListener {
 			
 			 public boolean isCellEditable(int row, int col)
 		        { return false; }
-		});
+		};
+		
+		tableData.setModel(tableModel);
 		tableData.getColumnModel().getColumn(0).setPreferredWidth(130);
 		tableData.getColumnModel().getColumn(0).setMinWidth(130);
 		tableData.getColumnModel().getColumn(0).setMaxWidth(130);
@@ -260,6 +265,31 @@ public class MainFrame extends View implements ActionListener {
 	private Asset getSelectedAsset() {
 		// TODO get the selected asset from the table. Should only select one.
 		return null;
+	}
+	
+	public void initialize(){
+		LoadAssets();
+	}
+
+	private void LoadAssets() {
+		Vector<Asset> assets = Asset.getAll();
+		String[][] tableData = new String[assets.size()][5];
+		
+		// Clean up table
+		while (tableModel.getRowCount() > 0)
+			tableModel.removeRow(0);
+		
+		// Fill up table
+		int i = 0;
+		for (Asset a : assets){
+			tableData[i][0] = a.identifier().toString();
+			tableData[i][1] = a.name().toString();
+			tableData[i][2] = a.owner().toString();
+			tableData[i][3] = a.custodian().toString();
+			tableData[i][4] = a.dateAcquired().toString();
+			tableModel.addRow(tableData[i]);
+			i++;
+		}
 	}
 
 	public void setAssetListener(AssetListener assetListener) {

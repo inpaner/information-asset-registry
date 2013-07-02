@@ -638,7 +638,7 @@ public class ViewAssetFrame extends View implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (assetListener != null) {
 			if (e.getActionCommand().equals("back")) {
-				assetListener.ReturnToMain();
+				assetListener.GoToMain();
 
 			} else if (e.getActionCommand().equals("save")) {
 				Asset asset = new Asset();
