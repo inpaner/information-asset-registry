@@ -22,7 +22,6 @@ public class AddAssetController extends Controller implements AssetListener {
         Asset asset = event.getAsset();
         try {
             asset.add();
-            
         }
         catch(RegException e){
             e.printStackTrace();

@@ -27,6 +27,8 @@ public abstract class StringAttribute extends Attribute {
 
     public void setValue(String value) {
         replacement = value;
+        if (isNew)
+            this.value = value;
     }
 
     private void insert(int assetFk) throws RegException {

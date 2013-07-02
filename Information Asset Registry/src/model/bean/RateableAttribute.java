@@ -15,7 +15,7 @@ public abstract class RateableAttribute extends Attribute {
     // TODO change to 
     private static Vector<Integer> validValues = new Vector<Integer>(); 
     protected int value = 0;
-    protected int replacement;
+    protected int replacement = 0;
     
     // protected static <Attribute> latest(int assetFk);
         // Java doesn't do abstract static, but latest() 
@@ -63,6 +63,8 @@ public abstract class RateableAttribute extends Attribute {
 
     public void setValue(int value) {
         replacement = value;
+        if (isNew)
+            this.value = value;
     }
     
     private void insert(int assetFk) throws RegException {

@@ -160,10 +160,8 @@ public class LogsFrame extends View implements ActionListener {
 			String action = e.getActionCommand();
 			if (action.equals("back")){
 				logListener.back(null);
-				controlListener.GoToMain();
-			}else if (action.equals("logout")){
-				
-
+			}
+			else if (action.equals("logout")){
 			}
 		}
 	}

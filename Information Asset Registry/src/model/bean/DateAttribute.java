@@ -33,6 +33,8 @@ public abstract class DateAttribute extends Attribute {
 
     public void setValue(Date value) {
         replacement = value;
+        if (isNew)
+            this.value = value;
     }
 
     public void setValue(String text) throws RegException {

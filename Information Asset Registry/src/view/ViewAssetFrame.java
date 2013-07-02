@@ -679,7 +679,7 @@ public class ViewAssetFrame extends View implements ActionListener {
 		int integrity = (int) comboBoxIntegrity.getSelectedItem();
 		asset.setIntegrity(integrity);
 		
-		
+		System.out.println("here");
 		String name = txtAssetNameValue.getText();
 		asset.setName(name);
 

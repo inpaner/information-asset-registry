@@ -34,6 +34,7 @@ import model.bean.User;
 import view.eventhandling.AssetEvent;
 import view.eventhandling.AssetListener;
 import view.eventhandling.ControlListener;
+import view.eventhandling.LogListener;
 import view.eventhandling.LogoutListener;
 import view.eventhandling.MainMenuListener;
 
@@ -296,10 +297,10 @@ public class MainFrame extends View implements ActionListener {
 	}
 
 	public void initialize() {
-		LoadAssets();
+		loadAssets();
 	}
 
-	private void LoadAssets() {
+	private void loadAssets() {
 		assets = Asset.getAll();
 		String[][] tableData = new String[assets.size()][5];
 
@@ -332,9 +333,6 @@ public class MainFrame extends View implements ActionListener {
         this.mainMenuListener = listener;
     }
     
-	public void setLogListener(LogListener listener) {
-		this.logListener = listener;
-
 	public void setControlListener(ControlListener controlListener) {
 		this.controlListener = controlListener;
 	}

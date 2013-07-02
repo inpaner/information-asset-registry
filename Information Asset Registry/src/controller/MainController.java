@@ -12,9 +12,6 @@ public class MainController extends Controller implements MainMenuListener, Logo
 
     // views
     private MainFrame mainFrame;
-    private ViewAssetFrame viewAssetFrame = new ViewAssetFrame();
-    private LogsFrame logsFrame = new LogsFrame();
-    
     
     protected MainController() {
         mainFrame = new MainFrame();
