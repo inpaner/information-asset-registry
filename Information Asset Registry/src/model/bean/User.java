@@ -110,7 +110,14 @@ public class User {
                 currentUser = user;
             }
             else {
-                throw new RegException("Invalid login.");
+            	PreparedStatement ps2 = conn.prepareStatement("SELECT COUNT(*) FROM `user` WHERE `username` = ?");
+            	ps2.setString(1, username);
+            	ResultSet rs2 = ps2.executeQuery();
+            	if (rs2.next()){
+            		if (rs2.getInt(1) == 0)
+            			throw new RegException("Unregistered username.");
+            	}
+                throw new RegException("Invalid password.");
             }
         }
         catch (SQLException ex) {

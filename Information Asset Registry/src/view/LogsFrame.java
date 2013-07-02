@@ -28,6 +28,7 @@ import model.bean.Asset;
 import model.bean.Log;
 import view.eventhandling.AssetEvent;
 import view.eventhandling.AssetListener;
+import view.eventhandling.ControlListener;
 import view.eventhandling.LogListener;
 
 import java.util.ArrayList;
@@ -44,6 +45,7 @@ public class LogsFrame extends View implements ActionListener {
 	private AssetListener assetListener;
 	private LogListener logListener;
 	private DefaultTableModel tableModel;
+	private ControlListener controlListener;
 
 	/**
 	 * Create the frame.
@@ -63,6 +65,8 @@ public class LogsFrame extends View implements ActionListener {
 
 		JMenuItem mntmLogout = new JMenuItem("Logout");
 		mnFile.add(mntmLogout);
+		mntmLogout.setActionCommand("logout");
+		mntmLogout.addActionListener(this);
 
 		JMenu mnHelp = new JMenu("Help");
 		menuBar.add(mnHelp);
@@ -81,7 +85,8 @@ public class LogsFrame extends View implements ActionListener {
 		contentPane.setLayout(gbl_contentPane);
 
 		txtSearchPanel = new JTextField();
-		txtSearchPanel.setText("Search here");
+		txtSearchPanel.setText("Search here - Not yet implemented");
+		txtSearchPanel.setEnabled(false);
 		GridBagConstraints gbc_txtSearchPanel = new GridBagConstraints();
 		gbc_txtSearchPanel.insets = new Insets(0, 0, 5, 0);
 		gbc_txtSearchPanel.fill = GridBagConstraints.HORIZONTAL;
@@ -155,6 +160,10 @@ public class LogsFrame extends View implements ActionListener {
 			String action = e.getActionCommand();
 			if (action.equals("back")){
 				logListener.back(null);
+				controlListener.GoToMain();
+			}else if (action.equals("logout")){
+				
+
 			}
 		}
 	}
@@ -178,8 +187,12 @@ public class LogsFrame extends View implements ActionListener {
 		this.assetListener = assetListener;
 	}
 
-	public void setLogListener(LogListener listener) {
+	public void setLogListener(ControlListener listener) {
 		this.logListener = listener;
 
+	}
+
+	public void setControlListener(ControlListener controlListener) {
+		this.controlListener = controlListener;
 	}
 }

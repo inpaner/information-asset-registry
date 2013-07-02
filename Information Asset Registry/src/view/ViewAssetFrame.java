@@ -31,7 +31,7 @@ import model.bean.RegException;
 import model.bean.Type;
 import view.eventhandling.AssetEvent;
 import view.eventhandling.AssetListener;
-import view.eventhandling.LogListener;
+import view.eventhandling.ControlListener;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -54,7 +54,7 @@ public class ViewAssetFrame extends View implements ActionListener {
 	private JTextField txtMaintenancePeriodValue;
 
 	private AssetListener assetListener;
-	private LogListener logListener;
+	private ControlListener logListener;
 
 	private JLabel lblIdentifierError;
 	private JLabel lblAssetNameError;
@@ -82,6 +82,7 @@ public class ViewAssetFrame extends View implements ActionListener {
 	private JPanel infoPanel;
 	private JLabel label;
 	private JPanel panel;
+	private ControlListener controlListener;
 
 	/**
 	 * Create the frame.
@@ -603,8 +604,9 @@ public class ViewAssetFrame extends View implements ActionListener {
 		eraseAllErrors();
 		loadChoices();
 
+		
+		
 		// Assign values to the text fields
-
 		String identifier = asset.identifier().toString();
 		txtIdentifierValue.setText(identifier);
 
@@ -632,7 +634,7 @@ public class ViewAssetFrame extends View implements ActionListener {
 		txtStorage.setText(storage);
 	}
 
-	public void setLogListener(LogListener listener) {
+	public void setLogListener(ControlListener listener) {
 		this.logListener = listener;
 
 	}
@@ -731,5 +733,9 @@ public class ViewAssetFrame extends View implements ActionListener {
 		}
 
 		return hasErrors;
+	}
+
+	public void setControlListener(ControlListener controlListener) {
+		this.controlListener = controlListener;
 	}
 }

@@ -14,6 +14,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 
 import java.awt.GridBagLayout;
@@ -32,7 +33,7 @@ import model.bean.Asset;
 import model.bean.User;
 import view.eventhandling.AssetEvent;
 import view.eventhandling.AssetListener;
-import view.eventhandling.LogListener;
+import view.eventhandling.ControlListener;
 import view.eventhandling.LogoutListener;
 import view.eventhandling.MainMenuListener;
 
@@ -54,9 +55,10 @@ public class MainFrame extends View implements ActionListener {
 	private JTextField txtSearchPanel;
 	private MainMenuListener mainMenuListener;
 	private AssetListener assetListener;
-	private LogListener logListener;
+	private ControlListener controlListener;
 	private LogoutListener logoutListener;
 	private DefaultTableModel tableModel;
+
     private Vector<Asset> assets;
 	
 	/**
@@ -71,7 +73,6 @@ public class MainFrame extends View implements ActionListener {
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
-	
 
 		JMenu mnFile = new JMenu("File");
 		menuBar.add(mnFile);
@@ -94,10 +95,11 @@ public class MainFrame extends View implements ActionListener {
 		gbl_contentPane.rowWeights = new double[] { 0.0, 0.0, 1.0,
 				Double.MIN_VALUE };
 		contentPane.setLayout(gbl_contentPane);
-        mntmLogout.addActionListener(this);
+		mntmLogout.addActionListener(this);
 
 		txtSearchPanel = new JTextField();
-		txtSearchPanel.setText("Search here");
+		txtSearchPanel.setText("Search here - Not yet implemented");
+		txtSearchPanel.setEnabled(false);
 		GridBagConstraints gbc_txtSearchPanel = new GridBagConstraints();
 		gbc_txtSearchPanel.insets = new Insets(0, 0, 5, 0);
 		gbc_txtSearchPanel.fill = GridBagConstraints.HORIZONTAL;
@@ -150,11 +152,12 @@ public class MainFrame extends View implements ActionListener {
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
-			
-			 public boolean isCellEditable(int row, int col)
-		        { return false; }
+
+			public boolean isCellEditable(int row, int col) {
+				return false;
+			}
 		};
-		
+
 		tableData.setModel(tableModel);
 		tableData.getColumnModel().getColumn(0).setPreferredWidth(130);
 		tableData.getColumnModel().getColumn(0).setMinWidth(130);
@@ -194,12 +197,25 @@ public class MainFrame extends View implements ActionListener {
 		btnDeleteSelected.addActionListener(this);
 		choices.add(btnDeleteSelected);
 
+		JButton btnNewUser = new JButton("New user");
+		btnNewUser.setFocusable(false);
+		btnNewUser.setActionCommand("newusers");
+		btnNewUser.addActionListener(this);
+		choices.add(btnNewUser);
+
+		JButton btnViewUsers = new JButton("View users");
+		btnViewUsers.setEnabled(false);
+		btnViewUsers.setFocusable(false);
+		btnViewUsers.setActionCommand("viewusers");
+		btnViewUsers.addActionListener(this);
+		choices.add(btnViewUsers);
+
 		JButton btnLogs = new JButton("View logs");
 		choices.add(btnLogs);
 		btnLogs.setFocusable(false);
 		btnLogs.setActionCommand("logs");
 		btnLogs.addActionListener(this);
-		
+
 		tableData
 				.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		// mainPanel.add(tableData);
@@ -220,6 +236,7 @@ public class MainFrame extends View implements ActionListener {
 		mainPanel.add(scrollPane);
 		lblYouHaveSelected
 				.setText("You have selected (15) rows, which is more rows than the current elements in the database.");
+		lblYouHaveSelected.setText("");
 		lblYouHaveSelected.setFont(UIManager.getFont("Label.font"));
 		lblYouHaveSelected.setBackground(SystemColor.menu);
 		informationPanel.add(lblYouHaveSelected);
@@ -236,29 +253,49 @@ public class MainFrame extends View implements ActionListener {
 			} 
 			else if (action.equals("update")) {
 				Asset asset = getSelectedAsset();
+
 				AssetEvent assetEvent = new AssetEvent(asset);
 				mainMenuListener.updateAsset(assetEvent);
 			} 
 			else if (action.equals("delete")) {
+
+				if (asset != null)
+				{
+					AssetEvent assetEvent = new AssetEvent(asset);
+					assetListener.MoveToUpdateAssetHandling(assetEvent);	
+				}
+				else{
+					JOptionPane.showMessageDialog(this, "There wasn't any asset selected.");
+				}
+			} else if (action.equals("delete")) {
+
 				ArrayList<Asset> assets = getSelectedAssets();
 				AssetEvent assetEvent = new AssetEvent(assets);
+
 				mainMenuListener.updateAsset(assetEvent);
 			} 
 			else if (action.equals("logs")) {
 				mainMenuListener.viewLogs();
 
+				assetListener.DeleteAssetHandling(assetEvent);
+			} else if (action.equals("logs")) {
+				controlListener.ViewLogs();
+
+
 				// Does not need to log that the user is viewing the logs...
 				// AssetEvent assetEvent = new AssetEvent(assets);
 				// assetListener.DeleteAssetHandling(assetEvent);
+			} else if (action.equals("newusers")) {
+				controlListener.NewUser();
 			}
 		}
-        
-        if (logoutListener != null) {
-        	String action = e.getActionCommand();
-        	if (action.equals("Logout")) {
-        		logoutListener.logout();
-        	}
-        }
+
+		if (logoutListener != null) {
+			String action = e.getActionCommand();
+			if (action.equals("Logout")) {
+				logoutListener.logout();
+			}
+		}
 
 	}
 
@@ -276,22 +313,22 @@ public class MainFrame extends View implements ActionListener {
 	    }
 		return asset;
 	}
-	
-	public void initialize(){
+
+	public void initialize() {
 		LoadAssets();
 	}
 
 	private void LoadAssets() {
 		assets = Asset.getAll();
 		String[][] tableData = new String[assets.size()][5];
-		
+
 		// Clean up table
 		while (tableModel.getRowCount() > 0)
 			tableModel.removeRow(0);
-		
+
 		// Fill up table
 		int i = 0;
-		for (Asset a : assets){
+		for (Asset a : assets) {
 			tableData[i][0] = a.identifier().toString();
 			tableData[i][1] = a.name().toString();
 			tableData[i][2] = a.owner().toString();
@@ -306,6 +343,7 @@ public class MainFrame extends View implements ActionListener {
 		this.assetListener = listener;
 	}
 
+
     public void setLogoutListener(LogoutListener listener) {
     	this.logoutListener = listener;
     }
@@ -317,5 +355,12 @@ public class MainFrame extends View implements ActionListener {
 	public void setLogListener(LogListener listener) {
 		this.logListener = listener;
 
+	public void setLogoutListener(LogoutListener logoutListener) {
+		this.logoutListener = logoutListener;
+	}
+
+
+	public void setControlListener(ControlListener controlListener) {
+		this.controlListener = controlListener;
 	}
 }
