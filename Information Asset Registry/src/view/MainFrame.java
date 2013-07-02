@@ -34,6 +34,7 @@ import view.eventhandling.AssetEvent;
 import view.eventhandling.AssetListener;
 import view.eventhandling.LogListener;
 import view.eventhandling.LogoutListener;
+import view.eventhandling.MainMenuListener;
 
 import java.awt.SystemColor;
 import java.util.ArrayList;
@@ -51,10 +52,12 @@ public class MainFrame extends View implements ActionListener {
 	private JPanel contentPane;
 	private JTable tableData;
 	private JTextField txtSearchPanel;
+	private MainMenuListener mainMenuListener;
 	private AssetListener assetListener;
 	private LogListener logListener;
 	private LogoutListener logoutListener;
 	private DefaultTableModel tableModel;
+    private Vector<Asset> assets;
 	
 	/**
 	 * Create the frame.
@@ -224,22 +227,25 @@ public class MainFrame extends View implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (assetListener != null) {
+		if (mainMenuListener != null) {
 			String action = e.getActionCommand();
 			if (action.equals("new")) {
 				Asset asset = null;
 				AssetEvent assetEvent = new AssetEvent(asset);
-				assetListener.MoveToNewAssetHandling(assetEvent);
-			} else if (action.equals("update")) {
+				mainMenuListener.newAsset(assetEvent);
+			} 
+			else if (action.equals("update")) {
 				Asset asset = getSelectedAsset();
 				AssetEvent assetEvent = new AssetEvent(asset);
-				assetListener.MoveToUpdateAssetHandling(assetEvent);
-			} else if (action.equals("delete")) {
+				mainMenuListener.updateAsset(assetEvent);
+			} 
+			else if (action.equals("delete")) {
 				ArrayList<Asset> assets = getSelectedAssets();
 				AssetEvent assetEvent = new AssetEvent(assets);
-				assetListener.DeleteAssetHandling(assetEvent);
-			} else if (action.equals("logs")) {
-				assetListener.ViewLogsHandling();
+				mainMenuListener.updateAsset(assetEvent);
+			} 
+			else if (action.equals("logs")) {
+				mainMenuListener.viewLogs();
 
 				// Does not need to log that the user is viewing the logs...
 				// AssetEvent assetEvent = new AssetEvent(assets);
@@ -263,8 +269,12 @@ public class MainFrame extends View implements ActionListener {
 	}
 
 	private Asset getSelectedAsset() {
-		// TODO get the selected asset from the table. Should only select one.
-		return null;
+	    Asset asset = null;
+	    int index = tableData.getSelectedRow();
+	    if (index >= 0) {
+            asset = assets.get(index);
+	    }
+		return asset;
 	}
 	
 	public void initialize(){
@@ -272,7 +282,7 @@ public class MainFrame extends View implements ActionListener {
 	}
 
 	private void LoadAssets() {
-		Vector<Asset> assets = Asset.getAll();
+		assets = Asset.getAll();
 		String[][] tableData = new String[assets.size()][5];
 		
 		// Clean up table
@@ -292,12 +302,16 @@ public class MainFrame extends View implements ActionListener {
 		}
 	}
 
-	public void setAssetListener(AssetListener assetListener) {
-		this.assetListener = assetListener;
+	public void setAssetListener(AssetListener listener) {
+		this.assetListener = listener;
 	}
 
-    public void setLogoutListener(LogoutListener logoutListener) {
-    	this.logoutListener = logoutListener;
+    public void setLogoutListener(LogoutListener listener) {
+    	this.logoutListener = listener;
+    }
+    
+    public void setMainMenuListener(MainMenuListener listener) {
+        this.mainMenuListener = listener;
     }
     
 	public void setLogListener(LogListener listener) {

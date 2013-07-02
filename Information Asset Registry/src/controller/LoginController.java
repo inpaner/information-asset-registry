@@ -11,10 +11,10 @@ import view.eventhandling.LoginListener;
 public class LoginController extends Controller implements LoginListener {
     private LogInFrame loginFrame;
     
-    
     protected LoginController() {
         loginFrame = new LogInFrame();
         loginFrame.setLoginListener(this);
+        Driver.display(loginFrame);
     }
     
     /**
@@ -22,12 +22,12 @@ public class LoginController extends Controller implements LoginListener {
      * Should it fail, An exception is thrown to the login frame to display an error.  
      */
     @Override
-    public void LoginPerformed(LoginEvent event) {
+    public void loginPerformed(LoginEvent event) {
         try {
             User.login(event.getUsername(), event.getPassword());
             // Success! Go to main frame, where all assets are listed down.
-            Driver.changeControls(Driver.menuController);
             Log.loggedIn();
+            new MainController();
         } 
         catch (RegException e){
             // Handle the error by displaying a message
@@ -35,8 +35,4 @@ public class LoginController extends Controller implements LoginListener {
         }
         
     }
-
-	public void initialize() {
-		Driver.display(loginFrame);
-	}	
 }

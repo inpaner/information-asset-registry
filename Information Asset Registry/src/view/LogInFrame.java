@@ -122,7 +122,7 @@ public class LogInFrame extends View implements ActionListener, KeyListener {
 
 		if (loginListener != null) {
 			LoginEvent event = new LoginEvent(username, password);
-			loginListener.LoginPerformed(event);
+			loginListener.loginPerformed(event);
 		}
 	}
 

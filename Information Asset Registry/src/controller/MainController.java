@@ -5,6 +5,7 @@ import javax.swing.JOptionPane;
 
 import model.DeleteAssetModel;
 import model.MainFrameModel;
+import model.UpdateAssetModel;
 import model.bean.Asset;
 import model.bean.Log;
 import model.bean.RegException;
@@ -15,79 +16,60 @@ import view.ViewAssetFrame;
 import view.eventhandling.AssetEvent;
 import view.eventhandling.AssetListener;
 import view.eventhandling.LogoutListener;
+import view.eventhandling.MainMenuListener;
 
-public class MainController extends Controller implements AssetListener, LogoutListener {
+public class MainController extends Controller implements MainMenuListener, LogoutListener {
 
-	// current settings
-	private User user;
-	
     // views
-    private MainFrame mainFrame = new MainFrame();
+    private MainFrame mainFrame;
     private ViewAssetFrame viewAssetFrame = new ViewAssetFrame();
     private LogsFrame logsFrame = new LogsFrame();
     
-    // model	
-	private MainFrameModel mainFrameModel = new MainFrameModel();
-    private DeleteAssetModel deleteAssetModel = new DeleteAssetModel();
-    
     
     protected MainController() {
-        mainFrame.setAssetListener(this);
+        mainFrame = new MainFrame();
+        mainFrame.setMainMenuListener(this);
         mainFrame.setLogoutListener(this);
-        viewAssetFrame.setAssetListener(this);
-        logsFrame.setAssetListener(this);
+        Driver.display(mainFrame);
+    }
+    
+	@Override
+    public void newAsset(AssetEvent event) {
+        new AddAssetController();
     }
 
-    
-    
-	public void MoveToNewAssetHandling(AssetEvent event) {
-		viewAssetFrame.InitializeNewAssetForm();
-		Driver.display(viewAssetFrame);
-	}
-	
-	public void CreateNewAsset(AssetEvent event){
-		Asset asset = event.getAsset();
-		try {
-			asset.add();
-		}catch(RegException e){
-			e.printStackTrace();
-		}
-	}
-	
-	public void UpdateAsset(AssetEvent event){
-		
+	@Override
+    public void updateAsset(AssetEvent event) {
+	    new UpdateAssetController(event.getAsset());
 	}
 
-	public void MoveToUpdateAssetHandling(AssetEvent event) {
-		viewAssetFrame.initializeUpdateAssetForm(event.getAsset());
-		Driver.display(viewAssetFrame);
-	}
+	@Override
+    public void deleteAsset(AssetEvent event) {
+        // TODO Auto-generated method stub
+        
+    }
 
-	public void DeleteAssetHandling(AssetEvent event) {
-		JOptionPane.showConfirmDialog(Driver.view, "Are you sure you wish to delete these X pcs. assets?", "Confirm delete", JOptionPane.YES_NO_OPTION);
-		
-		// Deletion code here
-	}
+    // move to DeleteAssetController
+    /*
+    public void deleteAssetHandling(AssetEvent event) {
+        JOptionPane.showConfirmDialog(Driver.view, "Are you sure you wish to delete these X pcs. assets?", "Confirm delete", JOptionPane.YES_NO_OPTION);
+        
+        // Deletion code here
+    }
+    */
 	
-	public void ViewLogsHandling(){
-		logsFrame.initialize();
-		Driver.display(logsFrame);
-	}
+	@Override
+    public void viewLogs() {
+        logsFrame.initialize();
+        Driver.display(logsFrame);
+    }
 
 	public void initialize() {
-		GoToMain();
-	}
-
-	public void GoToMain() {
-		mainFrame.initialize();
-		Driver.display(mainFrame);
-		
 	}
 
 	@Override
 	public void logout() {
-		Driver.changeControls(new LoginController());
-		Log.loggedOut();
+		new LoginController();
 	}
     
 }

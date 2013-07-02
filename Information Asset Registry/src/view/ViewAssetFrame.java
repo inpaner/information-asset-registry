@@ -521,7 +521,7 @@ public class ViewAssetFrame extends View implements ActionListener {
 		this.assetListener = assetListener;
 	}
 
-	public void InitializeNewAssetForm() {
+	public void initializeNewAssetForm() {
 		txtIdentifierValue.setEditable(true);
 
 		// Begin new form, erase all errors
@@ -627,7 +627,6 @@ public class ViewAssetFrame extends View implements ActionListener {
 
 		String storage = asset.storage().toString();
 		txtStorage.setText(storage);
-
 	}
 
 	public void setLogListener(LogListener listener) {
@@ -638,21 +637,20 @@ public class ViewAssetFrame extends View implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (assetListener != null) {
 			if (e.getActionCommand().equals("back")) {
-				assetListener.GoToMain();
+				assetListener.goToMain();
 
 			} else if (e.getActionCommand().equals("save")) {
 				Asset asset = new Asset();
-				if (HasErrors(asset) == false) {
+				if (hasErrors(asset) == false) {
 					AssetEvent event = new AssetEvent(asset);
-					assetListener.CreateNewAsset(event);
-					Log.addAsset(event.getAsset().pk());
-					lblNotification.setText("Asset successfully added.");
+					assetListener.savedAsset(event);
+					lblNotification.setText("Asset successfully saved.");
 				}
 			}
 		}
 	}
 
-	private boolean HasErrors(Asset asset) {
+	private boolean hasErrors(Asset asset) {
 		boolean hasErrors = false;
 
 		int availability = (int) comboBoxAvailability.getSelectedItem();

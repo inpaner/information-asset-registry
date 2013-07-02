@@ -15,6 +15,8 @@ import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationExceptio
 public abstract class DateAttribute extends Attribute {
     protected Date value;
     protected Date replacement;
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+    
     
     // protected static Classification latest(int assetFk);
         // Java doesn't do abstract static, but latest() 
@@ -26,7 +28,7 @@ public abstract class DateAttribute extends Attribute {
     
     @Override
     public String toString() {
-        return value.toString();
+        return dateFormat.format(value);
     }
 
     public void setValue(Date value) {
@@ -38,7 +40,7 @@ public abstract class DateAttribute extends Attribute {
 
     public void setValue(String text) throws RegException {
         try {
-            java.util.Date sdf = new SimpleDateFormat("MM/dd/yyyy").parse(text);
+            java.util.Date sdf = dateFormat.parse(text);
             Date date = new Date(sdf.getTime());
             setValue(date);
         }
