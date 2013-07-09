@@ -29,8 +29,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.border.BevelBorder;
 import javax.swing.UIManager;
 
-import model.bean.Asset;
-import model.bean.User;
+import model.Asset;
+import model.User;
 import view.eventhandling.AssetEvent;
 import view.eventhandling.AssetListener;
 import view.eventhandling.ControlListener;

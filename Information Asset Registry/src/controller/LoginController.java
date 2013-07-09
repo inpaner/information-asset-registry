@@ -1,9 +1,9 @@
 package controller;
 
 
-import model.bean.Log;
-import model.bean.RegException;
-import model.bean.User;
+import model.Log;
+import model.RegException;
+import model.User;
 import view.LogInFrame;
 import view.eventhandling.LoginEvent;
 import view.eventhandling.LoginListener;

@@ -1,4 +1,4 @@
-package model.bean;
+package model;
 
 @SuppressWarnings("serial")
 public class RegException extends Exception {

@@ -1,4 +1,4 @@
-package model.bean;
+package model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,11 +9,11 @@ import java.util.Vector;
 
 import everything.DBUtil;
 
-public class Classification extends StringAttribute {
+public class Type extends StringAttribute {
     private static Vector<String> validValues = new Vector<String>();
-    private static final String attribute = "Classification"; 
+    private static final String attribute = "Type"; 
     
-    protected Classification() {
+    protected Type() {
     }
     
     static {
@@ -27,7 +27,7 @@ public class Classification extends StringAttribute {
         try {
             ps = conn.prepareStatement(
                 "SELECT value " +
-                "FROM ClassificationList "
+                "FROM TypeList "
             ); 
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -58,14 +58,14 @@ public class Classification extends StringAttribute {
         super.setValue(value);
     }
     
-    protected static Classification latest(int assetFk) {
+    protected static Type latest(int assetFk) {
         ResultSet rs = null;
-        Classification latest = null;
+        Type latest = null;
         try {
             rs = latestRS(assetFk, attribute);
             rs.next();
             
-            latest = new Classification();
+            latest = new Type();
             latest.assetFk = assetFk;
             latest.value = rs.getString("value");
             latest.isNew = false;

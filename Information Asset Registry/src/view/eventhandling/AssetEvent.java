@@ -2,8 +2,8 @@ package view.eventhandling;
 
 import java.util.ArrayList;
 
-import model.bean.Asset;
-import model.bean.User;
+import model.Asset;
+import model.User;
 
 public class AssetEvent {
 	public Asset asset;

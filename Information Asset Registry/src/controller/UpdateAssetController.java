@@ -1,7 +1,7 @@
 package controller;
 
-import model.bean.Asset;
-import model.bean.RegException;
+import model.Asset;
+import model.RegException;
 import view.ViewAssetFrame;
 import view.eventhandling.AssetEvent;
 import view.eventhandling.AssetListener;

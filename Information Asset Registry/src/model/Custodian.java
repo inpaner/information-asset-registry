@@ -1,4 +1,4 @@
-package model.bean;
+package model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -6,30 +6,25 @@ import java.util.Vector;
 
 import everything.DBUtil;
 
-public class Owner extends StringAttribute {
-    private static final String attribute = "Owner"; 
+public class Custodian extends StringAttribute {
+    private static final String attribute = "Custodian"; 
     
-    protected Owner() {
+    protected Custodian() {
     }
     
-
-    protected void add(int assetFk) throws RegException {
-        super.add(assetFk);
-    }
-    
-    
-    protected static Owner latest(int assetFk) {
+    protected static Custodian latest(int assetFk) {
         ResultSet rs = null;
-        Owner latest = null;
+        Custodian latest = null;
         try {
             rs = latestRS(assetFk, attribute);
             if (rs.next()){
-                latest = new Owner();
+                latest = new Custodian();
                 latest.assetFk = assetFk;
                 latest.value = rs.getString("value");
                 latest.isNew = false;
-            }else
-            	throw new SQLException("There weren't any owners found for asset (" + assetFk + "). That's weird.");
+            }
+            else
+            	throw new SQLException("There weren't any custodian found for asset (" + assetFk + "). That's weird.");
         }
         catch (SQLException ex) {
             ex.printStackTrace();
@@ -40,7 +35,6 @@ public class Owner extends StringAttribute {
             
         return latest;
     }
-
 
     @Override
     protected String attribute() {

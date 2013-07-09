@@ -1,51 +1,34 @@
-package model.bean;
+package model;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 import everything.DBUtil;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
-public abstract class DateAttribute extends Attribute {
-    protected Date value;
-    protected Date replacement;
-    private final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+public abstract class StringAttribute extends Attribute {
+    protected String value;
+    protected String replacement;
     
-    
-    // protected static Classification latest(int assetFk);
+    // protected static <Attribute> latest(int assetFk);
         // Java doesn't do abstract static, but latest() 
         // is required by all attributes
     
-    public Date value() {
+    public String value() {
         return value;
     }
     
     @Override
     public String toString() {
-        return dateFormat.format(value);
+        return value;
     }
 
-    public void setValue(Date value) {
+    public void setValue(String value) {
         replacement = value;
         if (isNew)
             this.value = value;
-    }
-
-    public void setValue(String text) throws RegException {
-        try {
-            java.util.Date sdf = dateFormat.parse(text);
-            Date date = new Date(sdf.getTime());
-            setValue(date);
-        }
-        catch (ParseException e) {
-            throw new RegException("Date format: MM/dd/yyyy");
-        }
     }
 
     private void insert(int assetFk) throws RegException {
@@ -54,11 +37,11 @@ public abstract class DateAttribute extends Attribute {
         try {
             Connection conn = DBUtil.getConnection();
             String update = 
-                "INSERT INTO " + attribute() + " (assetFk, value) " +
+                "INSERT INTO `" + attribute() + "` (assetFk, value) " +
                 "VALUES (?, ?)";
             ps = conn.prepareStatement(update);                
             ps.setInt(1, assetFk);
-            ps.setDate(2, replacement);
+            ps.setString(2, replacement);
             ps.executeUpdate();
             
             isNew = false;
@@ -67,7 +50,7 @@ public abstract class DateAttribute extends Attribute {
         catch (MySQLIntegrityConstraintViolationException e) {
             e.printStackTrace();
             String message = "Invalid value for " + attribute() + ".";
-            throw new RegException(message);	
+            throw new RegException(message);
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -104,11 +87,11 @@ public abstract class DateAttribute extends Attribute {
         ResultSet rs = null;
         try {
             insert(assetFk);
-            
             Connection conn = DBUtil.getConnection();
             ps = conn.prepareStatement("SELECT LAST_INSERT_ID() AS fk");
             rs = ps.executeQuery();
             rs.next();
+            
             int attributeFk = rs.getInt("fk");
             Log.updateAttribute(assetFk, attribute(), attributeFk);
             value = replacement;
@@ -119,7 +102,7 @@ public abstract class DateAttribute extends Attribute {
         finally {
             DBUtil.close(rs);
             DBUtil.close(ps);
-        }
+        }   
         
         
     }

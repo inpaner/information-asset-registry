@@ -1,31 +1,31 @@
-package model.bean;
+package model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import everything.DBUtil;
 
-public class Storage extends StringAttribute {
-    private static final String attribute = "Storage"; 
+public class Confidentiality extends RateableAttribute {
+    private static final String attribute = "Confidentiality"; 
     
-    protected Storage() {
+    protected Confidentiality() {
     }
-
+    
     @Override
     protected String attribute() {
         return attribute;
     }
-    
-    protected static Storage latest(int assetFk) {
+
+    protected static Confidentiality latest(int assetFk) {
         ResultSet rs = null;
-        Storage latest = null;
+        Confidentiality latest = null;
         try {
             rs = latestRS(assetFk, attribute);
             rs.next();
             
-            latest = new Storage();
+            latest = new Confidentiality();
             latest.assetFk = assetFk;
-            latest.value = rs.getString("value");
+            latest.value = rs.getInt("value");
             latest.isNew = false;
         }
         catch (SQLException ex) {
@@ -37,6 +37,4 @@ public class Storage extends StringAttribute {
             
         return latest;
     }
-    
-
 }

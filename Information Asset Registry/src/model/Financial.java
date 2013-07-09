@@ -1,29 +1,29 @@
-package model.bean;
+package model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import everything.DBUtil;
 
-public class Availability extends RateableAttribute {
-    private static final String attribute = "Availability"; 
-
-    protected Availability() {
+public class Financial extends RateableAttribute {
+    private static final String attribute = "Financial"; 
+    
+    protected Financial() {
     }
 
     @Override
     protected String attribute() {
         return attribute;
     }
-    
-    protected static Availability latest(int assetFk) {
+   
+    protected static Financial latest(int assetFk) {
         ResultSet rs = null;
-        Availability latest = null;
+        Financial latest = null;
         try {
             rs = latestRS(assetFk, attribute);
             rs.next();
             
-            latest = new Availability();
+            latest = new Financial();
             latest.assetFk = assetFk;
             latest.value = rs.getInt("value");
             latest.isNew = false;

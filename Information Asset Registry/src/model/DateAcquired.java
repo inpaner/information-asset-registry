@@ -1,14 +1,15 @@
-package model.bean;
+package model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Vector;
 
 import everything.DBUtil;
 
-public class Confidentiality extends RateableAttribute {
-    private static final String attribute = "Confidentiality"; 
+public class DateAcquired extends DateAttribute {
+    private static final String attribute = "DateAcquired"; 
     
-    protected Confidentiality() {
+    protected DateAcquired() {
     }
     
     @Override
@@ -16,16 +17,16 @@ public class Confidentiality extends RateableAttribute {
         return attribute;
     }
 
-    protected static Confidentiality latest(int assetFk) {
+    protected static DateAcquired latest(int assetFk) {
         ResultSet rs = null;
-        Confidentiality latest = null;
+        DateAcquired latest = null;
         try {
             rs = latestRS(assetFk, attribute);
             rs.next();
             
-            latest = new Confidentiality();
+            latest = new DateAcquired();
             latest.assetFk = assetFk;
-            latest.value = rs.getInt("value");
+            latest.value = rs.getDate("value");
             latest.isNew = false;
         }
         catch (SQLException ex) {
@@ -37,4 +38,6 @@ public class Confidentiality extends RateableAttribute {
             
         return latest;
     }
+    
+
 }

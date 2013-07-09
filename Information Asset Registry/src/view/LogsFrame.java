@@ -24,8 +24,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.border.BevelBorder;
 
-import model.bean.Asset;
-import model.bean.Log;
+import model.Asset;
+import model.Log;
 import view.eventhandling.AssetEvent;
 import view.eventhandling.AssetListener;
 import view.eventhandling.ControlListener;

@@ -21,15 +21,15 @@ import java.awt.Font;
 
 import javax.swing.JComboBox;
 
-import model.bean.Asset;
-import model.bean.Classification;
-import model.bean.Confidentiality;
-import model.bean.Custodian;
-import model.bean.Log;
-import model.bean.RateableAttribute;
-import model.bean.RegException;
-import model.bean.Type;
-import model.bean.User;
+import model.Asset;
+import model.Classification;
+import model.Confidentiality;
+import model.Custodian;
+import model.Log;
+import model.RateableAttribute;
+import model.RegException;
+import model.Type;
+import model.User;
 import view.eventhandling.AssetEvent;
 import view.eventhandling.AssetListener;
 import view.eventhandling.ControlListener;
