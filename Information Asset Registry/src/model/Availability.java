@@ -5,14 +5,14 @@ import java.sql.SQLException;
 
 import everything.DBUtil;
 
-public class Availability extends RateableAttribute {
+public class Availability extends IntegerAttribute {
     private static final String attribute = "Availability"; 
 
     protected Availability() {
     }
 
     @Override
-    protected String attribute() {
+    protected String getValue() {
         return attribute;
     }
     

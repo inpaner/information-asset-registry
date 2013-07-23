@@ -5,14 +5,14 @@ import java.sql.SQLException;
 
 import everything.DBUtil;
 
-public class Integrity extends RateableAttribute {
+public class Integrity extends IntegerAttribute {
     private static final String attribute = "Integrity"; 
     
     protected Integrity() {
     }
 
     @Override
-    protected String attribute() {
+    protected String getValue() {
         return attribute;
     }
 

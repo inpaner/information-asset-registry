@@ -48,7 +48,7 @@ public class Type extends StringAttribute {
         return validValues;
     }
     
-    protected String attribute() {
+    protected String getValue() {
         return attribute;
     }
     

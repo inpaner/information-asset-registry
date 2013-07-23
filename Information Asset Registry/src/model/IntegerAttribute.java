@@ -7,50 +7,23 @@ import java.sql.SQLException;
 import java.util.Collections;
 import java.util.Vector;
 
+import schemacrawler.schema.Column;
+
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 import everything.DBUtil;
 
-public abstract class RateableAttribute extends Attribute {
+public class IntegerAttribute extends Attribute {
     // TODO change to 
-    private static Vector<Integer> validValues = new Vector<Integer>(); 
     protected int value = 0;
     protected int replacement = 0;
     
-    // protected static <Attribute> latest(int assetFk);
-        // Java doesn't do abstract static, but latest() 
-        // is required by all attributes
-    
-    static {
-        queryValids();
+    private IntegerAttribute() {
+        
     }
     
-    private static void queryValids() {
-        Connection conn = DBUtil.newConnection();
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            ps = conn.prepareStatement(
-                "SELECT value " +
-                "FROM Rating "
-            ); 
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                validValues.add(rs.getInt("value"));
-            }
-            Collections.sort(validValues);
-        }
-        catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        finally {
-            DBUtil.close(ps);
-            DBUtil.close(conn);
-        }
-    }
-    
-    public static Vector<Integer> validValues() {
-        return validValues;
+    IntegerAttribute(Column column) {
+        name = column.getName();
     }
     
     public int value() {
@@ -74,7 +47,7 @@ public abstract class RateableAttribute extends Attribute {
             Connection conn = DBUtil.getConnection();
             System.out.println("here");
             String update = 
-                "INSERT INTO " + attribute() + " (assetFk, value) " +
+                "INSERT INTO " + getValue() + " (assetFk, value) " +
                 "VALUES (?, ?)";
             ps = conn.prepareStatement(update);                
             ps.setInt(1, assetFk);
@@ -86,7 +59,7 @@ public abstract class RateableAttribute extends Attribute {
         }
         catch (MySQLIntegrityConstraintViolationException e) {
             e.printStackTrace();
-            String message = "Invalid value for " + attribute() + ".";
+            String message = "Invalid value for " + getValue() + ".";
             throw new RegException(message);
         }
         catch (SQLException e) {
@@ -100,11 +73,11 @@ public abstract class RateableAttribute extends Attribute {
 
     protected void add(int assetFk) throws RegException {
         if (!isNew) {
-            String message = attribute() + " already exists.";
+            String message = getValue() + " already exists.";
             throw new RegException(message);            
         }
         if (value == 0) {
-            String message = attribute() + " not set.";
+            String message = getValue() + " not set.";
             throw new RegException(message);            
         }
         insert(assetFk);
@@ -112,7 +85,7 @@ public abstract class RateableAttribute extends Attribute {
     
     protected void update() throws RegException {
         if (isNew) {
-            String message = attribute() + " does not yet exist.";
+            String message = getValue() + " does not yet exist.";
             throw new RegException(message);   
         }
         
@@ -130,7 +103,7 @@ public abstract class RateableAttribute extends Attribute {
             rs.next();
             
             int attributeFk = rs.getInt("fk");
-            Log.updateAttribute(assetFk, attribute(), attributeFk);
+            Log.updateAttribute(assetFk, getValue(), attributeFk);
             value = replacement;
         }
         catch (SQLException ex) {
@@ -140,5 +113,18 @@ public abstract class RateableAttribute extends Attribute {
             DBUtil.close(rs);
             DBUtil.close(ps);
         }   
+    }
+
+    @Override
+    protected String getValue() {
+        return String.valueOf(value);
+    }
+
+    @Override
+    protected Attribute clone() {
+        IntegerAttribute clone = new IntegerAttribute();
+        clone.value = value;
+        clone.replacement = replacement;
+        return clone;
     }
 }

@@ -12,7 +12,7 @@ public class Storage extends StringAttribute {
     }
 
     @Override
-    protected String attribute() {
+    protected String getValue() {
         return attribute;
     }
     

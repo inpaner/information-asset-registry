@@ -9,22 +9,29 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import schemacrawler.schema.Column;
+
 import everything.DBUtil;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
-public abstract class DateAttribute extends Attribute {
+public class DateAttribute extends Attribute {
     protected Date value;
     protected Date replacement;
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
     
+    private DateAttribute() {
+        
+    }
     
-    // protected static Classification latest(int assetFk);
-        // Java doesn't do abstract static, but latest() 
-        // is required by all attributes
+    DateAttribute(Column column) {
+        name = column.getName();
+    }
     
     public Date value() {
         return value;
     }
+    
+    
     
     @Override
     public String toString() {
@@ -54,7 +61,7 @@ public abstract class DateAttribute extends Attribute {
         try {
             Connection conn = DBUtil.getConnection();
             String update = 
-                "INSERT INTO " + attribute() + " (assetFk, value) " +
+                "INSERT INTO " + getValue() + " (assetFk, value) " +
                 "VALUES (?, ?)";
             ps = conn.prepareStatement(update);                
             ps.setInt(1, assetFk);
@@ -66,7 +73,7 @@ public abstract class DateAttribute extends Attribute {
         }
         catch (MySQLIntegrityConstraintViolationException e) {
             e.printStackTrace();
-            String message = "Invalid value for " + attribute() + ".";
+            String message = "Invalid value for " + getValue() + ".";
             throw new RegException(message);	
         }
         catch (SQLException e) {
@@ -80,11 +87,11 @@ public abstract class DateAttribute extends Attribute {
 
     protected void add(int assetFk) throws RegException {
         if (!isNew) {
-            String message = attribute() + " already exists.";
+            String message = getValue() + " already exists.";
             throw new RegException(message);            
         }
         if (value == null) {
-            String message = attribute() + " not set.";
+            String message = getValue() + " not set.";
             throw new RegException(message);            
         }
         insert(assetFk);
@@ -92,7 +99,7 @@ public abstract class DateAttribute extends Attribute {
     
     protected void update() throws RegException {
         if (isNew) {
-            String message = attribute() + " does not yet exist.";
+            String message = getValue() + " does not yet exist.";
             throw new RegException(message);   
         }
         
@@ -110,7 +117,7 @@ public abstract class DateAttribute extends Attribute {
             rs = ps.executeQuery();
             rs.next();
             int attributeFk = rs.getInt("fk");
-            Log.updateAttribute(assetFk, attribute(), attributeFk);
+            Log.updateAttribute(assetFk, getValue(), attributeFk);
             value = replacement;
         }
         catch (SQLException ex) {
@@ -122,5 +129,18 @@ public abstract class DateAttribute extends Attribute {
         }
         
         
+    }
+
+    @Override
+    protected String getValue() {
+        return value.toString();
+    }
+
+    @Override
+    protected Attribute clone() {
+        DateAttribute clone = new DateAttribute();
+        clone.value = value;
+        clone.replacement = replacement;
+        return clone;
     }
 }

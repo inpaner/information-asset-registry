@@ -5,26 +5,38 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import schemacrawler.schema.Column;
+
 import everything.DBUtil;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
-public abstract class StringAttribute extends Attribute {
+public class StringAttribute extends PrimaryAttribute {
     protected String value;
     protected String replacement;
     
-    // protected static <Attribute> latest(int assetFk);
-        // Java doesn't do abstract static, but latest() 
-        // is required by all attributes
+    private StringAttribute(StringAttribute toClone) {
+        value = toClone.value;
+        replacement = toClone.replacement;
+    }
+    
+    StringAttribute(Column column) {
+        name = column.getName();
+    }
     
     public String value() {
         return value;
     }
-    
+
     @Override
     public String toString() {
         return value;
     }
-
+    
+    public StringAttribute(int assetFk, String value) {
+        this.assetFk = assetFk;
+        setValue(value);
+    }
+    
     public void setValue(String value) {
         replacement = value;
         if (isNew)
@@ -37,7 +49,7 @@ public abstract class StringAttribute extends Attribute {
         try {
             Connection conn = DBUtil.getConnection();
             String update = 
-                "INSERT INTO `" + attribute() + "` (assetFk, value) " +
+                "INSERT INTO `" + getValue() + "` (assetFk, value) " +
                 "VALUES (?, ?)";
             ps = conn.prepareStatement(update);                
             ps.setInt(1, assetFk);
@@ -49,7 +61,7 @@ public abstract class StringAttribute extends Attribute {
         }
         catch (MySQLIntegrityConstraintViolationException e) {
             e.printStackTrace();
-            String message = "Invalid value for " + attribute() + ".";
+            String message = "Invalid value for " + getValue() + ".";
             throw new RegException(message);
         }
         catch (SQLException e) {
@@ -63,11 +75,11 @@ public abstract class StringAttribute extends Attribute {
 
     protected void add(int assetFk) throws RegException {
         if (!isNew) {
-            String message = attribute() + " already exists.";
+            String message = getValue() + " already exists.";
             throw new RegException(message);            
         }
         if (value == null) {
-            String message = attribute() + " not set.";
+            String message = getValue() + " not set.";
             throw new RegException(message);            
         }
         insert(assetFk);
@@ -75,7 +87,7 @@ public abstract class StringAttribute extends Attribute {
     
     protected void update() throws RegException {
         if (isNew) {
-            String message = attribute() + " does not yet exist.";
+            String message = getValue() + " does not yet exist.";
             throw new RegException(message);   
         }
         
@@ -93,7 +105,7 @@ public abstract class StringAttribute extends Attribute {
             rs.next();
             
             int attributeFk = rs.getInt("fk");
-            Log.updateAttribute(assetFk, attribute(), attributeFk);
+            Log.updateAttribute(assetFk, getValue(), attributeFk);
             value = replacement;
         }
         catch (SQLException ex) {
@@ -103,7 +115,16 @@ public abstract class StringAttribute extends Attribute {
             DBUtil.close(rs);
             DBUtil.close(ps);
         }   
-        
-        
+    }
+
+    @Override
+    protected String getValue() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected Attribute clone() {
+        return new StringAttribute(this);
     }
 }

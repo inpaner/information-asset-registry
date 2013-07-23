@@ -13,7 +13,7 @@ public class RetentionPeriod extends DateAttribute {
     }
     
     @Override
-    protected String attribute() {
+    protected String getValue() {
         return attribute;
     }
 

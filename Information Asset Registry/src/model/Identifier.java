@@ -12,7 +12,7 @@ public class Identifier extends StringAttribute {
     }
     
     @Override
-    protected String attribute() {
+    protected String getValue() {
         return attribute;
     }
     

@@ -26,7 +26,7 @@ import model.Classification;
 import model.Confidentiality;
 import model.Custodian;
 import model.Log;
-import model.RateableAttribute;
+import model.IntegerAttribute;
 import model.RegException;
 import model.Type;
 import view.eventhandling.AssetEvent;
@@ -554,7 +554,7 @@ public class ViewAssetFrame extends View implements ActionListener {
 	}
 
 	private void loadValues() {
-		Vector<Integer> validValues = RateableAttribute.validValues();
+		Vector<Integer> validValues = IntegerAttribute.validValues();
 		comboBoxConfidentiality.removeAllItems();
 		comboBoxIntegrity.removeAllItems();
 		comboBoxAvailability.removeAllItems();

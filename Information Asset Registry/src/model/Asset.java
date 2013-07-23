@@ -9,6 +9,8 @@ import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Vector;
 
+import model.utils.Query;
+
 import everything.DBUtil;
 
 public class Asset {
@@ -35,19 +37,6 @@ public class Asset {
     
     public Asset() {
         pk = 0;
-        name = new Name();
-        identifier = new Identifier();
-        owner = new Owner();
-        custodian = new Custodian();
-        type = new Type();
-        dateAcquired = new DateAcquired();
-        retentionPeriod = new RetentionPeriod();
-        financial = new Financial();
-        confidentiality = new Confidentiality();
-        integrity = new Integrity();
-        availability = new Availability();
-        classification = new Classification();
-        storage = new Storage();
     }
     public Name name() {
         return name;
@@ -236,7 +225,6 @@ public class Asset {
             classification.update();
             storage.update();
             
-            
             integrity.update();
             // TODO Log.update();
             
@@ -304,17 +292,33 @@ public class Asset {
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
-            ps = conn.prepareStatement(
-                "SELECT pk " +
-                "FROM Asset " +
-                "WHERE pk = (?) "
-            ); 
+            Query query = new Query();
+            query.addProjection("pk");
+            query.addProjection("name");
+            query.addProjection("identifier");
+            query.addProjection("ownerFk");
+            query.addProjection("custodianFk");
+            query.addProjection("dateAcquired");
+            query.addProjection("retentionPeriod");
+            query.addProjection("maintenanceSchedule");
+            query.addProjection("typeFk");
+            query.addProjection("storage");
+            query.addProjection("financialFk");
+            query.addProjection("confidentialityFk");
+            query.addProjection("integrityFk");
+            query.addProjection("availabilityFk");
+            
+            query.addTable("Asset");
+            query.addCondition("pk = (?)");
+            
+            
+            ps = conn.prepareStatement(query.toString()); 
             ps.setInt(1, pk);
             rs = ps.executeQuery();
             if (rs.next()) {
                 this.pk = pk;
                 
-                name = Name.latest(pk);
+                name = new Name(pk, rs.getString("name"));
                 identifier = Identifier.latest(pk);
                 owner = Owner.latest(pk);
                 custodian = Custodian.latest(pk);

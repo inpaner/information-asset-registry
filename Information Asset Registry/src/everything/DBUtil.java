@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
-
 public class DBUtil {
     private static String dbUrl;
     private static String dbName;
@@ -29,6 +28,8 @@ public class DBUtil {
         dbDriver = rb.getString("dbDriver");
         username = rb.getString("username");
         password = rb.getString("password");
+        
+
     }
     
     public static Connection getConnection() {
@@ -38,7 +39,7 @@ public class DBUtil {
     public static Connection newConnection() {            
         try {
             Class.forName(dbDriver).newInstance();
-            conn = DriverManager.getConnection(dbUrl+dbName,username,password);
+            conn = DriverManager.getConnection(dbUrl + dbName, username, password);
         }
         catch(Exception e){
             e.printStackTrace();

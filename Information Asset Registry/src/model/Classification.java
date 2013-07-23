@@ -48,7 +48,7 @@ public class Classification extends StringAttribute {
         return validValues;
     }
     
-    protected String attribute() {
+    protected String getValue() {
         return attribute;
     }
     

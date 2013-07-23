@@ -5,14 +5,14 @@ import java.sql.SQLException;
 
 import everything.DBUtil;
 
-public class Financial extends RateableAttribute {
+public class Financial extends IntegerAttribute {
     private static final String attribute = "Financial"; 
     
     protected Financial() {
     }
 
     @Override
-    protected String attribute() {
+    protected String getValue() {
         return attribute;
     }
    

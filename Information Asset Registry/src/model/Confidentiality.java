@@ -5,14 +5,14 @@ import java.sql.SQLException;
 
 import everything.DBUtil;
 
-public class Confidentiality extends RateableAttribute {
+public class Confidentiality extends IntegerAttribute {
     private static final String attribute = "Confidentiality"; 
     
     protected Confidentiality() {
     }
     
     @Override
-    protected String attribute() {
+    protected String getValue() {
         return attribute;
     }
 
