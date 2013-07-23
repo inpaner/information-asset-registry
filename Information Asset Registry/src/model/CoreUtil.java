@@ -18,7 +18,6 @@ public class CoreUtil {
     private static HashMap<String, Core> models;
     private static HashMap<String, HashMap<String, Core>> coreCollection;
     
-    
     public static void main(String[] args) {
         init();
     }

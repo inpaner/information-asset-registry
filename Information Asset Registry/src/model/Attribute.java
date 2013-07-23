@@ -9,8 +9,9 @@ public abstract class Attribute {
         return name;
     }
     
+    @Override
+    protected abstract Attribute clone();
     protected abstract String getValue();
     protected abstract void update() throws RegException;
-    protected abstract Attribute clone();
     
 }

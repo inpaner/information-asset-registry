@@ -13,143 +13,20 @@ import model.utils.Query;
 
 import everything.DBUtil;
 
+/////
+// REMNANT!
+// Will be replaced by Core
+// Temporarily retained to retrieve methods later
+
 public class Asset {
     private static HashMap<Integer, Asset> cache;
     
     private int pk;
-    private Name name;
-    private Identifier identifier;
-    private Owner owner;
-    private Custodian custodian;
-    private Type type;
-    private DateAcquired dateAcquired;
-    private RetentionPeriod retentionPeriod;
-    private Financial financial;
-    private Confidentiality confidentiality;
-    private Integrity integrity;
-    private Availability availability;
-    private Classification classification;
-    private Storage storage;
-    
+   
     static {
         cache = new HashMap<>();
     }
     
-    public Asset() {
-        pk = 0;
-    }
-    public Name name() {
-        return name;
-    }
-
-    public Identifier identifier() {
-        return identifier;
-    }
-
-    public Owner owner() {
-        return owner;
-    }
-
-    public Custodian custodian() {
-        return custodian;
-    }
-
-    public Type type() {
-        return type;
-    }
-
-    public DateAcquired dateAcquired() {
-        return dateAcquired;
-    }
-
-    public RetentionPeriod retentionPeriod() {
-        return retentionPeriod;
-    }
-
-    public Financial getFinancial() {
-        return financial;
-    }
-
-    public Confidentiality confidentiality() {
-        return confidentiality;
-    }
-
-    public Integrity integrity() {
-        return integrity;
-    }
-
-    public Availability availability() {
-        return availability;
-    }
-
-    public Classification classification() {
-        return classification;
-    }
-
-    public Storage storage() {
-        return storage;
-    }
-
-    public void setName(String value) {
-        name.setValue(value);
-    }
-
-    public void setIdentifier(String value) {
-        identifier.setValue(value);
-    }
-
-    public void setOwner(String value) {
-        owner.setValue(value);
-    }
-
-    public void setCustodian(String value) {
-        custodian.setValue(value);
-    }
-
-    public void setDateAcquired(Date value) {
-        dateAcquired.setValue(value);
-    }
-
-    public void setDateAcquired(String text) throws RegException {
-        dateAcquired.setValue(text);
-    }
-    
-    public void setRetentionPeriod(Date value) {
-        retentionPeriod.setValue(value);
-    }
-
-    public void setRetentionPeriod(String text) throws RegException {
-        retentionPeriod.setValue(text);
-    }
-    
-    public void setFinancial(int value) {
-        financial.setValue(value);
-    }
-
-    public void setConfidentiality(int value) {
-        confidentiality.setValue(value);
-    }
-
-    public void setIntegrity(int value) {
-        integrity.setValue(value);
-    }
-
-    public void setAvailability(int value) {
-        availability.setValue(value);
-    }
-
-    public void setClassification(String value) {
-        classification.setValue(value);
-    }
-
-    public void setStorage(String value) {
-        storage.setValue(value);
-    }
-
-    public void setType(String value) {
-        type.setValue(value);
-    }
-
     public void add() throws RegException {
         if (pk != 0) {
             String message = "Asset already added.";
