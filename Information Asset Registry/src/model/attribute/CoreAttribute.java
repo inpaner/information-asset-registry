@@ -1,5 +1,8 @@
 package model.attribute;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import model.Core;
 import model.CoreUtil;
 import model.RegException;
@@ -36,6 +39,12 @@ public class CoreAttribute extends Attribute {
     @Override
     public Attribute clone() {
         return new CoreAttribute(this);
+    }
+
+    @Override
+    public void forceValue(ResultSet rs) throws SQLException {
+        int pk = rs.getInt(name);
+        value = CoreUtil.getCore(name, pk);
     }
     
 }

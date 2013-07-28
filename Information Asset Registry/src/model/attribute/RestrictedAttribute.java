@@ -87,7 +87,6 @@ public class RestrictedAttribute extends Attribute {
         // TODO Auto-generated method stub
     }
 
-
     @Override
     public Attribute clone() {
         RestrictedAttribute clone = new RestrictedAttribute();
@@ -95,6 +94,12 @@ public class RestrictedAttribute extends Attribute {
         clone.replacement = (PrimaryAttribute) replacement.clone();
         clone.possibleAttributes = possibleAttributes;
         return clone;
+    }
+
+    @Override
+    public void forceValue(ResultSet rs) throws SQLException {
+        int pk = rs.getInt("pk");
+        value = possibleAttributes.get(pk);
     }
 
 }

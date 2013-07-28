@@ -22,7 +22,6 @@ public class IntegerAttribute extends PrimaryAttribute {
     protected int replacement = 0;
     
     private IntegerAttribute() {
-        
     }
     
     IntegerAttribute(Column column) {
@@ -140,5 +139,10 @@ public class IntegerAttribute extends PrimaryAttribute {
     @Override
     public void forceValue(String value) {
         this.value = Integer.valueOf(value);
+    }
+
+    @Override
+    public void forceValue(ResultSet rs) throws SQLException {
+        value = rs.getInt(name);
     }
 }

@@ -153,4 +153,9 @@ public class DateAttribute extends PrimaryAttribute {
     public void forceValue(String value) {
         this.value = Date.valueOf(value);
     }
+
+    @Override
+    public void forceValue(ResultSet rs) throws SQLException {
+        value = rs.getDate(name);
+    }
 }

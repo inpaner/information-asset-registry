@@ -133,7 +133,12 @@ public class StringAttribute extends PrimaryAttribute {
     }
 
     @Override
-    public void forceValue(String value) {
+    protected void forceValue(String value) {
         this.value = value;
+    }
+
+    @Override
+    public void forceValue(ResultSet rs) throws SQLException {
+        value = rs.getString(name);
     }
 }
