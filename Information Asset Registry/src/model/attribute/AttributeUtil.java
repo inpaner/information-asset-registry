@@ -1,10 +1,11 @@
-package model;
+package model.attribute;
 
+import model.CoreUtil;
 import schemacrawler.schema.Column;
 
 public class AttributeUtil {
     
-    protected static Attribute build(Column column) {
+    public static Attribute build(Column column) {
         Attribute attribute;
         if (column.isPartOfForeignKey()) {
             attribute = foreignUtil(column);
@@ -17,7 +18,8 @@ public class AttributeUtil {
     
     private static Attribute foreignUtil(Column column) {
         Attribute attribute;
-        if (CoreUtil.isCore(column.getName())) {
+        String referencedTable = column.getReferencedColumn().getParent().getName();
+        if (CoreUtil.isCore(referencedTable)) {
             attribute = new CoreAttribute(column);
         }
         // TODO CompoundAttribute

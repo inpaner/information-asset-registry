@@ -1,9 +1,12 @@
-package model;
+package model.attribute;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import model.Log;
+import model.RegException;
 
 import schemacrawler.schema.Column;
 
@@ -15,15 +18,16 @@ public class StringAttribute extends PrimaryAttribute {
     protected String replacement;
     
     private StringAttribute(StringAttribute toClone) {
+        super();
         value = toClone.value;
         replacement = toClone.replacement;
     }
     
     StringAttribute(Column column) {
-        name = column.getName();
+        super(column);
     }
     
-    public String value() {
+    public String getValueString() {
         return value;
     }
 
@@ -124,7 +128,12 @@ public class StringAttribute extends PrimaryAttribute {
     }
 
     @Override
-    protected Attribute clone() {
+    public Attribute clone() {
         return new StringAttribute(this);
+    }
+
+    @Override
+    public void forceValue(String value) {
+        this.value = value;
     }
 }

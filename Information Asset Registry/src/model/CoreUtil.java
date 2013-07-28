@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import model.attribute.Attribute;
+import model.attribute.AttributeUtil;
+
 import schemacrawler.schema.Column;
 import schemacrawler.schema.Database;
 import schemacrawler.schema.Schema;
@@ -42,6 +45,7 @@ public class CoreUtil {
         try {
             database = SchemaCrawlerUtility.getDatabase(conn, options);
             for (Core model : models.values()) {
+                System.out.println("******" + model.getName());
                 build(database, model);
             }
         }
@@ -51,16 +55,20 @@ public class CoreUtil {
         finally {
             DBUtil.close(conn);
         }
+        
+        
     }
     
-    protected static boolean isCore(String name) {
+    public static boolean isCore(String name) {
         boolean isCore = false;
+        
+        name = name.replace("`", "");
         if (models.keySet().contains(name))
             isCore = true;
         return isCore;
     }
     
-    protected static Core getModel(String name) {
+    public static Core getModel(String name) {
         return models.get(name);
     }
     
@@ -94,10 +102,13 @@ public class CoreUtil {
         }
         
         for (Column column: table.getColumns()) {
-            System.out.println(column.getColumnDataType().getName());
+            //System.out.println(column.getColumnDataType().getName());
             Attribute attribute = AttributeUtil.build(column);
+            System.out.println(attribute.getClass());
+            
             model.addAttribute(attribute);
         }
+        
     }
     
     public void testSchema() {

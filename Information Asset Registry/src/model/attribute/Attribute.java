@@ -1,17 +1,27 @@
-package model;
+package model.attribute;
+
+import schemacrawler.schema.Column;
+import model.RegException;
 
 public abstract class Attribute {
     protected int assetFk;
     protected boolean isNew = true;
     protected String name;
     
-    protected String getName() {
+    public String getName() {
         return name;
     }
     
+    protected Attribute() {
+    }
+    
+    protected Attribute(Column column) {
+        name = column.getName();
+    }
+    
     @Override
-    protected abstract Attribute clone();
-    protected abstract String getValue();
+    public abstract Attribute clone();
+    protected abstract String getValueString();
     protected abstract void update() throws RegException;
     
 }

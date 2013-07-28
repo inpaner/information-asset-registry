@@ -1,4 +1,4 @@
-package model;
+package model.attribute;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -9,32 +9,28 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import model.Log;
+import model.RegException;
+
 import schemacrawler.schema.Column;
 
 import everything.DBUtil;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
-public class DateAttribute extends Attribute {
+public class DateAttribute extends PrimaryAttribute {
     protected Date value;
     protected Date replacement;
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
     
     private DateAttribute() {
-        
     }
     
     DateAttribute(Column column) {
-        name = column.getName();
+        super(column);
     }
-    
-    public Date value() {
-        return value;
-    }
-    
-    
     
     @Override
-    public String toString() {
+    public String getValueString() {
         return dateFormat.format(value);
     }
 
@@ -54,7 +50,7 @@ public class DateAttribute extends Attribute {
             throw new RegException("Date format: MM/dd/yyyy");
         }
     }
-
+/*
     private void insert(int assetFk) throws RegException {
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -131,16 +127,30 @@ public class DateAttribute extends Attribute {
         
     }
 
-    @Override
-    protected String getValue() {
-        return value.toString();
-    }
+*/
 
     @Override
-    protected Attribute clone() {
+    public Attribute clone() {
         DateAttribute clone = new DateAttribute();
         clone.value = value;
         clone.replacement = replacement;
         return clone;
+    }
+
+    @Override
+    protected void update() throws RegException {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    protected String getValue() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void forceValue(String value) {
+        this.value = Date.valueOf(value);
     }
 }

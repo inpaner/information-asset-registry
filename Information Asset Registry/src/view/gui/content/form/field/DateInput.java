@@ -1,5 +1,5 @@
 package view.gui.content.form.field;
-import model.RestrictedAttribute;
+import model.attribute.RestrictedAttribute;
 
 public class DateInput extends Input{
 	

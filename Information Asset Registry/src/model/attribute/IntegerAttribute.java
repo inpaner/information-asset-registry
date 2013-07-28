@@ -1,4 +1,4 @@
-package model;
+package model.attribute;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,13 +7,16 @@ import java.sql.SQLException;
 import java.util.Collections;
 import java.util.Vector;
 
+import model.Log;
+import model.RegException;
+
 import schemacrawler.schema.Column;
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 import everything.DBUtil;
 
-public class IntegerAttribute extends Attribute {
+public class IntegerAttribute extends PrimaryAttribute {
     // TODO change to 
     protected int value = 0;
     protected int replacement = 0;
@@ -47,7 +50,7 @@ public class IntegerAttribute extends Attribute {
             Connection conn = DBUtil.getConnection();
             System.out.println("here");
             String update = 
-                "INSERT INTO " + getValue() + " (assetFk, value) " +
+                "INSERT INTO " + getValueString() + " (assetFk, value) " +
                 "VALUES (?, ?)";
             ps = conn.prepareStatement(update);                
             ps.setInt(1, assetFk);
@@ -59,7 +62,7 @@ public class IntegerAttribute extends Attribute {
         }
         catch (MySQLIntegrityConstraintViolationException e) {
             e.printStackTrace();
-            String message = "Invalid value for " + getValue() + ".";
+            String message = "Invalid value for " + getValueString() + ".";
             throw new RegException(message);
         }
         catch (SQLException e) {
@@ -73,11 +76,11 @@ public class IntegerAttribute extends Attribute {
 
     protected void add(int assetFk) throws RegException {
         if (!isNew) {
-            String message = getValue() + " already exists.";
+            String message = getValueString() + " already exists.";
             throw new RegException(message);            
         }
         if (value == 0) {
-            String message = getValue() + " not set.";
+            String message = getValueString() + " not set.";
             throw new RegException(message);            
         }
         insert(assetFk);
@@ -85,7 +88,7 @@ public class IntegerAttribute extends Attribute {
     
     protected void update() throws RegException {
         if (isNew) {
-            String message = getValue() + " does not yet exist.";
+            String message = getValueString() + " does not yet exist.";
             throw new RegException(message);   
         }
         
@@ -103,7 +106,7 @@ public class IntegerAttribute extends Attribute {
             rs.next();
             
             int attributeFk = rs.getInt("fk");
-            Log.updateAttribute(assetFk, getValue(), attributeFk);
+            Log.updateAttribute(assetFk, getValueString(), attributeFk);
             value = replacement;
         }
         catch (SQLException ex) {
@@ -116,15 +119,26 @@ public class IntegerAttribute extends Attribute {
     }
 
     @Override
-    protected String getValue() {
+    protected String getValueString() {
         return String.valueOf(value);
     }
 
     @Override
-    protected Attribute clone() {
+    public Attribute clone() {
         IntegerAttribute clone = new IntegerAttribute();
         clone.value = value;
         clone.replacement = replacement;
         return clone;
+    }
+
+    @Override
+    protected String getValue() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void forceValue(String value) {
+        this.value = Integer.valueOf(value);
     }
 }

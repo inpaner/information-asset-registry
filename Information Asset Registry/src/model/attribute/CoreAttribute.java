@@ -1,5 +1,8 @@
-package model;
+package model.attribute;
 
+import model.Core;
+import model.CoreUtil;
+import model.RegException;
 import schemacrawler.schema.Column;
 
 public class CoreAttribute extends Attribute {
@@ -12,8 +15,8 @@ public class CoreAttribute extends Attribute {
     }
     
     CoreAttribute(Column column) {
-        Core model = CoreUtil.getModel(column.getName());
-        value = model;
+        value = CoreUtil.getModel(column.getName());
+        name = column.getName();
     }
     
     protected Core model() {
@@ -21,8 +24,7 @@ public class CoreAttribute extends Attribute {
     }
     
     @Override
-    protected String getValue() {
-        // TODO Auto-generated method stub
+    protected String getValueString() {
         return null;
     }
 
@@ -32,8 +34,8 @@ public class CoreAttribute extends Attribute {
     }
 
     @Override
-    protected Attribute clone() {
+    public Attribute clone() {
         return new CoreAttribute(this);
     }
-
+    
 }

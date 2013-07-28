@@ -1,10 +1,10 @@
 package view.gui.content.form.field;
 import javax.swing.JComponent;
 
-import model.Attribute;
-import model.CoreAttribute;
-import model.RestrictedAttribute;
-import model.StringAttribute;
+import model.attribute.Attribute;
+import model.attribute.CoreAttribute;
+import model.attribute.RestrictedAttribute;
+import model.attribute.StringAttribute;
 
 public abstract class Input {
 	protected JComponent component;

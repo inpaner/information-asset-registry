@@ -1,6 +1,9 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+
+import model.attribute.Attribute;
 
 public class Core {
     private Attribute pk;
@@ -42,6 +45,10 @@ public class Core {
     @Override
     public Core clone() {
         return new Core(this);
+    }
+
+    public ArrayList<Attribute> getAttributes() {
+        return new ArrayList<>(attributes.values());
     }
 }
     

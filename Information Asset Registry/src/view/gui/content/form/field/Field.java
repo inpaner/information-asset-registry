@@ -1,7 +1,7 @@
 package view.gui.content.form.field;
 import javax.swing.JLabel;
 
-import model.Attribute;
+import model.attribute.Attribute;
 
 public class Field {
 	
