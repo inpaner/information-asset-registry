@@ -1,4 +1,4 @@
-package model.sql;
+package model.utils;
 
 import java.util.LinkedHashSet;
 
@@ -16,6 +16,7 @@ public class SQLBuilder {
     public void addAttribute(String attribute) {
         attributes.add(attribute);
     }
+    
     
     
     public String toString() {

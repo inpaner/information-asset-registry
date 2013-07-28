@@ -1,4 +1,4 @@
-package model.sql;
+package model.utils;
 
 import java.util.LinkedHashSet;
 
