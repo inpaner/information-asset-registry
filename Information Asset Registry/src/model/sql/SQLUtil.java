@@ -1,4 +1,4 @@
-package model.utils;
+package model.sql;
 
 import model.Core;
 import model.attribute.Attribute;
