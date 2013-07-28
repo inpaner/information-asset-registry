@@ -26,6 +26,11 @@ public class CoreUtil {
     
     public static void main(String[] args) {
         init();
+        Core core = getCore("asset", 1);
+        for (Attribute a : core.getAttributes()) {
+            System.out.println(a.getValueString());
+        }
+        
     }
     
     protected static void init() {
@@ -39,6 +44,7 @@ public class CoreUtil {
         
         for (String name : coreNames) {
             models.put(name, new Core(name));
+            coreCache.put(name, new HashMap<Integer, Core>());
         }
         
         Connection conn = DBUtil.newConnection();
@@ -59,8 +65,6 @@ public class CoreUtil {
         finally {
             DBUtil.close(conn);
         }
-        
-        
     }
     
     public static boolean isCore(String name) {
@@ -113,7 +117,9 @@ public class CoreUtil {
     public static Core getCore(String coreName, int pk) {
         Core toGet = coreCache.get(coreName).get(pk);
         if (toGet == null) {
-            toGet = new Core(pk);
+            toGet = getAddable(coreName);
+            toGet.setPk(pk);
+            toGet.refresh();
             coreCache.get(coreName).put(pk, toGet);
         }
         return toGet;
@@ -132,16 +138,14 @@ public class CoreUtil {
         }
         
         for (Column column: table.getColumns()) {
-            //System.out.println(column.getColumnDataType().getName());
+            if (column.isPartOfPrimaryKey())
+                continue;
             Attribute attribute = AttributeUtil.build(column);
             System.out.println(attribute.getClass());
             
             model.addAttribute(attribute);
         }
-        
     }
     
-    public void testSchema() {
 
-    }
 }

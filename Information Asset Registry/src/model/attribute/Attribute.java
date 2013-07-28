@@ -19,12 +19,12 @@ public abstract class Attribute {
     }
     
     protected Attribute(Column column) {
-        name = column.getName();
+        name = column.getName().replace("`", "");
     }
     
     @Override
     public abstract Attribute clone();
-    protected abstract String getValueString();
+    public abstract String getValueString();
     protected abstract void update() throws RegException;
     
     // TODO check for null forceValues

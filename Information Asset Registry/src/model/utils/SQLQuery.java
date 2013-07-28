@@ -17,7 +17,7 @@ public class SQLQuery {
     }
     
     void addProjection(String projection) {
-        projections.add(projection);
+        projections.add("`" + projection + "`");
     }
 
     void addTable(String table) {

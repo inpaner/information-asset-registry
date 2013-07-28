@@ -132,8 +132,11 @@ public class DateAttribute extends PrimaryAttribute {
     @Override
     public Attribute clone() {
         DateAttribute clone = new DateAttribute();
-        clone.value = value;
-        clone.replacement = replacement;
+        clone.name = name;
+        if (value != null)
+            clone.value = (Date) value.clone();
+        if (replacement != null)
+            clone.replacement = (Date) replacement.clone();
         return clone;
     }
 

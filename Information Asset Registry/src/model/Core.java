@@ -16,23 +16,23 @@ import model.utils.SQLUtil;
 public class Core {
     private int pk;
     private String name;
-    private HashMap<String, Attribute> attributes;
-    
-    Core(int pk) {
-        this.pk = pk;
-        refresh();
-    }
+    private ArrayList<Attribute> attributes;
     
     Core(String name) {
-        attributes = new HashMap<>();
+        attributes = new ArrayList<>();
         this.name = name;
     }
 
     private Core(Core toCopy) {
         this(toCopy.name);
-        for (Attribute attribute : toCopy.attributes.values()) {
-            addAttribute(attribute.clone());
+        for (Attribute attribute : toCopy.attributes) {
+            Attribute clone = attribute.clone();
+            addAttribute(clone);
         }
+    }
+    
+    protected void setPk(int pk) {
+        this.pk = pk;
     }
     
     public void add() {
@@ -55,7 +55,8 @@ public class Core {
             SQLQuery query = SQLUtil.refreshCoreQuery(this);                        
             ps = conn.prepareStatement(query.toString()); 
             rs = ps.executeQuery();
-            for (Attribute attribute : attributes.values()) {
+            rs.next();
+            for (Attribute attribute : attributes) {
                 attribute.forceValue(rs);
             }
         }
@@ -74,7 +75,7 @@ public class Core {
     }
     
     protected void addAttribute(Attribute attribute) {
-        attributes.put(attribute.getName(), attribute);
+        attributes.add(attribute);
     }
     
     @Override
@@ -83,7 +84,7 @@ public class Core {
     }
 
     public ArrayList<Attribute> getAttributes() {
-        return new ArrayList<>(attributes.values());
+        return attributes;
     }
 
     public int getPk() {

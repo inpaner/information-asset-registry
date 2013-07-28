@@ -25,7 +25,7 @@ public class IntegerAttribute extends PrimaryAttribute {
     }
     
     IntegerAttribute(Column column) {
-        name = column.getName();
+        super(column);
     }
     
     public int value() {
@@ -118,13 +118,14 @@ public class IntegerAttribute extends PrimaryAttribute {
     }
 
     @Override
-    protected String getValueString() {
+    public String getValueString() {
         return String.valueOf(value);
     }
 
     @Override
     public Attribute clone() {
         IntegerAttribute clone = new IntegerAttribute();
+        clone.name = name;
         clone.value = value;
         clone.replacement = replacement;
         return clone;

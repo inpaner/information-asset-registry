@@ -76,9 +76,8 @@ public class RestrictedAttribute extends Attribute {
     }
     
     @Override
-    protected String getValueString() {
-        // TODO Auto-generated method stub
-        return null;
+    public String getValueString() {
+        return value.getValueString();
     }
 
 
@@ -90,8 +89,11 @@ public class RestrictedAttribute extends Attribute {
     @Override
     public Attribute clone() {
         RestrictedAttribute clone = new RestrictedAttribute();
-        clone.value = (PrimaryAttribute) value.clone();
-        clone.replacement = (PrimaryAttribute) replacement.clone();
+        clone.name = name;
+        if (value != null)
+            clone.value = (PrimaryAttribute) value.clone();
+        if (replacement != null)
+            clone.replacement = (PrimaryAttribute) replacement.clone();
         clone.possibleAttributes = possibleAttributes;
         return clone;
     }

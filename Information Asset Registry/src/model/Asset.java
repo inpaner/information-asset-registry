@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Vector;
 
-import model.utils.Query;
+import model.utils.SQLQuery;
 
 import everything.DBUtil;
 
@@ -169,7 +169,7 @@ public class Asset {
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
-            Query query = new Query();
+            SQLQuery query = new SQLQuery();
             query.addProjection("pk");
             query.addProjection("name");
             query.addProjection("identifier");

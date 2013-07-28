@@ -17,10 +17,7 @@ public class StringAttribute extends PrimaryAttribute {
     protected String value;
     protected String replacement;
     
-    private StringAttribute(StringAttribute toClone) {
-        super();
-        value = toClone.value;
-        replacement = toClone.replacement;
+    private StringAttribute() {
     }
     
     StringAttribute(Column column) {
@@ -129,7 +126,12 @@ public class StringAttribute extends PrimaryAttribute {
 
     @Override
     public Attribute clone() {
-        return new StringAttribute(this);
+        StringAttribute clone = new StringAttribute();
+        clone.name = name;
+        clone.value = value;
+        clone.replacement = replacement;
+        
+        return clone;
     }
 
     @Override
