@@ -36,7 +36,7 @@ public class CoreAttribute extends Attribute {
     }
 
     @Override
-    protected void update() throws RegException {
+    public void update() throws RegException {
         // TODO Auto-generated method stub
     }
 
@@ -57,6 +57,16 @@ public class CoreAttribute extends Attribute {
     public void forceValue(ResultSet rs) throws SQLException {
         int pk = rs.getInt(name);
         value = CoreUtil.getCore(model.getName(), pk);
+    }
+
+    @Override
+    public boolean isUpdated() {
+        return !value.equals(replacement);
+    }
+
+    @Override
+    public void commitValue() {
+        value = replacement;
     }
     
 }

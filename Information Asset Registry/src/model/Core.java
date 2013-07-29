@@ -10,8 +10,8 @@ import java.util.HashMap;
 import everything.DBUtil;
 
 import model.attribute.Attribute;
-import model.utils.SQLQuery;
-import model.utils.SQLUtil;
+import model.sql.SQLQuery;
+import model.sql.SQLUtil;
 
 public class Core {
     private int pk;
@@ -36,7 +36,27 @@ public class Core {
     }
     
     public void add() {
+        // TODO check if all attributes are valid
         
+        Connection conn = DBUtil.newConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            String query = SQLUtil.insertCoreQuery(this);                        
+            ps = conn.prepareStatement(query); 
+            ps.executeUpdate();
+            for (Attribute attribute : attributes) {
+                attribute.commitValue();
+            }
+        }
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        finally {
+            DBUtil.close(rs);
+            DBUtil.close(ps);
+            DBUtil.close(conn);
+        }
     }
     
     public void update() {
@@ -52,8 +72,8 @@ public class Core {
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
-            SQLQuery query = SQLUtil.refreshCoreQuery(this);                        
-            ps = conn.prepareStatement(query.toString()); 
+            String query = SQLUtil.refreshCoreQuery(this);                        
+            ps = conn.prepareStatement(query); 
             rs = ps.executeQuery();
             rs.next();
             for (Attribute attribute : attributes) {
@@ -69,7 +89,9 @@ public class Core {
             DBUtil.close(conn);
         }
     }
-        
+    
+    
+    
     public Core getModel() {
         return CoreUtil.getModel(name);
     }

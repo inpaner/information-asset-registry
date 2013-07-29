@@ -141,7 +141,7 @@ public class DateAttribute extends PrimaryAttribute {
     }
 
     @Override
-    protected void update() throws RegException {
+    public void update() throws RegException {
         // TODO Auto-generated method stub
         
     }
@@ -160,5 +160,15 @@ public class DateAttribute extends PrimaryAttribute {
     @Override
     public void forceValue(ResultSet rs) throws SQLException {
         value = rs.getDate(name);
+    }
+
+    @Override
+    public boolean isUpdated() {
+        return !value.equals(replacement); 
+    }
+
+    @Override
+    public void commitValue() {
+        value = replacement;
     }
 }

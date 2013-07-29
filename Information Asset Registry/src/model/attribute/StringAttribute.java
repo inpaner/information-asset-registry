@@ -86,7 +86,7 @@ public class StringAttribute extends PrimaryAttribute {
         insert(assetFk);
     }
     
-    protected void update() throws RegException {
+    public void update() throws RegException {
         if (isNew) {
             String message = getValue() + " does not yet exist.";
             throw new RegException(message);   
@@ -142,5 +142,15 @@ public class StringAttribute extends PrimaryAttribute {
     @Override
     public void forceValue(ResultSet rs) throws SQLException {
         value = rs.getString(name);
+    }
+
+    @Override
+    public boolean isUpdated() {
+        return !value.equals(replacement);
+    }
+
+    @Override
+    public void commitValue() {
+        value = replacement;
     }
 }

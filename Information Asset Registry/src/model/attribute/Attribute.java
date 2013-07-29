@@ -25,7 +25,9 @@ public abstract class Attribute {
     @Override
     public abstract Attribute clone();
     public abstract String getValueString();
-    protected abstract void update() throws RegException;
+    public abstract void update() throws RegException;
+    public abstract boolean isUpdated();
+    public abstract void commitValue();
     
     // TODO check for null forceValues
     public abstract void forceValue(ResultSet rs) throws SQLException;

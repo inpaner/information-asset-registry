@@ -85,7 +85,7 @@ public class IntegerAttribute extends PrimaryAttribute {
         insert(assetFk);
     }
     
-    protected void update() throws RegException {
+    public void update() throws RegException {
         if (isNew) {
             String message = getValueString() + " does not yet exist.";
             throw new RegException(message);   
@@ -145,5 +145,15 @@ public class IntegerAttribute extends PrimaryAttribute {
     @Override
     public void forceValue(ResultSet rs) throws SQLException {
         value = rs.getInt(name);
+    }
+
+    @Override
+    public boolean isUpdated() {
+        return value != replacement;
+    }
+
+    @Override
+    public void commitValue() {
+        value = replacement;
     }
 }

@@ -28,9 +28,8 @@ public class CoreUtil {
         init();
         Core core = getCore("asset", 1);
         for (Attribute a : core.getAttributes()) {
-            System.out.println(a.getValueString());
+            System.out.println(a.getName() + ": " + a.getValueString());
         }
-        
     }
     
     protected static void init() {
@@ -42,20 +41,19 @@ public class CoreUtil {
         coreNames.add("asset");
         coreNames.add("user");
         
+        // Initialize model and cache per core
         for (String name : coreNames) {
             models.put(name, new Core(name));
             coreCache.put(name, new HashMap<Integer, Core>());
         }
         
+        // Build each core
         Connection conn = DBUtil.newConnection();
         final SchemaCrawlerOptions options = new SchemaCrawlerOptions();
         options.setSchemaInfoLevel(SchemaInfoLevel.standard());
-        Database database = null;
         try {
-            database = SchemaCrawlerUtility.getDatabase(conn, options);
+            Database database = SchemaCrawlerUtility.getDatabase(conn, options);
             for (Core model : models.values()) {
-                // TODO remove line below lel
-                System.out.println("******" + model.getName());
                 build(database, model);
             }
         }
