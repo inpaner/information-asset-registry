@@ -1,5 +1,8 @@
 package model.attribute;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import schemacrawler.schema.Column;
 import model.RegException;
 
@@ -16,12 +19,16 @@ public abstract class Attribute {
     }
     
     protected Attribute(Column column) {
-        name = column.getName();
+        name = column.getName().replace("`", "");
     }
     
     @Override
     public abstract Attribute clone();
-    protected abstract String getValueString();
-    protected abstract void update() throws RegException;
+    public abstract String getValueString();
+    public abstract void update() throws RegException;
+    public abstract boolean isUpdated();
+    public abstract void commitValue();
     
+    // TODO check for null forceValues
+    public abstract void forceValue(ResultSet rs) throws SQLException;
 }

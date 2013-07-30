@@ -1,46 +1,38 @@
-package model.utils;
+package model.sql;
 
 import java.util.LinkedHashSet;
 
 
-public class Query {
+public class SQLQuery {
     private LinkedHashSet<String> projections;
     private LinkedHashSet<String> tables;
     private LinkedHashSet<String> conditions;
     private LinkedHashSet<String> sequences;
-    
-    public static void main(String[] args) {
-        Query q = new Query();
-        q.addProjection("pk");
-        q.addProjection("cow");
-        q.addProjection("pk");
-        q.addTable("Assets");
-        System.out.println(q);
-    }
-    
-    public Query() {
+
+    SQLQuery() {
         projections = new LinkedHashSet<>();
         tables = new LinkedHashSet<>();
         conditions = new LinkedHashSet<>();
         sequences = new LinkedHashSet<>();
     }
     
-    public void addProjection(String projection) {
-        projections.add(projection);
+    void addProjection(String projection) {
+        projections.add("`" + projection + "`");
     }
 
-    public void addTable(String table) {
+    void addTable(String table) {
         tables.add(table);
     }
 
-    public void addCondition(String condition) {
+    void addCondition(String condition) {
         conditions.add(condition);
     }
 
-    public void addSequence(String seqence) {
+    void addSequence(String seqence) {
         sequences.add(seqence);
     }
 
+    @Override
     public String toString(){
         
         StringBuilder query = new StringBuilder();

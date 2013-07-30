@@ -13,6 +13,6 @@ public abstract class PrimaryAttribute extends Attribute {
         super(column);
     }
     protected abstract String getValue();
-    protected abstract void update() throws RegException;
-    public abstract void forceValue(String value);
+    public abstract void update() throws RegException;
+    protected abstract void forceValue(String value);
 }

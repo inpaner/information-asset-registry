@@ -17,10 +17,7 @@ public class StringAttribute extends PrimaryAttribute {
     protected String value;
     protected String replacement;
     
-    private StringAttribute(StringAttribute toClone) {
-        super();
-        value = toClone.value;
-        replacement = toClone.replacement;
+    private StringAttribute() {
     }
     
     StringAttribute(Column column) {
@@ -89,7 +86,7 @@ public class StringAttribute extends PrimaryAttribute {
         insert(assetFk);
     }
     
-    protected void update() throws RegException {
+    public void update() throws RegException {
         if (isNew) {
             String message = getValue() + " does not yet exist.";
             throw new RegException(message);   
@@ -129,11 +126,31 @@ public class StringAttribute extends PrimaryAttribute {
 
     @Override
     public Attribute clone() {
-        return new StringAttribute(this);
+        StringAttribute clone = new StringAttribute();
+        clone.name = name;
+        clone.value = value;
+        clone.replacement = replacement;
+        
+        return clone;
     }
 
     @Override
-    public void forceValue(String value) {
+    protected void forceValue(String value) {
         this.value = value;
+    }
+
+    @Override
+    public void forceValue(ResultSet rs) throws SQLException {
+        value = rs.getString(name);
+    }
+
+    @Override
+    public boolean isUpdated() {
+        return !value.equals(replacement);
+    }
+
+    @Override
+    public void commitValue() {
+        value = replacement;
     }
 }

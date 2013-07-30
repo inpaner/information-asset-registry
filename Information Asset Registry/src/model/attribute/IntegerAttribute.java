@@ -22,11 +22,10 @@ public class IntegerAttribute extends PrimaryAttribute {
     protected int replacement = 0;
     
     private IntegerAttribute() {
-        
     }
     
     IntegerAttribute(Column column) {
-        name = column.getName();
+        super(column);
     }
     
     public int value() {
@@ -86,7 +85,7 @@ public class IntegerAttribute extends PrimaryAttribute {
         insert(assetFk);
     }
     
-    protected void update() throws RegException {
+    public void update() throws RegException {
         if (isNew) {
             String message = getValueString() + " does not yet exist.";
             throw new RegException(message);   
@@ -119,13 +118,14 @@ public class IntegerAttribute extends PrimaryAttribute {
     }
 
     @Override
-    protected String getValueString() {
+    public String getValueString() {
         return String.valueOf(value);
     }
 
     @Override
     public Attribute clone() {
         IntegerAttribute clone = new IntegerAttribute();
+        clone.name = name;
         clone.value = value;
         clone.replacement = replacement;
         return clone;
@@ -140,5 +140,20 @@ public class IntegerAttribute extends PrimaryAttribute {
     @Override
     public void forceValue(String value) {
         this.value = Integer.valueOf(value);
+    }
+
+    @Override
+    public void forceValue(ResultSet rs) throws SQLException {
+        value = rs.getInt(name);
+    }
+
+    @Override
+    public boolean isUpdated() {
+        return value != replacement;
+    }
+
+    @Override
+    public void commitValue() {
+        value = replacement;
     }
 }

@@ -132,13 +132,16 @@ public class DateAttribute extends PrimaryAttribute {
     @Override
     public Attribute clone() {
         DateAttribute clone = new DateAttribute();
-        clone.value = value;
-        clone.replacement = replacement;
+        clone.name = name;
+        if (value != null)
+            clone.value = (Date) value.clone();
+        if (replacement != null)
+            clone.replacement = (Date) replacement.clone();
         return clone;
     }
 
     @Override
-    protected void update() throws RegException {
+    public void update() throws RegException {
         // TODO Auto-generated method stub
         
     }
@@ -152,5 +155,20 @@ public class DateAttribute extends PrimaryAttribute {
     @Override
     public void forceValue(String value) {
         this.value = Date.valueOf(value);
+    }
+
+    @Override
+    public void forceValue(ResultSet rs) throws SQLException {
+        value = rs.getDate(name);
+    }
+
+    @Override
+    public boolean isUpdated() {
+        return !value.equals(replacement); 
+    }
+
+    @Override
+    public void commitValue() {
+        value = replacement;
     }
 }

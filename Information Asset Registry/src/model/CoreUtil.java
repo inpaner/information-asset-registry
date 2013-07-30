@@ -1,6 +1,9 @@
 package model;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -19,33 +22,38 @@ import everything.DBUtil;
 
 public class CoreUtil {
     private static HashMap<String, Core> models;
-    private static HashMap<String, HashMap<String, Core>> coreCollection;
+    private static HashMap<String, HashMap<Integer, Core>> coreCache;
     
     public static void main(String[] args) {
         init();
+        Core core = getCore("asset", 1);
+        for (Attribute a : core.getAttributes()) {
+            System.out.println(a.getName() + ": " + a.getValueString());
+        }
     }
-
+    
     protected static void init() {
         models = new HashMap<>();
-        coreCollection = new HashMap<>();
+        coreCache = new HashMap<>();
         
         // TODO load coreNames from some file
         ArrayList<String> coreNames = new ArrayList<>();     
         coreNames.add("asset");
         coreNames.add("user");
         
+        // Initialize model and cache per core
         for (String name : coreNames) {
             models.put(name, new Core(name));
+            coreCache.put(name, new HashMap<Integer, Core>());
         }
         
+        // Build each core
         Connection conn = DBUtil.newConnection();
         final SchemaCrawlerOptions options = new SchemaCrawlerOptions();
         options.setSchemaInfoLevel(SchemaInfoLevel.standard());
-        Database database = null;
         try {
-            database = SchemaCrawlerUtility.getDatabase(conn, options);
+            Database database = SchemaCrawlerUtility.getDatabase(conn, options);
             for (Core model : models.values()) {
-                System.out.println("******" + model.getName());
                 build(database, model);
             }
         }
@@ -55,8 +63,6 @@ public class CoreUtil {
         finally {
             DBUtil.close(conn);
         }
-        
-        
     }
     
     public static boolean isCore(String name) {
@@ -72,21 +78,49 @@ public class CoreUtil {
         return models.get(name);
     }
     
-    public static ArrayList<Core> getAll(String coreName) {
-        HashMap<String, Core> cores = coreCollection.get(coreName);
-        return new ArrayList<Core>(cores.values());
+    public static Core getAddable(String name) {
+        return getModel(name).clone();
     }
     
-    public static Core get(String coreName, String pk) {
-        Core toGet = coreCollection.get(coreName).get(pk);
+    public static ArrayList<Core> getAll(String coreName) {
+        Connection conn = DBUtil.newConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ArrayList<Integer> pks = new ArrayList<>();
+        try {
+            // TODO Builder this shit
+            String query = "SELECT pk FROM " + coreName;
+            ps = conn.prepareStatement(query); 
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                pks.add(rs.getInt("pk"));
+            }
+        }
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        finally {
+            DBUtil.close(rs);
+            DBUtil.close(ps);
+            DBUtil.close(conn);
+        }
+    
+        ArrayList<Core> cores = new ArrayList<>();
+        for (Integer pk : pks) {
+            cores.add(getCore(coreName,pk));
+        }
+        return cores;
+    }
+    
+    public static Core getCore(String coreName, int pk) {
+        Core toGet = coreCache.get(coreName).get(pk);
         if (toGet == null) {
-            getFromDB(pk);
+            toGet = getAddable(coreName);
+            toGet.setPk(pk);
+            toGet.refresh();
+            coreCache.get(coreName).put(pk, toGet);
         }
         return toGet;
-    }
-    
-    private static void getFromDB(String name) {
-        
     }
     
     protected static void build(Database database, Core model) {
@@ -102,16 +136,14 @@ public class CoreUtil {
         }
         
         for (Column column: table.getColumns()) {
-            //System.out.println(column.getColumnDataType().getName());
+            if (column.isPartOfPrimaryKey())
+                continue;
             Attribute attribute = AttributeUtil.build(column);
             System.out.println(attribute.getClass());
             
             model.addAttribute(attribute);
         }
-        
     }
     
-    public void testSchema() {
 
-    }
 }
