@@ -20,18 +20,14 @@ public class SQLInsert {
     public SQLInsert() {
         projections = new ArrayList<>();
         values = new ArrayList<>();
-        
-    }
-    
-    public void addProjection(String projection) {
-        projections.add(projection);
     }
 
     public void setTable(String table) {
         this.table = table;
     }
 
-    public void addValue(String condition) {
+    public void addValue(String projection, String condition) {
+        projections.add(projection);
         values.add(condition);
     }
 

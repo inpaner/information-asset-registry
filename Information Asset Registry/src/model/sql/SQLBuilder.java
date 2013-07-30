@@ -3,8 +3,8 @@ package model.sql;
 import model.Core;
 import model.attribute.Attribute;
 
-public class SQLUtil {
-    public static String refreshCoreQuery(Core core) {
+public class SQLBuilder {
+    public static String getCoreStatement(Core core) {
         SQLQuery query = new SQLQuery();
         
         query.addProjection("pk");
@@ -16,25 +16,24 @@ public class SQLUtil {
         return query.toString();
     }
     
-    public static String insertCoreQuery(Core core) {
+    public static String insertCoreStatement(Core core) {
         SQLInsert update = new SQLInsert();
         
         update.setTable(core.getName());
         for (Attribute attribute : core.getAttributes()) {
-            update.addProjection(attribute.getName());
-            update.addValue(attribute.getValueString());
+            update.addValue(attribute.getName(), attribute.getSQLValue());
         }
         return update.toString();
     }
     
-    public static String updateCoreQuery(Core core) {
-        SQLInsert update = new SQLInsert();
+    public static String updateCoreStatement(Core core) {
+        SQLUpdate update = new SQLUpdate();
         
         update.setTable(core.getName());
         for (Attribute attribute : core.getAttributes()) {
-            update.addProjection(attribute.getName());
-            update.addValue(attribute.getValueString());
+            update.addValue(attribute.getName(), attribute.getSQLValue());
         }
+        update.addCondition("pk = " + core.getPk());
         return update.toString();
     }
 }
