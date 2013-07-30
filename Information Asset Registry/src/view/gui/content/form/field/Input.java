@@ -26,7 +26,7 @@ public abstract class Input {
 		 * This needs to vary depending on what kind
 		 * of attribute was sent.
 		 */
-		Input input = null;
+		Input input = new TextInput(attribute);
 		return input;
 	}
 	

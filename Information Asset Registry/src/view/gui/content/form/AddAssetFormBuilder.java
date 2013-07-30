@@ -9,7 +9,7 @@ import model.Asset;
 public class AddAssetFormBuilder extends FormBuilder{
 	protected Asset asset;
 	
-	protected AddAssetFormBuilder(Asset asset) {
+	public AddAssetFormBuilder(Asset asset) {
 		this.asset = asset;
 		content = new AssetForm(asset);
 		// TODO Auto-generated constructor stub

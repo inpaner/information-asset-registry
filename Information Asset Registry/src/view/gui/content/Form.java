@@ -1,5 +1,5 @@
-package view.gui.content;
 
+package view.gui.content;
 public abstract class Form extends Content {
 	/**
 	 * This method turns the whole

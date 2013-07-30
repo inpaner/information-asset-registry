@@ -5,7 +5,7 @@ import model.Asset;
 
 public class EditAssetFormBuilder extends ViewAssetFormBuilder{
 	
-	protected EditAssetFormBuilder(Asset asset){
+	public EditAssetFormBuilder(Asset asset){
 		super(asset);
 	}
 	

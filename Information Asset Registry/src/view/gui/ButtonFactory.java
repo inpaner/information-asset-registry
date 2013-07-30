@@ -3,8 +3,8 @@ import javax.swing.JButton;
 
 public class ButtonFactory {
 	
-	public static JButton CreateButton(){
-		return new JButton();
+	public static JButton CreateButton(String text){
+		return new JButton(text);
 	}
 	
 	private ButtonFactory(){
