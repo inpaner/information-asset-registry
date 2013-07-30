@@ -41,18 +41,18 @@ public class RestrictedAttribute extends Attribute {
             );             
             
             rs = ps.executeQuery();
-            
             while (rs.next()) {
                 int pk = rs.getInt("pk");
-                // Presumes all attributes are primary
                 PrimaryAttribute attribute = (PrimaryAttribute) AttributeUtil.build(notPk);
-                attribute.forceValue(rs.getString(notPk.getName().replace("`", "")));
+                String notPkValue = rs.getString(notPk.getName().replace("`", ""));
+                attribute.forceValue(notPkValue);
                 possibleAttributes.put(pk, attribute);
             }
         }
-        catch (SQLException e) {
-            e.printStackTrace();
+        catch (SQLException ex) {
+            ex.printStackTrace();
         }
+
         finally {
             DBUtil.close(rs);
             DBUtil.close(ps);
@@ -75,8 +75,8 @@ public class RestrictedAttribute extends Attribute {
     }
     
     @Override
-    public String getValueString() {
-        return value.getValueString();
+    public String getSQLValue() {
+        return value.getSQLValue();
     }
 
     @Override

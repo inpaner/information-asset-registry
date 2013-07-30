@@ -24,7 +24,7 @@ public class StringAttribute extends PrimaryAttribute {
         super(column);
     }
     
-    public String getValueString() {
+    public String getSQLValue() {
         return value;
     }
 
@@ -35,92 +35,11 @@ public class StringAttribute extends PrimaryAttribute {
     
     public StringAttribute(int assetFk, String value) {
         this.assetFk = assetFk;
-        setValue(value);
+        forceValue(value);
     }
     
-    public void setValue(String value) {
-        previousValue = value;
-        if (isNew)
-            this.value = value;
-    }
-
-    private void insert(int assetFk) throws RegException {
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            Connection conn = DBUtil.getConnection();
-            String update = 
-                "INSERT INTO `" + getValue() + "` (assetFk, value) " +
-                "VALUES (?, ?)";
-            ps = conn.prepareStatement(update);                
-            ps.setInt(1, assetFk);
-            ps.setString(2, previousValue);
-            ps.executeUpdate();
-            
-            isNew = false;
-            this.assetFk = assetFk;
-        }
-        catch (MySQLIntegrityConstraintViolationException e) {
-            e.printStackTrace();
-            String message = "Invalid value for " + getValue() + ".";
-            throw new RegException(message);
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-        finally {
-            DBUtil.close(rs);
-            DBUtil.close(ps);
-        }   
-    }
-
-    protected void add(int assetFk) throws RegException {
-        if (!isNew) {
-            String message = getValue() + " already exists.";
-            throw new RegException(message);            
-        }
-        if (value == null) {
-            String message = getValue() + " not set.";
-            throw new RegException(message);            
-        }
-        insert(assetFk);
-    }
-    
-    public void update() throws RegException {
-        if (isNew) {
-            String message = getValue() + " does not yet exist.";
-            throw new RegException(message);   
-        }
-        
-        if (value.equals(previousValue)) 
-            return;
-        // early return
-        
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            insert(assetFk);
-            Connection conn = DBUtil.getConnection();
-            ps = conn.prepareStatement("SELECT LAST_INSERT_ID() AS fk");
-            rs = ps.executeQuery();
-            rs.next();
-            
-            int attributeFk = rs.getInt("fk");
-            Log.updateAttribute(assetFk, getValue(), attributeFk);
-            value = previousValue;
-        }
-        catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        finally {
-            DBUtil.close(rs);
-            DBUtil.close(ps);
-        }   
-    }
-
-    @Override
-    public String getValue() {
-        return null;
+    public void forceValue(String value) {
+        this.value = value;
     }
 
     @Override
@@ -131,11 +50,6 @@ public class StringAttribute extends PrimaryAttribute {
         clone.previousValue = previousValue;
         
         return clone;
-    }
-
-    @Override
-    protected void forceValue(String value) {
-        this.value = value;
     }
 
     @Override
@@ -155,5 +69,14 @@ public class StringAttribute extends PrimaryAttribute {
     
     public void resetValue() {
         value = previousValue;
+    }
+
+    @Override
+    public void update() throws RegException {
+        // TODO Auto-generated method stub
+    }
+
+    public String getValue() {
+        return value;
     }
 }

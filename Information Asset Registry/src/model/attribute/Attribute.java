@@ -24,7 +24,7 @@ public abstract class Attribute {
     
     @Override
     public abstract Attribute clone();
-    public abstract String getValueString();
+    public abstract String getSQLValue();
     public abstract void update() throws RegException;
     public abstract boolean isUpdated();
     public abstract void commitValue();

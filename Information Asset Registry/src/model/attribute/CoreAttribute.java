@@ -31,8 +31,8 @@ public class CoreAttribute extends Attribute {
     }
     
     @Override
-    public String getValueString() {
-        return null;
+    public String getSQLValue() {
+        return String.valueOf(value.getPk());
     }
 
     @Override

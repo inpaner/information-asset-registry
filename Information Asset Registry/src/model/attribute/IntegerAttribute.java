@@ -47,7 +47,7 @@ public class IntegerAttribute extends PrimaryAttribute {
             Connection conn = DBUtil.getConnection();
             System.out.println("here");
             String update = 
-                "INSERT INTO " + getValueString() + " (assetFk, value) " +
+                "INSERT INTO " + getSQLValue() + " (assetFk, value) " +
                 "VALUES (?, ?)";
             ps = conn.prepareStatement(update);                
             ps.setInt(1, assetFk);
@@ -59,7 +59,7 @@ public class IntegerAttribute extends PrimaryAttribute {
         }
         catch (MySQLIntegrityConstraintViolationException e) {
             e.printStackTrace();
-            String message = "Invalid value for " + getValueString() + ".";
+            String message = "Invalid value for " + getSQLValue() + ".";
             throw new RegException(message);
         }
         catch (SQLException e) {
@@ -73,11 +73,11 @@ public class IntegerAttribute extends PrimaryAttribute {
 
     protected void add(int assetFk) throws RegException {
         if (!isNew) {
-            String message = getValueString() + " already exists.";
+            String message = getSQLValue() + " already exists.";
             throw new RegException(message);            
         }
         if (value == 0) {
-            String message = getValueString() + " not set.";
+            String message = getSQLValue() + " not set.";
             throw new RegException(message);            
         }
         insert(assetFk);
@@ -85,7 +85,7 @@ public class IntegerAttribute extends PrimaryAttribute {
     
     public void update() throws RegException {
         if (isNew) {
-            String message = getValueString() + " does not yet exist.";
+            String message = getSQLValue() + " does not yet exist.";
             throw new RegException(message);   
         }
         
@@ -103,7 +103,7 @@ public class IntegerAttribute extends PrimaryAttribute {
             rs.next();
             
             int attributeFk = rs.getInt("fk");
-            Log.updateAttribute(assetFk, getValueString(), attributeFk);
+            Log.updateAttribute(assetFk, getSQLValue(), attributeFk);
             value = previousValue;
         }
         catch (SQLException ex) {
@@ -116,7 +116,7 @@ public class IntegerAttribute extends PrimaryAttribute {
     }
 
     @Override
-    public String getValueString() {
+    public String getSQLValue() {
         return String.valueOf(value);
     }
 
@@ -127,17 +127,6 @@ public class IntegerAttribute extends PrimaryAttribute {
         clone.value = value;
         clone.previousValue = previousValue;
         return clone;
-    }
-
-    @Override
-    protected String getValue() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public void forceValue(String value) {
-        this.value = Integer.valueOf(value);
     }
 
     @Override
@@ -158,5 +147,10 @@ public class IntegerAttribute extends PrimaryAttribute {
     @Override
     public void resetValue() {
         value = previousValue;
+    }
+
+    @Override
+    protected void forceValue(String value) {
+        this.value = Integer.valueOf(value);
     }
 }
