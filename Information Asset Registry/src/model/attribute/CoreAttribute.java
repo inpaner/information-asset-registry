@@ -11,7 +11,7 @@ import schemacrawler.schema.Column;
 public class CoreAttribute extends Attribute {
     private Core model;
     private Core value;
-    private Core replacement;
+    private Core previousValue;
     
     private CoreAttribute() {
 
@@ -47,26 +47,31 @@ public class CoreAttribute extends Attribute {
         clone.model = model;
         if (value != null)
             clone.value = value.clone();
-        if (replacement != null)
-            clone.replacement = replacement.clone();
+        if (previousValue != null)
+            clone.previousValue = previousValue.clone();
         
         return clone;
     }
 
     @Override
-    public void forceValue(ResultSet rs) throws SQLException {
+    public void setValue(ResultSet rs) throws SQLException {
         int pk = rs.getInt(name);
         value = CoreUtil.getCore(model.getName(), pk);
     }
 
     @Override
     public boolean isUpdated() {
-        return !value.equals(replacement);
+        return !value.equals(previousValue);
     }
 
     @Override
     public void commitValue() {
-        value = replacement;
+        previousValue = value;
+    }
+
+    @Override
+    public void resetValue() {
+        value = previousValue;
     }
     
 }

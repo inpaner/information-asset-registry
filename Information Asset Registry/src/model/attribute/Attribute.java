@@ -28,7 +28,8 @@ public abstract class Attribute {
     public abstract void update() throws RegException;
     public abstract boolean isUpdated();
     public abstract void commitValue();
+    public abstract void resetValue();
     
     // TODO check for null forceValues
-    public abstract void forceValue(ResultSet rs) throws SQLException;
+    public abstract void setValue(ResultSet rs) throws SQLException;
 }

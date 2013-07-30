@@ -19,7 +19,7 @@ import everything.DBUtil;
 public class IntegerAttribute extends PrimaryAttribute {
     // TODO change to 
     protected int value = 0;
-    protected int replacement = 0;
+    protected int previousValue = 0;
     
     private IntegerAttribute() {
     }
@@ -37,9 +37,7 @@ public class IntegerAttribute extends PrimaryAttribute {
     }
 
     public void setValue(int value) {
-        replacement = value;
-        if (isNew)
-            this.value = value;
+        this.value = value;
     }
     
     private void insert(int assetFk) throws RegException {
@@ -53,7 +51,7 @@ public class IntegerAttribute extends PrimaryAttribute {
                 "VALUES (?, ?)";
             ps = conn.prepareStatement(update);                
             ps.setInt(1, assetFk);
-            ps.setInt(2, replacement);
+            ps.setInt(2, previousValue);
             ps.executeUpdate();
             
             isNew = false;
@@ -91,7 +89,7 @@ public class IntegerAttribute extends PrimaryAttribute {
             throw new RegException(message);   
         }
         
-        if (value == replacement) 
+        if (value == previousValue) 
             return;
         // early return
         
@@ -106,7 +104,7 @@ public class IntegerAttribute extends PrimaryAttribute {
             
             int attributeFk = rs.getInt("fk");
             Log.updateAttribute(assetFk, getValueString(), attributeFk);
-            value = replacement;
+            value = previousValue;
         }
         catch (SQLException ex) {
             ex.printStackTrace();
@@ -127,7 +125,7 @@ public class IntegerAttribute extends PrimaryAttribute {
         IntegerAttribute clone = new IntegerAttribute();
         clone.name = name;
         clone.value = value;
-        clone.replacement = replacement;
+        clone.previousValue = previousValue;
         return clone;
     }
 
@@ -143,17 +141,22 @@ public class IntegerAttribute extends PrimaryAttribute {
     }
 
     @Override
-    public void forceValue(ResultSet rs) throws SQLException {
+    public void setValue(ResultSet rs) throws SQLException {
         value = rs.getInt(name);
     }
 
     @Override
     public boolean isUpdated() {
-        return value != replacement;
+        return value != previousValue;
     }
 
     @Override
     public void commitValue() {
-        value = replacement;
+        previousValue = value;
+    }
+
+    @Override
+    public void resetValue() {
+        value = previousValue;
     }
 }

@@ -15,9 +15,9 @@ import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationExceptio
 
 public class StringAttribute extends PrimaryAttribute {
     protected String value;
-    protected String replacement;
+    protected String previousValue;
     
-    private StringAttribute() {
+    StringAttribute() {
     }
     
     StringAttribute(Column column) {
@@ -39,7 +39,7 @@ public class StringAttribute extends PrimaryAttribute {
     }
     
     public void setValue(String value) {
-        replacement = value;
+        previousValue = value;
         if (isNew)
             this.value = value;
     }
@@ -54,7 +54,7 @@ public class StringAttribute extends PrimaryAttribute {
                 "VALUES (?, ?)";
             ps = conn.prepareStatement(update);                
             ps.setInt(1, assetFk);
-            ps.setString(2, replacement);
+            ps.setString(2, previousValue);
             ps.executeUpdate();
             
             isNew = false;
@@ -92,7 +92,7 @@ public class StringAttribute extends PrimaryAttribute {
             throw new RegException(message);   
         }
         
-        if (value.equals(replacement)) 
+        if (value.equals(previousValue)) 
             return;
         // early return
         
@@ -107,7 +107,7 @@ public class StringAttribute extends PrimaryAttribute {
             
             int attributeFk = rs.getInt("fk");
             Log.updateAttribute(assetFk, getValue(), attributeFk);
-            value = replacement;
+            value = previousValue;
         }
         catch (SQLException ex) {
             ex.printStackTrace();
@@ -119,8 +119,7 @@ public class StringAttribute extends PrimaryAttribute {
     }
 
     @Override
-    protected String getValue() {
-        // TODO Auto-generated method stub
+    public String getValue() {
         return null;
     }
 
@@ -129,7 +128,7 @@ public class StringAttribute extends PrimaryAttribute {
         StringAttribute clone = new StringAttribute();
         clone.name = name;
         clone.value = value;
-        clone.replacement = replacement;
+        clone.previousValue = previousValue;
         
         return clone;
     }
@@ -140,17 +139,21 @@ public class StringAttribute extends PrimaryAttribute {
     }
 
     @Override
-    public void forceValue(ResultSet rs) throws SQLException {
+    public void setValue(ResultSet rs) throws SQLException {
         value = rs.getString(name);
     }
 
     @Override
     public boolean isUpdated() {
-        return !value.equals(replacement);
+        return !value.equals(previousValue);
     }
 
     @Override
     public void commitValue() {
-        value = replacement;
+        previousValue = value;
+    }
+    
+    public void resetValue() {
+        value = previousValue;
     }
 }

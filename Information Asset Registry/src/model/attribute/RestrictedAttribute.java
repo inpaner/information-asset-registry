@@ -16,7 +16,7 @@ import schemacrawler.schema.Table;
 
 public class RestrictedAttribute extends Attribute {
     private PrimaryAttribute value;
-    private PrimaryAttribute replacement;
+    private PrimaryAttribute previousValue;
     private HashMap<Integer, PrimaryAttribute> possibleAttributes;
     
     private RestrictedAttribute() {
@@ -71,7 +71,6 @@ public class RestrictedAttribute extends Attribute {
             notPk = column;
             break;
         }
-        
         return notPk;
     }
     
@@ -79,7 +78,6 @@ public class RestrictedAttribute extends Attribute {
     public String getValueString() {
         return value.getValueString();
     }
-
 
     @Override
     public void update() throws RegException {
@@ -92,26 +90,31 @@ public class RestrictedAttribute extends Attribute {
         clone.name = name;
         if (value != null)
             clone.value = (PrimaryAttribute) value.clone();
-        if (replacement != null)
-            clone.replacement = (PrimaryAttribute) replacement.clone();
+        if (previousValue != null)
+            clone.previousValue = (PrimaryAttribute) previousValue.clone();
         clone.possibleAttributes = possibleAttributes;
         return clone;
     }
 
     @Override
-    public void forceValue(ResultSet rs) throws SQLException {
+    public void setValue(ResultSet rs) throws SQLException {
         int pk = rs.getInt("pk");
         value = possibleAttributes.get(pk);
     }
 
     @Override
     public boolean isUpdated() {
-        return !value.equals(replacement);
+        return !value.equals(previousValue);
     }
 
     @Override
     public void commitValue() {
-        value = replacement;
+        previousValue = value;
+    }
+    
+    @Override
+    public void resetValue() {
+        value = previousValue;
     }
 
 }

@@ -35,9 +35,7 @@ public class DateAttribute extends PrimaryAttribute {
     }
 
     public void setValue(Date value) {
-        replacement = value;
-        if (isNew)
-            this.value = value;
+        this.value = value;
     }
 
     public void setValue(String text) throws RegException {
@@ -143,7 +141,6 @@ public class DateAttribute extends PrimaryAttribute {
     @Override
     public void update() throws RegException {
         // TODO Auto-generated method stub
-        
     }
 
     @Override
@@ -158,7 +155,7 @@ public class DateAttribute extends PrimaryAttribute {
     }
 
     @Override
-    public void forceValue(ResultSet rs) throws SQLException {
+    public void setValue(ResultSet rs) throws SQLException {
         value = rs.getDate(name);
     }
 
@@ -169,6 +166,11 @@ public class DateAttribute extends PrimaryAttribute {
 
     @Override
     public void commitValue() {
+        replacement = value;
+    }
+
+    @Override
+    public void resetValue() {
         value = replacement;
     }
 }

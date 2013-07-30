@@ -5,6 +5,10 @@ import schemacrawler.schema.Column;
 
 public class AttributeUtil {
     
+    public static StringAttribute genericAttribute() {
+        return new StringAttribute();
+    }
+    
     public static Attribute build(Column column) {
         Attribute attribute;
         if (column.isPartOfForeignKey()) {
