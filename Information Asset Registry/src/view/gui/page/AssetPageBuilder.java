@@ -1,9 +1,9 @@
 package view.gui.page;
 
-public class AssetPageBuilder implements PageBuilder {
+public class AssetPageBuilder extends PageBuilder {
 
-	public void BuildPage() {
-		
+	public Page BuildPage() {
+		return new Page();
 	}
 
 }

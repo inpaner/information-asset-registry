@@ -1,9 +1,9 @@
 package view.gui.content.form.field;
-import model.attribute.RestrictedAttribute;
+import model.attribute.StringAttribute;
 
 public class TextInput extends Input{
 	
-	public TextInput(RestrictedAttribute attribute){
+	public TextInput(StringAttribute attribute){
 		this.attribute = attribute;
 	}
 	

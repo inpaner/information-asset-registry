@@ -1,6 +1,4 @@
 package view.gui.content.form;
-
-import view.gui.content.AssetForm;
 import view.gui.content.Content;
 import model.Asset;
 
