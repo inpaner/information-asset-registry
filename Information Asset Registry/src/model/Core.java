@@ -10,6 +10,9 @@ import java.util.HashMap;
 
 import model.attribute.Attribute;
 import model.db.DBUtil;
+import model.sql.AddCore;
+import model.sql.EditCore;
+import model.sql.GetCore;
 import model.sql.SQLQuery;
 import model.sql.SQLBuilder;
 
@@ -40,30 +43,30 @@ public class Core {
         return pk;
     }
     
+    public String getName() {
+        return name;
+    }
+
     public void add() {
         // TODO check if all attributes are valid
-        String statement = SQLBuilder.insertCoreStatement(this);
-        DBUtil.executeUpdate(statement);
+        SQLBuilder builder = new AddCore(this);
+        DBUtil.executeUpdate(builder.getResult());
         for (Attribute attribute : attributes) {
             attribute.commitValue();
         }
     }
     
     public void update() {
-        String statement = SQLBuilder.updateCoreStatement(this);
-        DBUtil.executeUpdate(statement);
+        SQLBuilder builder = new EditCore(this);
+        DBUtil.executeUpdate(builder.getResult());
         for (Attribute attribute : attributes) {
             attribute.commitValue();
         }
     }
     
-    public String getName() {
-        return name;
-    }
-    
     protected void refresh() {
-        String query = SQLBuilder.getCoreStatement(this);                        
-        ResultSet rs = DBUtil.executeQuery(query);
+        SQLBuilder builder = new GetCore(this);
+        ResultSet rs = DBUtil.executeQuery(builder.getResult());
         try {
             rs.next();
             for (Attribute attribute : attributes) {
