@@ -27,9 +27,9 @@ public class Core {
         this.name = name;
     }
 
-    private Core(Core toCopy) {
-        this(toCopy.name);
-        for (Attribute attribute : toCopy.attributes) {
+    private Core(Core toClone) {
+        this(toClone.name);
+        for (Attribute attribute : toClone.attributes) {
             Attribute clone = attribute.clone();
             addAttribute(clone);
         }
@@ -51,14 +51,16 @@ public class Core {
         // TODO check if all attributes are valid
         SQLBuilder builder = new AddCore(this);
         DBUtil.executeUpdate(builder.getResult());
+        Log.addCore(this);
         for (Attribute attribute : attributes) {
             attribute.commitValue();
         }
     }
     
-    public void update() {
+    public void edit() {
         SQLBuilder builder = new EditCore(this);
         DBUtil.executeUpdate(builder.getResult());
+        Log.editCore(this);
         for (Attribute attribute : attributes) {
             attribute.commitValue();
         }

@@ -10,10 +10,11 @@ import java.sql.Timestamp;
 
 import model.attribute.Attribute;
 import model.db.DBUtil;
+import model.sql.AddCoreLog;
+import model.sql.EditAttributeLog;
+import model.sql.GetAllLogs;
 import model.sql.SQLBuilder;
 import model.sql.SQLQuery;
-
-
 
 public class Log implements Comparable<Log> {
     private User user;
@@ -67,8 +68,7 @@ public class Log implements Comparable<Log> {
             case "Login" :  text += " logged in.";
                             break;
             case "Logout" : text += " logged out.";
-                            break;
-                            
+                            break;                 
             case "Add" :    text += user + " added " + core.getName() + " " + 
                             core.getUniqueString() + ".";
                             break;
@@ -83,55 +83,26 @@ public class Log implements Comparable<Log> {
     }
     
     public static Vector<Log> getAll() {
-        String statement = SQLBuilder.getAllLogsStatement();
+        SQLBuilder builder = new GetAllLogs();
         
     }
     
-    public static void updateAttribute(int assetFk, String attribute, int attributeFk) {       
-        PreparedStatement ps = null;
-        try {
-            Connection conn = DBUtil.getConnection();
-            ps = conn.prepareStatement(
-                "INSERT INTO Log (userFk, action, dateTime, " +
-                "                 assetFk, attribute, attributeFk) " +
-                "VALUES (?, ?, ?, ?, ?, ?)"                
-            );
-            ps.setInt(1, User.currentUser().pk());
-            ps.setString(2, "Edit");
-            ps.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
-            ps.setInt(4, assetFk);
-            ps.setString(5, attribute);
-            ps.setInt(6, attributeFk);
-            ps.executeUpdate();
-        }
-        catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        finally {
-            DBUtil.close(ps);
-        }
+    public static void addCore(Core core) {
+        SQLBuilder builder = new AddCoreLog(core);
+        DBUtil.executeUpdate(builder.getResult());
     }
-
-    public static void addAsset(int assetFk) {       
-        PreparedStatement ps = null;
-        try {
-            Connection conn = DBUtil.getConnection();
-            ps = conn.prepareStatement(
-                "INSERT INTO Log (userFk, action, dateTime, assetFk) " +
-                "VALUES (?, ?, ?, ?)"                
-            );
-            ps.setInt(1, User.currentUser().pk());
-            ps.setString(2, "Add");
-            ps.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
-            ps.setInt(4, assetFk);
-            ps.executeUpdate();
+    
+    public static void editCore(Core core) {
+        Timestamp timeStamp = new Timestamp(System.currentTimeMillis());
+        String dateTime = timeStamp.toString();
+        
+        for (Attribute attribute : core.getAttributes()) {
+            if (attribute.isUpdated()) {
+                SQLBuilder builder = new EditAttributeLog(core, attribute, dateTime);
+                DBUtil.executeUpdate(builder.getResult());
+            }
         }
-        catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        finally {
-            DBUtil.close(ps);
-        }
+        
     }
     
     private static void userLogged(String action) {
@@ -142,7 +113,7 @@ public class Log implements Comparable<Log> {
                 "INSERT INTO Log (userFk, action, dateTime) " +
                 "VALUES (?, ?, ?)"                
             );
-            ps.setInt(1, User.currentUser().pk());
+            ps.setInt(1, User.currentUser().getPk());
             ps.setString(2, action);
             ps.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
             ps.executeUpdate();
