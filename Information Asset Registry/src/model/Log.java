@@ -17,6 +17,7 @@ import model.sql.SQLBuilder;
 import model.sql.SQLQuery;
 
 public class Log implements Comparable<Log> {
+    
     private User user;
     private Timestamp timestamp;
     private String action;
@@ -105,7 +106,7 @@ public class Log implements Comparable<Log> {
         
     }
     
-    private static void userLogged(String action) {
+    private static void userLogged(Action action) {
         Connection conn = DBUtil.newConnection();
         PreparedStatement ps = null;
         try {
@@ -128,11 +129,11 @@ public class Log implements Comparable<Log> {
     }
     
     public static void loggedIn() {
-        userLogged("Login");
+        userLogged(Action.LOGIN);
     }
     
     public static void loggedOut() {
-        userLogged("Logout");
+        userLogged(Action.LOGOUT);
     }
     
     @Override
