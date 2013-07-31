@@ -62,7 +62,7 @@ public class View extends JFrame {
 		}catch (RegException e){
 			e.printStackTrace();
 		}
-		pack();
+		
         Thread controller = new setThread();
         controller.start();
         
@@ -81,6 +81,8 @@ public class View extends JFrame {
             getContentPane().add(currentPage);
             invalidate();
             validate();
+            pack();
+            setLocationRelativeTo(null);
         }
     }
     
