@@ -3,15 +3,15 @@ package controller;
 import model.Asset;
 import model.Log;
 import model.RegException;
-import view.ViewAssetFrame;
+import view.ViewAssetListFrame;
 import view.eventhandling.AssetEvent;
 import view.eventhandling.AssetListener;
 
 public class AddAssetController extends Controller implements AssetListener {
-    private ViewAssetFrame viewAssetFrame;
+    private ViewAssetListFrame viewAssetFrame;
     
     protected AddAssetController() {
-        viewAssetFrame = new ViewAssetFrame();
+        viewAssetFrame = new ViewAssetListFrame();
         viewAssetFrame.initializeNewAssetForm();
         viewAssetFrame.setAssetListener(this);
         Driver.display(viewAssetFrame);

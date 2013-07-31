@@ -10,16 +10,16 @@ import view.gui.page.PageBuilder;
 public abstract class View extends JFrame{
 	
 	public static final int ContentHeight = 512;
-	public static final int FooterHeight = 40;
-	public static final int HeaderHeight = 40;
+	public static final int FooterHeight = 35;
+	public static final int HeaderHeight = 35;
 	protected Page currentPage;
 	protected PageBuilder currentPageBuilder;
 	
-	public static int ViewHeight = 640;
+	// public static int ViewHeight = 640;
 	public static int ViewWidth = 400;
 	
 	public View(){
-		setSize(new Dimension(ViewWidth, ViewHeight));
+		// setPreferredSize(new Dimension(ViewWidth, ViewHeight));
 		setResizable(false);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);

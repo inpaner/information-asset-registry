@@ -1,4 +1,6 @@
 package view.gui.content;
+import java.awt.FlowLayout;
+
 import model.User;
 
 public class LoginForm extends Form {

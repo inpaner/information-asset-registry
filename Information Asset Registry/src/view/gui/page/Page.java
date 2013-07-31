@@ -8,6 +8,7 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
+import net.miginfocom.swing.MigLayout;
 import view.View;
 import view.gui.content.Content;
 
@@ -18,7 +19,7 @@ public class Page extends JPanel{
 	
 	public Page (){
 		super();
-		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		setLayout(new MigLayout());
 		Header = new JPanel(new FlowLayout(FlowLayout.CENTER, 2, 2));
 		Footer = new JPanel(new FlowLayout(FlowLayout.RIGHT, 2, 2));
 	}
@@ -46,17 +47,13 @@ public class Page extends JPanel{
 	}
 
 	public final void initialize(){
-		Header.setBorder(BorderFactory.createLineBorder(Color.RED));
-		Content.setBorder(BorderFactory.createLineBorder(Color.BLUE));
-		Footer.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-		
 		int width = View.ViewWidth;
 		Header.setPreferredSize(new Dimension(width, View.FooterHeight));
-		Content.setPreferredSize(new Dimension(width, View.ContentHeight));
 		Footer.setPreferredSize(new Dimension(width, View.HeaderHeight));
 		
-		add(Header);
-		add(Content);
-		add(Footer);
+		
+		add(Header, "wrap");
+		add(Content, "wrap");
+		add(Footer, "wrap");
 	}
 }

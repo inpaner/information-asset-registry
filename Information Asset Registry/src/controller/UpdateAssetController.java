@@ -2,15 +2,15 @@ package controller;
 
 import model.Asset;
 import model.RegException;
-import view.ViewAssetFrame;
+import view.ViewAssetListFrame;
 import view.eventhandling.AssetEvent;
 import view.eventhandling.AssetListener;
 
 public class UpdateAssetController extends Controller implements AssetListener {
-    private ViewAssetFrame viewAssetFrame;
+    private ViewAssetListFrame viewAssetFrame;
     
     protected UpdateAssetController(Asset asset) {
-        viewAssetFrame = new ViewAssetFrame();
+        viewAssetFrame = new ViewAssetListFrame();
         viewAssetFrame.initializeUpdateAssetForm(asset);
         viewAssetFrame.setAssetListener(this);
         Driver.display(viewAssetFrame);

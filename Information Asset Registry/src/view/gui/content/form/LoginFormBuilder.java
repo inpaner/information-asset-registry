@@ -17,7 +17,6 @@ public class LoginFormBuilder extends FormBuilder{
 	 *  This class creates a login form. 
 	 */
 	public Content BuildContent() {
-
 		Field field;
 		// Username
 		field = Field.BuildField(AttributeUtil.genericAttribute());

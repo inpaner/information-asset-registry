@@ -21,16 +21,12 @@ public class LoginPageBuilder extends PageBuilder implements ActionListener, Key
 	this.loginListener = loginListener;
 	}
 
-
 	public void BuildHeader(JPanel header) {
 		header.add( LabelFactory.CreateHeader("Login page") );
 	}
 
-
-
 	@Override
 	public Content CreateContent() {
-		// TODO Auto-generated method stub
 		return ContentBuilder.BuildLoginForm();
 	}
 	

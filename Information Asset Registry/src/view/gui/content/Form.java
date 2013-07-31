@@ -1,8 +1,13 @@
 
 package view.gui.content;
+
+import java.awt.Dimension;
+
+import net.miginfocom.swing.MigLayout;
+
 public abstract class Form extends Content {
 	public Form(){
-		super();
+		setLayout(new MigLayout("", "[][grow][]", "[shrink]"));
 	}
 	/**
 	 * This method turns the whole
