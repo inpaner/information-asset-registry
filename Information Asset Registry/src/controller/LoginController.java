@@ -10,8 +10,10 @@ import view.eventhandling.LoginListener;
 import view.gui.page.LoginPageBuilder;
 
 public class LoginController extends Controller implements LoginListener {
+    User user;
     
     protected LoginController() {
+        user = new User();
     	Driver.view.setPanel(new LoginPageBuilder(this));
     }
     
@@ -33,6 +35,5 @@ public class LoginController extends Controller implements LoginListener {
             // Handle the error by displaying a message
             
         }
-        
     }
 }
