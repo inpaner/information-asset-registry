@@ -21,6 +21,12 @@ public abstract class Input {
 		return input;
 	}
 	
+
+	public static Input CreateInput(Attribute attribute) {
+		return null;
+	}
+	
+	
 	public static Input CreateInput(StringAttribute attribute){
 		/*
 		 * This needs to vary depending on what kind
@@ -39,7 +45,9 @@ public abstract class Input {
 		return input;
 	}
 	
-	public Input() {}
+	public Input(Attribute attribute) {
+		this.attribute = attribute;
+	}
 	
 	/**
 	 * This method prepares the field for what kind of
@@ -52,8 +60,4 @@ public abstract class Input {
 		return component;
 	}
 
-	public void setComponent(JComponent component) {
-		this.component = component;
-	}
-	
 }

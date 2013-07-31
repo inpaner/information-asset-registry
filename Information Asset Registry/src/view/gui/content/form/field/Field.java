@@ -1,13 +1,25 @@
 package view.gui.content.form.field;
+
+import java.awt.Color;
+
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
+import view.gui.LabelFactory;
+import net.miginfocom.swing.MigLayout;
 import model.attribute.Attribute;
+import model.attribute.AttributeUtil;
+import model.attribute.DateAttribute;
+import model.attribute.IntegerAttribute;
+import model.attribute.PrimaryAttribute;
+import model.attribute.StringAttribute;
 
-public class Field {
+public class Field extends JPanel{
 	
-	protected JLabel Label;
-	protected Input input;
-	protected JLabel ErrorHandling;
+	protected JLabel inputLabel;
+	protected Input inputField;
+	protected JLabel errorLabel;
 	
 	/**
 	 * This method creates the necessary field depending on
@@ -17,7 +29,60 @@ public class Field {
 	 * @return field - the newly constructed Field object
 	 */
 	public static Field BuildField(Attribute attribute){
-		Field newField = new Field();
+		Input input = Input.CreateInput(attribute);
+		Field newField = new Field(input);
+		return newField;
+	}
+	
+	/**
+	 * This method creates the necessary field depending on
+	 * the type of the attribute passed. This changes the 
+	 * input, varying between ComboInput, TextInput, or DateInput
+	 * @param attribute - this is the attribute to be turned into a field
+	 * @return field - the newly constructed Field object
+	 */
+	public static Field BuildField(StringAttribute attribute){
+		Input input = Input.CreateInput(attribute);
+		Field newField = new Field(input);
+		return newField;
+	}
+	
+	/**
+	 * This method creates the necessary field depending on
+	 * the type of the attribute passed. This changes the 
+	 * input, varying between ComboInput, TextInput, or DateInput
+	 * @param attribute - this is the attribute to be turned into a field
+	 * @return field - the newly constructed Field object
+	 */
+	public static Field BuildField(DateAttribute attribute){
+		Input input = Input.CreateInput(attribute);
+		Field newField = new Field(input);
+		return newField;
+	}
+	
+	/**
+	 * This method creates the necessary field depending on
+	 * the type of the attribute passed. This changes the 
+	 * input, varying between ComboInput, TextInput, or DateInput
+	 * @param attribute - this is the attribute to be turned into a field
+	 * @return field - the newly constructed Field object
+	 */
+	public static Field BuildField(IntegerAttribute attribute){
+		Input input = Input.CreateInput(attribute);
+		Field newField = new Field(input);
+		return newField;
+	}
+	
+	/**
+	 * This method creates the necessary field depending on
+	 * the type of the attribute passed. This changes the 
+	 * input, varying between ComboInput, TextInput, or DateInput
+	 * @param attribute - this is the attribute to be turned into a field
+	 * @return field - the newly constructed Field object
+	 */
+	public static Field BuildField(PrimaryAttribute attribute){
+		Input input = Input.CreateInput(attribute);
+		Field newField = new Field(input);
 		return newField;
 	}
 	
@@ -28,31 +93,32 @@ public class Field {
 	 * which makes use of the static methods
 	 * of this same class.
 	 */
-	private Field(){
+	private Field(Input input) {
+		setLayout(new MigLayout());
+		inputLabel = LabelFactory.CreateFormLabel("");
+		inputField = input; 
+		errorLabel = LabelFactory.CreateFormErrorLabel("Error here");
 		
+		setBorder(BorderFactory.createLineBorder(Color.GREEN));
+		
+		add(inputLabel);
+		add(inputField.getComponent(), "gap unrelated");
+		add(errorLabel, "wrap");
 	}
 
 	public JLabel getLabel() {
-		return Label;
-	}
-
-	public void setLabel(JLabel label) {
-		Label = label;
+		return inputLabel;
 	}
 
 	public Input getInput() {
-		return input;
-	}
-
-	public void setInput(Input input) {
-		this.input = input;
+		return inputField;
 	}
 
 	public JLabel getErrorHandling() {
-		return ErrorHandling;
+		return errorLabel;
 	}
 
 	public void setErrorHandling(JLabel errorHandling) {
-		ErrorHandling = errorHandling;
+		errorLabel = errorHandling;
 	}
 }

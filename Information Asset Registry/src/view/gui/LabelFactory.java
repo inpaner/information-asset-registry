@@ -1,4 +1,5 @@
 package view.gui;
+import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.JLabel;
@@ -10,7 +11,7 @@ public class LabelFactory {
 	
 	public static int HeaderWidth = 640;
 	public static int HeaderHeight = 40;
-	public static Font HeaderFont = new Font("Verdana", 24, Font.BOLD); 
+	public static Font HeaderFont = new Font("Verdana", Font.BOLD, 24); 
 	
 	public static JLabel CreateLabel(String text){
 		return new JLabel(text);
@@ -24,5 +25,16 @@ public class LabelFactory {
 	
 	private LabelFactory(){
 	
+	}
+
+	public static JLabel CreateFormLabel(String string) {
+		JLabel label = CreateLabel(string);
+		return label;
+	}
+
+	public static JLabel CreateFormErrorLabel(String string) {
+		JLabel label = CreateLabel(string);
+		label.setForeground(Color.RED);
+		return label;
 	}
 }
