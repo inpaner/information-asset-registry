@@ -47,8 +47,6 @@ public class Page extends JPanel{
 	}
 
 	public final void initialize(){
-		Content.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		
 		int width = View.ViewWidth;
 		Header.setPreferredSize(new Dimension(width, View.FooterHeight));
 		Footer.setPreferredSize(new Dimension(width, View.HeaderHeight));
