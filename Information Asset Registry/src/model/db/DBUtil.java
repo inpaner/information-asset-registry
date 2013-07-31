@@ -1,4 +1,4 @@
-package everything;
+package model.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,6 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
+
+import model.attribute.Attribute;
+import model.sql.SQLBuilder;
 
 public class DBUtil {
     private static String dbUrl;
@@ -118,5 +121,23 @@ public class DBUtil {
             e.printStackTrace();
         }
     }
+    
+    public static void executeUpdate(String update) {
+        Connection conn = newConnection();
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement(update); 
+            ps.executeUpdate();
+            
+        }
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        finally {
+            DBUtil.close(ps);
+            DBUtil.close(conn);
+        }
+    }
+    
 
 }

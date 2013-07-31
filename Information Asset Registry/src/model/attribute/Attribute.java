@@ -7,6 +7,7 @@ import schemacrawler.schema.Column;
 import model.RegException;
 
 public abstract class Attribute {
+    private int pk;
     protected int assetFk;
     protected boolean isNew = true;
     protected String name;
@@ -22,8 +23,13 @@ public abstract class Attribute {
         name = column.getName().replace("`", "");
     }
     
+    public int getPk() {
+        return pk;
+    }
+    
     @Override
     public abstract Attribute clone();
+    public abstract String getStringValue();
     public abstract String getSQLValue();
     public abstract void update() throws RegException;
     public abstract boolean isUpdated();

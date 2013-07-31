@@ -9,9 +9,9 @@ import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Vector;
 
-import model.utils.SQLQuery;
+import model.db.DBUtil;
+import model.sql.SQLQuery;
 
-import everything.DBUtil;
 
 /////
 // REMNANT!

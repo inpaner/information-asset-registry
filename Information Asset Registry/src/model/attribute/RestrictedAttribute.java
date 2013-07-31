@@ -6,10 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 
-import everything.DBUtil;
 
 import model.Log;
 import model.RegException;
+import model.db.DBUtil;
 
 import schemacrawler.schema.Column;
 import schemacrawler.schema.Table;
@@ -76,7 +76,7 @@ public class RestrictedAttribute extends Attribute {
     
     @Override
     public String getSQLValue() {
-        return value.getSQLValue();
+        return String.valueOf(value.getPk());
     }
 
     @Override
@@ -115,6 +115,11 @@ public class RestrictedAttribute extends Attribute {
     @Override
     public void resetValue() {
         value = previousValue;
+    }
+
+    @Override
+    public String getStringValue() {
+        return null;
     }
 
 }

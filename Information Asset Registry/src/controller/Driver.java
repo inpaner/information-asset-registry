@@ -1,17 +1,17 @@
 package controller;
 
+import model.Session;
 import view.View;
 
 public class Driver{
 	public static View view;
     
     public static void main(String[] args) {
-    	// Begin the application
-        new Driver();
+    	new Driver();
     }
     
     public Driver (){
-        model.Driver.init();
+        Session session = new Session();
         //new LoginController();
     }
     

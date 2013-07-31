@@ -73,5 +73,10 @@ public class CoreAttribute extends Attribute {
     public void resetValue() {
         value = previousValue;
     }
+
+    @Override
+    public String getStringValue() {
+        return null;
+    }
     
 }

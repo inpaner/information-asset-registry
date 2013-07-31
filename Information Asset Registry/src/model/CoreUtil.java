@@ -9,6 +9,7 @@ import java.util.HashMap;
 
 import model.attribute.Attribute;
 import model.attribute.AttributeUtil;
+import model.db.DBUtil;
 
 import schemacrawler.schema.Column;
 import schemacrawler.schema.Database;
@@ -18,7 +19,6 @@ import schemacrawler.schemacrawler.SchemaCrawlerException;
 import schemacrawler.schemacrawler.SchemaCrawlerOptions;
 import schemacrawler.schemacrawler.SchemaInfoLevel;
 import schemacrawler.utility.SchemaCrawlerUtility;
-import everything.DBUtil;
 
 public class CoreUtil {
     private static HashMap<String, Core> models;
@@ -26,10 +26,7 @@ public class CoreUtil {
     
     public static void main(String[] args) {
         init();
-        Core core = getCore("asset", 1);
-        for (Attribute a : core.getAttributes()) {
-            System.out.println(a.getName() + ": " + a.getValueString());
-        }
+        Core core = getAddable("asset");
     }
     
     protected static void init() {
@@ -137,11 +134,13 @@ public class CoreUtil {
         
         for (Column column: table.getColumns()) {
             if (column.isPartOfPrimaryKey())
-                continue;
+                continue;    
             Attribute attribute = AttributeUtil.build(column);
-            System.out.println(attribute.getClass());
-            
             model.addAttribute(attribute);
+            
+            if (column.isPartOfUniqueIndex()) {
+                model.setUnique(attribute);
+            }
         }
     }
     

@@ -7,10 +7,10 @@ import java.sql.SQLException;
 
 import model.Log;
 import model.RegException;
+import model.db.DBUtil;
 
 import schemacrawler.schema.Column;
 
-import everything.DBUtil;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 public class StringAttribute extends PrimaryAttribute {
@@ -77,6 +77,11 @@ public class StringAttribute extends PrimaryAttribute {
     }
 
     public String getValue() {
+        return value;
+    }
+
+    @Override
+    public String getStringValue() {
         return value;
     }
 }

@@ -7,16 +7,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import everything.DBUtil;
 
 import model.attribute.Attribute;
+import model.db.DBUtil;
 import model.sql.SQLQuery;
-import model.sql.SQLUtil;
+import model.sql.SQLBuilder;
 
 public class Core {
     private int pk;
     private String name;
     private ArrayList<Attribute> attributes;
+    private Attribute uniqueAttribute;
     
     Core(String name) {
         attributes = new ArrayList<>();
@@ -35,32 +36,25 @@ public class Core {
         this.pk = pk;
     }
     
+    public int getPk() {
+        return pk;
+    }
+    
     public void add() {
         // TODO check if all attributes are valid
-        
-        Connection conn = DBUtil.newConnection();
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            String query = SQLUtil.insertCoreQuery(this);                        
-            ps = conn.prepareStatement(query); 
-            ps.executeUpdate();
-            for (Attribute attribute : attributes) {
-                attribute.commitValue();
-            }
-        }
-        catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        finally {
-            DBUtil.close(rs);
-            DBUtil.close(ps);
-            DBUtil.close(conn);
+        String statement = SQLBuilder.insertCoreStatement(this);
+        DBUtil.executeUpdate(statement);
+        for (Attribute attribute : attributes) {
+            attribute.commitValue();
         }
     }
     
     public void update() {
-        
+        String statement = SQLBuilder.updateCoreStatement(this);
+        DBUtil.executeUpdate(statement);
+        for (Attribute attribute : attributes) {
+            attribute.commitValue();
+        }
     }
     
     public String getName() {
@@ -72,12 +66,13 @@ public class Core {
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
-            String query = SQLUtil.refreshCoreQuery(this);                        
+            String query = SQLBuilder.getCoreStatement(this);                        
             ps = conn.prepareStatement(query); 
             rs = ps.executeQuery();
             rs.next();
             for (Attribute attribute : attributes) {
-                attribute.forceValue(rs);
+                attribute.setValue(rs);
+                attribute.commitValue();
             }
         }
         catch (SQLException ex) {
@@ -88,12 +83,6 @@ public class Core {
             DBUtil.close(ps);
             DBUtil.close(conn);
         }
-    }
-    
-    
-    
-    public Core getModel() {
-        return CoreUtil.getModel(name);
     }
     
     protected void addAttribute(Attribute attribute) {
@@ -109,9 +98,13 @@ public class Core {
         return attributes;
     }
 
-    public int getPk() {
-        // TODO Auto-generated method stub
-        return pk;
+    protected void setUnique(Attribute attribute) {
+        if (uniqueAttribute != null)
+            uniqueAttribute = attribute;
+    }
+    
+    public String getUniqueString() {
+        return uniqueAttribute.getStringValue();
     }
 }
     

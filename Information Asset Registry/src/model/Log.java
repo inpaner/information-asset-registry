@@ -8,22 +8,26 @@ import java.util.Collections;
 import java.util.Vector;
 import java.sql.Timestamp;
 
+import model.attribute.Attribute;
+import model.db.DBUtil;
+import model.sql.SQLBuilder;
+import model.sql.SQLQuery;
 
-import everything.DBUtil;
+
 
 public class Log implements Comparable<Log> {
     private User user;
     private Timestamp timestamp;
     private String action;
-    private Asset asset; 
-    private String attribute;
-    private int attributeFk;
+    private Core core; 
+    private Attribute attribute;
+    private String previous;
+    private String current;
     
     public static void main(String[] args) {
         for (Log l : Log.getAll()) {
             System.out.println(l.plaintext());
         }
-        
     }
     
     public Log() {
@@ -41,30 +45,36 @@ public class Log implements Comparable<Log> {
         return action;
     }
 
-    public Asset asset() {
-        return asset;
+    public Core core() {
+        return core;
     }
 
-    public String attribute() {
+    public Attribute attribute() {
         return attribute;
     }
-
-    public int attributeFk() {
-        return attributeFk;
+    
+    public String previous() {
+        return previous;
+    }
+    
+    public String current() {
+        return current;
     }
     
     public String plaintext() {
-        String text = user.username() + " - " + timestamp.toString() + " - ";
+        String text = user.getUsername() + " - " + timestamp.toString() + " - ";
         switch (action) {
             case "Login" :  text += " logged in.";
                             break;
             case "Logout" : text += " logged out.";
                             break;
                             
-            case "Add" :    text += user + " added asset " + asset.identifier() + ".";
+            case "Add" :    text += user + " added " + core.getName() + " " + 
+                            core.getUniqueString() + ".";
                             break;
-            case "Edit" :   text += user + " edited asset " + asset.identifier() + " " + 
-                                    attribute + ".";
+            case "Edit" :   text += user + " edited " + core.getName() + " " + 
+                            attribute +" from " + previous + " to " + current +
+                            ".";
                             break;
             default : text = "Unknown action.";
         }
@@ -73,45 +83,8 @@ public class Log implements Comparable<Log> {
     }
     
     public static Vector<Log> getAll() {
-        Connection conn = DBUtil.newConnection();
-        PreparedStatement ps = null;
-        ResultSet rs = null;
+        String statement = SQLBuilder.getAllLogsStatement();
         
-        Vector<Log> allLogs = new Vector<>();
-        try {
-            // Get from Logs
-            ps = conn.prepareStatement(
-                "SELECT userFk, dateTime, action, " +
-                "   assetFk, attribute, attributeFk " +
-                "FROM Log "
-            );
-            rs = ps.executeQuery();
-            
-            while (rs.next()) {
-                Log currentLog = new Log();
-                
-                currentLog.user = User.get(rs.getInt("userFk"));
-                currentLog.timestamp = rs.getTimestamp("dateTime");
-                currentLog.action = rs.getString("action");
-                currentLog.asset = Asset.get(rs.getInt("assetFk"));
-                currentLog.attribute = rs.getString("attribute");
-                currentLog.attributeFk = rs.getInt("attributeFk");
-                
-                allLogs.add(currentLog);
-            }
-            
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-        finally {
-            DBUtil.close(rs);
-            DBUtil.close(ps);
-            DBUtil.close(conn);
-        }
-        
-        Collections.sort(allLogs);
-        return allLogs;
     }
     
     public static void updateAttribute(int assetFk, String attribute, int attributeFk) {       
