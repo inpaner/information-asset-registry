@@ -2,6 +2,7 @@ package controller;
 
 import model.Session;
 import view.View;
+import view.gui.page.LoginPageBuilder;
 
 public class Driver{
 	public static View view;
@@ -13,8 +14,11 @@ public class Driver{
     public Driver (){
         // model.Driver.init();
         // new LoginController();
-        Session session = new Session();
-        new MainController();
+        // Session session = new Session();
+        // new MainController();
+    	view = new View();
+    	Controller controller = new LoginController(); 
+    	
     }
     
     /**

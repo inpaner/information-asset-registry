@@ -47,7 +47,6 @@ public class Page extends JPanel{
 	}
 
 	public final void initialize(){
-		int width = View.ViewWidth;
 		Header.setPreferredSize(View.HeaderDimension);
 		Footer.setPreferredSize(View.FooterDimension);
 		

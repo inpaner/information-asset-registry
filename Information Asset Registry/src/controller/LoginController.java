@@ -7,13 +7,12 @@ import model.User;
 import view.LogInFrame;
 import view.eventhandling.LoginEvent;
 import view.eventhandling.LoginListener;
+import view.gui.page.LoginPageBuilder;
 
 public class LoginController extends Controller implements LoginListener {
-    private LogInFrame loginFrame;
     
     protected LoginController() {
-        loginFrame = new LogInFrame(this);
-        Driver.display(loginFrame);
+    	Driver.view.setPanel(new LoginPageBuilder(this));
     }
     
     /**
@@ -32,7 +31,7 @@ public class LoginController extends Controller implements LoginListener {
         } 
         catch (RegException e){
             // Handle the error by displaying a message
-            loginFrame.displayError(e);
+            
         }
         
     }
