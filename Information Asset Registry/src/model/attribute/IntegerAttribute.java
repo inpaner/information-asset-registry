@@ -35,7 +35,7 @@ public class IntegerAttribute extends PrimaryAttribute {
         return String.valueOf(value);
     }
 
-    public void setValue(int value) {
+    public void setValue(int value) throws RegException {
         this.value = value;
     }
     

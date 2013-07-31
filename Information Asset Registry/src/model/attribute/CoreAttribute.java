@@ -78,4 +78,8 @@ public class CoreAttribute extends Attribute {
         return null;
     }
     
+    public void setValue(int pk) throws RegException {
+        
+    }
+    
 }
