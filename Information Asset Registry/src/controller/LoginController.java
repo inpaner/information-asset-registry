@@ -14,7 +14,7 @@ public class LoginController extends Controller implements LoginListener {
     
     protected LoginController() {
         user = new User();
-    	Driver.view.setPanel(new LoginPageBuilder(this));
+    	Driver.view.setPanel(new LoginPageBuilder(user, this));
     }
     
     /**
