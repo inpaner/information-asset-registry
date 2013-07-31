@@ -1,5 +1,8 @@
 package view.gui.content;
 
+import java.util.ArrayList;
+
+import view.gui.content.form.field.Field;
 import model.Asset;
 
 public class AssetForm extends Form {
@@ -21,6 +24,12 @@ public class AssetForm extends Form {
 		 * the asset
 		 */
 		
+	}
+
+	@Override
+	public ArrayList<Field> getFields() {
+		
+		return null;
 	}
 	
 }

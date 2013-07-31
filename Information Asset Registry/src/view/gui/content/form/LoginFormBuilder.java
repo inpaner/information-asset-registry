@@ -18,6 +18,7 @@ public class LoginFormBuilder extends FormBuilder{
 	 */
 	public Content BuildContent() {
 		Field field;
+		
 		// Username
 		field = Field.BuildField(AttributeUtil.genericAttribute());
 		field.addTo(content);

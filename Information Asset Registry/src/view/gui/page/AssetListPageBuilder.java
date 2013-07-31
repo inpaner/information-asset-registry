@@ -1,9 +1,8 @@
 package view.gui.page;
 
-import javax.swing.JPanel;
-
 import view.eventhandling.AssetListener;
 import view.gui.content.Content;
+import javax.swing.JPanel;
 
 public class AssetListPageBuilder extends PageBuilder {
 	private AssetListener assetListener;
@@ -11,7 +10,7 @@ public class AssetListPageBuilder extends PageBuilder {
 	public AssetListPageBuilder(AssetListener assetListener) {
 	this.assetListener = assetListener;
 	}
-	
+
 	@Override
 	public void BuildHeader(JPanel header) {
 		// TODO Auto-generated method stub

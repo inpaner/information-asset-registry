@@ -1,6 +1,6 @@
 package view.gui.content;
-import java.awt.Dimension;
 
+import java.awt.Dimension;
 import javax.swing.JPanel;
 
 import view.View;
@@ -14,7 +14,8 @@ public abstract class Content extends JPanel {
 	/**
 	 * This method prepares the content, 
 	 * given an object on the subclasses'
-	 * constructor, it creates 
+	 * constructor, it creates the necessary
+	 * Content.
 	 */
 	public abstract void Initialize();
 }

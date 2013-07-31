@@ -1,7 +1,6 @@
 package view.gui.content.form.field;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
-
 import model.attribute.StringAttribute;
 
 public class TextInput extends Input{

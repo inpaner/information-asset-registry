@@ -11,6 +11,8 @@ public class Driver{
     }
     
     public Driver (){
+        // model.Driver.init();
+        // new LoginController();
         Session session = new Session();
         new MainController();
     }

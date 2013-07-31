@@ -8,15 +8,14 @@ import view.gui.page.Page;
 import view.gui.page.PageBuilder;
 
 public abstract class View extends JFrame{
-	
-	public static final int ContentHeight = 512;
-	public static final int FooterHeight = 35;
-	public static final int HeaderHeight = 35;
 	protected Page currentPage;
 	protected PageBuilder currentPageBuilder;
 	
-	// public static int ViewHeight = 640;
+	public static int ViewHeight = 640;
 	public static int ViewWidth = 400;
+	public static final int ContentHeight = 512;
+	public static final Dimension FooterDimension = new Dimension(ViewWidth, 35);
+	public static final Dimension HeaderDimension = new Dimension(ViewWidth, 35);
 	
 	public View(){
 		// setPreferredSize(new Dimension(ViewWidth, ViewHeight));
