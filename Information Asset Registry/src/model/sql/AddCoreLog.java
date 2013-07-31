@@ -6,7 +6,7 @@ import model.Core;
 import model.Session;
 import model.attribute.Attribute;
 
-public class AddCoreLog implements SQLBuilder {
+public class AddCoreLog extends SQLBuilder {
     private SQLInsert statement;
 
     public AddCoreLog(Core core) {
@@ -14,13 +14,12 @@ public class AddCoreLog implements SQLBuilder {
         
         String userPk = String.valueOf(Session.currentUser().getPk());
         String corePk = String.valueOf(core.getPk());
-        Timestamp timeStamp = new Timestamp(System.currentTimeMillis());
-        String dateTime = timeStamp.toString();
+
         
         statement.setTable("Log");
         statement.addValue("userFk", userPk);
         statement.addValue("action", "Add");
-        statement.addValue("dateTime", dateTime);
+        statement.addValue("dateTime", dateTime());
         statement.addValue("coreFk", corePk);
         
     }

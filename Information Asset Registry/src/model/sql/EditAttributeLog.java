@@ -6,7 +6,7 @@ import model.Core;
 import model.Session;
 import model.attribute.Attribute;
 
-public class EditAttributeLog implements SQLBuilder {
+public class EditAttributeLog extends SQLBuilder {
     private SQLUpdate statement;
 
     public EditAttributeLog(Core core, Attribute attribute, String dateTime) {
