@@ -3,7 +3,7 @@ package model.sql;
 import java.util.LinkedHashSet;
 
 
-public class SQLQuery extends SQLBuilder {
+public class SQLQuery extends SQLStatement {
     private LinkedHashSet<String> projections;
     private LinkedHashSet<String> tables;
     private LinkedHashSet<String> conditions;

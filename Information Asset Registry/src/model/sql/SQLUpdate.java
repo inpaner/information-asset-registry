@@ -2,7 +2,7 @@ package model.sql;
 
 import java.util.ArrayList;
 
-public class SQLUpdate {
+public class SQLUpdate extends SQLStatement {
     private String table;
     private ArrayList<String> values;
     private ArrayList<String> conditions;
