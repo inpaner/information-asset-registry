@@ -21,4 +21,14 @@ public abstract class ContentBuilder {
 		AddAssetFormBuilder builder = new AddAssetFormBuilder(asset);
 		return (AssetForm)builder.BuildContent();
 	}
+	
+	public static AssetForm BuildEditForm(Asset asset){
+		EditAssetFormBuilder builder = new EditAssetFormBuilder(asset);
+		return (AssetForm)builder.BuildContent();
+	}
+	
+	public static AssetForm BuildViewForm(Asset asset){
+		ViewAssetFormBuilder builder = new ViewAssetFormBuilder(asset);
+		return (AssetForm)builder.BuildContent();
+	}
 }

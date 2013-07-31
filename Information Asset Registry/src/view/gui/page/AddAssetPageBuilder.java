@@ -1,14 +1,20 @@
 package view.gui.page;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import view.gui.ButtonFactory;
+import view.gui.LabelFactory;
 import view.gui.content.AssetForm;
 import view.gui.content.Content;
 import view.gui.content.contentbuilder.ContentBuilder;
 import view.gui.content.form.AddAssetFormBuilder;
 import view.gui.content.form.ViewAssetFormBuilder;
 
-public class AssetPageBuilder extends PageBuilder {
+public class AddAssetPageBuilder extends PageBuilder implements ActionListener{
 
 	public Page BuildPage() {
 		return new Page();
@@ -16,7 +22,7 @@ public class AssetPageBuilder extends PageBuilder {
 
 	@Override
 	public void BuildHeader(JPanel header) {
-		// TODO Auto-generated method stub
+		header.add( LabelFactory.CreateHeader("Add page") );
 		
 	}
 
@@ -27,6 +33,14 @@ public class AssetPageBuilder extends PageBuilder {
 
 	@Override
 	public void BuildFooter(JPanel footer) {
+		JButton add = ButtonFactory.CreateButton("Add");
+		add.addActionListener(this);
+		footer.add(add);
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
