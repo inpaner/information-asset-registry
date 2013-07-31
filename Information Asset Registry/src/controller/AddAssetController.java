@@ -8,18 +8,29 @@ import view.eventhandling.AssetEvent;
 import view.eventhandling.AssetListener;
 
 public class AddAssetController extends Controller implements AssetListener {
-
-	@Override
-	public void savedAsset(AssetEvent event) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void goToMain() {
-		// TODO Auto-generated method stub
-		
-	}
+    private ViewAssetListFrame viewAssetFrame;
     
+    protected AddAssetController() {
+        viewAssetFrame = new ViewAssetListFrame();
+        viewAssetFrame.initializeNewAssetForm();
+        viewAssetFrame.setAssetListener(this);
+        Driver.display(viewAssetFrame);
+    }
+    
+    @Override
+    public void savedAsset(AssetEvent event) {
+        Asset asset = event.getAsset();
+        try {
+            asset.add();
+        }
+        catch(RegException e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void goToMain() {
+        new MainController();
+    }
 
 }

@@ -14,6 +14,8 @@ public abstract class View extends JFrame{
 	public static int ViewHeight = 640;
 	public static int ViewWidth = 400;
 	public static final int ContentHeight = 512;
+	public static final Dimension FooterDimension = new Dimension(ViewWidth, 35);
+	public static final Dimension HeaderDimension = new Dimension(ViewWidth, 35);
 	
 	public View(){
 		// setPreferredSize(new Dimension(ViewWidth, ViewHeight));

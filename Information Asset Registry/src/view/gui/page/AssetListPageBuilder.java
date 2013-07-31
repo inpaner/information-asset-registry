@@ -1,13 +1,8 @@
 package view.gui.page;
 
-import javax.swing.JPanel;
-
-<<<<<<< HEAD
-	@Override
-	public void BuildPage() {
-=======
 import view.eventhandling.AssetListener;
 import view.gui.content.Content;
+import javax.swing.JPanel;
 
 public class AssetListPageBuilder extends PageBuilder {
 	private AssetListener assetListener;
@@ -15,7 +10,7 @@ public class AssetListPageBuilder extends PageBuilder {
 	public AssetListPageBuilder(AssetListener assetListener) {
 	this.assetListener = assetListener;
 	}
-	
+
 	@Override
 	public void BuildHeader(JPanel header) {
 		// TODO Auto-generated method stub
@@ -30,28 +25,8 @@ public class AssetListPageBuilder extends PageBuilder {
 
 	@Override
 	public void BuildFooter(JPanel footer) {
->>>>>>> branch 'master' of https://github.com/inpaner/information-asset-registry.git
 		// TODO Auto-generated method stub
 		
 	}
-
-	@Override
-	public void BuildHeader() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void BuildContent() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void BuildFooter() {
-		// TODO Auto-generated method stub
-		
-	}
-
 
 }
