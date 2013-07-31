@@ -2,6 +2,7 @@ package view.gui.page;
 import javax.swing.JPanel;
 
 import model.RegException;
+import view.eventhandling.AssetListener;
 import view.eventhandling.LoginListener;
 import view.gui.content.Content;
 
@@ -43,6 +44,10 @@ public abstract class PageBuilder {
 
 	public static PageBuilder AssignLoginBuilder(LoginListener loginListener) {
 		return new LoginPageBuilder(loginListener);
+	}
+
+	public static PageBuilder AssignAssetListPageBuilder(AssetListener assetListener) {
+		return new AssetListPageBuilder(assetListener);
 	}
 	
 	

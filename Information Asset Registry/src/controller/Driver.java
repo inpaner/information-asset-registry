@@ -12,7 +12,7 @@ public class Driver{
     
     public Driver (){
         // Session session = new Session();
-        new LoginController();
+        new MainController();
     }
     
     /**
