@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import view.gui.ButtonFactory;
 import view.gui.LabelFactory;
 import view.gui.content.Content;
+import view.gui.content.contentbuilder.ContentBuilder;
 
 public class ViewAssetPageBuilder extends PageBuilder implements ActionListener{
 
