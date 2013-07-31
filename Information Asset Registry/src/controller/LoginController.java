@@ -30,6 +30,8 @@ public class LoginController extends Controller implements LoginListener {
         try {
         	User user = event.getUser();
             user.login();
+            // Success! Go to main frame, where all assets are listed down.
+            Log.loggedIn();
             new MainController();
         } 
         catch (RegException e){
