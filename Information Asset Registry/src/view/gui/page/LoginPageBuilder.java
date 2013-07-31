@@ -30,7 +30,6 @@ public class LoginPageBuilder extends PageBuilder implements ActionListener, Key
 
 	@Override
 	public Content CreateContent() {
-		// TODO Auto-generated method stub
 		return ContentBuilder.BuildLoginForm();
 	}
 	

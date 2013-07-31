@@ -94,9 +94,11 @@ public class Field{
 	 * of this same class.
 	 */
 	private Field(Input input) {
-		inputLabel = LabelFactory.CreateFormLabel("label here");
+		
+		String label = input.attribute.getName();
+		inputLabel = LabelFactory.CreateFormLabel(label + ":");
 		inputField = input; 
-		errorLabel = LabelFactory.CreateFormErrorLabel("Error here");
+		errorLabel = LabelFactory.CreateFormErrorLabel("");
 	}
 
 	public JLabel getLabel() {
