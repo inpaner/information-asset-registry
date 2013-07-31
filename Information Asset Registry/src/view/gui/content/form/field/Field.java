@@ -13,18 +13,9 @@ import model.attribute.AttributeUtil;
 import model.attribute.DateAttribute;
 import model.attribute.IntegerAttribute;
 import model.attribute.PrimaryAttribute;
-<<<<<<< HEAD
 import model.attribute.StringAttribute;
 
-public class Field {
-=======
-import model.attribute.StringAttribute;
->>>>>>> branch 'master' of https://github.com/inpaner/information-asset-registry.git
-
-<<<<<<< HEAD
-=======
 public class Field{
->>>>>>> branch 'master' of https://github.com/inpaner/information-asset-registry.git
 	
 	protected JLabel inputLabel;
 	protected Input inputField;
