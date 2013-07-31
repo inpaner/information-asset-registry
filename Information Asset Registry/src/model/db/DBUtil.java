@@ -18,6 +18,8 @@ public class DBUtil {
     private static String username;
     private static String password;
     private static Connection conn;
+    private static PreparedStatement ps;
+    private static ResultSet rs;
     
     static {
         setup();
@@ -25,7 +27,7 @@ public class DBUtil {
     
 
     private static void setup() {
-        ResourceBundle rb = ResourceBundle.getBundle("everything.db");
+        ResourceBundle rb = ResourceBundle.getBundle("model.db.db");
         dbUrl = rb.getString("dbUrl");
         dbName = rb.getString("dbName");
         dbDriver = rb.getString("dbDriver");
@@ -139,5 +141,24 @@ public class DBUtil {
         }
     }
     
+    public static ResultSet executeQuery(String query) {
+        conn = DBUtil.newConnection();
+        ps = null;
+        rs = null;
+        try {
+            ps = conn.prepareStatement(query); 
+            rs = ps.executeQuery();
+        }
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }        
+        return rs;
+    }
+    
+    public static void finishQuery() {
+        close(conn);
+        close(ps);
+        close(rs);
+    }
 
 }

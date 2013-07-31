@@ -3,13 +3,13 @@ package model.sql;
 import java.util.LinkedHashSet;
 
 
-public class SQLQuery {
+public class SQLQuery extends SQLBuilder {
     private LinkedHashSet<String> projections;
     private LinkedHashSet<String> tables;
     private LinkedHashSet<String> conditions;
     private LinkedHashSet<String> sequences;
 
-    SQLQuery() {
+    public SQLQuery() {
         projections = new LinkedHashSet<>();
         tables = new LinkedHashSet<>();
         conditions = new LinkedHashSet<>();
@@ -33,7 +33,7 @@ public class SQLQuery {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         
         StringBuilder query = new StringBuilder();
         

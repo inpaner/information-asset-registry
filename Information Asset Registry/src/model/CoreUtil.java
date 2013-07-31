@@ -27,6 +27,7 @@ public class CoreUtil {
     public static void main(String[] args) {
         init();
         Core core = getAddable("asset");
+        CoreUtil.getCore("asset", 1);
     }
     
     protected static void init() {

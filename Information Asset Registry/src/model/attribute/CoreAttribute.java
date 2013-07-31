@@ -14,7 +14,6 @@ public class CoreAttribute extends Attribute {
     private Core previousValue;
     
     private CoreAttribute() {
-
     }
     
     CoreAttribute(Column column) {

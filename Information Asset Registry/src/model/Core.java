@@ -62,26 +62,20 @@ public class Core {
     }
     
     protected void refresh() {
-        Connection conn = DBUtil.newConnection();
-        PreparedStatement ps = null;
-        ResultSet rs = null;
+        String query = SQLBuilder.getCoreStatement(this);                        
+        ResultSet rs = DBUtil.executeQuery(query);
         try {
-            String query = SQLBuilder.getCoreStatement(this);                        
-            ps = conn.prepareStatement(query); 
-            rs = ps.executeQuery();
             rs.next();
             for (Attribute attribute : attributes) {
                 attribute.setValue(rs);
                 attribute.commitValue();
             }
         }
-        catch (SQLException ex) {
-            ex.printStackTrace();
+        catch (SQLException e) {
+            e.printStackTrace();
         }
         finally {
-            DBUtil.close(rs);
-            DBUtil.close(ps);
-            DBUtil.close(conn);
+            DBUtil.finishQuery();
         }
     }
     
