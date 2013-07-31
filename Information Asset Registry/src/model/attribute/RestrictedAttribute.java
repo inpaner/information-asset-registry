@@ -80,11 +80,6 @@ public class RestrictedAttribute extends Attribute {
     }
 
     @Override
-    public void update() throws RegException {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
     public Attribute clone() {
         RestrictedAttribute clone = new RestrictedAttribute();
         clone.name = name;
@@ -119,7 +114,12 @@ public class RestrictedAttribute extends Attribute {
 
     @Override
     public String getStringValue() {
-        return null;
+        return value.getStringValue();
+    }
+
+    @Override
+    public String getStringPreviousValue() {
+        return previousValue.getStringPreviousValue();
     }
 
 }

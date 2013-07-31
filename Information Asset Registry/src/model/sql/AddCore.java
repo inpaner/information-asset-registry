@@ -3,7 +3,7 @@ package model.sql;
 import model.Core;
 import model.attribute.Attribute;
 
-public class AddCore implements SQLBuilder {
+public class AddCore extends SQLBuilder {
     private SQLInsert update;
 
     public AddCore(Core core) {

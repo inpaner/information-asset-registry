@@ -31,11 +31,13 @@ public abstract class Attribute {
     public abstract Attribute clone();
     public abstract String getStringValue();
     public abstract String getSQLValue();
-    public abstract void update() throws RegException;
+    public abstract String getStringPreviousValue();
     public abstract boolean isUpdated();
     public abstract void commitValue();
     public abstract void resetValue();
     
     // TODO check for null forceValues
     public abstract void setValue(ResultSet rs) throws SQLException;
+
+    
 }

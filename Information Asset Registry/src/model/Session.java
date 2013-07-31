@@ -8,7 +8,7 @@ public class Session {
         currentUser = new User();
     }
     
-    public User currentUser() {
+    public static User currentUser() {
         return currentUser;
     }
 }

@@ -1,6 +1,6 @@
 package model.sql;
 
-public class GetAllLogs implements SQLBuilder {
+public class GetAllLogs extends SQLBuilder {
     private SQLQuery query;
     
     public GetAllLogs() {

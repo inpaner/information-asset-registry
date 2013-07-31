@@ -17,7 +17,6 @@ import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationExceptio
 
 
 public class IntegerAttribute extends PrimaryAttribute {
-    // TODO change to 
     protected int value = 0;
     protected int previousValue = 0;
     
@@ -40,81 +39,6 @@ public class IntegerAttribute extends PrimaryAttribute {
         this.value = value;
     }
     
-    private void insert(int assetFk) throws RegException {
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            Connection conn = DBUtil.getConnection();
-            System.out.println("here");
-            String update = 
-                "INSERT INTO " + getSQLValue() + " (assetFk, value) " +
-                "VALUES (?, ?)";
-            ps = conn.prepareStatement(update);                
-            ps.setInt(1, assetFk);
-            ps.setInt(2, previousValue);
-            ps.executeUpdate();
-            
-            isNew = false;
-            this.assetFk = assetFk;
-        }
-        catch (MySQLIntegrityConstraintViolationException e) {
-            e.printStackTrace();
-            String message = "Invalid value for " + getSQLValue() + ".";
-            throw new RegException(message);
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-        finally {
-            DBUtil.close(rs);
-            DBUtil.close(ps);
-        }   
-    }
-
-    protected void add(int assetFk) throws RegException {
-        if (!isNew) {
-            String message = getSQLValue() + " already exists.";
-            throw new RegException(message);            
-        }
-        if (value == 0) {
-            String message = getSQLValue() + " not set.";
-            throw new RegException(message);            
-        }
-        insert(assetFk);
-    }
-    
-    public void update() throws RegException {
-        if (isNew) {
-            String message = getSQLValue() + " does not yet exist.";
-            throw new RegException(message);   
-        }
-        
-        if (value == previousValue) 
-            return;
-        // early return
-        
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            insert(assetFk);
-            Connection conn = DBUtil.getConnection();
-            ps = conn.prepareStatement("SELECT LAST_INSERT_ID() AS fk");
-            rs = ps.executeQuery();
-            rs.next();
-            
-            int attributeFk = rs.getInt("fk");
-            Log.updateAttribute(assetFk, getSQLValue(), attributeFk);
-            value = previousValue;
-        }
-        catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        finally {
-            DBUtil.close(rs);
-            DBUtil.close(ps);
-        }   
-    }
-
     @Override
     public String getSQLValue() {
         return String.valueOf(value);
@@ -158,4 +82,10 @@ public class IntegerAttribute extends PrimaryAttribute {
     public String getStringValue() {        
         return String.valueOf(value);
     }
+
+    @Override
+    public String getStringPreviousValue() {
+        return String.valueOf(previousValue);
+    }
+
 }

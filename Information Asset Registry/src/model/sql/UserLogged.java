@@ -1,27 +1,20 @@
 package model.sql;
 
-import java.sql.Timestamp;
-
-import model.Core;
+import model.Action;
 import model.Session;
-import model.attribute.Attribute;
 
-public class AddCoreLog extends SQLBuilder {
+public class UserLogged extends SQLBuilder {
     private SQLInsert statement;
 
-    public AddCoreLog(Core core) {
+    public UserLogged(Action action) {
         statement = new SQLInsert();
         
         String userPk = String.valueOf(Session.currentUser().getPk());
-        String corePk = String.valueOf(core.getPk());
-
         
         statement.setTable("Log");
         statement.addValue("userFk", userPk);
-        statement.addValue("action", "Add");
+        statement.addValue("action", action.toString());
         statement.addValue("dateTime", dateTime());
-        statement.addValue("coreFk", corePk);
-        
     }
     
     @Override

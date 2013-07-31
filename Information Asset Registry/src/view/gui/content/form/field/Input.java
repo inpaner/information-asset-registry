@@ -14,6 +14,8 @@ public abstract class Input {
 	public static final Dimension TextInputDimension = new Dimension(200, 30);
 	public static final Dimension ComboBoxInputDimension = new Dimension(150, 30);
 	
+	public abstract boolean setInput();
+	
 	public static Input CreateInput(RestrictedAttribute attribute){
 		/*
 		 * In this case, since a restricted attribute was 

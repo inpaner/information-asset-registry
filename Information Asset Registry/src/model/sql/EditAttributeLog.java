@@ -6,21 +6,22 @@ import model.Core;
 import model.Session;
 import model.attribute.Attribute;
 
-public class AddCoreLog extends SQLBuilder {
-    private SQLInsert statement;
+public class EditAttributeLog extends SQLBuilder {
+    private SQLUpdate statement;
 
-    public AddCoreLog(Core core) {
-        statement = new SQLInsert();
+    public EditAttributeLog(Core core, Attribute attribute, String dateTime) {
+        statement = new SQLUpdate();
         
         String userPk = String.valueOf(Session.currentUser().getPk());
         String corePk = String.valueOf(core.getPk());
-
         
         statement.setTable("Log");
         statement.addValue("userFk", userPk);
-        statement.addValue("action", "Add");
-        statement.addValue("dateTime", dateTime());
+        statement.addValue("action", "Edit");
+        statement.addValue("dateTime", dateTime);
         statement.addValue("coreFk", corePk);
+        statement.addValue("previousValue", attribute.getStringPreviousValue());
+        statement.addValue("value", attribute.getStringValue());
         
     }
     

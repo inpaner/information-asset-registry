@@ -71,11 +71,6 @@ public class StringAttribute extends PrimaryAttribute {
         value = previousValue;
     }
 
-    @Override
-    public void update() throws RegException {
-        // TODO Auto-generated method stub
-    }
-
     public String getValue() {
         return value;
     }
@@ -83,5 +78,10 @@ public class StringAttribute extends PrimaryAttribute {
     @Override
     public String getStringValue() {
         return value;
+    }
+
+    @Override
+    public String getStringPreviousValue() {
+        return previousValue;
     }
 }

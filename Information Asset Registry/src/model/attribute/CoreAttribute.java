@@ -35,8 +35,8 @@ public class CoreAttribute extends Attribute {
     }
 
     @Override
-    public void update() throws RegException {
-        // TODO Auto-generated method stub
+    public String getStringPreviousValue() {
+        return String.valueOf(previousValue.getPk());
     }
 
     @Override

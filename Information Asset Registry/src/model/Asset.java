@@ -314,21 +314,21 @@ public class Asset {
         try {
             conn.setAutoCommit(false);
             
-            name.update();
-            identifier.update();
-            owner.update();
-            custodian.update();
-            type.update();
-            dateAcquired.update();
-            retentionPeriod.update();
-            financial.update();
-            confidentiality.update();
-            integrity.update();
-            availability.update();
-            classification.update();
-            storage.update();
+            name.edit();
+            identifier.edit();
+            owner.edit();
+            custodian.edit();
+            type.edit();
+            dateAcquired.edit();
+            retentionPeriod.edit();
+            financial.edit();
+            confidentiality.edit();
+            integrity.edit();
+            availability.edit();
+            classification.edit();
+            storage.edit();
             
-            integrity.update();
+            integrity.edit();
             // TODO Log.update();
             
             cache.put(pk, this);
