@@ -21,6 +21,7 @@ import model.sql.SQLQuery;
 public class Asset {
     private static HashMap<Integer, Asset> cache;
     
+    private Core core;
     private int pk;
    
     static {

@@ -12,17 +12,17 @@ import view.gui.page.LoginPageBuilder;
 import view.gui.page.PageBuilder;
 
 
-public class LogInFrame extends View  {
+public class LogInFrame {
 	/**
 	 * Create the frame.
 	 */
 	public LogInFrame(LoginListener loginListener) {
 		super();
-		setPanel(new LoginPageBuilder(Session.currentUser(), loginListener));
+		Driver.view.setPanel(new LoginPageBuilder(Session.currentUser(), loginListener));
 	}
 	
 	public void HandleException(RegException e){
-		LoginForm form = ((LoginForm)this.currentPage.getContent());
+		LoginForm form = ((LoginForm)Driver.view.currentPage.getContent());
 		ArrayList<Field> fields = form.getFields();
 		
 		if (e.getMessage().equals("Unregistered username")){

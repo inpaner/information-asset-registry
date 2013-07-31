@@ -15,16 +15,5 @@ public class AddAssetFormBuilder extends FormBuilder{
 		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 *  Using the asset, determine the
-	 * attributes it has and start to
-	 * create multiple fields using the
-	 * FieldFactory, and add it into the
-	 * content file to be returned.
-	 */
-	public Content BuildContent() {
-		
-		return content;
-	}
 	
 }
