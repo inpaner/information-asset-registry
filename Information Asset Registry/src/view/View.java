@@ -85,6 +85,10 @@ public class View extends JFrame {
             setLocationRelativeTo(null);
         }
     }
+
+	public Page getCurrentPage() {
+		return currentPage;
+	}
     
     
 

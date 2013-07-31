@@ -1,11 +1,14 @@
 
 package view.gui.content;
 import java.util.ArrayList;
+
 import view.gui.content.form.field.Field;
+
 import java.awt.Dimension;
 import java.util.ArrayList;
 
 import view.gui.content.form.field.Field;
+import model.RegException;
 import net.miginfocom.swing.MigLayout;
 
 public abstract class Form extends Content {
@@ -31,4 +34,6 @@ public abstract class Form extends Content {
 	    
 	    return noError;
 	}
+	
+	public abstract void HandleException(RegException e);
 }

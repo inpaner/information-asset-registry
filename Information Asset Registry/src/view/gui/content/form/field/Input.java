@@ -11,7 +11,7 @@ import model.attribute.StringAttribute;
 public abstract class Input {
 	protected JComponent component;
 	protected Attribute attribute;
-	public static final Dimension TextInputDimension = new Dimension(200, 30);
+	public static final Dimension TextInputDimension = new Dimension(200, 25);
 	public static final Dimension ComboBoxInputDimension = new Dimension(150, 30);
 	
 	public abstract boolean setInput();

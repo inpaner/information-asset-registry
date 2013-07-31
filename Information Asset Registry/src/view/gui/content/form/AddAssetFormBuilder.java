@@ -15,7 +15,6 @@ public class AddAssetFormBuilder extends FormBuilder{
 		// TODO Auto-generated constructor stub
 	}
 
-
 	/**
 	 *  Using the asset, determine the
 	 * attributes it has and start to

@@ -1,6 +1,7 @@
 package view.gui.content;
 import java.awt.FlowLayout;
 
+import model.RegException;
 import model.User;
 
 public class LoginForm extends Form {
@@ -24,6 +25,10 @@ public class LoginForm extends Form {
 	
 	public boolean Validate(){
 		return false;
+	}
+
+	public void HandleException(RegException e) {
+		
 	}
 	
 }

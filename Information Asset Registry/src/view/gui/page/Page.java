@@ -1,11 +1,5 @@
 package view.gui.page;
-
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
-
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 import net.miginfocom.swing.MigLayout;

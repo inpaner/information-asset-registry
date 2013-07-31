@@ -3,16 +3,21 @@ package controller;
 
 import model.Log;
 import model.RegException;
+import model.Session;
 import model.User;
 import view.LogInFrame;
+import view.View;
 import view.eventhandling.LoginEvent;
 import view.eventhandling.LoginListener;
+import view.gui.content.LoginForm;
 import view.gui.page.LoginPageBuilder;
+import view.gui.page.Page;
 
 public class LoginController extends Controller implements LoginListener {
     
     protected LoginController() {
-    	Driver.view.setPanel(new LoginPageBuilder(this));
+    	View view = Driver.view;
+    	view.setPanel(new LoginPageBuilder(Session.currentUser(), this));
     }
     
     /**
@@ -23,18 +28,14 @@ public class LoginController extends Controller implements LoginListener {
     @Override
     public void loginPerformed(LoginEvent event) {
         try {
-<<<<<<< HEAD
-=======
         	User user = event.getUser();
             user.login();
->>>>>>> refs/remotes/origin/master
-            // Success! Go to main frame, where all assets are listed down.
-            Log.loggedIn();
             new MainController();
         } 
         catch (RegException e){
-            // Handle the error by displaying a message
-            
+        	View view = Driver.view;
+        	Page page = view.getCurrentPage();
+        	((LoginForm)page.getContent()).HandleException(e);
         }
         
     }
