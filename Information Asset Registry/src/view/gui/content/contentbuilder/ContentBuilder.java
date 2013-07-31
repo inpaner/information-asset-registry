@@ -8,7 +8,6 @@ public abstract class ContentBuilder {
 	protected Content content;
 	public abstract Content BuildContent();
 	
-	
 	public static LoginForm BuildLoginForm() {
 		LoginFormBuilder builder = new LoginFormBuilder();
 		return (LoginForm)builder.BuildContent();

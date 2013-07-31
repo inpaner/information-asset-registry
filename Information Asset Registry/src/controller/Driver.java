@@ -11,8 +11,8 @@ public class Driver{
     }
     
     public Driver (){
-        model.Driver.init();
-        //new LoginController();
+        // model.Driver.init();
+        new LoginController();
     }
     
     /**

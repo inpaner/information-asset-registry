@@ -12,41 +12,33 @@ import view.eventhandling.LoginListener;
 import view.gui.ButtonFactory;
 import view.gui.LabelFactory;
 import view.gui.content.Content;
-import view.gui.content.LoginForm;
 import view.gui.content.contentbuilder.ContentBuilder;
 
 public class LoginPageBuilder extends PageBuilder implements ActionListener, KeyListener{
-	private Page loginPage;
-	private JPanel loginHeader;
-	private LoginForm loginContent;
-	private JPanel loginFooter;
-	
 	private LoginListener loginListener;
 	
 	public LoginPageBuilder(LoginListener loginListener) {
-		this.loginListener = loginListener;
+	this.loginListener = loginListener;
 	}
 
-	public Page BuildPage() {
-		loginPage = new Page();
-		
-		// Header
-		loginHeader = loginPage.getHeader();
-		loginHeader.add(LabelFactory.CreateHeader("Login Page"));
-		
-		// Body
-		loginContent = ContentBuilder.BuildLoginForm();
-		loginPage.setBody(loginContent);
-		
-		// Footer
-		loginFooter = loginPage.getFooter();
+
+	public void BuildHeader(JPanel header) {
+		header.add( LabelFactory.CreateHeader("Login page") );
+	}
+
+	@Override
+	public Content CreateContent() {
+		// TODO Auto-generated method stub
+		return ContentBuilder.BuildLoginForm();
+	}
+	
+	public void BuildFooter(JPanel footer) {
 		JButton login = ButtonFactory.CreateButton("Login");
 		login.addActionListener(this);
-		loginFooter.add( login );
-		
-		// Result
-		return loginPage;
+		footer.add(login);
 	}
+	
+	
 
 	public void keyPressed(KeyEvent e) {
 		
@@ -61,7 +53,8 @@ public class LoginPageBuilder extends PageBuilder implements ActionListener, Key
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		loginContent.
+		/*
+		ContentReference.
 		String username = txtUsername.getText();
 		char[] password = pwdLogin.getPassword();
 
@@ -69,8 +62,10 @@ public class LoginPageBuilder extends PageBuilder implements ActionListener, Key
 			LoginEvent event = new LoginEvent(username, password);
 			loginListener.loginPerformed(event);
 		}
+		*/
 	}
-	
+
+
 	
 	// Listeners will be moved to page creation instead of the view
 /*

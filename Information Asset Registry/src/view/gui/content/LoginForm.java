@@ -10,6 +10,7 @@ public class LoginForm extends Form {
 	 * know which user is going to be logged in.
 	 */
 	public LoginForm (){
+		super();
 	}
 	
 	public void Reset() {
@@ -17,10 +18,6 @@ public class LoginForm extends Form {
 	}
 
 	public void Initialize() {
-		/* TODO This allows you to
-		 * load the information of
-		 * the asset
-		 */
 	}
 	
 	public boolean Validate(){

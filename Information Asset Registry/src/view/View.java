@@ -3,16 +3,19 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
+import model.RegException;
 import view.gui.page.Page;
 import view.gui.page.PageBuilder;
 
 public abstract class View extends JFrame{
+	
 	
 	protected Page currentPage;
 	protected PageBuilder currentPageBuilder;
 	
 	public static int ViewHeight = 640;
 	public static int ViewWidth = 800;
+	public static final int ContentHeight = 512;
 	
 	public View(){
 		setSize(new Dimension(ViewWidth, ViewHeight));
@@ -23,9 +26,13 @@ public abstract class View extends JFrame{
 	}
 	
 	protected void SelectBuilder(PageBuilder Builder){
-		this.currentPageBuilder = Builder;
-		this.currentPage = this.currentPageBuilder.BuildPage();
-		setContentPane(this.currentPage);
+		try {
+			this.currentPageBuilder = Builder;
+			this.currentPage = this.currentPageBuilder.Build();
+			setContentPane(this.currentPage);
+		}catch(RegException err){
+			err.printStackTrace();
+		}
 	}
 	
 }
