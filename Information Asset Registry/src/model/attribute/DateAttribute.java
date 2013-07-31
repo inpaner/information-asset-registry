@@ -88,11 +88,6 @@ public class DateAttribute extends PrimaryAttribute {
     }
 
     @Override
-    public void update() throws RegException {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
     public void setValue(ResultSet rs) throws SQLException {
         value = rs.getDate(name);
     }

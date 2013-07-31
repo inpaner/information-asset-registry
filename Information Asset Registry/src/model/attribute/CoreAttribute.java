@@ -40,11 +40,6 @@ public class CoreAttribute extends Attribute {
     }
 
     @Override
-    public void update() throws RegException {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
     public Attribute clone() {
         CoreAttribute clone = new CoreAttribute();
         clone.name = name;
