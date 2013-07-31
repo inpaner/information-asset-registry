@@ -121,5 +121,8 @@ public class RestrictedAttribute extends Attribute {
     public String getStringPreviousValue() {
         return previousValue.getStringPreviousValue();
     }
-
+    
+    public void setValue(int pk) throws RegException {
+        
+    }
 }
