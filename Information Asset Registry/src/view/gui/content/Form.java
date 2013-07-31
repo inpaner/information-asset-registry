@@ -36,4 +36,8 @@ public abstract class Form extends Content {
 	}
 	
 	public abstract void HandleException(RegException e);
+
+	public ArrayList<Field> getFields() {
+		return fields;
+	}
 }

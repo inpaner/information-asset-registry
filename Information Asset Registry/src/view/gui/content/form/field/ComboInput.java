@@ -1,6 +1,7 @@
 package view.gui.content.form.field;
 import javax.swing.JComboBox;
 
+import model.RegException;
 import model.attribute.RestrictedAttribute;
 
 public class ComboInput extends Input{
@@ -12,6 +13,12 @@ public class ComboInput extends Input{
 	
 	public void Initialize() {
 		
+	}
+
+	@Override
+	public boolean setInput() throws RegException {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 }

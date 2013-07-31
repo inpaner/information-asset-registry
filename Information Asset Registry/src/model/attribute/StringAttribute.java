@@ -19,7 +19,7 @@ public class StringAttribute extends PrimaryAttribute {
     private int MAX_LENGTH;
     
     StringAttribute() {
-        MAX_LENGTH = 0;
+        MAX_LENGTH = 256;
     }
     
     StringAttribute(Column column) {

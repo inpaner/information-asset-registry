@@ -6,7 +6,9 @@ import view.gui.content.AssetForm;
 import view.gui.content.Content;
 import view.gui.content.LoginForm;
 import view.gui.content.form.AddAssetFormBuilder;
+import view.gui.content.form.EditAssetFormBuilder;
 import view.gui.content.form.LoginFormBuilder;
+import view.gui.content.form.ViewAssetFormBuilder;
 
 public abstract class ContentBuilder {
 	protected Content content;

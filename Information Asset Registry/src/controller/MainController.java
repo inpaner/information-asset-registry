@@ -1,5 +1,6 @@
 package controller;
 
+import model.User;
 import view.LogInFrame;
 import view.LogsFrame;
 import view.MainFrame;
@@ -8,6 +9,9 @@ import view.eventhandling.AssetEvent;
 import view.eventhandling.AssetListener;
 import view.eventhandling.LogoutListener;
 import view.eventhandling.MainMenuListener;
+import view.gui.content.form.AddAssetFormBuilder;
+import view.gui.page.AddAssetPageBuilder;
+import view.gui.page.LoginPageBuilder;
 
 public class MainController extends Controller implements AssetListener {
 
@@ -15,8 +19,7 @@ public class MainController extends Controller implements AssetListener {
     private ViewAssetListFrame viewAssetListFrame;
     
     protected MainController() {
-    	viewAssetListFrame = new ViewAssetListFrame(this);
-        Driver.display(viewAssetListFrame);
+    	Driver.view.setPanel(new AddAssetPageBuilder());
     }
 
     // move to DeleteAssetController

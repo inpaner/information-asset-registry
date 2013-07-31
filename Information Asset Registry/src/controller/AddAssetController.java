@@ -11,10 +11,7 @@ public class AddAssetController extends Controller implements AssetListener {
     private ViewAssetListFrame viewAssetFrame;
     
     protected AddAssetController() {
-        viewAssetFrame = new ViewAssetListFrame();
-        viewAssetFrame.initializeNewAssetForm();
-        viewAssetFrame.setAssetListener(this);
-        Driver.display(viewAssetFrame);
+        Driver.display(null);
     }
     
     @Override

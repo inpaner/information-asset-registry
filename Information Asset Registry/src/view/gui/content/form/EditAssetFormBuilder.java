@@ -11,6 +11,7 @@ public class EditAssetFormBuilder extends ViewAssetFormBuilder{
 	
 	@Override
 	public Content BuildContent() {
+		super.BuildContent();
 		return content;
 	}
 	

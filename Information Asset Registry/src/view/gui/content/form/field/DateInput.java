@@ -13,5 +13,10 @@ public class DateInput extends Input{
 	public void Initialize() {
 		
 	}
+
+	public boolean setInput() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 }

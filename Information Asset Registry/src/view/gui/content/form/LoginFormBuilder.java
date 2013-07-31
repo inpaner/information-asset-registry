@@ -21,7 +21,7 @@ public class LoginFormBuilder extends FormBuilder{
 	 */
 	public Content BuildContent() {
 		Field field;
-		
+		LoginForm content = (LoginForm)this.content;
 		
 		// Username
 		field = Field.BuildField(user.getUsername());

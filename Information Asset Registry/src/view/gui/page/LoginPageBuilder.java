@@ -9,10 +9,12 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import model.User;
+import view.eventhandling.LoginEvent;
 import view.eventhandling.LoginListener;
 import view.gui.ButtonFactory;
 import view.gui.LabelFactory;
 import view.gui.content.Content;
+import view.gui.content.LoginForm;
 import view.gui.content.contentbuilder.ContentBuilder;
 
 public class LoginPageBuilder extends PageBuilder implements ActionListener, KeyListener{
@@ -54,16 +56,14 @@ public class LoginPageBuilder extends PageBuilder implements ActionListener, Key
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		/*
-		ContentReference.
-		String username = txtUsername.getText();
-		char[] password = pwdLogin.getPassword();
-
+		LoginForm content = (LoginForm)PageReference.getContent();
+		content.setFields();
+		
 		if (loginListener != null) {
-			LoginEvent event = new LoginEvent(username, password);
+			LoginEvent event = new LoginEvent(user);
 			loginListener.loginPerformed(event);
 		}
-		*/
+		
 	}
 
 

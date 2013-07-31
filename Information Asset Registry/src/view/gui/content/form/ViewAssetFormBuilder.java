@@ -14,10 +14,7 @@ public class ViewAssetFormBuilder extends AddAssetFormBuilder{
 	
 	@Override
 	public Content BuildContent() {
-		Field field;
-		
-		asset.get(asset.pk());
-		
+		super.BuildContent();
 		return content;
 	}
 	

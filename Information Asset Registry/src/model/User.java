@@ -76,8 +76,10 @@ public class User {
         try {
             if (rs.next()) {
                 loggedIn = true;
-                DBUtil.finishQuery();
+                
+                // This doesn't update Session.currentUser, so it still looks as if the player didn't log in.
                 user = CoreUtil.getCore("user", rs.getInt("pk"));
+                DBUtil.finishQuery();
             }
             
             else {

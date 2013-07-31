@@ -1,6 +1,8 @@
 package view.gui.content.form.field;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
+
+import model.RegException;
 import model.attribute.StringAttribute;
 
 public class TextInput extends Input{
@@ -13,6 +15,12 @@ public class TextInput extends Input{
 	
 	public void Initialize() {
 		
+	}
+
+	public boolean setInput() throws RegException{
+		String value = ((JTextField)component).getText();
+		((StringAttribute)attribute).setValue(value);
+		return true;
 	}
 	
 }

@@ -6,7 +6,7 @@ import view.gui.page.PageBuilder;
 
 
 public class ViewAssetListFrame extends View  {
-	private static final Dimension viewAssetFrameDimension = new Dimension(View.WID, 600);
+	private static final Dimension viewAssetFrameDimension = new Dimension(200, 600);
 
 	/**
 	 * Create the frame.

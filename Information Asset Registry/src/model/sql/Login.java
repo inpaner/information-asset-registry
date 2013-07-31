@@ -10,9 +10,9 @@ public class Login extends SQLBuilder {
         statement.addProjection("pk");
         statement.addTable("user");
         statement.addCondition(
-                "username = " + user.getUsername().getStringValue());
+                "`username` = '" + user.getUsername().getStringValue()+"'");
         statement.addCondition(
-                "password = " + user.getPassword().getStringValue());
+                "`password` = '" + user.getPassword().getStringValue()+"'");
     }
     
     @Override

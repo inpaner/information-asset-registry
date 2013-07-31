@@ -63,7 +63,7 @@ public class SQLQuery extends SQLStatement {
             for (String condition : conditions) {
                 query.append(condition + " ");
                 if (count != conditions.size() - 1) {
-                    query.append(", ");
+                    query.append("AND ");
                 }
                 count++;
             }    

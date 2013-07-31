@@ -3,6 +3,7 @@ import java.awt.Dimension;
 
 import javax.swing.JComponent;
 
+import model.RegException;
 import model.attribute.Attribute;
 import model.attribute.CoreAttribute;
 import model.attribute.RestrictedAttribute;
@@ -14,42 +15,21 @@ public abstract class Input {
 	public static final Dimension TextInputDimension = new Dimension(200, 25);
 	public static final Dimension ComboBoxInputDimension = new Dimension(150, 30);
 	
-	public abstract boolean setInput();
+	public abstract boolean setInput() throws RegException;
 	
-	public static Input CreateInput(RestrictedAttribute attribute){
-		/*
-		 * In this case, since a restricted attribute was 
-		 * passed, the type of input to return would be a 
-		 * ComboInput. The input is initialized in the
-		 * constructor of the ComboInput.
-		 */
-		Input input = new ComboInput(attribute);
-		return input;
-	}
-	
-
 	public static Input CreateInput(Attribute attribute) {
+		if (attribute instanceof RestrictedAttribute){
+			return new ComboInput((RestrictedAttribute)attribute);
+		}
+		if (attribute instanceof StringAttribute)
+			return new TextInput((StringAttribute)attribute);
+		
+		if (attribute instanceof CoreAttribute)
+			return null;
+		
 		return null;
 	}
 	
-	
-	public static Input CreateInput(StringAttribute attribute){
-		/*
-		 * This needs to vary depending on what kind
-		 * of attribute was sent.
-		 */
-		Input input = new TextInput(attribute);
-		return input;
-	}
-	
-	public static Input CreateInput(CoreAttribute attribute){
-		/*
-		 * This needs to vary depending on what kind
-		 * of attribute was sent.
-		 */
-		Input input = null;
-		return input;
-	}
 	
 	public Input(Attribute attribute) {
 		this.attribute = attribute;

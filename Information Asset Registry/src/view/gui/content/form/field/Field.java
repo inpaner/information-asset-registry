@@ -7,7 +7,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import view.gui.LabelFactory;
+import view.gui.content.Form;
 import net.miginfocom.swing.MigLayout;
+import model.RegException;
 import model.attribute.Attribute;
 import model.attribute.AttributeUtil;
 import model.attribute.DateAttribute;
@@ -116,9 +118,19 @@ public class Field{
 		errorLabel = errorHandling;
 	}
 	
-	public void addTo(JPanel panel){
-		panel.add(inputLabel);
-		panel.add(inputField.getComponent());
-		panel.add(errorLabel, "wrap");
+	public void addTo(Form form){
+		form.getFields().add(this);
+		form.add(inputLabel);
+		form.add(inputField.getComponent());
+		form.add(errorLabel, "wrap");
+	}
+
+	public boolean setField() {
+		try {
+			return inputField.setInput();
+		}catch (RegException e){
+			errorLabel.setText(e.getMessage());
+		}
+		return false;
 	}
 }
