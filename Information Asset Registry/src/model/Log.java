@@ -19,9 +19,9 @@ public class Log implements Comparable<Log> {
     private Timestamp timestamp;
     private String action;
     private Core core; 
-    private Attribute attribute;
+    private String attribute;
     private String previous;
-    private String current;
+    private String value;
     
     public static void main(String[] args) {
         for (Log l : Log.getAll()) {
@@ -48,7 +48,7 @@ public class Log implements Comparable<Log> {
         return core;
     }
 
-    public Attribute attribute() {
+    public String attribute() {
         return attribute;
     }
     
@@ -56,8 +56,8 @@ public class Log implements Comparable<Log> {
         return previous;
     }
     
-    public String current() {
-        return current;
+    public String value() {
+        return value;
     }
     
     public String plaintext() {
@@ -71,8 +71,8 @@ public class Log implements Comparable<Log> {
                             core.getUniqueString() + ".";
                             break;
             case "Edit" :   text += user + " edited " + core.getName() + " " + 
-                            attribute +" from " + previous + " to " + current +
-                            ".";
+                            core.getUniqueString() + " " + attribute + 
+                            " from " + previous + " to " + value + ".";
                             break;
             default : text = "Unknown action.";
         }
@@ -80,12 +80,28 @@ public class Log implements Comparable<Log> {
     }
     
     public static ArrayList<Log> getAll() {
+        //TODO use a log cache
         SQLBuilder builder = new GetAllLogs();
         ResultSet rs = DBUtil.executeQuery(builder.getResult());
         ArrayList<Log> allLogs = new ArrayList<>();
         try {
             while (rs.next()) {
                 Log log = new Log();
+                log.user = User.getUser(rs.getInt("pk"));
+                log.action = rs.getString("action");
+                
+                try {
+                    String coreName = rs.getString("core");
+                    int corePk = rs.getInt("coreFk");
+                    log.core = CoreUtil.getCore(coreName, corePk);
+                    log.attribute = rs.getString("attribute");
+                    log.previous = rs.getString("previous");
+                    log.value = rs.getString("value");
+                    allLogs.add(log);
+                }
+                catch (NullPointerException ex) {
+                    ex.printStackTrace();
+                }
                 
             }
         }
@@ -95,6 +111,7 @@ public class Log implements Comparable<Log> {
         finally {
             DBUtil.finishQuery();
         }
+        return allLogs;
         
     }
     

@@ -5,18 +5,21 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import model.attribute.Attribute;
 import model.attribute.AttributeUtil;
 import model.attribute.StringAttribute;
 import model.db.DBUtil;
+import model.sql.Login;
+import model.sql.SQLBuilder;
 
 // wrapper class for user Core
 public class User {
-    private static ArrayList<User> cache;
+    private static HashMap<Integer, User> cache;
     
     static {
-        cache = new ArrayList<>();
+        cache = new HashMap<>();
     }
     
     private Core user;
@@ -35,6 +38,26 @@ public class User {
         loggedIn = false;
     }
     
+    private User(int pk) {
+        user = CoreUtil.getCore("user", pk);
+        for (Attribute attribute : user.getAttributes()) {
+            if (attribute.getName().equals("username"))
+                username = (StringAttribute) attribute;
+            else if (attribute.getName().equals("password"))
+                password = (StringAttribute) attribute;
+        }
+        loggedIn = false;
+    }
+    
+    public static User getUser(int pk) {
+        User toGet = cache.get(pk);
+        if (toGet == null) {
+            toGet = new User(pk);
+            cache.put(pk, toGet);
+        }
+        return toGet;
+    }
+    
     public int getPk() {
         return user.getPk();
     }
@@ -48,46 +71,32 @@ public class User {
     }
         
     public void login() throws RegException {
-        Connection conn = DBUtil.newConnection();
-        PreparedStatement ps = null;
-        ResultSet rs = null;
+        SQLBuilder builder = new Login(this);
+        ResultSet rs = DBUtil.executeQuery(builder.getResult());
         try {
-            StringBuilder query = new StringBuilder(
-                "SELECT pk " +
-                "FROM user " +
-                "WHERE username = ? AND password = ?'"
-            );
-            ps = conn.prepareStatement(query.toString()); 
-            ps.setString(1, username.getSQLValue());
-            ps.setString(1, password.getSQLValue());
-            
-            rs = ps.executeQuery();
-            
             if (rs.next()) {
                 loggedIn = true;
+                DBUtil.finishQuery();
+                user = CoreUtil.getCore("user", rs.getInt("pk"));
             }
             
             else {
-            	PreparedStatement ps2 = conn.prepareStatement(
-            	        "SELECT COUNT(*) " +
-            	        "FROM user " +
-            	        "WHERE username = ?");
-            	ps2.setString(1, username.getValue());
-            	ResultSet rs2 = ps2.executeQuery();
-            	if (rs2.next()){
-            		if (rs2.getInt(1) == 0)
-            			throw new RegException("Unregistered username.");
-            	}
-                throw new RegException("Invalid password.");
+                String query = 
+                    "SELECT COUNT(*) " +
+                    "FROM user " +
+                    "WHERE username = " + username.getStringValue();
+                rs = DBUtil.executeQuery(query);
+                if (rs.next()){
+                    if (rs.getInt(1) == 0)
+                        throw new RegException("Unregistered username.");
+                }
+                else {
+                    throw new RegException("Invalid password.");
+                }
             }
         }
         catch (SQLException ex) {
             ex.printStackTrace();
-        }
-        finally {
-            DBUtil.close(rs);
-            DBUtil.close(ps);
-            DBUtil.close(conn);
         }
     }    
     

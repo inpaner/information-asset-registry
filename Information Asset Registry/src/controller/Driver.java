@@ -19,7 +19,6 @@ public class Driver{
     	Session session = new Session();
     	view = new View();
     	Controller controller = new LoginController(); 
-    	
     }
     
     /**
