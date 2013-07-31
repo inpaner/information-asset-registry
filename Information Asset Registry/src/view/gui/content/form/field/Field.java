@@ -14,13 +14,9 @@ import model.attribute.DateAttribute;
 import model.attribute.IntegerAttribute;
 import model.attribute.PrimaryAttribute;
 import model.attribute.StringAttribute;
-<<<<<<< HEAD
 
 public class Field {
-=======
 
-public class Field{
->>>>>>> refs/remotes/origin/master
 	
 	protected JLabel inputLabel;
 	protected Input inputField;
