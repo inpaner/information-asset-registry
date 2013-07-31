@@ -16,9 +16,11 @@ import view.gui.LabelFactory;
 import view.gui.content.Content;
 import view.gui.content.LoginForm;
 import view.gui.content.contentbuilder.ContentBuilder;
+import view.gui.content.form.field.Field;
 
 public class LoginPageBuilder extends PageBuilder implements ActionListener, KeyListener{
 	private LoginListener loginListener;
+	private LoginForm content;
 	private User user;
 	
 	public LoginPageBuilder(User user, LoginListener loginListener) {
@@ -32,7 +34,12 @@ public class LoginPageBuilder extends PageBuilder implements ActionListener, Key
 
 
 	public Content CreateContent() {
-		return ContentBuilder.BuildLoginForm(user);
+		content = ContentBuilder.BuildLoginForm(user);
+		
+		for(Field f : content.getFields())
+			f.getInput().getComponent().addKeyListener(this);
+		
+		return content;
 	}
 	
 	public void BuildFooter(JPanel footer) {
@@ -44,7 +51,9 @@ public class LoginPageBuilder extends PageBuilder implements ActionListener, Key
 	
 
 	public void keyPressed(KeyEvent e) {
-		
+		if (e.getKeyCode() == KeyEvent.VK_ENTER){
+			actionPerformed(null);
+		}
 	}
 
 	public void keyReleased(KeyEvent e) {
@@ -56,6 +65,10 @@ public class LoginPageBuilder extends PageBuilder implements ActionListener, Key
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		
+		for(Field f : content.getFields())
+			f.ResetErrorHandling();
+		
 		LoginForm content = (LoginForm)PageReference.getContent();
 		content.setFields();
 		

@@ -85,15 +85,15 @@ public class User {
             else {
                 String query = 
                     "SELECT COUNT(*) " +
-                    "FROM user " +
-                    "WHERE username = " + username.getStringValue();
+                    "FROM `user` " +
+                    "WHERE `username` = '" + username.getStringValue() +"'";
                 rs = DBUtil.executeQuery(query);
                 if (rs.next()){
-                    if (rs.getInt(1) == 0)
-                        throw new RegException("Unregistered username.");
-                }
-                else {
-                    throw new RegException("Invalid password.");
+                    if (rs.getInt(1) > 0){
+                        throw new RegException("Invalid password");
+                    }else{
+                    	throw new RegException("Unregistered username");
+                    }
                 }
             }
         }

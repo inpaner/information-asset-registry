@@ -18,14 +18,12 @@ public class View extends JFrame {
 	protected Page currentPage;
 	protected PageBuilder currentPageBuilder;
 	
-	public static final Dimension HeaderDimension = new Dimension(800, 30);
-	public static final Dimension FooterDimension = new Dimension(800, 30);
+	public static final Dimension HeaderDimension = new Dimension(600, 30);
+	public static final Dimension FooterDimension = new Dimension(600, 30);
 
 	protected void SelectBuilder(PageBuilder Builder){
 
 	}
-	
-	
 
     public View() {
         final String look = "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
@@ -42,7 +40,7 @@ public class View extends JFrame {
         });
         
         setTitle("Information Asset Registry");
-        setPreferredSize(new Dimension(300, 200));
+        setMaximumSize(new Dimension(600, 550));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);

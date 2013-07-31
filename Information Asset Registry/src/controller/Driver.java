@@ -14,12 +14,10 @@ public class Driver{
     public Driver (){
         
         // new LoginController();
-        
         // new MainController();
     	Session session = new Session();
-    	view = new View();
-    	Controller controller = new MainController();
-    	// Controller controller = new LoginController(); 
+    	// Controller controller = new MainController();
+    	Controller controller = new LoginController(); 
     }
     
     /**

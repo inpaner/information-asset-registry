@@ -113,6 +113,10 @@ public class Field{
 	public JLabel getErrorHandling() {
 		return errorLabel;
 	}
+	
+	public void ResetErrorHandling(){
+		errorLabel.setText("");
+	}
 
 	public void setErrorHandling(JLabel errorHandling) {
 		errorLabel = errorHandling;
@@ -121,7 +125,7 @@ public class Field{
 	public void addTo(Form form){
 		form.getFields().add(this);
 		form.add(inputLabel);
-		form.add(inputField.getComponent());
+		form.add(inputField.getComponent(), "grow");
 		form.add(errorLabel, "wrap");
 	}
 

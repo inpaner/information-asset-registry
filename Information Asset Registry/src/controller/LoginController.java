@@ -3,6 +3,7 @@ package controller;
 
 import model.Log;
 import model.RegException;
+import model.Session;
 import model.User;
 import view.LogInFrame;
 import view.eventhandling.LoginEvent;
@@ -11,10 +12,11 @@ import view.gui.page.LoginPageBuilder;
 
 public class LoginController extends Controller implements LoginListener {
     User user;
+    LogInFrame loginFrame;
     
     protected LoginController() {
-        user = new User();
-    	Driver.view.setPanel(new LoginPageBuilder(user, this));
+    	 Driver.view = currentView = loginFrame = new LogInFrame(this);
+    	user = Session.currentUser();
     }
     
     /**
@@ -31,8 +33,8 @@ public class LoginController extends Controller implements LoginListener {
             new MainController();
         } 
         catch (RegException e){
-            // Handle the error by displaying a message
-            
+        	loginFrame.HandleException(e);
+        	
         }
     }
 }
