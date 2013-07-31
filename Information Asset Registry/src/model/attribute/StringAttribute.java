@@ -24,7 +24,10 @@ public class StringAttribute extends PrimaryAttribute {
     
     StringAttribute(Column column) {
         super(column);
-        MAX_LENGTH = Integer.valueOf(column.getWidth());
+        String length = column.getWidth()
+                              .replace("(", "")
+                              .replace(")", "");
+        MAX_LENGTH = Integer.valueOf(length);
     }
     
     public String getSQLValue() {
