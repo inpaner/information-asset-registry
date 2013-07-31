@@ -11,8 +11,8 @@ public class Driver{
     }
     
     public Driver (){
-        Session session = new Session();
-        //new LoginController();
+        // Session session = new Session();
+        new LoginController();
     }
     
     /**
