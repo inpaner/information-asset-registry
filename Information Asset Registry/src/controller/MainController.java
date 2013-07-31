@@ -1,40 +1,22 @@
 package controller;
 
+import view.LogInFrame;
 import view.LogsFrame;
 import view.MainFrame;
-import view.ViewAssetFrame;
+import view.ViewAssetListFrame;
 import view.eventhandling.AssetEvent;
-
+import view.eventhandling.AssetListener;
 import view.eventhandling.LogoutListener;
 import view.eventhandling.MainMenuListener;
 
-public class MainController extends Controller implements MainMenuListener, LogoutListener {
+public class MainController extends Controller implements AssetListener {
 
     // views
-    private MainFrame mainFrame;
+    private ViewAssetListFrame viewAssetListFrame;
     
     protected MainController() {
-        mainFrame = new MainFrame();
-        mainFrame.setMainMenuListener(this);
-        mainFrame.setLogoutListener(this);
-        mainFrame.initialize();
-        Driver.display(mainFrame);
-    }
-    
-	@Override
-    public void newAsset(AssetEvent event) {
-        new AddAssetController();
-    }
-
-	@Override
-    public void updateAsset(AssetEvent event) {
-	    new UpdateAssetController(event.getAsset());
-	}
-
-	@Override
-    public void deleteAsset(AssetEvent event) {
-        // TODO Auto-generated method stub
-        
+    	viewAssetListFrame = new ViewAssetListFrame(this);
+        Driver.display(viewAssetListFrame);
     }
 
     // move to DeleteAssetController
@@ -46,17 +28,21 @@ public class MainController extends Controller implements MainMenuListener, Logo
     }
     */
 	
-	@Override
-    public void viewLogs() {
-        new LogController();
-    }
 
 	public void initialize() {
 	}
 
+
 	@Override
-	public void logout() {
-		new LoginController();
+	public void savedAsset(AssetEvent event) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void goToMain() {
+		// TODO Auto-generated method stub
+		
 	}
     
 }

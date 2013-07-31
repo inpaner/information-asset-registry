@@ -1,21 +1,17 @@
 package view.eventhandling;
 
+import model.User;
+
 public class LoginEvent {
-	private String username;
-	private char[] password;
+	private User user;
 	
-	public LoginEvent(String username, char[] password) {
+	public LoginEvent(User user) {
 		super();
-		this.username = username;
-		this.password = password;
+		this.user = user;
 	}
 
-	public String getUsername() {
-		return username;
-	}
-
-	public char[] getPassword() {
-		return password;
+	public User getUser() {
+		return user;
 	}
 
 

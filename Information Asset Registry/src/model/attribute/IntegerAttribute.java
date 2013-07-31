@@ -9,12 +9,12 @@ import java.util.Vector;
 
 import model.Log;
 import model.RegException;
+import model.db.DBUtil;
 
 import schemacrawler.schema.Column;
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
-import everything.DBUtil;
 
 public class IntegerAttribute extends PrimaryAttribute {
     // TODO change to 
@@ -152,5 +152,10 @@ public class IntegerAttribute extends PrimaryAttribute {
     @Override
     protected void forceValue(String value) {
         this.value = Integer.valueOf(value);
+    }
+
+    @Override
+    public String getStringValue() {        
+        return String.valueOf(value);
     }
 }

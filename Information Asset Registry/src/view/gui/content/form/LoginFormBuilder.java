@@ -14,19 +14,18 @@ public class LoginFormBuilder extends FormBuilder{
 
 
 	/**
-	 *  This class creates a login form. However,
-	 *  it.
+	 *  This class creates a login form. 
 	 */
 	public Content BuildContent() {
-
 		Field field;
+		
 		// Username
 		field = Field.BuildField(AttributeUtil.genericAttribute());
-		content.add(field, "wrap");
+		field.addTo(content);
 		
 		// Password
 		field = Field.BuildField(AttributeUtil.genericAttribute());
-		content.add(field, "wrap");
+		field.addTo(content);
 		
 		return content;
 	}

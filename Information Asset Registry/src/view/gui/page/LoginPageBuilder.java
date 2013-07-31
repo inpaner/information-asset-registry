@@ -21,6 +21,7 @@ public class LoginPageBuilder extends PageBuilder implements ActionListener, Key
 	this.loginListener = loginListener;
 	}
 
+<<<<<<< HEAD
 
 	public void BuildHeader(JPanel header) {
 		header.add( LabelFactory.CreateHeader("Login page") );
@@ -29,6 +30,14 @@ public class LoginPageBuilder extends PageBuilder implements ActionListener, Key
 	@Override
 	public Content CreateContent() {
 		// TODO Auto-generated method stub
+=======
+	public void BuildHeader(JPanel header) {
+		header.add( LabelFactory.CreateHeader("Login page") );
+	}
+
+	@Override
+	public Content CreateContent() {
+>>>>>>> branch 'master' of https://github.com/inpaner/information-asset-registry.git
 		return ContentBuilder.BuildLoginForm();
 	}
 	

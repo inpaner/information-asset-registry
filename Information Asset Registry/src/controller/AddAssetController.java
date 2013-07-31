@@ -3,34 +3,23 @@ package controller;
 import model.Asset;
 import model.Log;
 import model.RegException;
-import view.ViewAssetFrame;
+import view.ViewAssetListFrame;
 import view.eventhandling.AssetEvent;
 import view.eventhandling.AssetListener;
 
 public class AddAssetController extends Controller implements AssetListener {
-    private ViewAssetFrame viewAssetFrame;
-    
-    protected AddAssetController() {
-        viewAssetFrame = new ViewAssetFrame();
-        viewAssetFrame.initializeNewAssetForm();
-        viewAssetFrame.setAssetListener(this);
-        Driver.display(viewAssetFrame);
-    }
-    
-    @Override
-    public void savedAsset(AssetEvent event) {
-        Asset asset = event.getAsset();
-        try {
-            asset.add();
-        }
-        catch(RegException e){
-            e.printStackTrace();
-        }
-    }
 
-    @Override
-    public void goToMain() {
-        new MainController();
-    }
+	@Override
+	public void savedAsset(AssetEvent event) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void goToMain() {
+		// TODO Auto-generated method stub
+		
+	}
+    
 
 }

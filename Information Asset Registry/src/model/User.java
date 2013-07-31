@@ -4,114 +4,63 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 
-import everything.DBUtil;
+import model.attribute.AttributeUtil;
+import model.attribute.StringAttribute;
+import model.db.DBUtil;
+
+
 
 public class User {
-    private static HashMap<Integer, User> cache;
-    
     private int pk;
-    private String username;
-    private static User currentUser;
+    private StringAttribute username;
+    private StringAttribute password;
+    private boolean loggedIn;
     
-    static {
-        cache = new HashMap<>();
+    public User() {
+        pk = -1;
+        username = AttributeUtil.genericAttribute();
+        password = AttributeUtil.genericAttribute();
+        loggedIn = false;
     }
     
-    public static User currentUser() {
-        return currentUser;
-    }
-    
-    public static User get(int pk) {
-        User toGet = cache.get(pk);
-        if (toGet == null) {
-            toGet = new User();
-            toGet.getFromDB(pk);
-        }
-    
-        return toGet;
-    }
-    
-    private void getFromDB(int pk) {
-        Connection conn = DBUtil.newConnection();
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            ps = conn.prepareStatement(
-                "SELECT username " +
-                "FROM User " +
-                "WHERE pk = (?) "
-            ); 
-            ps.setInt(1, pk);
-            rs = ps.executeQuery();
-            rs.next();
-            
-            this.pk = pk;
-            username = rs.getString("username");
-            
-        }
-        catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        finally {
-            DBUtil.close(rs);
-            DBUtil.close(ps);
-            DBUtil.close(conn);
-        }
-    }
-    
-    private User() {
-    }
-    
-    private User(int pk, String username) {
-        this.pk = pk;
-        this.username = username;
-    }
-
     public int pk() {
         return pk;
     }
     
-    public String username() {
+    public StringAttribute getUsername() {
         return username;
     }
     
-    public String toString(){
-    	return username;
+    public StringAttribute getPassword() {
+        return password;
     }
-    
-    public static User login(String username, char[] password) throws RegException {
+        
+    public void login() throws RegException {
         Connection conn = DBUtil.newConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
-        User user = null;
         try {
             StringBuilder query = new StringBuilder(
                 "SELECT pk " +
                 "FROM user " +
                 "WHERE username = ? AND password = '"
             );
-            
-            // appends password by character then zeroes it out
-            for (int i = 0; i < password.length; i++) {
-                query.append(password[i]);
-                password[i] = 0;
-            }
-            query.append("';");
-            
             ps = conn.prepareStatement(query.toString()); 
-            ps.setString(1, username);
+            ps.setString(1, username.getSQLValue());
+            
             rs = ps.executeQuery();
             
             if (rs.next()) {
-                int pk = rs.getInt("pk");
-                user = new User(pk, username);
-                currentUser = user;
+                pk = rs.getInt("pk");
+                loggedIn = true;
             }
             else {
-            	PreparedStatement ps2 = conn.prepareStatement("SELECT COUNT(*) FROM `user` WHERE `username` = ?");
-            	ps2.setString(1, username);
+            	PreparedStatement ps2 = conn.prepareStatement(
+            	        "SELECT COUNT(*) " +
+            	        "FROM user " +
+            	        "WHERE username = ?");
+            	ps2.setString(1, username.getValue());
             	ResultSet rs2 = ps2.executeQuery();
             	if (rs2.next()){
             		if (rs2.getInt(1) == 0)
@@ -128,8 +77,6 @@ public class User {
             DBUtil.close(ps);
             DBUtil.close(conn);
         }
-            
-        return user;
     }    
     
 }

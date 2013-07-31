@@ -2,34 +2,23 @@ package controller;
 
 import model.Asset;
 import model.RegException;
-import view.ViewAssetFrame;
+import view.ViewAssetListFrame;
 import view.eventhandling.AssetEvent;
 import view.eventhandling.AssetListener;
 
 public class UpdateAssetController extends Controller implements AssetListener {
-    private ViewAssetFrame viewAssetFrame;
-    
-    protected UpdateAssetController(Asset asset) {
-        viewAssetFrame = new ViewAssetFrame();
-        viewAssetFrame.initializeUpdateAssetForm(asset);
-        viewAssetFrame.setAssetListener(this);
-        Driver.display(viewAssetFrame);
-    }
 
-    @Override
-    public void savedAsset(AssetEvent event) {
-        Asset asset = event.getAsset();
-        try {
-            asset.update();
-        }
-        catch(RegException e){
-            e.printStackTrace();
-        }
-    }
+	@Override
+	public void savedAsset(AssetEvent event) {
+		// TODO Auto-generated method stub
+		
+	}
 
-    @Override
-    public void goToMain() {
-        new MainController();
-    }
+	@Override
+	public void goToMain() {
+		// TODO Auto-generated method stub
+		
+	}
+   
 
 }

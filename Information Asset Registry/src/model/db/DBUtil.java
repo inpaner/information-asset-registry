@@ -1,4 +1,4 @@
-package everything;
+package model.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,6 +8,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
+import model.attribute.Attribute;
+import model.sql.SQLBuilder;
+
 public class DBUtil {
     private static String dbUrl;
     private static String dbName;
@@ -15,6 +18,8 @@ public class DBUtil {
     private static String username;
     private static String password;
     private static Connection conn;
+    private static PreparedStatement ps;
+    private static ResultSet rs;
     
     static {
         setup();
@@ -22,7 +27,7 @@ public class DBUtil {
     
 
     private static void setup() {
-        ResourceBundle rb = ResourceBundle.getBundle("everything.db");
+        ResourceBundle rb = ResourceBundle.getBundle("model.db.db");
         dbUrl = rb.getString("dbUrl");
         dbName = rb.getString("dbName");
         dbDriver = rb.getString("dbDriver");
@@ -117,6 +122,43 @@ public class DBUtil {
         catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    
+    public static void executeUpdate(String update) {
+        Connection conn = newConnection();
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement(update); 
+            ps.executeUpdate();
+            
+        }
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        finally {
+            DBUtil.close(ps);
+            DBUtil.close(conn);
+        }
+    }
+    
+    public static ResultSet executeQuery(String query) {
+        conn = DBUtil.newConnection();
+        ps = null;
+        rs = null;
+        try {
+            ps = conn.prepareStatement(query); 
+            rs = ps.executeQuery();
+        }
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }        
+        return rs;
+    }
+    
+    public static void finishQuery() {
+        close(conn);
+        close(ps);
+        close(rs);
     }
 
 }

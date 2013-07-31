@@ -14,7 +14,6 @@ public class CoreAttribute extends Attribute {
     private Core previousValue;
     
     private CoreAttribute() {
-
     }
     
     CoreAttribute(Column column) {
@@ -72,6 +71,11 @@ public class CoreAttribute extends Attribute {
     @Override
     public void resetValue() {
         value = previousValue;
+    }
+
+    @Override
+    public String getStringValue() {
+        return null;
     }
     
 }

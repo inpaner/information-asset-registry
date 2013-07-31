@@ -2,6 +2,10 @@ package view.gui.page;
 import javax.swing.JPanel;
 
 import model.RegException;
+<<<<<<< HEAD
+=======
+import view.eventhandling.AssetListener;
+>>>>>>> branch 'master' of https://github.com/inpaner/information-asset-registry.git
 import view.eventhandling.LoginListener;
 import view.gui.content.Content;
 
@@ -43,6 +47,10 @@ public abstract class PageBuilder {
 
 	public static PageBuilder AssignLoginBuilder(LoginListener loginListener) {
 		return new LoginPageBuilder(loginListener);
+	}
+
+	public static PageBuilder AssignAssetListPageBuilder(AssetListener assetListener) {
+		return new AssetListPageBuilder(assetListener);
 	}
 	
 	

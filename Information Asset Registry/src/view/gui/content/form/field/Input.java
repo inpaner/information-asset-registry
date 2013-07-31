@@ -1,4 +1,6 @@
 package view.gui.content.form.field;
+import java.awt.Dimension;
+
 import javax.swing.JComponent;
 
 import model.attribute.Attribute;
@@ -9,6 +11,8 @@ import model.attribute.StringAttribute;
 public abstract class Input {
 	protected JComponent component;
 	protected Attribute attribute;
+	public static final Dimension TextInputDimension = new Dimension(200, 30);
+	public static final Dimension ComboBoxInputDimension = new Dimension(150, 30);
 	
 	public static Input CreateInput(RestrictedAttribute attribute){
 		/*

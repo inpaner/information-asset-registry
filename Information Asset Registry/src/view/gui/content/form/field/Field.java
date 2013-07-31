@@ -15,7 +15,7 @@ import model.attribute.IntegerAttribute;
 import model.attribute.PrimaryAttribute;
 import model.attribute.StringAttribute;
 
-public class Field extends JPanel{
+public class Field{
 	
 	protected JLabel inputLabel;
 	protected Input inputField;
@@ -94,16 +94,10 @@ public class Field extends JPanel{
 	 * of this same class.
 	 */
 	private Field(Input input) {
-		setLayout(new MigLayout());
-		inputLabel = LabelFactory.CreateFormLabel("");
+		String label = input.attribute.getName();
+		inputLabel = LabelFactory.CreateFormLabel(label + ":");
 		inputField = input; 
-		errorLabel = LabelFactory.CreateFormErrorLabel("Error here");
-		
-		setBorder(BorderFactory.createLineBorder(Color.GREEN));
-		
-		add(inputLabel);
-		add(inputField.getComponent(), "gap unrelated");
-		add(errorLabel, "wrap");
+		errorLabel = LabelFactory.CreateFormErrorLabel("");
 	}
 
 	public JLabel getLabel() {
@@ -120,5 +114,11 @@ public class Field extends JPanel{
 
 	public void setErrorHandling(JLabel errorHandling) {
 		errorLabel = errorHandling;
+	}
+	
+	public void addTo(JPanel panel){
+		panel.add(inputLabel);
+		panel.add(inputField.getComponent());
+		panel.add(errorLabel, "wrap");
 	}
 }

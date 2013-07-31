@@ -23,7 +23,8 @@ public class LoginController extends Controller implements LoginListener {
     @Override
     public void loginPerformed(LoginEvent event) {
         try {
-            User.login(event.getUsername(), event.getPassword());
+        	User user = event.getUser();
+            user.login();
             // Success! Go to main frame, where all assets are listed down.
             Log.loggedIn();
             new MainController();

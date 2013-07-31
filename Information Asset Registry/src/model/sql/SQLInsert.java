@@ -3,7 +3,7 @@ package model.sql;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-public class SQLInsert {
+public class SQLInsert extends SQLStatement {
     private String table;
     private ArrayList<String> projections;
     private ArrayList<String> values;
