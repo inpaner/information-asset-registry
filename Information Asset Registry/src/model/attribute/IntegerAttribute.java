@@ -17,7 +17,6 @@ import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationExceptio
 
 
 public class IntegerAttribute extends PrimaryAttribute {
-    // TODO change to 
     protected int value = 0;
     protected int previousValue = 0;
     
@@ -157,5 +156,10 @@ public class IntegerAttribute extends PrimaryAttribute {
     @Override
     public String getStringValue() {        
         return String.valueOf(value);
+    }
+
+    @Override
+    public String getStringPreviousValue() {
+        return String.valueOf(previousValue);
     }
 }

@@ -84,4 +84,9 @@ public class StringAttribute extends PrimaryAttribute {
     public String getStringValue() {
         return value;
     }
+
+    @Override
+    public String getStringPreviousValue() {
+        return previousValue;
+    }
 }

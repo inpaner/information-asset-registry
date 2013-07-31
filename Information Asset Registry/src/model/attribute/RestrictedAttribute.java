@@ -119,7 +119,12 @@ public class RestrictedAttribute extends Attribute {
 
     @Override
     public String getStringValue() {
-        return null;
+        return value.getStringValue();
+    }
+
+    @Override
+    public String getStringPreviousValue() {
+        return previousValue.getStringPreviousValue();
     }
 
 }

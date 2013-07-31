@@ -31,6 +31,7 @@ public abstract class Attribute {
     public abstract Attribute clone();
     public abstract String getStringValue();
     public abstract String getSQLValue();
+    public abstract String getStringPreviousValue();
     public abstract void update() throws RegException;
     public abstract boolean isUpdated();
     public abstract void commitValue();
@@ -38,4 +39,6 @@ public abstract class Attribute {
     
     // TODO check for null forceValues
     public abstract void setValue(ResultSet rs) throws SQLException;
+
+    
 }
