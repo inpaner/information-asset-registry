@@ -11,6 +11,7 @@ public class AssetListPageBuilder extends PageBuilder {
 	public AssetListPageBuilder(AssetListener assetListener) {
 	this.assetListener = assetListener;
 	}
+	
 	@Override
 	public void BuildHeader(JPanel header) {
 		// TODO Auto-generated method stub
