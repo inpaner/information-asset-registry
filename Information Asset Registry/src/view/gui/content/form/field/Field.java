@@ -15,11 +15,15 @@ import model.attribute.IntegerAttribute;
 import model.attribute.PrimaryAttribute;
 import model.attribute.StringAttribute;
 
-public class Field{
+public class Field {
 	
 	protected JLabel inputLabel;
 	protected Input inputField;
 	protected JLabel errorLabel;
+	
+	public boolean setField() {
+	    return inputField.setInput();
+	}
 	
 	/**
 	 * This method creates the necessary field depending on
