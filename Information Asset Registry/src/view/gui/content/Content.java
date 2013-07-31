@@ -9,7 +9,6 @@ import net.miginfocom.swing.MigLayout;
 public abstract class Content extends JPanel {
 	public Content(){
 		setLayout(new MigLayout());
-		setPreferredSize(new Dimension(View.ViewWidth, View.ContentHeight));
 	}
 	/**
 	 * This method prepares the content, 
