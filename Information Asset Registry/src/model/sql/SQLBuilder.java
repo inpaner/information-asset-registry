@@ -3,6 +3,7 @@ package model.sql;
 import java.sql.Timestamp;
 
 public abstract class SQLBuilder {
+
     public abstract String getResult();
     
     protected String dateTime() {

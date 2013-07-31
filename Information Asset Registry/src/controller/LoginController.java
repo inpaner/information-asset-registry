@@ -20,10 +20,10 @@ public class LoginController extends Controller implements LoginListener {
      * This function handles the login attempt of the user.
      * Should it fail, An exception is thrown to the login frame to display an error.  
      */
+    
     @Override
     public void loginPerformed(LoginEvent event) {
         try {
-            User.login(event.getUsername(), event.getPassword());
             // Success! Go to main frame, where all assets are listed down.
             Log.loggedIn();
             new MainController();

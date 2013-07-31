@@ -52,7 +52,7 @@ public class CoreUtil {
         try {
             Database database = SchemaCrawlerUtility.getDatabase(conn, options);
             for (Core model : models.values()) {
-                build(database, model);
+                buildCore(database, model);
             }
         }
         catch (SchemaCrawlerException e) {
@@ -121,7 +121,7 @@ public class CoreUtil {
         return toGet;
     }
     
-    protected static void build(Database database, Core model) {
+    protected static void buildCore(Database database, Core model) {
         //TODO DBUtil getSchemaName
         Schema schema = database.getSchema("`information asset registry`");
 

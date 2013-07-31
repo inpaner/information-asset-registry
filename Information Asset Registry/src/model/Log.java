@@ -1,11 +1,8 @@
 package model;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
+import java.util.ArrayList;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collections;
-import java.util.Vector;
 import java.sql.Timestamp;
 
 import model.attribute.Attribute;
@@ -14,7 +11,7 @@ import model.sql.AddCoreLog;
 import model.sql.EditAttributeLog;
 import model.sql.GetAllLogs;
 import model.sql.SQLBuilder;
-import model.sql.SQLQuery;
+import model.sql.UserLogged;
 
 public class Log implements Comparable<Log> {
     
@@ -32,7 +29,7 @@ public class Log implements Comparable<Log> {
         }
     }
     
-    public Log() {
+    private Log() {
     }    
     
     public User user() {
@@ -79,12 +76,25 @@ public class Log implements Comparable<Log> {
                             break;
             default : text = "Unknown action.";
         }
-        
         return text;
     }
     
-    public static Vector<Log> getAll() {
+    public static ArrayList<Log> getAll() {
         SQLBuilder builder = new GetAllLogs();
+        ResultSet rs = DBUtil.executeQuery(builder.getResult());
+        ArrayList<Log> allLogs = new ArrayList<>();
+        try {
+            while (rs.next()) {
+                Log log = new Log();
+                
+            }
+        }
+        catch (SQLException ex) {
+            
+        }
+        finally {
+            DBUtil.finishQuery();
+        }
         
     }
     
@@ -94,6 +104,7 @@ public class Log implements Comparable<Log> {
     }
     
     public static void editCore(Core core) {
+        // Uses a single timestamp for all logs
         Timestamp timeStamp = new Timestamp(System.currentTimeMillis());
         String dateTime = timeStamp.toString();
         
@@ -103,29 +114,11 @@ public class Log implements Comparable<Log> {
                 DBUtil.executeUpdate(builder.getResult());
             }
         }
-        
     }
     
     private static void userLogged(Action action) {
-        Connection conn = DBUtil.newConnection();
-        PreparedStatement ps = null;
-        try {
-            ps = conn.prepareStatement(
-                "INSERT INTO Log (userFk, action, dateTime) " +
-                "VALUES (?, ?, ?)"                
-            );
-            ps.setInt(1, User.currentUser().getPk());
-            ps.setString(2, action);
-            ps.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
-            ps.executeUpdate();
-        }
-        catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        finally {
-            DBUtil.close(ps);
-            DBUtil.close(conn);
-        }
+        SQLBuilder builder = new UserLogged(action);
+        DBUtil.executeUpdate(builder.getResult());
     }
     
     public static void loggedIn() {
