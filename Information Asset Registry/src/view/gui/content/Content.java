@@ -1,7 +1,14 @@
 package view.gui.content;
+import java.awt.Dimension;
+
 import javax.swing.JPanel;
 
+import net.miginfocom.swing.MigLayout;
+
 public abstract class Content extends JPanel {
+	public Content(){
+		setLayout(new MigLayout());
+	}
 	/**
 	 * This method prepares the content, 
 	 * given an object on the subclasses'

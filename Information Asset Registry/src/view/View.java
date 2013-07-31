@@ -10,11 +10,13 @@ import view.gui.page.PageBuilder;
 public abstract class View extends JFrame{
 	
 	public static final int ContentHeight = 512;
+	public static final int FooterHeight = 40;
+	public static final int HeaderHeight = 40;
 	protected Page currentPage;
 	protected PageBuilder currentPageBuilder;
 	
 	public static int ViewHeight = 640;
-	public static int ViewWidth = 800;
+	public static int ViewWidth = 400;
 	
 	public View(){
 		setSize(new Dimension(ViewWidth, ViewHeight));
@@ -32,6 +34,7 @@ public abstract class View extends JFrame{
 			e.printStackTrace();
 		}
 		setContentPane(this.currentPage);
+		pack();
 	}
 	
 }
