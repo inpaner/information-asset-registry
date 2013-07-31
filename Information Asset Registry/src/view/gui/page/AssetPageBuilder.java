@@ -2,7 +2,11 @@ package view.gui.page;
 
 import javax.swing.JPanel;
 
+import view.gui.content.AssetForm;
 import view.gui.content.Content;
+import view.gui.content.contentbuilder.ContentBuilder;
+import view.gui.content.form.AddAssetFormBuilder;
+import view.gui.content.form.ViewAssetFormBuilder;
 
 public class AssetPageBuilder extends PageBuilder {
 
@@ -18,8 +22,7 @@ public class AssetPageBuilder extends PageBuilder {
 
 	@Override
 	public Content CreateContent() {
-		// TODO Auto-generated method stub
-		return null;
+		return ContentBuilder.BuildAddForm(null);
 	}
 
 	@Override

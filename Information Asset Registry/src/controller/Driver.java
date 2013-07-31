@@ -12,10 +12,11 @@ public class Driver{
     }
     
     public Driver (){
-        // model.Driver.init();
+        
         // new LoginController();
-        // Session session = new Session();
+        
         // new MainController();
+    	Session session = new Session();
     	view = new View();
     	Controller controller = new LoginController(); 
     	

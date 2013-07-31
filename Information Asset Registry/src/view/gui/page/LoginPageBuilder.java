@@ -8,6 +8,7 @@ import java.awt.event.KeyListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import model.User;
 import view.eventhandling.LoginListener;
 import view.gui.ButtonFactory;
 import view.gui.LabelFactory;
@@ -16,9 +17,11 @@ import view.gui.content.contentbuilder.ContentBuilder;
 
 public class LoginPageBuilder extends PageBuilder implements ActionListener, KeyListener{
 	private LoginListener loginListener;
+	private User user;
 	
-	public LoginPageBuilder(LoginListener loginListener) {
-	this.loginListener = loginListener;
+	public LoginPageBuilder(User user, LoginListener loginListener) {
+		this.user = user;
+		this.loginListener = loginListener;
 	}
 
 	public void BuildHeader(JPanel header) {
@@ -27,7 +30,7 @@ public class LoginPageBuilder extends PageBuilder implements ActionListener, Key
 
 
 	public Content CreateContent() {
-		return ContentBuilder.BuildLoginForm();
+		return ContentBuilder.BuildLoginForm(user);
 	}
 	
 	public void BuildFooter(JPanel footer) {
