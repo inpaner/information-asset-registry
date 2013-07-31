@@ -14,20 +14,29 @@ import schemacrawler.schema.Column;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 public class StringAttribute extends PrimaryAttribute {
-    protected String value;
-    protected String previousValue;
+    private String value;
+    private String previousValue;
+    private int MAX_LENGTH;
     
     StringAttribute() {
+        MAX_LENGTH = 0;
     }
     
     StringAttribute(Column column) {
         super(column);
+        MAX_LENGTH = Integer.valueOf(column.getWidth());
     }
     
     public String getSQLValue() {
         return value;
     }
-
+    
+    public void setValue(String value) throws RegException {
+        if (value.length() > MAX_LENGTH)
+            throw new RegException("Max characters: " + MAX_LENGTH);
+        this.value = value;
+    }
+    
     @Override
     public String toString() {
         return value;
