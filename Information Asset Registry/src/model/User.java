@@ -57,6 +57,10 @@ public class User {
     }
         
     public void login() throws RegException {
+        if (username.getValue().isEmpty())
+            throw new RegException("Username not filled");
+        if (password.getValue().isEmpty())
+            throw new RegException("Password not filled");
         SQLBuilder builder = new Login(this);
         ResultSet rs = DBUtil.executeQuery(builder.getResult());
         try {
