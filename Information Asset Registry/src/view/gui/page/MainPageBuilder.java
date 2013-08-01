@@ -7,17 +7,16 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import controller.CoreListController;
-import controller.Driver;
-import controller.LoginController;
 import model.Core;
 import model.CoreUtil;
 import model.Session;
-import view.eventhandling.CoreListener;
 import view.gui.ButtonFactory;
 import view.gui.LabelFactory;
 import view.gui.content.BasicContent;
 import view.gui.content.Content;
+import controller.CoreListController;
+import controller.LogController;
+import controller.LoginController;
 
 public class MainPageBuilder extends PageBuilder implements ActionListener{
 	public MainPageBuilder() {
@@ -60,9 +59,7 @@ public class MainPageBuilder extends PageBuilder implements ActionListener{
 			Session.currentUser().logOut();
 			new LoginController();
 		}else if (btn.getActionCommand().equals("logs")){
-			// Logs
-			
-			
+			new LogController();
 		}else{
 			// Gets the template of the selected core
 			Core model = CoreUtil.getModel(btn.getActionCommand());

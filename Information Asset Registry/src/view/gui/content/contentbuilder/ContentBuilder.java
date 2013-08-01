@@ -3,17 +3,17 @@ package view.gui.content.contentbuilder;
 import java.util.ArrayList;
 
 import model.Core;
+import model.Log;
 import model.User;
-import view.eventhandling.CoreListener;
+import view.gui.content.Content;
 import view.gui.content.CoreForm;
 import view.gui.content.CoreTable;
-import view.gui.content.Content;
+import view.gui.content.LogTable;
 import view.gui.content.LoginForm;
 import view.gui.content.form.AddCoreFormBuilder;
 import view.gui.content.form.EditCoreFormBuilder;
 import view.gui.content.form.LoginFormBuilder;
 import view.gui.content.form.ViewCoreFormBuilder;
-import view.gui.page.CoreListPageBuilder;
 
 public abstract class ContentBuilder {
 	protected Content content;
@@ -42,5 +42,10 @@ public abstract class ContentBuilder {
 	public static CoreTable buildAssetList(ArrayList<Core> core) {
 		CoreListTableBuilder builder = new CoreListTableBuilder(core);
 		return (CoreTable)builder.buildContent();
+	}
+	
+	public static LogTable buildLogList(ArrayList<Log> logs) {
+		LogTableBuilder builder = new LogTableBuilder(logs);
+		return (LogTable) builder.buildContent();
 	}
 }

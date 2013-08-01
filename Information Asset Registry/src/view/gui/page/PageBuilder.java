@@ -6,9 +6,11 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import model.Core;
+import model.Log;
 import model.RegException;
 import model.User;
 import view.eventhandling.CoreListener;
+import view.eventhandling.LogListener;
 import view.eventhandling.LoginListener;
 import view.gui.ButtonFactory;
 import view.gui.content.Content;
@@ -85,6 +87,11 @@ public abstract class PageBuilder implements ActionListener {
 
 	public static PageBuilder AssignEditCorePageBuilder(Core core, CoreListener coreListener) {
 		return new EditCorePageBuilder(core, coreListener);
+	}
+
+	public static PageBuilder assignLogPageBuilder(LogListener logListener,
+			ArrayList<Log> logs) {
+		return new LogPageBuilder(logListener, logs);
 	}
 	
 	

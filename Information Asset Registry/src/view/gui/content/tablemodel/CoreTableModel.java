@@ -3,13 +3,14 @@ import java.util.ArrayList;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
 import model.Core;
-import model.CoreUtil;
 import model.attribute.Attribute;
 
+@SuppressWarnings("serial")
 public class CoreTableModel extends DefaultTableModel  {
 	private String[] columnNames;
-	private String[][] rowData;
+	//private String[][] rowData;
 	private ArrayList<Attribute> attributes;
 	private ArrayList<Core> coreList;
 	
@@ -24,13 +25,13 @@ public class CoreTableModel extends DefaultTableModel  {
 		
 		// Table definition
 		int col = attributes.size();
-		int row = coreList.size();
+		//int row = coreList.size();
 		
 		// Column definition
 		columnNames = new String[col];
 		
 		// Space for data
-		rowData = new String[row][col];
+		//rowData = new String[row][col];
 		
 		// Initialize column names
 		columnTypes = new Class[col];
