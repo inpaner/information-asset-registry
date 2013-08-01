@@ -2,6 +2,7 @@ package view.gui.content.form.field;
 import java.util.List;
 
 import javax.swing.JComboBox;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
@@ -24,7 +25,13 @@ public class TextInput extends Input{
 	public TextInput(StringAttribute attribute){
 		super(attribute);
 		stringAttribute = attribute;
-		component = jTextField = new JTextField();
+		if (stringAttribute.getName().contains("password") || stringAttribute.getName().startsWith("pw") || stringAttribute.getName().endsWith("pw"))
+		{
+			component = jTextField = new JPasswordField();
+		}else
+		{
+			component = jTextField = new JTextField();
+		}
 		component.setPreferredSize(Input.textInputDimension);
 	}
 	

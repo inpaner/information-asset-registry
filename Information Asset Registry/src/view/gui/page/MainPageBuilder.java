@@ -37,7 +37,10 @@ public class MainPageBuilder extends PageBuilder implements ActionListener{
 
 	@Override
 	public void buildFooter(JPanel footer) {
+		addButton("Logout", footer);
+		addButton("Logs", footer);
 		ArrayList<Core> models = CoreUtil.getModels();
+		
 		for(Core core : models){
 			String name = core.getName();
 			JButton button = ButtonFactory.createButton(name);
@@ -47,10 +50,6 @@ public class MainPageBuilder extends PageBuilder implements ActionListener{
 			
 		}
 		
-		JButton button = ButtonFactory.createButton("Logout");
-		button.addActionListener(this);
-		button.setActionCommand("logout");
-		footer.add( button );
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -60,6 +59,10 @@ public class MainPageBuilder extends PageBuilder implements ActionListener{
 			// Logs out
 			Session.currentUser().logOut();
 			new LoginController();
+		}else if (btn.getActionCommand().equals("logs")){
+			// Logs
+			
+			
 		}else{
 			// Gets the template of the selected core
 			Core model = CoreUtil.getModel(btn.getActionCommand());
