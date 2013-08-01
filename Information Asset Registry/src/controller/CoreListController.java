@@ -19,7 +19,15 @@ public class CoreListController extends Controller {
 
     public CoreListController(Core core) {
     	ArrayList<Core> allCores = CoreUtil.getAll(core.getName());
-        CoreListPageBuilder builder = new CoreListPageBuilder(allCores);
+        initialize(allCores);
+    }
+
+    public CoreListController(ArrayList<Core> cores) {
+        initialize(cores);
+    }
+
+    private void initialize(ArrayList<Core> result) {
+        CoreListPageBuilder builder = new CoreListPageBuilder(result);
         
         builder.setAddListener(new AddListener());
         builder.setUpdateListener(new UpdateListener());
@@ -27,9 +35,8 @@ public class CoreListController extends Controller {
         
         builder.setBackListener(new Back());
         Driver.view.setPanel(builder.build());
-
     }
-
+    
     private class AddListener implements CoreListener {
         @Override
         public void coreSelected(CoreEvent event) {
