@@ -96,10 +96,10 @@ public abstract class PageBuilder implements ActionListener {
 		return new AddCorePageBuilder(core, coreListener);
 	}
 
-*/	public static PageBuilder AssignEditCorePageBuilder(Core core, CoreListener coreListener) {
+	public static PageBuilder AssignEditCorePageBuilder(Core core, CoreListener coreListener) {
 		return new EditCorePageBuilder(core, coreListener);
 	}
-
+*/
 	public static PageBuilder assignLogPageBuilder(LogListener logListener,
 			ArrayList<Log> logs) {
 		return new LogPageBuilder(logListener, logs);
