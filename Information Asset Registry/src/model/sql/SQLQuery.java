@@ -75,7 +75,7 @@ public class SQLQuery extends SQLStatement {
             for (String sequence : sequences) {
                 query.append(sequence + " ");
                 if (count != sequences.size() - 1) {
-                    query.append(", ");
+                    query.append("AND ");
                 }
                 count++;
             }    
