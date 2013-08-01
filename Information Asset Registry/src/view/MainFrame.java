@@ -6,8 +6,8 @@ import controller.Driver;
 
 
 public class MainFrame  {
-	public MainFrame(CoreListener coreListener) {
-		Driver.view.setPanel ( PageBuilder.AssignMainPageBuilder(coreListener) );
+	public MainFrame() {
+		Driver.view.setPanel ( PageBuilder.AssignMainPageBuilder() );
 	}
 
 }

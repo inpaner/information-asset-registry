@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import model.Core;
 import model.User;
 import view.gui.ButtonFactory;
 import view.gui.LabelFactory;
@@ -14,9 +15,11 @@ import view.gui.content.contentbuilder.ContentBuilder;
 
 public class ViewCorePageBuilder extends PageBuilder implements ActionListener{
 	private User user;
+	private Core core;
 
-	public ViewCorePageBuilder(User user){
+	public ViewCorePageBuilder(User user, Core core){
 		this.user = user;
+		this.core = core;
 	}
 	
 	@Override
@@ -27,7 +30,7 @@ public class ViewCorePageBuilder extends PageBuilder implements ActionListener{
 
 	@Override
 	public Content CreateContent() {
-		return ContentBuilder.BuildAssetList();
+		return ContentBuilder.BuildViewForm(core);
 	}
 
 	@Override

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import controller.CoreListController;
 import controller.Driver;
 import controller.LoginController;
 import model.Core;
@@ -19,10 +20,7 @@ import view.gui.content.BasicContent;
 import view.gui.content.Content;
 
 public class MainPageBuilder extends PageBuilder implements ActionListener{
-	private CoreListener coreListener;
-	
-	public MainPageBuilder(CoreListener coreListener) {
-		this.coreListener = coreListener;
+	public MainPageBuilder() {
 	}
 
 	@Override
@@ -44,6 +42,7 @@ public class MainPageBuilder extends PageBuilder implements ActionListener{
 			String name = core.getName();
 			JButton button = ButtonFactory.CreateButton(name);
 			button.addActionListener(this);
+			button.setActionCommand(name);
 			footer.add( button );
 			
 		}
@@ -56,10 +55,18 @@ public class MainPageBuilder extends PageBuilder implements ActionListener{
 	
 	public void actionPerformed(ActionEvent e) {
 		JButton btn = (JButton)e.getSource();
+		
 		if (btn.getActionCommand().equals("back")){
 			Session.currentUser().logOut();
 			new LoginController();
 		}
+		
+		// Gets the template of the selected core
+		Core model = CoreUtil.getModel(btn.getActionCommand());
+		
+		// Fires up a new core list
+		new CoreListController(model);
+		
 	}
 
 }
