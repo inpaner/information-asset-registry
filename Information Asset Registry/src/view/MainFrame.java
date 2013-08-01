@@ -1,14 +1,13 @@
 package view;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import view.eventhandling.CoreListener;
+import view.gui.page.PageBuilder;
+import controller.Driver;
 
-public class MainFrame extends View implements ActionListener {
 
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
+public class MainFrame  {
+	public MainFrame(CoreListener coreListener) {
+		Driver.view.setPanel ( PageBuilder.AssignMainPageBuilder(coreListener) );
 	}
 
 }

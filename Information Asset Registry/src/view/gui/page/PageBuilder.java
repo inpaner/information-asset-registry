@@ -47,8 +47,12 @@ public abstract class PageBuilder {
 		return new LoginPageBuilder(user, loginListener);
 	}
 
-	public static PageBuilder AssignAssetListPageBuilder(CoreListener coreListener) {
+	public static PageBuilder AssignCoreListPageBuilder(CoreListener coreListener) {
 		return new CoreListPageBuilder(coreListener);
+	}
+
+	public static PageBuilder AssignMainPageBuilder(CoreListener coreListener) {
+		return new MainPageBuilder(coreListener);
 	}
 	
 	
