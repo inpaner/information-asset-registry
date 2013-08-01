@@ -102,34 +102,6 @@ public class CoreListPageBuilder extends PageBuilder implements KeyListener {
     }
 
 	public void actionPerformed(ActionEvent e) {
-		JButton btn = (JButton)e.getSource();
-		
-		if (e.getActionCommand().equals("view")){
-			CoreTable coreTable = (CoreTable)pageReference.getContent();
-			Core core = coreTable.getSelected();
-				
-			if (core != null)
-				// Fires up a new core list
-				new ViewCoreController(core);
-		}
-		
-		else if (e.getActionCommand().equals("add")){
-			CoreTable coreTable = (CoreTable)pageReference.getContent();
-
-			// Fires up a new core list
-			new AddCoreController(cores.get(0));
-		}
-		
-		else if (e.getActionCommand().equals("update")){
-			CoreTable coreTable = (CoreTable)pageReference.getContent();
-			Core core = coreTable.getSelected();
-				
-			if (core != null)
-				// Fires up a new core list
-				new EditCoreController(core);
-		}else if (e. getActionCommand().equals("back")){
-			new MainController();
-		}
 	}
 
 	public void keyPressed(KeyEvent e) {

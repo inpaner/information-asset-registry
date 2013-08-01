@@ -81,7 +81,7 @@ public abstract class PageBuilder implements ActionListener {
 	}
 
 	public static PageBuilder assignCoreListPageBuilder(CoreListener coreListener, ArrayList<Core> core) {
-		return new CoreListPageBuilder(coreListener, core);
+		return new CoreListPageBuilder(core);
 	}
 
 	public static PageBuilder assignMainPageBuilder() {
