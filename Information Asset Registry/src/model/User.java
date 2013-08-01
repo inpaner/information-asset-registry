@@ -32,14 +32,7 @@ public class User {
     }
     
     private User(int pk) {
-        user = CoreUtil.getCore("user", pk);
-        for (Attribute attribute : user.getAttributes()) {
-            if (attribute.getName().equals("username"))
-                username = (StringAttribute) attribute;
-            else if (attribute.getName().equals("password"))
-                password = (StringAttribute) attribute;
-        }
-        loggedIn = false;
+        logOut();
     }
     
     public static User getUser(int pk) {
@@ -69,8 +62,6 @@ public class User {
         try {
             if (rs.next()) {
                 loggedIn = true;
-                
-                // This doesn't update Session.currentUser, so it still looks as if the player didn't log in.
                 user = CoreUtil.getCore("user", rs.getInt("pk"));
                 DBUtil.finishQuery();
             }
