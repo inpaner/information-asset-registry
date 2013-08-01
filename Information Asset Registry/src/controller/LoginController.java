@@ -8,11 +8,10 @@ import model.User;
 import view.LogInFrame;
 import view.eventhandling.LoginEvent;
 import view.eventhandling.LoginListener;
-import view.gui.page.LoginPageBuilder;
 
 public class LoginController extends Controller implements LoginListener {
-    User user;
-    LogInFrame loginFrame;
+    protected User user;
+    private LogInFrame loginFrame;
     
     public LoginController() {
     	 loginFrame = new LogInFrame(this);
