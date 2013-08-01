@@ -25,11 +25,13 @@ public class TextInput extends Input{
 	public TextInput(StringAttribute attribute){
 		super(attribute);
 		stringAttribute = attribute;
-		if (stringAttribute.getName().contains("password") || stringAttribute.getName().startsWith("pw") || stringAttribute.getName().endsWith("pw"))
+		if (stringAttribute.getName().contains("password") 
+		        || stringAttribute.getName().startsWith("pw") 
+		        || stringAttribute.getName().endsWith("pw"))
 		{
 			component = jTextField = new JPasswordField();
-		}else
-		{
+		}
+		else {
 			component = jTextField = new JTextField();
 		}
 		component.setPreferredSize(Input.textInputDimension);
@@ -44,7 +46,7 @@ public class TextInput extends Input{
 	}
 	
 	public void initialize() {
-		jTextField.setText(((StringAttribute) attribute).getValue());
+		jTextField.setText(stringAttribute.getValue());
 	}
 
 	public void setInput() throws RegException{

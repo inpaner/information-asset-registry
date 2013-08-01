@@ -12,25 +12,24 @@ import model.CoreUtil;
 import model.RegException;
 import model.attribute.CoreAttribute;
 
-public class SearchInput extends Input {
+public class CoreInput extends Input {
     
-    JComboBox jComboBox;
+    JComboBox<Core> jComboBox;
     CoreAttribute coreAttribute;
     
-    public SearchInput(CoreAttribute attribute){
+    public CoreInput(CoreAttribute attribute){
         super(attribute);
         coreAttribute = attribute;
-        component = jComboBox = new JComboBox<String>();
+        component = jComboBox = new JComboBox<Core>();
         AutoCompleteDecorator.decorate(jComboBox);
         component.setPreferredSize(Input.textInputDimension);
     }
     
     @Override
     public void setInput() throws RegException {
-        // TODO Auto-generated method stub
+        coreAttribute.setValue((Core) jComboBox.getSelectedItem());
         
     }
-
     @Override
     public void initialize() {
         Core core = coreAttribute.getValue();
