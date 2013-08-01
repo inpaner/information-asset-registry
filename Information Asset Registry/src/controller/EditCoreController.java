@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import model.Core;
-import view.UpdateCoreFrame;
 import view.eventhandling.CoreEvent;
 import view.eventhandling.CoreListener;
 import view.gui.content.CoreForm;
@@ -12,8 +11,7 @@ import view.gui.page.AddCorePageBuilder;
 import view.gui.page.EditCorePageBuilder;
 
 public class EditCoreController extends Controller {
-	private UpdateCoreFrame updateCoreFrame;
-
+	
 	public EditCoreController(Core core) {
 		EditCorePageBuilder builder = new EditCorePageBuilder(core);
         builder.setBackListener(new Back());
@@ -29,7 +27,7 @@ public class EditCoreController extends Controller {
                 Core core = event.getCore();
                 core.edit();
                 core.commit();
-                new MainController();
+                new CoreListController(core);
                 // TODO show success
             }
         }

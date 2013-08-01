@@ -37,7 +37,7 @@ public class AddCoreController extends Controller {
                 Core core = event.getCore();
                 core.add();
                 core.commit();
-                new MainController();
+                new CoreListController(core);
                 // TODO show success
             }
         }
