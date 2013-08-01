@@ -37,6 +37,10 @@ public class MainPageBuilder extends PageBuilder {
         logsListener = listener;
     }
 
+    public void setCoreListener(CoreListener listener) {
+        coreListener = listener;
+    }
+
     public void actionPerformed(ActionEvent e) {
     
     }
@@ -76,10 +80,5 @@ public class MainPageBuilder extends PageBuilder {
             coreListener.coreSelected(event);
         }
 	}
-
-	
-	public void setCoreListener(CoreListener listener) {
-        coreListener = listener;
-    }
 
 }
