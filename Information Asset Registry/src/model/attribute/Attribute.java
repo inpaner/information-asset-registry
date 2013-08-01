@@ -39,5 +39,7 @@ public abstract class Attribute {
     // TODO check for null forceValues
     public abstract void setValue(ResultSet rs) throws SQLException;
 
+    public abstract boolean contains(String substring);
+
     
 }

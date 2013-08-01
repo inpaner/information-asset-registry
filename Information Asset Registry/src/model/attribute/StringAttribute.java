@@ -96,4 +96,9 @@ public class StringAttribute extends PrimaryAttribute {
     public String getStringPreviousValue() {
         return previousValue;
     }
+
+    @Override
+    public boolean contains(String substring) {
+        return value.contains(substring);
+    }
 }

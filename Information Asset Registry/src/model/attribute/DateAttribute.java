@@ -6,8 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import model.Log;
 import model.RegException;
@@ -106,4 +108,27 @@ public class DateAttribute extends PrimaryAttribute {
     public void resetValue() {
         value = previousValue;
     }
+
+    @Override
+    public boolean contains(String substring) {
+        boolean contains = false;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(value);
+        int day = calendar.get(Calendar.DATE);
+        int month = calendar.get(Calendar.MONTH);
+        int year = calendar.get(Calendar.YEAR);
+        
+        String dayString = String.valueOf(day);
+        String monthString = new DateFormatSymbols().getMonths()[month-1];
+        String yearString = String.valueOf(year);
+        
+        if (dayString.contains(substring) || monthString.contains(substring) 
+                || yearString.contains(substring) ) {
+            contains = true;
+        }
+        
+        return contains;
+    }
+    
+
 }

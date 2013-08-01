@@ -88,4 +88,9 @@ public class IntegerAttribute extends PrimaryAttribute {
         return String.valueOf(previousValue);
     }
 
+    @Override
+    public boolean contains(String substring) {
+        return String.valueOf(value).contains(substring);
+    }
+
 }

@@ -2,6 +2,7 @@ package model.attribute;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import model.Core;
 import model.CoreUtil;
@@ -77,8 +78,10 @@ public class CoreAttribute extends Attribute {
     public String getStringValue() {
     	try {
     		return String.valueOf(value.getPk());
-    	}catch (NumberFormatException e){
     	}
+    	catch (NumberFormatException e) {
+    	}
+    	
     	return "";
     }
     
@@ -87,16 +90,23 @@ public class CoreAttribute extends Attribute {
     }
     
     public void setValue(int pk) throws RegException {
-        
+        value = CoreUtil.getCore(model.getName(), pk);
     }
 
-	public void setValue() {
-		
+	public void setValue(Core core) throws RegException {
+		value = core;
 	}
 
 	public void setValue(String value) throws RegException {
 		
-		
 	}
     
+	public ArrayList<Core> search(String substring) {
+	    return CoreUtil.search(model.getName(), substring);
+	}
+	
+    @Override
+    public boolean contains(String substring) {
+        return value.contains(substring);
+    }
 }
