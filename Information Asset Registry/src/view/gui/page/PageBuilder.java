@@ -1,5 +1,6 @@
 package view.gui.page;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -66,7 +67,7 @@ public abstract class PageBuilder implements ActionListener {
 		return new LoginPageBuilder(user, loginListener);
 	}
 
-	public static PageBuilder assignCoreListPageBuilder(CoreListener coreListener, Core core) {
+	public static PageBuilder assignCoreListPageBuilder(CoreListener coreListener, ArrayList<Core> core) {
 		return new CoreListPageBuilder(coreListener, core);
 	}
 

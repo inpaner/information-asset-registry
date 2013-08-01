@@ -28,6 +28,7 @@ public class Driver{
     	if (view != null)
     		view.setVisible(false);
     	
+    	
     	view = replacement;
     	view.setVisible(true);
     }

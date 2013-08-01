@@ -1,5 +1,7 @@
 package view.gui.content.contentbuilder;
 
+import java.util.ArrayList;
+
 import view.gui.content.CoreTable;
 import view.gui.content.Content;
 import view.gui.content.tablemodel.CoreTableModel;
@@ -13,10 +15,10 @@ import model.User;
 
 public class CoreListTableBuilder extends TableBuilder{
 	protected User user;
-	private Core core;
+	private ArrayList<Core> core;
 	
 	
-	protected CoreListTableBuilder(Core core) {
+	protected CoreListTableBuilder(ArrayList<Core> core) {
 		this.user = Session.currentUser();
 		this.core = core;
 	}

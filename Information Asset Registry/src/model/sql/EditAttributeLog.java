@@ -1,7 +1,5 @@
 package model.sql;
 
-import java.sql.Timestamp;
-
 import model.Core;
 import model.Session;
 import model.attribute.Attribute;
