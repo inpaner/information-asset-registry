@@ -23,26 +23,24 @@ public class CoreListPageBuilder extends PageBuilder implements ActionListener {
 	this.core = core;
 	}
 
-	@Override
 	public void BuildHeader(JPanel header) {
-		header.add( LabelFactory.CreateHeader("Asset list") );
+		String name = core.getName();
+		name = Character.toUpperCase(name.charAt(0)) + name.substring(1);  
+		header.add( LabelFactory.CreateHeader(name + " list") );
 	}
 
-	@Override
 	public Content CreateContent() {
 		return ContentBuilder.BuildAssetList(core);
 	}
 
-	@Override
 	public void BuildFooter(JPanel footer) {
 		JButton button;
-		button = ButtonFactory.CreateButton("View asset");
+		button = ButtonFactory.CreateButton("View");
 		button.setActionCommand("view");
 		button.addActionListener(this);
 		footer.add(button);
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		

@@ -20,7 +20,8 @@ public class View extends JFrame {
 	
 	public static final Dimension HeaderDimension = new Dimension(600, 30);
 	public static final Dimension FooterDimension = new Dimension(600, 30);
-
+	public static final Dimension FrameDimension = new Dimension(600, 550);
+	
 	protected void SelectBuilder(PageBuilder Builder){
 
 	}
@@ -40,7 +41,7 @@ public class View extends JFrame {
         });
         
         setTitle("Information Asset Registry");
-        setMaximumSize(new Dimension(600, 550));
+        setMaximumSize(FrameDimension);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);

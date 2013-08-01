@@ -3,6 +3,7 @@ import java.awt.Dimension;
 
 import javax.swing.JComponent;
 
+import model.Core;
 import model.RegException;
 import model.attribute.Attribute;
 import model.attribute.CoreAttribute;
@@ -17,6 +18,14 @@ public abstract class Input {
 	public static final Dimension ComboBoxInputDimension = new Dimension(150, 30);
 	
 	public abstract void setInput() throws RegException;
+
+	public Input(){
+		
+	}
+
+	public static Input CreateInput(Core core) {
+		return new TextInput(core);
+	}
 	
 	public static Input CreateInput(Attribute attribute) {
 		if (attribute instanceof RestrictedAttribute)
@@ -47,5 +56,6 @@ public abstract class Input {
 	public JComponent getComponent() {
 		return component;
 	}
+
 
 }

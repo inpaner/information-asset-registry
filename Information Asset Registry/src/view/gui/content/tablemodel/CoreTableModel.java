@@ -2,6 +2,7 @@ package view.gui.content.tablemodel;
 import java.util.ArrayList;
 
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 import model.Core;
 import model.CoreUtil;
@@ -13,9 +14,12 @@ public class CoreTableModel extends DefaultTableModel  {
 	private ArrayList<Attribute> attributes;
 	private ArrayList<Core> coreList;
 	
+	@SuppressWarnings("rawtypes")
+	Class[] columnTypes;
+	
 	public CoreTableModel(Core core){
+		super();
 		attributes = core.getAttributes();
-		
 		coreList = CoreUtil.getAll(core.getName());
 		
 		// Table definition
@@ -27,32 +31,41 @@ public class CoreTableModel extends DefaultTableModel  {
 		
 		// Space for data
 		rowData = new String[row][col];
-	}
-	
-	public void Initialize(){
+		
 		// Initialize column names
-		int i = 0; for (Attribute a : attributes){
-			columnNames[i++] = a.getName();
+		columnTypes = new Class[col];
+		
+		
+		int i = 0; 
+		for (Attribute a : attributes){
+			columnNames[i] = a.getName();
+			columnTypes[i] = String.class;
+			i++;
 		}
+		
+		setColumnIdentifiers(columnNames);
 		
 		// Initialize data
 		for (int k = 0; k < coreList.size(); k++){
+			String[] rowData = new String[columnNames.length];
+			
 			for (int j = 0; j < columnNames.length; j++){
-				rowData[k][j] = coreList.get(k).getAttributes().get(j).getStringValue();
+				rowData[j] = coreList.get(k).getAttributes().get(j).getStringValue();
 			}
+			
+			addRow(rowData);
 		}
 		
 	}
 
-	public String getColumnName(int col) {
-        return columnNames[col].toString();
-    }
-    public int getRowCount() { return rowData.length; }
-    public int getColumnCount() { return columnNames.length; }
-    
-    public Object getValueAt(int row, int col) {
-        return rowData[row][col];
-    }
+	public String getColumnName(int index){
+		return columnNames[index];
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+		public Class getColumnClass(int columnIndex) {
+			return columnTypes[columnIndex];
+		}
     
     public boolean isCellEditable(int row, int col)
         { return false; }

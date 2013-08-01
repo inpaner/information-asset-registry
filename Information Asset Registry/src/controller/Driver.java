@@ -2,7 +2,6 @@ package controller;
 
 import model.Session;
 import view.View;
-import view.gui.page.LoginPageBuilder;
 
 public class Driver{
 	public static View view;

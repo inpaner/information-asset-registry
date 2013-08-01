@@ -56,16 +56,17 @@ public class MainPageBuilder extends PageBuilder implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		JButton btn = (JButton)e.getSource();
 		
-		if (btn.getActionCommand().equals("back")){
+		if (btn.getActionCommand().equals("logout")){
+			// Logs out
 			Session.currentUser().logOut();
 			new LoginController();
+		}else{
+			// Gets the template of the selected core
+			Core model = CoreUtil.getModel(btn.getActionCommand());
+			
+			// Fires up a new core list
+			new CoreListController(model);
 		}
-		
-		// Gets the template of the selected core
-		Core model = CoreUtil.getModel(btn.getActionCommand());
-		
-		// Fires up a new core list
-		new CoreListController(model);
 		
 	}
 

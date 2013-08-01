@@ -1,21 +1,12 @@
 package view.gui.content.form.field;
 
-import java.awt.Color;
-
-import javax.swing.BorderFactory;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 import view.gui.LabelFactory;
 import view.gui.content.Form;
-import net.miginfocom.swing.MigLayout;
+import model.Core;
 import model.RegException;
 import model.attribute.Attribute;
-import model.attribute.AttributeUtil;
-import model.attribute.DateAttribute;
-import model.attribute.IntegerAttribute;
-import model.attribute.PrimaryAttribute;
-import model.attribute.StringAttribute;
 
 public class Field{
 	
@@ -35,7 +26,6 @@ public class Field{
 		Field newField = new Field(input);
 		return newField;
 	}
-	
 	
 	/**
 	 * The constructor of the field object
