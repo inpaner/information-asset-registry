@@ -1,5 +1,7 @@
 package view.gui.content.contentbuilder;
 
+import java.util.ArrayList;
+
 import model.Core;
 import model.User;
 import view.eventhandling.CoreListener;
@@ -37,7 +39,7 @@ public abstract class ContentBuilder {
 		return (CoreForm)builder.buildContent();
 	}
 
-	public static CoreTable buildAssetList(Core core) {
+	public static CoreTable buildAssetList(ArrayList<Core> core) {
 		CoreListTableBuilder builder = new CoreListTableBuilder(core);
 		return (CoreTable)builder.buildContent();
 	}

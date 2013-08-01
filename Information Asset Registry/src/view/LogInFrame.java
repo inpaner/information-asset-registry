@@ -25,7 +25,8 @@ public class LogInFrame {
 		
 		if (e.getMessage().equals("Unregistered username")){
 			fields.get(0).getErrorHandling().setText(e.getMessage());
-		}else if (e.getMessage().equals("Invalid password")){
+		}
+		if (e.getMessage().equals("Invalid password")){
 			fields.get(1).getErrorHandling().setText(e.getMessage());
 		}
 	}

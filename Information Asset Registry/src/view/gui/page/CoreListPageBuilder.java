@@ -2,6 +2,7 @@ package view.gui.page;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.JButton;
@@ -21,17 +22,18 @@ import controller.ViewCoreController;
 
 public class CoreListPageBuilder extends PageBuilder implements ActionListener {
 	private CoreListener coreListener;
-	private Core core;
+	private ArrayList<Core> core;
+	private JTextField Search;
 
-	public CoreListPageBuilder(CoreListener coreListener, Core core) {
+	public CoreListPageBuilder(CoreListener coreListener, ArrayList<Core> cores) {
 	this.coreListener = coreListener;
-	this.core = core;
+	this.core = cores;
 	}
 
 	public void buildHeader(JPanel header) {
-		header.add( LabelFactory.createHeader(CapitalizeCore(core) + " list") );
+		header.add( LabelFactory.createHeader(CapitalizeCore(core.get(0)) + " list") );
 		header.add(Box.createHorizontalStrut(30)); 
-		header.add( new JTextField(15) );
+		header.add( Search = new JTextField(15) );
 	}
 
 	public Content createContent() {
@@ -58,11 +60,9 @@ public class CoreListPageBuilder extends PageBuilder implements ActionListener {
 				new ViewCoreController(core);
 		}else if (e.getActionCommand().equals("add")){
 			CoreTable coreTable = (CoreTable)PageReference.getContent();
-			Core core = coreTable.getSelected();
-			
-			if (core != null)
-				// Fires up a new core list
-				new AddCoreController(core);
+
+			// Fires up a new core list
+			new AddCoreController(core.get(0));
 		}else if (e.getActionCommand().equals("update")){
 			CoreTable coreTable = (CoreTable)PageReference.getContent();
 			Core core = coreTable.getSelected();
