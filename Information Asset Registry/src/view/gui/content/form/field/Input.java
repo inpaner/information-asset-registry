@@ -27,7 +27,6 @@ public abstract class Input {
 	public static Input createInput(Attribute attribute) {
 		if (attribute instanceof RestrictedAttribute)
 			return new ComboInput((RestrictedAttribute) attribute);
-		
 		if (attribute instanceof StringAttribute)
 			return new TextInput((StringAttribute) attribute);
 		if (attribute instanceof DateAttribute)
