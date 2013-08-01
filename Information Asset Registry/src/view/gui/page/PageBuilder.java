@@ -1,6 +1,7 @@
 package view.gui.page;
 import javax.swing.JPanel;
 
+import model.Core;
 import model.RegException;
 import model.User;
 import view.eventhandling.CoreListener;
@@ -47,12 +48,12 @@ public abstract class PageBuilder {
 		return new LoginPageBuilder(user, loginListener);
 	}
 
-	public static PageBuilder AssignCoreListPageBuilder(CoreListener coreListener) {
-		return new CoreListPageBuilder(coreListener);
+	public static PageBuilder AssignCoreListPageBuilder(CoreListener coreListener, Core core) {
+		return new CoreListPageBuilder(coreListener, core);
 	}
 
-	public static PageBuilder AssignMainPageBuilder(CoreListener coreListener) {
-		return new MainPageBuilder(coreListener);
+	public static PageBuilder AssignMainPageBuilder() {
+		return new MainPageBuilder();
 	}
 	
 	

@@ -8,13 +8,13 @@ import view.eventhandling.CoreEvent;
 import view.eventhandling.CoreListener;
 import view.gui.page.AddCorePageBuilder;
 
-public class MainController extends Controller implements CoreListener {
+public class MainController extends Controller{
 
     // views
     private MainFrame mainFrame;
     
-    protected MainController() {
-    	mainFrame = new MainFrame(this);
+    public MainController() {
+    	mainFrame = new MainFrame();
     }
 
     // move to DeleteAssetController
@@ -30,17 +30,5 @@ public class MainController extends Controller implements CoreListener {
 	public void initialize() {
 	}
 
-
-	@Override
-	public void savedCore(CoreEvent event) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void goToMain() {
-		// TODO Auto-generated method stub
-		
-	}
     
 }

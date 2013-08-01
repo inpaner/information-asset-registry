@@ -12,11 +12,15 @@ import view.gui.content.contentbuilder.ContentBuilder;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import model.Core;
+
 public class CoreListPageBuilder extends PageBuilder implements ActionListener {
 	private CoreListener coreListener;
+	private Core core;
 
-	public CoreListPageBuilder(CoreListener coreListener) {
+	public CoreListPageBuilder(CoreListener coreListener, Core core) {
 	this.coreListener = coreListener;
+	this.core = core;
 	}
 
 	@Override
@@ -26,7 +30,7 @@ public class CoreListPageBuilder extends PageBuilder implements ActionListener {
 
 	@Override
 	public Content CreateContent() {
-		return ContentBuilder.BuildAssetList();
+		return ContentBuilder.BuildAssetList(core);
 	}
 
 	@Override

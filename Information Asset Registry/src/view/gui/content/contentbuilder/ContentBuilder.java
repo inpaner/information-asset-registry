@@ -37,8 +37,8 @@ public abstract class ContentBuilder {
 		return (CoreForm)builder.BuildContent();
 	}
 
-	public static CoreTable BuildAssetList() {
-		CoreListTableBuilder builder = new CoreListTableBuilder();
+	public static CoreTable BuildAssetList(Core core) {
+		CoreListTableBuilder builder = new CoreListTableBuilder(core);
 		return (CoreTable)builder.BuildContent();
 	}
 }

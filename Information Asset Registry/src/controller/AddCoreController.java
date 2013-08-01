@@ -10,7 +10,7 @@ import view.eventhandling.CoreListener;
 public class AddCoreController extends Controller implements CoreListener {
     private ViewCoreListFrame viewAssetFrame;
     
-    protected AddCoreController() {
+    public AddCoreController() {
         Driver.display(null);
     }
     
