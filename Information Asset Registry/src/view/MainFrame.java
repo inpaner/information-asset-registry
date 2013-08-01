@@ -1,6 +1,5 @@
 package view;
 
-import view.eventhandling.CoreListener;
 import view.gui.page.PageBuilder;
 import controller.Driver;
 

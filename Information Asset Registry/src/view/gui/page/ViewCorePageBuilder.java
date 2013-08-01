@@ -5,15 +5,15 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
-import controller.CoreListController;
-import controller.UpdateCoreController;
 import model.Core;
 import view.eventhandling.CoreListener;
-import view.gui.ButtonFactory;
 import view.gui.LabelFactory;
 import view.gui.content.Content;
 import view.gui.content.contentbuilder.ContentBuilder;
+import controller.CoreListController;
+import controller.UpdateCoreController;
 
 public class ViewCorePageBuilder extends PageBuilder implements ActionListener{
 	private Core core;
@@ -27,7 +27,6 @@ public class ViewCorePageBuilder extends PageBuilder implements ActionListener{
 	@Override
 	public void buildHeader(JPanel header) {
 		header.add( LabelFactory.createHeader("View asset") );
-		
 	}
 
 	@Override

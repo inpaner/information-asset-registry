@@ -3,24 +3,21 @@ package view.gui.page;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.Box;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import model.Core;
 import view.eventhandling.CoreListener;
-import view.gui.ButtonFactory;
 import view.gui.LabelFactory;
 import view.gui.content.Content;
 import view.gui.content.CoreTable;
 import view.gui.content.contentbuilder.ContentBuilder;
-
-import javax.swing.JButton;
-import javax.swing.JPanel;
-
 import controller.AddCoreController;
-import controller.CoreListController;
-import controller.LoginController;
 import controller.MainController;
 import controller.UpdateCoreController;
 import controller.ViewCoreController;
-import model.Core;
-import model.CoreUtil;
 
 public class CoreListPageBuilder extends PageBuilder implements ActionListener {
 	private CoreListener coreListener;
@@ -33,6 +30,8 @@ public class CoreListPageBuilder extends PageBuilder implements ActionListener {
 
 	public void buildHeader(JPanel header) {
 		header.add( LabelFactory.createHeader(CapitalizeCore(core) + " list") );
+		header.add(Box.createHorizontalStrut(30)); 
+		header.add( new JTextField(15) );
 	}
 
 	public Content createContent() {
