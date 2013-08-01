@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -25,6 +26,10 @@ public class RestrictedAttribute extends Attribute {
     RestrictedAttribute(Column column) {
         super(column);
         buildPossibleAttributes(column);
+    }
+    
+    public ArrayList<PrimaryAttribute> getPossibleAttributes() {
+        return new ArrayList<>(possibleAttributes.values());
     }
     
     private void buildPossibleAttributes(Column column) {
