@@ -99,15 +99,9 @@ public class RestrictedAttribute extends Attribute {
 
     @Override
     public void setValue(ResultSet rs) throws SQLException {
-        System.out.println("Setting value");
-        System.out.println(name);
-        
         int pk = rs.getInt(name);
-        System.out.println(pk);
-        
         value = possibleAttributes.get(pk);
-        System.out.println(value.getName());
-        
+ 
     }
 
     public void setValue(PrimaryAttribute value) throws RegException {
