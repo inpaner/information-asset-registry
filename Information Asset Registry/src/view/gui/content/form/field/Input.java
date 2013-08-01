@@ -36,7 +36,7 @@ public abstract class Input {
 		if (attribute instanceof DateAttribute)
 		    return new DateInput((DateAttribute) attribute);
 		if (attribute instanceof CoreAttribute)
-			return null;
+			return new TextInput((CoreAttribute) attribute);
 		
 		return null;
 	}

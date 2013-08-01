@@ -22,6 +22,7 @@ public class Field{
 	 * @return field - the newly constructed Field object
 	 */
 	public static Field buildField(Attribute attribute){
+		int x;
 		Input input = Input.createInput(attribute);
 		Field newField = new Field(input);
 		return newField;

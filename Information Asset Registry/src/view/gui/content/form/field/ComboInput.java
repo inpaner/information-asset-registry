@@ -19,7 +19,8 @@ public class ComboInput extends Input{
 	}
 	
 	public void initialize() {
-		
+		// comboBox.setSelectedIndex();
+		System.out.println(attribute);
 	}
 
 	@Override

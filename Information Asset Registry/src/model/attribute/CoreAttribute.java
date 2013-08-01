@@ -75,11 +75,28 @@ public class CoreAttribute extends Attribute {
 
     @Override
     public String getStringValue() {
-        return null;
+    	try {
+    		return String.valueOf(value.getPk());
+    	}catch (NumberFormatException e){
+    	}
+    	return "";
+    }
+    
+    public Core getValue(){
+    	return value;
     }
     
     public void setValue(int pk) throws RegException {
         
     }
+
+	public void setValue() {
+		
+	}
+
+	public void setValue(String value) throws RegException {
+		
+		
+	}
     
 }
