@@ -92,7 +92,7 @@ public class CoreUtil {
         ResultSet rs = null;
         ArrayList<Integer> pks = new ArrayList<>();
         try {
-            // TODO Builder this shit
+            // TODO Builder this 
             String query = "SELECT pk FROM " + coreName;
             ps = conn.prepareStatement(query); 
             rs = ps.executeQuery();

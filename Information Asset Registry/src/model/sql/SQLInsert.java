@@ -38,7 +38,7 @@ public class SQLInsert extends SQLStatement {
         update.append(table);
         update.append(" (");
         for (int i = 0; i < projections.size(); i++) {
-            update.append(projections.get(i) + " ");
+            update.append("`" + projections.get(i) + "`");
             if (i != projections.size() - 1) {
                 update.append(", ");
             }
@@ -46,7 +46,7 @@ public class SQLInsert extends SQLStatement {
         
         update.append(") VALUES ( ");
         for (int i = 0; i < values.size(); i++) {
-            update.append("'" + values.get(i) + "' ");
+            update.append("'" + values.get(i) + "'");
             if (i != values.size() - 1) {
                 update.append(", ");
             }

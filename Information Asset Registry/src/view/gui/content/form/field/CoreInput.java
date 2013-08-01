@@ -23,6 +23,10 @@ public class CoreInput extends Input {
         component = jComboBox = new JComboBox<Core>();
         AutoCompleteDecorator.decorate(jComboBox);
         component.setPreferredSize(Input.textInputDimension);
+        
+        Core model = coreAttribute.getModel();
+        List<Core> list = java.util.Collections.unmodifiableList(CoreUtil.getAll(model.getName()));
+        jComboBox.setModel(new ListComboBoxModel<Core>(list));
     }
     
     @Override
@@ -33,8 +37,6 @@ public class CoreInput extends Input {
     @Override
     public void initialize() {
         Core core = coreAttribute.getValue();
-        List<Core> list = java.util.Collections.unmodifiableList(CoreUtil.getAll(core.getName()));
-        jComboBox.setModel(new ListComboBoxModel<Core>(list));
         jComboBox.setSelectedItem(core);
     }
 

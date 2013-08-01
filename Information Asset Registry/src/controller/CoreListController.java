@@ -38,7 +38,8 @@ public class CoreListController extends Controller {
     private class AddListener implements CoreListener {
         @Override
         public void coreSelected(CoreEvent event) {
-            new AddCoreController(event.getCore());
+            Core core = CoreUtil.getAddable(event.getCore().getName());
+            new AddCoreController(core);
         }
     }
     

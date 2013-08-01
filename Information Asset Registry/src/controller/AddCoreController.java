@@ -33,9 +33,11 @@ public class AddCoreController extends Controller {
             if (form.setFields()) {
                 Core core = event.getCore();
                 core.add();
+                new MainController();
+                // TODO show success
+                
             }
-            // TODO show success
-            new MainController();
+            
         }
     }
     

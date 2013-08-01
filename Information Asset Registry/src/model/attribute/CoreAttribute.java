@@ -26,7 +26,7 @@ public class CoreAttribute extends Attribute {
         model = CoreUtil.getModel(tableName);
     }
     
-    protected Core model() {
+    public Core getModel() {
         return model;
     }
     

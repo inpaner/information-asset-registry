@@ -61,8 +61,7 @@ public class AddCorePageBuilder extends PageBuilder implements ActionListener {
 	private class CoreButtonPressed implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            Core model = CoreUtil.getModel(e.getActionCommand());
-            CoreEvent event = new CoreEvent(model, coreForm);
+            CoreEvent event = new CoreEvent(core, coreForm);
             coreListener.coreSelected(event);
         }
     }

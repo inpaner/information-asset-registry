@@ -82,9 +82,11 @@ public class Field{
 			inputField.setInput();
 		}
 	    catch (RegException e){
+	        System.out.println("Error " + e.getMessage());
 		    noErrors = false;
 			errorLabel.setText(e.getMessage());
 		}
+	    System.out.println("field level: " + noErrors);
 		return noErrors;
 	}
 	

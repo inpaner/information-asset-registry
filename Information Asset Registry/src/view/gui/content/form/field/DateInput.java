@@ -3,34 +3,31 @@ import javax.swing.JComboBox;
 
 import org.jdesktop.swingx.JXDatePicker;
 
+import model.RegException;
 import model.attribute.DateAttribute;
 import model.attribute.RestrictedAttribute;
 
 public class DateInput extends Input{
-		
-	public DateInput(RestrictedAttribute attribute){
-		super(attribute);
-		component = new JComboBox<String>();
-	}
-	
+	DateAttribute attribute;
+	JXDatePicker datePicker;
+    
 	public DateInput(DateAttribute attribute) {
         super(attribute);
-		component = new JXDatePicker();
+        this.attribute = attribute;
+        component = datePicker = new JXDatePicker();
 	}
 
     public void initialize() {
 		
 	}
 
-	public void setInput() {
-		// TODO Auto-generated method stub
-
+	public void setInput() throws RegException {
+		attribute.setValue(datePicker.getDate());
 	}
 
     @Override
     public void setEditable(boolean editable) {
-        // TODO Auto-generated method stub
-        
+        datePicker.setEditable(editable);
     }
 	
 }

@@ -51,6 +51,7 @@ public class RestrictedAttribute extends Attribute {
                 PrimaryAttribute attribute = (PrimaryAttribute) AttributeUtil.build(notPk);
                 String notPkValue = rs.getString(notPk.getName().replace("`", ""));
                 attribute.forceValue(notPkValue);
+                attribute.pk = pk;
                 possibleAttributes.put(pk, attribute);
             }
         }
@@ -98,10 +99,21 @@ public class RestrictedAttribute extends Attribute {
 
     @Override
     public void setValue(ResultSet rs) throws SQLException {
-        int pk = rs.getInt("pk");
+        System.out.println("Setting value");
+        System.out.println(name);
+        
+        int pk = rs.getInt(name);
+        System.out.println(pk);
+        
         value = possibleAttributes.get(pk);
+        System.out.println(value.getName());
+        
     }
 
+    public void setValue(PrimaryAttribute value) throws RegException {
+        this.value = value;
+    }
+    
     @Override
     public boolean isUpdated() {
         return !value.equals(previousValue);
@@ -128,11 +140,16 @@ public class RestrictedAttribute extends Attribute {
     }
     
     public void setValue(int pk) throws RegException {
-        
+        value = possibleAttributes.get(pk);
     }
 
     @Override
     public boolean contains(String substring) {
         return value.contains(substring);
     }
+
+    public PrimaryAttribute getValue() {
+        return value;
+    }
+
 }

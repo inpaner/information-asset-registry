@@ -26,13 +26,14 @@ public abstract class Form extends Content {
 	public abstract void reset();
 	
 	public boolean setFields() {
-	    boolean noError = true; 
+	    boolean noErrors = true; 
 	    for (Field field : fields) {
 	        if (field.setField() == false)
-	            noError = false;
+	            noErrors = false;
 	    }
-	    
-	    return noError;
+	    System.out.println("form level: " + noErrors);
+        
+	    return noErrors;
 	}
 	
 	public abstract void handleException(RegException e);

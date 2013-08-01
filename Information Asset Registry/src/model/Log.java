@@ -137,6 +137,7 @@ public class Log implements Comparable<Log> {
     
     private static void userLogged(Action action) {
         SQLBuilder builder = new UserLogged(action);
+        System.out.println(builder.getResult());
         DBUtil.executeUpdate(builder.getResult());
     }
     

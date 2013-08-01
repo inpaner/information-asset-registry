@@ -7,7 +7,7 @@ import schemacrawler.schema.Column;
 import model.RegException;
 
 public abstract class Attribute {
-    private int pk;
+    protected int pk;
     protected int assetFk;
     protected boolean isNew = true;
     protected String name;

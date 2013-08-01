@@ -66,6 +66,15 @@ public class DateAttribute extends PrimaryAttribute {
         this.value = value;
     }
 
+    
+    ///// THIS ONE IS BEING USED BY VIEW
+    public void setValue(java.util.Date date) throws RegException {
+        System.out.println("here");
+        if (date == null)
+            throw new RegException("Date is not set.");
+        value = new Date(date.getTime());
+    }
+
     public void setValue(String text) throws RegException {
         java.util.Date parsedDate;
         try {

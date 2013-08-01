@@ -23,6 +23,7 @@ public class AddCoreFormBuilder extends FormBuilder{
 	       for (Attribute attribute : core.getAttributes()) {
 	           Field field = Field.buildField(attribute);
 	           field.addTo(content);
+	           
 	       }
 	       
 	       return content;
