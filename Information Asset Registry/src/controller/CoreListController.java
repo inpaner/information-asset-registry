@@ -4,20 +4,18 @@ import java.util.ArrayList;
 
 import model.Core;
 import model.CoreUtil;
-import view.LogsFrame;
 import view.ViewCoreListFrame;
 import view.eventhandling.CoreEvent;
 import view.eventhandling.CoreListener;
 
 public class CoreListController extends Controller implements CoreListener{
-    private ViewCoreListFrame viewCoreListFrame;
     
     public CoreListController(ArrayList<Core> core){
-    	viewCoreListFrame = new ViewCoreListFrame(this, core);
+    	new ViewCoreListFrame(this, core);
     }
     
     public CoreListController(Core core){
-    	viewCoreListFrame = new ViewCoreListFrame(this, CoreUtil.getAll(core.getName()));
+    	new ViewCoreListFrame(this, CoreUtil.getAll(core.getName()));
     }
 
 	@Override

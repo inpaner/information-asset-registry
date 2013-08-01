@@ -1,20 +1,11 @@
 package controller;
 
-import model.Session;
-import view.LogInFrame;
 import view.MainFrame;
-import view.ViewCoreListFrame;
-import view.eventhandling.CoreEvent;
-import view.eventhandling.CoreListener;
-import view.gui.page.AddCorePageBuilder;
 
 public class MainController extends Controller{
-
-    // views
-    private MainFrame mainFrame;
     
     public MainController() {
-    	mainFrame = new MainFrame();
+    	new MainFrame();
     }
 
     // move to DeleteAssetController

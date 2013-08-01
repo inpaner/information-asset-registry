@@ -6,10 +6,9 @@ import view.eventhandling.CoreEvent;
 import view.eventhandling.CoreListener;
 
 public class UpdateCoreController extends Controller implements CoreListener {
-	private UpdateCoreFrame updateCoreFrame;
 
 	public UpdateCoreController(Core core) {
-		updateCoreFrame = new UpdateCoreFrame(core, this);
+		new UpdateCoreFrame(core, this);
 	}
 
 	@Override

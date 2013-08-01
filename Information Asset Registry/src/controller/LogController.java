@@ -9,11 +9,10 @@ import view.eventhandling.LogListener;
 
 public class LogController extends Controller implements LogListener {
 	protected User user;
-	private LogsFrame logsFrame;
 	
 	public LogController() {
 		user = Session.currentUser();
-		logsFrame = new LogsFrame(this, Log.getAll());
+		new LogsFrame(this, Log.getAll());
 	}
 
 	@Override

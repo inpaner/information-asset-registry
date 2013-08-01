@@ -96,6 +96,7 @@ public class Log implements Comparable<Log> {
                 
                 //String coreName = rs.getString("core");
                 //int corePk = rs.getInt("coreFk");
+                log.timestamp = rs.getTimestamp("dateTime");
                 log.coreName = rs.getString("coreFk");
                 log.core = rs.getString("core");
                 log.attribute = rs.getString("attribute");
