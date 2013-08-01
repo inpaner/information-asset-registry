@@ -30,7 +30,7 @@ public class CoreUtil {
         CoreUtil.getCore("asset", 1);
     }
     
-    public ArrayList<Core> getModels() {
+    public static ArrayList<Core> getModels() {
         return new ArrayList<>(models.values());
     }
     

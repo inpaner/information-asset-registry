@@ -2,6 +2,7 @@ package controller;
 
 import model.Session;
 import view.LogInFrame;
+import view.MainFrame;
 import view.ViewCoreListFrame;
 import view.eventhandling.CoreEvent;
 import view.eventhandling.CoreListener;
@@ -10,10 +11,10 @@ import view.gui.page.AddCorePageBuilder;
 public class MainController extends Controller implements CoreListener {
 
     // views
-    private ViewCoreListFrame viewCoreListFrame;
+    private MainFrame mainFrame;
     
     protected MainController() {
-    	viewCoreListFrame = new ViewCoreListFrame(this);
+    	mainFrame = new MainFrame(this);
     }
 
     // move to DeleteAssetController

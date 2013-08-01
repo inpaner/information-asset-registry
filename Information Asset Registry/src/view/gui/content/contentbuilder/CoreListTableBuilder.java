@@ -3,11 +3,11 @@ package view.gui.content.contentbuilder;
 import view.gui.content.CoreForm;
 import view.gui.content.CoreTable;
 import view.gui.content.Content;
-import view.gui.content.tablemodel.AssetTableModel;
+import view.gui.content.tablemodel.CoreTableModel;
 
 import javax.swing.JTable;
+import javax.swing.table.TableModel;
 
-import model.Asset;
 import model.Session;
 import model.User;
 
@@ -31,10 +31,12 @@ public class CoreListTableBuilder extends TableBuilder{
 	 */
 	public Content BuildContent() {
 		CoreTable content = new CoreTable();
-		
 		JTable table = new JTable();
-		table.setModel(new CoreTableModel());
+		TableModel tableModel = new CoreTableModel();
+		
+		table.setModel(tableModel);
 		content.Initialize();
+		
 		return content;
 	}
 
