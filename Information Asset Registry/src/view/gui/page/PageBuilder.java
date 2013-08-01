@@ -16,19 +16,20 @@ import view.gui.ButtonFactory;
 import view.gui.content.Content;
 
 public abstract class PageBuilder implements ActionListener {
-	protected Page PageReference;
+	protected Page pageReference;
 	
-	public final Page Build() throws RegException{
-		PageReference = new Page();
-		buildHeader(PageReference.getHeader());
-		PageReference.setContent( createContent() );
-		buildFooter(PageReference.getFooter());
-		
-		if (PageReference == null){
+	public final Page build() {
+		pageReference = new Page();
+		buildHeader(pageReference.getHeader());
+		pageReference.setContent(createContent());
+		buildFooter(pageReference.getFooter());
+		/*
+		if (pageReference == null){
 			throw new RegException("PageBuildingException: The page was not instantiated.");
 		}
-		PageReference.initialize();
-		return PageReference;
+		*/
+		pageReference.initialize();
+		return pageReference;
 	}
 	
 	/**
@@ -56,7 +57,9 @@ public abstract class PageBuilder implements ActionListener {
 		name = Character.toUpperCase(name.charAt(0)) + name.substring(1);
 		return name;
 	}
-		
+	
+	
+	// TODO combine the two, or delete
 	public void addButton(String buttonTitle, JPanel panel){
 		JButton button = null;
 		button = ButtonFactory.createButton(buttonTitle);
@@ -65,6 +68,14 @@ public abstract class PageBuilder implements ActionListener {
 		panel.add(button);
 	}
 
+	public void addButton(String buttonTitle, JPanel panel, ActionListener listener){
+        JButton button = null;
+        button = ButtonFactory.createButton(buttonTitle);
+        button.setActionCommand(buttonTitle.toLowerCase());
+        button.addActionListener(listener);
+        panel.add(button);
+    }
+	
 	public static PageBuilder assignLoginBuilder(User user, LoginListener loginListener) {
 		return new LoginPageBuilder(user, loginListener);
 	}
@@ -80,12 +91,12 @@ public abstract class PageBuilder implements ActionListener {
 	public static PageBuilder AssignViewCorePageBuilder(Core core, CoreListener coreListener) {
 		return new ViewCorePageBuilder(core, coreListener);
 	}
-
+/*
 	public static PageBuilder AssignAddCorePageBuilder(Core core, CoreListener coreListener) {
 		return new AddCorePageBuilder(core, coreListener);
 	}
 
-	public static PageBuilder AssignEditCorePageBuilder(Core core, CoreListener coreListener) {
+*/	public static PageBuilder AssignEditCorePageBuilder(Core core, CoreListener coreListener) {
 		return new EditCorePageBuilder(core, coreListener);
 	}
 

@@ -69,7 +69,7 @@ public class LoginPageBuilder extends PageBuilder implements ActionListener, Key
 		for(Field f : content.getFields())
 			f.ResetErrorHandling();
 		
-		LoginForm content = (LoginForm)PageReference.getContent();
+		LoginForm content = (LoginForm)pageReference.getContent();
 		content.setFields();
 		
 		if (loginListener != null) {

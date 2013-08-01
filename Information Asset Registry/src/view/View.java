@@ -56,16 +56,20 @@ public class View extends JFrame {
     public void setPanel(final PageBuilder Builder) {
         this.getContentPane().removeAll();
         this.currentPageBuilder = Builder;
-		try {
-			this.currentPage = this.currentPageBuilder.Build();
-		}catch (RegException e){
-			e.printStackTrace();
-		}
+		this.currentPage = this.currentPageBuilder.build();
 		
-        Thread controller = new setThread();
-        controller.start();
-        
+
+        Thread thread = new setThread();
+        thread.start();
     }
+    
+    public void setPanel(Page page) {
+        this.getContentPane().removeAll();
+        currentPage = page;
+        Thread thread = new setThread();
+        thread.start();
+    }
+    
     
     private class setThread extends Thread {
         @Override
@@ -88,7 +92,5 @@ public class View extends JFrame {
 	public Page getCurrentPage() {
 		return currentPage;
 	}
-    
-    
 
 }

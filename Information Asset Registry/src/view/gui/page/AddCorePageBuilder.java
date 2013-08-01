@@ -18,11 +18,11 @@ import view.gui.content.contentbuilder.ContentBuilder;
 public class AddCorePageBuilder extends PageBuilder implements ActionListener {
 	private Core core;
 	private CoreListener coreListener;
+    private ActionListener backListener;
 	
-	public AddCorePageBuilder(Core core, CoreListener coreListener) {
+	public AddCorePageBuilder(Core core) {
 		super();
 		this.core = core;
-		this.coreListener = coreListener;
 	}
 
 	public Page buildPage() {
@@ -42,7 +42,6 @@ public class AddCorePageBuilder extends PageBuilder implements ActionListener {
 
 	@Override
 	public void buildFooter(JPanel footer) {
-		addButton("Reset", footer);
 		addButton("Back", footer);
 		addButton("Add", footer);
 	}
@@ -53,10 +52,8 @@ public class AddCorePageBuilder extends PageBuilder implements ActionListener {
 		if (btn.getActionCommand().equals("back"))
 		{
 			new CoreListController(core);
-		}else if (btn.getActionCommand().equals("reset"))
-		{
-			// TODO 
-		}else if (btn.getActionCommand().equals("add"))
+		}
+		else if (btn.getActionCommand().equals("add"))
 		{
 			new AddCoreController(core);
 		}

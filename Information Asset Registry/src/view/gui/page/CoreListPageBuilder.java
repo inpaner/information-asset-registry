@@ -57,19 +57,23 @@ public class CoreListPageBuilder extends PageBuilder implements ActionListener, 
 		JButton btn = (JButton)e.getSource();
 		
 		if (e.getActionCommand().equals("view")){
-			CoreTable coreTable = (CoreTable)PageReference.getContent();
+			CoreTable coreTable = (CoreTable)pageReference.getContent();
 			Core core = coreTable.getSelected();
 				
 			if (core != null)
 				// Fires up a new core list
 				new ViewCoreController(core);
-		}else if (e.getActionCommand().equals("add")){
-			CoreTable coreTable = (CoreTable)PageReference.getContent();
+		}
+		
+		else if (e.getActionCommand().equals("add")){
+			CoreTable coreTable = (CoreTable)pageReference.getContent();
 
 			// Fires up a new core list
 			new AddCoreController(core.get(0));
-		}else if (e.getActionCommand().equals("update")){
-			CoreTable coreTable = (CoreTable)PageReference.getContent();
+		}
+		
+		else if (e.getActionCommand().equals("update")){
+			CoreTable coreTable = (CoreTable)pageReference.getContent();
 			Core core = coreTable.getSelected();
 				
 			if (core != null)

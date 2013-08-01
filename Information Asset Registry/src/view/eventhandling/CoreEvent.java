@@ -23,8 +23,5 @@ public class CoreEvent {
 		return core;
 	}
 
-	public ArrayList<Core> getAssetList() {
-		return coreList;
-	}
 
 }

@@ -10,6 +10,9 @@ import javax.swing.JPanel;
 import model.Core;
 import model.CoreUtil;
 import model.Session;
+import view.eventhandling.CoreEvent;
+import view.eventhandling.CoreListener;
+import view.eventhandling.MainMenuListener;
 import view.gui.ButtonFactory;
 import view.gui.LabelFactory;
 import view.gui.content.BasicContent;
@@ -18,11 +21,27 @@ import controller.CoreListController;
 import controller.LogController;
 import controller.LoginController;
 
-public class MainPageBuilder extends PageBuilder implements ActionListener{
-	public MainPageBuilder() {
+public class MainPageBuilder extends PageBuilder {
+    private CoreListener coreListener;
+    private ActionListener logoutListener;
+    private ActionListener logsListener;
+    
+    public MainPageBuilder() {
 	}
 
-	@Override
+	public void setLogoutListener(ActionListener listener) {
+        logoutListener = listener;
+    }
+
+    public void setLogsListener(ActionListener listener) {
+        logsListener = listener;
+    }
+
+    public void actionPerformed(ActionEvent e) {
+    
+    }
+
+    @Override
 	public void buildHeader(JPanel header) {
 		header.add( LabelFactory.createHeader("Main menu") );
 	}
@@ -36,38 +55,31 @@ public class MainPageBuilder extends PageBuilder implements ActionListener{
 
 	@Override
 	public void buildFooter(JPanel footer) {
-		addButton("Logout", footer);
-		addButton("Logs", footer);
+		addButton("Logout", footer, logoutListener);
+		addButton("Logs", footer, logsListener);
 		ArrayList<Core> models = CoreUtil.getModels();
 		
 		for(Core core : models){
 			String name = core.getName();
 			JButton button = ButtonFactory.createButton(name);
-			button.addActionListener(this);
+			button.addActionListener(new CoreButtonPressed());
 			button.setActionCommand(name);
-			footer.add( button );
-			
+			footer.add(button);
 		}
-		
 	}
 	
-	public void actionPerformed(ActionEvent e) {
-		JButton btn = (JButton)e.getSource();
-		
-		if (btn.getActionCommand().equals("logout")){
-			// Logs out
-			Session.currentUser().logOut();
-			new LoginController();
-		}else if (btn.getActionCommand().equals("logs")){
-			new LogController();
-		}else{
-			// Gets the template of the selected core
-			Core model = CoreUtil.getModel(btn.getActionCommand());
-			
-			// Fires up a new core list
-			new CoreListController(model);
-		}
-		
+	private class CoreButtonPressed implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Core model = CoreUtil.getModel(e.getActionCommand());
+            CoreEvent event = new CoreEvent(model);
+            coreListener.coreSelected(event);
+        }
 	}
+
+	
+	public void setCoreListener(CoreListener listener) {
+        coreListener = listener;
+    }
 
 }

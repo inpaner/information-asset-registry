@@ -1,6 +1,7 @@
 package view.gui;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
@@ -16,7 +17,12 @@ public class ButtonFactory {
 		return button;
 	}
 	
-	private ButtonFactory(){
+	public static JButton createButton(String text, ActionListener listener) {
+	    JButton button = createButton(text);
+	    button.addActionListener(listener);
+	    return button;
+	}
 	
+	private ButtonFactory(){
 	}
 }
