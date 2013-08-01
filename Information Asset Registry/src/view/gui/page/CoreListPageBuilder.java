@@ -59,11 +59,9 @@ public class CoreListPageBuilder extends PageBuilder implements ActionListener {
 				new ViewCoreController(core);
 		}else if (e.getActionCommand().equals("add")){
 			CoreTable coreTable = (CoreTable)PageReference.getContent();
-			Core core = coreTable.getSelected();
-			
-			if (core != null)
-				// Fires up a new core list
-				new AddCoreController(core);
+
+			// Fires up a new core list
+			new AddCoreController(core);
 		}else if (e.getActionCommand().equals("update")){
 			CoreTable coreTable = (CoreTable)PageReference.getContent();
 			Core core = coreTable.getSelected();
