@@ -2,6 +2,7 @@ package view.gui.page;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import view.eventhandling.CoreListener;
 import view.gui.ButtonFactory;
@@ -24,15 +25,15 @@ import model.CoreUtil;
 
 public class CoreListPageBuilder extends PageBuilder implements ActionListener {
 	private CoreListener coreListener;
-	private Core core;
+	private ArrayList<Core> core;
 
-	public CoreListPageBuilder(CoreListener coreListener, Core core) {
+	public CoreListPageBuilder(CoreListener coreListener, ArrayList<Core> cores) {
 	this.coreListener = coreListener;
-	this.core = core;
+	this.core = cores;
 	}
 
 	public void buildHeader(JPanel header) {
-		header.add( LabelFactory.createHeader(CapitalizeCore(core) + " list") );
+		header.add( LabelFactory.createHeader(CapitalizeCore(core.get(0)) + " list") );
 	}
 
 	public Content createContent() {
@@ -61,7 +62,7 @@ public class CoreListPageBuilder extends PageBuilder implements ActionListener {
 			CoreTable coreTable = (CoreTable)PageReference.getContent();
 
 			// Fires up a new core list
-			new AddCoreController(core);
+			new AddCoreController(core.get(0));
 		}else if (e.getActionCommand().equals("update")){
 			CoreTable coreTable = (CoreTable)PageReference.getContent();
 			Core core = coreTable.getSelected();

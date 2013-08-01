@@ -1,5 +1,7 @@
 package view.gui.content;
 
+import java.util.ArrayList;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
@@ -12,13 +14,13 @@ import model.User;
 
 public class CoreTable extends Table {
 	protected User user;
-	private Core core;
+	private ArrayList<Core> core;
 	private CoreTableModel tableModel;
 	private JTable table;
 	
-	public CoreTable(Core core){
+	public CoreTable(ArrayList<Core> cores){
 		this.user = Session.currentUser();
-		this.core = core;
+		this.core = cores;
 	}
 	
 	public Core getSelected() {

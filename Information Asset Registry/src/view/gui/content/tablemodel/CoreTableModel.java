@@ -16,10 +16,11 @@ public class CoreTableModel extends DefaultTableModel  {
 	@SuppressWarnings("rawtypes")
 	Class[] columnTypes;
 	
-	public CoreTableModel(Core core){
+	public CoreTableModel(ArrayList<Core> cores){
 		super();
-		attributes = core.getAttributes();
-		coreList = CoreUtil.getAll(core.getName());
+		if (cores.size() <= 0) return;
+		attributes = cores.get(0).getAttributes();
+		coreList = cores;
 		
 		// Table definition
 		int col = attributes.size();
