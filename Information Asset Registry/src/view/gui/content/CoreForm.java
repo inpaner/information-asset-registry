@@ -1,13 +1,13 @@
 package view.gui.content;
 
-import model.Asset;
+import model.Core;
 import model.RegException;
 
-public class AssetForm extends Form {
-	protected Asset asset;
+public class CoreForm extends Form {
+	protected Core core;
 	
-	public AssetForm (Asset asset){
-		this.asset = asset;
+	public CoreForm (Core core){
+		this.core = core;
 	}
 
 	@Override

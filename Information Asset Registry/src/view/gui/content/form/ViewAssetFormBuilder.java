@@ -2,14 +2,14 @@ package view.gui.content.form;
 import com.mysql.jdbc.Field;
 
 import view.gui.content.Content;
-import model.Asset;
+import model.Core;
 
 public class ViewAssetFormBuilder extends AddAssetFormBuilder{
-	private Asset asset;
+	private Core core;
 	
-	public ViewAssetFormBuilder(Asset asset){
-		super(asset);
-		this.asset = asset;
+	public ViewAssetFormBuilder(Core core){
+		super(core);
+		this.core = core;
 	}
 	
 	@Override

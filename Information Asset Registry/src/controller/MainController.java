@@ -3,7 +3,7 @@ package controller;
 import model.Session;
 import view.LogInFrame;
 import view.ViewAssetListFrame;
-import view.eventhandling.AssetEvent;
+import view.eventhandling.CoreEvent;
 import view.eventhandling.AssetListener;
 import view.gui.page.AddAssetPageBuilder;
 
@@ -31,7 +31,7 @@ public class MainController extends Controller implements AssetListener {
 
 
 	@Override
-	public void savedAsset(AssetEvent event) {
+	public void savedAsset(CoreEvent event) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 
 import view.gui.ButtonFactory;
 import view.gui.LabelFactory;
-import view.gui.content.AssetForm;
+import view.gui.content.CoreForm;
 import view.gui.content.Content;
 import view.gui.content.contentbuilder.ContentBuilder;
 import view.gui.content.form.AddAssetFormBuilder;

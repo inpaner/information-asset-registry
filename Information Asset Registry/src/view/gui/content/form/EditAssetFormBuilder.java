@@ -1,12 +1,12 @@
 package view.gui.content.form;
 
 import view.gui.content.Content;
-import model.Asset;
+import model.Core;
 
 public class EditAssetFormBuilder extends ViewAssetFormBuilder{
 	
-	public EditAssetFormBuilder(Asset asset){
-		super(asset);
+	public EditAssetFormBuilder(Core core){
+		super(core);
 	}
 	
 	@Override

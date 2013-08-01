@@ -1,8 +1,8 @@
 package view.eventhandling;
 
 public interface MainMenuListener {
-    public void newAsset(AssetEvent event);
-    public void updateAsset(AssetEvent event);
-    public void deleteAsset(AssetEvent event);
+    public void newAsset(CoreEvent event);
+    public void updateAsset(CoreEvent event);
+    public void deleteAsset(CoreEvent event);
     public void viewLogs();
 }

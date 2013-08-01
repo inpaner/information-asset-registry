@@ -26,7 +26,7 @@ import javax.swing.border.BevelBorder;
 
 import model.Asset;
 import model.Log;
-import view.eventhandling.AssetEvent;
+import view.eventhandling.CoreEvent;
 import view.eventhandling.AssetListener;
 import view.eventhandling.ControlListener;
 import view.eventhandling.LogListener;
