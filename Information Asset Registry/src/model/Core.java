@@ -122,6 +122,18 @@ public class Core {
         }
         return contains;
     }
+	
+	public void reset() {
+	    for (Attribute attribute : attributes) {
+	        attribute.resetValue();
+	    }
+	}
+	
+	public void commit() {
+	    for (Attribute attribute : attributes) {
+	        attribute.commitValue();
+	    }
+	}
 }
     
 

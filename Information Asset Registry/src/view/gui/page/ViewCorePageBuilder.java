@@ -13,7 +13,7 @@ import view.gui.LabelFactory;
 import view.gui.content.Content;
 import view.gui.content.contentbuilder.ContentBuilder;
 import controller.CoreListController;
-import controller.UpdateCoreController;
+import controller.EditCoreController;
 
 public class ViewCorePageBuilder extends PageBuilder implements ActionListener{
 	private Core core;
@@ -53,7 +53,7 @@ public class ViewCorePageBuilder extends PageBuilder implements ActionListener{
 			// TODO 
 		}else if (btn.getActionCommand().equals("edit"))
 		{
-			new UpdateCoreController(core);
+			new EditCoreController(core);
 		}
 	}
 	

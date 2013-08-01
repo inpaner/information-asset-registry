@@ -21,7 +21,7 @@ import view.gui.content.contentbuilder.ContentBuilder;
 public class AddCorePageBuilder extends PageBuilder implements ActionListener {
 	private Core core;
 	private CoreListener coreListener;
-    private ActionListener backListener;
+    private CoreListener backListener;
     private CoreForm coreForm;
 	
 	public AddCorePageBuilder(Core core) {
@@ -29,7 +29,7 @@ public class AddCorePageBuilder extends PageBuilder implements ActionListener {
 		this.core = core;
 	}
 
-    public void setBackListener(ActionListener listener) {
+    public void setBackListener(CoreListener listener) {
         backListener = listener;
     }
 
@@ -43,7 +43,7 @@ public class AddCorePageBuilder extends PageBuilder implements ActionListener {
 
 	@Override
 	public void buildHeader(JPanel header) {
-		header.add( LabelFactory.createHeader("Add new " + CapitalizeCore(core)) );
+		header.add(LabelFactory.createHeader("Add new " + CapitalizeCore(core)) );
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class AddCorePageBuilder extends PageBuilder implements ActionListener {
 
 	@Override
 	public void buildFooter(JPanel footer) {
-		addButton("Back", footer, backListener);
+		addButton("Back", footer, new BackButtonPressed());
 		addButton("Add", footer, new CoreButtonPressed());
 	}
 	
@@ -66,17 +66,16 @@ public class AddCorePageBuilder extends PageBuilder implements ActionListener {
         }
     }
 	
+    private class BackButtonPressed implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            CoreEvent event = new CoreEvent(core, coreForm);
+            backListener.coreSelected(event);
+        }
+    }   	
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		JButton btn = (JButton) e.getSource();
-		if (btn.getActionCommand().equals("back"))
-		{
-			new CoreListController(core);
-		}
-		else if (btn.getActionCommand().equals("add"))
-		{
-			new AddCoreController(core);
-		}
 	}
 	
 }

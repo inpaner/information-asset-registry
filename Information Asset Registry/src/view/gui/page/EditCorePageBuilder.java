@@ -7,24 +7,35 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import controller.CoreListController;
-import controller.UpdateCoreController;
+import controller.EditCoreController;
 import model.Core;
+import view.eventhandling.CoreEvent;
 import view.eventhandling.CoreListener;
 import view.gui.ButtonFactory;
 import view.gui.LabelFactory;
 import view.gui.content.Content;
+import view.gui.content.CoreForm;
 import view.gui.content.contentbuilder.ContentBuilder;
 
 public class EditCorePageBuilder extends PageBuilder implements ActionListener {
-	
-	private CoreListener coreListener;
-	private Core core;
-
-	public EditCorePageBuilder(Core core, CoreListener coreListener) {
+    private Core core;
+    private CoreListener coreListener;
+    private CoreListener backListener;
+    private CoreForm coreForm;
+    
+	public EditCorePageBuilder(Core core) {
 		this.core = core;
-		this.coreListener = coreListener;
 	}
+	
+	public void setBackListener(CoreListener listener) {
+        backListener = listener;
+    }
 
+    public void setCoreListener(CoreListener listener) {
+        coreListener = listener;
+    }
+    	
+	
 	@Override
 	public void buildHeader(JPanel header) {
 		header.add( LabelFactory.createHeader("Update " + CapitalizeCore(core)) );
@@ -38,11 +49,27 @@ public class EditCorePageBuilder extends PageBuilder implements ActionListener {
 
 	@Override
 	public void buildFooter(JPanel footer) {
-		addButton("Back", footer);
-		addButton("Reset", footer);
-		addButton("Update", footer);
+		addButton("Back", footer, new BackButtonPressed());
+		addButton("Edit", footer, new EditButtonPressed());
 	}
-
+    
+	private class BackButtonPressed implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            CoreEvent event = new CoreEvent(core, coreForm);
+            backListener.coreSelected(event);
+        }
+    }	
+	
+	private class EditButtonPressed implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            CoreEvent event = new CoreEvent(core, coreForm);
+            coreListener.coreSelected(event);
+        }
+    }
+	
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JButton btn = (JButton) e.getSource();
@@ -54,7 +81,7 @@ public class EditCorePageBuilder extends PageBuilder implements ActionListener {
 			// TODO 
 		}else if (btn.getActionCommand().equals("update"))
 		{
-			new UpdateCoreController(core); 
+			new EditCoreController(core); 
 		}
 	}
 }

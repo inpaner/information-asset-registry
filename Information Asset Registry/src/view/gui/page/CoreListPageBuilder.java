@@ -22,7 +22,7 @@ import view.gui.content.contentbuilder.ContentBuilder;
 import controller.AddCoreController;
 import controller.CoreListController;
 import controller.MainController;
-import controller.UpdateCoreController;
+import controller.EditCoreController;
 import controller.ViewCoreController;
 
 public class CoreListPageBuilder extends PageBuilder implements KeyListener {
@@ -126,7 +126,7 @@ public class CoreListPageBuilder extends PageBuilder implements KeyListener {
 				
 			if (core != null)
 				// Fires up a new core list
-				new UpdateCoreController(core);
+				new EditCoreController(core);
 		}else if (e. getActionCommand().equals("back")){
 			new MainController();
 		}

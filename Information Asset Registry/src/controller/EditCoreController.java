@@ -1,32 +1,27 @@
 package controller;
 
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import model.Core;
-import model.Log;
-import model.RegException;
-import model.Session;
-import view.AddCoreFrame;
-import view.ViewCoreFrame;
-import view.ViewCoreListFrame;
+import view.UpdateCoreFrame;
 import view.eventhandling.CoreEvent;
 import view.eventhandling.CoreListener;
 import view.gui.content.CoreForm;
 import view.gui.page.AddCorePageBuilder;
-import view.gui.page.MainPageBuilder;
+import view.gui.page.EditCorePageBuilder;
 
-public class AddCoreController extends Controller {
-    
-    public AddCoreController(Core core) {
-        AddCorePageBuilder builder = new AddCorePageBuilder(core);
+public class EditCoreController extends Controller {
+	private UpdateCoreFrame updateCoreFrame;
+
+	public EditCoreController(Core core) {
+		EditCorePageBuilder builder = new EditCorePageBuilder(core);
         builder.setBackListener(new Back());
-        builder.setCoreListener(new AddCore());
+        builder.setCoreListener(new EditCore());
         Driver.view.setPanel(builder.build());
-    }
-    
-    private class AddCore implements CoreListener {
+	}
+
+    private class EditCore implements CoreListener {
         @Override
         public void coreSelected(CoreEvent event) {
             CoreForm form = event.getForm();
@@ -39,7 +34,7 @@ public class AddCoreController extends Controller {
             }
         }
     }
-    
+	
     private class Back implements CoreListener {
         @Override
         public void coreSelected(CoreEvent event) {

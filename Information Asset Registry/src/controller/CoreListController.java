@@ -57,7 +57,7 @@ public class CoreListController extends Controller {
         public void coreSelected(CoreEvent event) {
             Core core = event.getCore();
             if (core != null)
-                new UpdateCoreController(core);
+                new EditCoreController(core);
         }
     }
     
