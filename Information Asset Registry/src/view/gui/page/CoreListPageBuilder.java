@@ -44,7 +44,7 @@ public class CoreListPageBuilder extends PageBuilder implements ActionListener {
 		addButton("Back", footer);
 		addButton("Update", footer);
 		addButton("View", footer);
-		addButton( "Add", footer);
+		addButton("Add", footer);
 		
 	}
 

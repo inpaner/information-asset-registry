@@ -26,13 +26,12 @@ public abstract class Input {
 	public static Input createInput(Attribute attribute) {
 		if (attribute instanceof RestrictedAttribute)
 			return new ComboInput((RestrictedAttribute) attribute);
-		
 		if (attribute instanceof StringAttribute)
 			return new TextInput((StringAttribute) attribute);
 		if (attribute instanceof DateAttribute)
 		    return new DateInput((DateAttribute) attribute);
 		if (attribute instanceof CoreAttribute)
-			return new TextInput((CoreAttribute) attribute);
+			return new SearchInput((CoreAttribute) attribute);
 		
 		return null;
 	}

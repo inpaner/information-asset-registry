@@ -88,6 +88,10 @@ public class Field{
 		return noErrors;
 	}
 	
+	public void initialize() {
+	    inputField.initialize();
+	}
+	
 	public void setEditable(boolean editable) {
 	    inputField.setEditable(editable);
 	}
