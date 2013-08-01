@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 
 import model.Core;
 import model.CoreUtil;
+import view.eventhandling.CoreEvent;
 import view.eventhandling.CoreListener;
 import view.gui.LabelFactory;
 import view.gui.content.Content;
@@ -24,34 +25,81 @@ import controller.MainController;
 import controller.UpdateCoreController;
 import controller.ViewCoreController;
 
-public class CoreListPageBuilder extends PageBuilder implements ActionListener, KeyListener {
-	private CoreListener coreListener;
-	private ArrayList<Core> core;
+public class CoreListPageBuilder extends PageBuilder implements KeyListener {
+	private CoreListener addListener;
+	private CoreListener viewListener;
+	private CoreListener updateListener;
+    private ActionListener backListener;
+	
+    private ArrayList<Core> cores;
 	private JTextField Search;
 
-	public CoreListPageBuilder(CoreListener coreListener, ArrayList<Core> cores) {
-	this.coreListener = coreListener;
-	this.core = cores;
+	public CoreListPageBuilder(ArrayList<Core> cores) {
+    	this.cores = cores;
 	}
 
+    public void setBackListener(ActionListener listener) {
+        backListener = listener;
+    }
+
+    public void setAddListener(CoreListener listener) {
+        addListener = listener;
+    }
+	
+    public void setViewListener(CoreListener listener) {
+        viewListener = listener;
+    }
+    
+    public void setUpdateListener(CoreListener listener) {
+        updateListener = listener;
+    }
+    
+    
 	public void buildHeader(JPanel header) {
-		header.add( LabelFactory.createHeader(CapitalizeCore(core.get(0)) + " list") );
+		header.add( LabelFactory.createHeader(CapitalizeCore(cores.get(0)) + " list") );
 		header.add(Box.createHorizontalStrut(30)); 
 		header.add( Search = new JTextField(15) );
 		Search.addKeyListener(this);
 	}
 
 	public Content createContent() {
-		return ContentBuilder.buildAssetList(core);
+		return ContentBuilder.buildCoreList(cores);
 	}
 
 	public void buildFooter(JPanel footer) {
-		addButton("Back", footer);
-		addButton("Update", footer);
-		addButton("View", footer);
-		addButton("Add", footer);
-		
+		addButton("Back", footer, backListener);
+		addButton("Update", footer, new UpdateButtonPressed());
+		addButton("View", footer, new ViewButtonPressed());
+		addButton("Add", footer, new AddButtonPressed());
 	}
+	
+	private class AddButtonPressed implements ActionListener {
+	    @Override
+	    public void actionPerformed(ActionEvent e) {
+	        CoreEvent event = new CoreEvent(cores.get(0));
+	        addListener.coreSelected(event);
+	    }
+	}
+	
+	private class ViewButtonPressed implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            CoreTable coreTable = (CoreTable)pageReference.getContent();
+            Core core = coreTable.getSelected();
+            CoreEvent event = new CoreEvent(core);
+            viewListener.coreSelected(event);
+        }
+    }
+
+    private class UpdateButtonPressed implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            CoreTable coreTable = (CoreTable)pageReference.getContent();
+            Core core = coreTable.getSelected();
+            CoreEvent event = new CoreEvent(core);
+            updateListener.coreSelected(event);
+        }
+    }
 
 	public void actionPerformed(ActionEvent e) {
 		JButton btn = (JButton)e.getSource();
@@ -69,7 +117,7 @@ public class CoreListPageBuilder extends PageBuilder implements ActionListener, 
 			CoreTable coreTable = (CoreTable)pageReference.getContent();
 
 			// Fires up a new core list
-			new AddCoreController(core.get(0));
+			new AddCoreController(cores.get(0));
 		}
 		
 		else if (e.getActionCommand().equals("update")){
@@ -86,15 +134,16 @@ public class CoreListPageBuilder extends PageBuilder implements ActionListener, 
 
 	public void keyPressed(KeyEvent e) {
 	}
+	
 	public void keyReleased(KeyEvent e) {
 		JTextField target = (JTextField) e.getSource();
-		if (e.getKeyCode() == KeyEvent.VK_ENTER && Search.equals(target)){
+		if (e.getKeyCode() == KeyEvent.VK_ENTER && Search.equals(target)) {
 			String query = Search.getText();
 			
-			ArrayList<Core> result = CoreUtil.search(core.get(0).getName(), query);
+			ArrayList<Core> result = CoreUtil.search(cores.get(0).getName(), query);
 			if (result.size() == 0){
-				new CoreListController(core.get(0));
-			}else
+				new CoreListController(cores.get(0));
+			} else
 				new CoreListController(result);
 		}
 		

@@ -39,7 +39,7 @@ public abstract class ContentBuilder {
 		return (CoreForm)builder.buildContent();
 	}
 
-	public static CoreTable buildAssetList(ArrayList<Core> core) {
+	public static CoreTable buildCoreList(ArrayList<Core> core) {
 		CoreListTableBuilder builder = new CoreListTableBuilder(core);
 		return (CoreTable)builder.buildContent();
 	}

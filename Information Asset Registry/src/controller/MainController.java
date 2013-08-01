@@ -4,15 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import model.Session;
-import view.LogInFrame;
 import view.MainFrame;
-import view.ViewCoreListFrame;
 import view.eventhandling.CoreEvent;
 import view.eventhandling.CoreListener;
-import view.eventhandling.MainMenuListener;
-import view.gui.page.AddCorePageBuilder;
 import view.gui.page.MainPageBuilder;
-import view.gui.page.PageBuilder;
+
 
 public class MainController extends Controller{
 
