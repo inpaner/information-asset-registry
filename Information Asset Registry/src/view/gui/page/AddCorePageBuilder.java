@@ -15,7 +15,7 @@ import view.gui.LabelFactory;
 import view.gui.content.Content;
 import view.gui.content.contentbuilder.ContentBuilder;
 
-public class AddCorePageBuilder extends PageBuilder implements ActionListener{
+public class AddCorePageBuilder extends PageBuilder implements ActionListener {
 	private Core core;
 	private CoreListener coreListener;
 	
@@ -46,7 +46,7 @@ public class AddCorePageBuilder extends PageBuilder implements ActionListener{
 		addButton("Back", footer);
 		addButton("Add", footer);
 	}
-
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JButton btn = (JButton) e.getSource();
@@ -61,5 +61,5 @@ public class AddCorePageBuilder extends PageBuilder implements ActionListener{
 			new AddCoreController(core);
 		}
 	}
-
+	
 }

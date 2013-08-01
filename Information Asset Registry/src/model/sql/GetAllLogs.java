@@ -8,6 +8,7 @@ public class GetAllLogs extends SQLBuilder {
         query.addProjection("userFk");
         query.addProjection("dateTime");
         query.addProjection("action");
+        query.addProjection("core");
         query.addProjection("coreFk");
         query.addProjection("attribute");
         query.addProjection("previousValue");

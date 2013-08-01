@@ -15,7 +15,7 @@ import view.gui.LabelFactory;
 import view.gui.content.Content;
 import view.gui.content.contentbuilder.ContentBuilder;
 
-public class EditCorePageBuilder extends PageBuilder implements ActionListener{
+public class EditCorePageBuilder extends PageBuilder implements ActionListener {
 	
 	private CoreListener coreListener;
 	private Core core;
@@ -41,7 +41,6 @@ public class EditCorePageBuilder extends PageBuilder implements ActionListener{
 		addButton("Back", footer);
 		addButton("Reset", footer);
 		addButton("Update", footer);
-		
 	}
 
 	@Override
@@ -58,5 +57,4 @@ public class EditCorePageBuilder extends PageBuilder implements ActionListener{
 			new UpdateCoreController(core); 
 		}
 	}
-
 }

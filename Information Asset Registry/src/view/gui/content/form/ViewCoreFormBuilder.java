@@ -32,22 +32,8 @@ public class ViewCoreFormBuilder extends AddCoreFormBuilder{
 		CoreForm form = (CoreForm)content;
 		ArrayList<Field>fields = form.getFields();
 		for (Field field : fields){
-			field.initialize();
-			
+			field.initialize();	
 			field.setEditable(editable);
-			
-			//TODO remove code below 
-			/*
-			JComponent component = field.getInput().getComponent();
-			// Disable
-			if (component instanceof JTextField){
-				((JTextField) component).setEditable(editable); 
-			}else if (component instanceof JComboBox){
-				((JComboBox) component).setEnabled(editable);
-			}else if (component instanceof JXDatePicker){
-				((JXDatePicker) component).setEditable(editable);
-			}
-			*/
 		}
 	}
 	

@@ -18,7 +18,9 @@ public class Log implements Comparable<Log> {
     private User user;
     private Timestamp timestamp;
     private String action;
-    private Core core; 
+    //private Core core;
+    private String coreName;
+    private String core;
     private String attribute;
     private String previous;
     private String value;
@@ -43,11 +45,11 @@ public class Log implements Comparable<Log> {
     public String action() {
         return action;
     }
-
+/*
     public Core core() {
         return core;
     }
-
+*/
     public String attribute() {
         return attribute;
     }
@@ -61,17 +63,18 @@ public class Log implements Comparable<Log> {
     }
     
     public String plaintext() {
-        String text = user.getUsername() + " - " + timestamp.toString() + " - ";
+        //String text = user.getUsername() + " - " + timestamp.toString() + " - ";
+        String text = "";
         switch (action) {
             case "Login" :  text += " logged in.";
                             break;
             case "Logout" : text += " logged out.";
                             break;                 
-            case "Add" :    text += user + " added " + core.getName() + " " + 
-                            core.getUniqueString() + ".";
+            case "Add" :    text += user + " added " + coreName + " " + 
+                            core + ".";
                             break;
-            case "Edit" :   text += user + " edited " + core.getName() + " " + 
-                            core.getUniqueString() + " " + attribute + 
+            case "Edit" :   text += user + " edited " + coreName + " " + 
+                            core + " " + attribute + 
                             " from " + previous + " to " + value + ".";
                             break;
             default : text = "Unknown action.";
@@ -82,31 +85,29 @@ public class Log implements Comparable<Log> {
     public static ArrayList<Log> getAll() {
         //TODO use a log cache
         SQLBuilder builder = new GetAllLogs();
+        System.out.println(builder.getResult());
         ResultSet rs = DBUtil.executeQuery(builder.getResult());
         ArrayList<Log> allLogs = new ArrayList<>();
         try {
             while (rs.next()) {
                 Log log = new Log();
-                log.user = User.getUser(rs.getInt("pk"));
+                //log.user = User.getUser(rs.getInt("userFk"));
                 log.action = rs.getString("action");
                 
-                try {
-                    String coreName = rs.getString("core");
-                    int corePk = rs.getInt("coreFk");
-                    log.core = CoreUtil.getCore(coreName, corePk);
-                    log.attribute = rs.getString("attribute");
-                    log.previous = rs.getString("previous");
-                    log.value = rs.getString("value");
-                    allLogs.add(log);
-                }
-                catch (NullPointerException ex) {
-                    ex.printStackTrace();
-                }
+                //String coreName = rs.getString("core");
+                //int corePk = rs.getInt("coreFk");
+                log.coreName = rs.getString("coreFk");
+                log.core = rs.getString("core");
+                log.attribute = rs.getString("attribute");
+                log.previous = rs.getString("previousValue");
+                log.value = rs.getString("value");
+                allLogs.add(log);
+            
                 
             }
         }
         catch (SQLException ex) {
-            
+            ex.printStackTrace();
         }
         finally {
             DBUtil.finishQuery();
