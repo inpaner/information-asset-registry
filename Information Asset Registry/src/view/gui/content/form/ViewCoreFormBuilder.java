@@ -28,21 +28,26 @@ public class ViewCoreFormBuilder extends AddCoreFormBuilder{
 	}
 	
 	@SuppressWarnings("rawtypes")
-	protected void setFieldsEditable(boolean b){
+	protected void setFieldsEditable(boolean editable) {
 		CoreForm form = (CoreForm)content;
 		ArrayList<Field>fields = form.getFields();
-		for (Field f : fields){
-			f.getInput().initialize();
-			JComponent component = f.getInput().getComponent();
+		for (Field field : fields){
+			field.getInput().initialize();
 			
+			field.setEditable(editable);
+			
+			//TODO remove code below 
+			/*
+			JComponent component = field.getInput().getComponent();
 			// Disable
 			if (component instanceof JTextField){
-				((JTextField) component).setEditable(b); 
+				((JTextField) component).setEditable(editable); 
 			}else if (component instanceof JComboBox){
-				((JComboBox) component).setEnabled(b);
+				((JComboBox) component).setEnabled(editable);
 			}else if (component instanceof JXDatePicker){
-				((JXDatePicker) component).setEditable(b);
+				((JXDatePicker) component).setEditable(editable);
 			}
+			*/
 		}
 	}
 	

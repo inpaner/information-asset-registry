@@ -10,12 +10,12 @@ import controller.Driver;
 
 public class ViewCoreFrame implements ActionListener {
 
-	public ViewCoreFrame(Core core, CoreListener coreListener){
-		Driver.view.setPanel ( PageBuilder.AssignViewCorePageBuilder(core, coreListener) );
-	}
-	
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		
-	}
+    public ViewCoreFrame(Core core, CoreListener coreListener){
+        Driver.view.setPanel ( PageBuilder.AssignViewCorePageBuilder(core, coreListener) );
+    }
+    
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        
+    }
 }
