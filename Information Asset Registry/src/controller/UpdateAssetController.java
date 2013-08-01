@@ -1,6 +1,5 @@
 package controller;
 
-import model.Asset;
 import model.RegException;
 import view.ViewAssetListFrame;
 import view.eventhandling.CoreEvent;

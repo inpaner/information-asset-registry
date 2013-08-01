@@ -1,6 +1,6 @@
 package controller;
 
-import model.Asset;
+import model.Core;
 import model.Log;
 import model.RegException;
 import view.ViewAssetListFrame;
@@ -16,13 +16,8 @@ public class AddAssetController extends Controller implements AssetListener {
     
     @Override
     public void savedAsset(CoreEvent event) {
-        Asset asset = event.getAsset();
-        try {
-            asset.add();
-        }
-        catch(RegException e){
-            e.printStackTrace();
-        }
+        Core core = event.getCore();
+        core.add();
     }
 
     @Override

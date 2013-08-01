@@ -19,7 +19,7 @@ public class CoreEvent {
 		this.core = null;
 	}
 
-	public Core getAsset() {
+	public Core getCore() {
 		return core;
 	}
 
