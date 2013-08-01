@@ -19,8 +19,8 @@ public class ComboInput extends Input{
 	}
 	
 	public void initialize() {
-		// comboBox.setSelectedIndex();
-		System.out.println(attribute);
+		int id = Integer.parseInt(attribute.getSQLValue());
+		comboBox.setSelectedIndex(id);
 	}
 
 	@Override

@@ -13,7 +13,11 @@ import view.gui.content.contentbuilder.ContentBuilder;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import controller.AddCoreController;
 import controller.CoreListController;
+import controller.LoginController;
+import controller.MainController;
+import controller.UpdateCoreController;
 import controller.ViewCoreController;
 import model.Core;
 import model.CoreUtil;
@@ -36,11 +40,11 @@ public class CoreListPageBuilder extends PageBuilder implements ActionListener {
 	}
 
 	public void buildFooter(JPanel footer) {
-		JButton button;
-		button = ButtonFactory.createButton("View");
-		button.setActionCommand("view");
-		button.addActionListener(this);
-		footer.add(button);
+		addButton("Back", footer);
+		addButton("Update", footer);
+		addButton("View", footer);
+		addButton( "Add", footer);
+		
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -49,8 +53,26 @@ public class CoreListPageBuilder extends PageBuilder implements ActionListener {
 		if (e.getActionCommand().equals("view")){
 			CoreTable coreTable = (CoreTable)PageReference.getContent();
 			Core core = coreTable.getSelected();
-			// Fires up a new core list
-			new ViewCoreController(core);
+				
+			if (core != null)
+				// Fires up a new core list
+				new ViewCoreController(core);
+		}else if (e.getActionCommand().equals("add")){
+			CoreTable coreTable = (CoreTable)PageReference.getContent();
+			Core core = coreTable.getSelected();
+			
+			if (core != null)
+				// Fires up a new core list
+				new AddCoreController(core);
+		}else if (e.getActionCommand().equals("update")){
+			CoreTable coreTable = (CoreTable)PageReference.getContent();
+			Core core = coreTable.getSelected();
+				
+			if (core != null)
+				// Fires up a new core list
+				new UpdateCoreController(core);
+		}else if (e. getActionCommand().equals("back")){
+			new MainController();
 		}
 	}
 

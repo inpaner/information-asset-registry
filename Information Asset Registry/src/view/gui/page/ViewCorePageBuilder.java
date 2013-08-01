@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import controller.CoreListController;
+import controller.UpdateCoreController;
 import model.Core;
 import view.eventhandling.CoreListener;
 import view.gui.ButtonFactory;
@@ -35,20 +37,25 @@ public class ViewCorePageBuilder extends PageBuilder implements ActionListener{
 
 	@Override
 	public void buildFooter(JPanel footer) {
-		JButton delete = ButtonFactory.createButton("Delete");
-		delete.addActionListener(this);
-		footer.add(delete);
-		
-		JButton edit = ButtonFactory.createButton("Edit");
-		edit.addActionListener(this);
-		footer.add(edit);
+		addButton("Back", footer);
+		addButton("Delete", footer);
+		addButton("Edit", footer);
 		
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+		JButton btn = (JButton) e.getSource();
+		if (btn.getActionCommand().equals("back"))
+		{
+			new CoreListController(core);
+		}else if (btn.getActionCommand().equals("delete"))
+		{
+			// TODO 
+		}else if (btn.getActionCommand().equals("edit"))
+		{
+			new UpdateCoreController(core);
+		}
 	}
 	
 }

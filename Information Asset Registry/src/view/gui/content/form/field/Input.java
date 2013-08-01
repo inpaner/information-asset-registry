@@ -14,7 +14,7 @@ import model.attribute.StringAttribute;
 public abstract class Input {
 	protected JComponent component;
 	protected Attribute attribute;
-	public static final Dimension textInputDimension = new Dimension(200, 25);
+	public static final Dimension textInputDimension = new Dimension(200, 20);
 	public static final Dimension comboBoxInputDimension = new Dimension(150, 30);
 	
 	public abstract void setInput() throws RegException;
@@ -23,9 +23,6 @@ public abstract class Input {
 		
 	}
 
-	public static Input createInput(Core core) {
-		return new TextInput(core);
-	}
 	
 	public static Input createInput(Attribute attribute) {
 		if (attribute instanceof RestrictedAttribute)

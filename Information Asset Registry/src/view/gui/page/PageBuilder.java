@@ -1,4 +1,7 @@
 package view.gui.page;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import model.Core;
@@ -6,9 +9,10 @@ import model.RegException;
 import model.User;
 import view.eventhandling.CoreListener;
 import view.eventhandling.LoginListener;
+import view.gui.ButtonFactory;
 import view.gui.content.Content;
 
-public abstract class PageBuilder {
+public abstract class PageBuilder implements ActionListener {
 	protected Page PageReference;
 	
 	public final Page Build() throws RegException{
@@ -49,6 +53,14 @@ public abstract class PageBuilder {
 		name = Character.toUpperCase(name.charAt(0)) + name.substring(1);
 		return name;
 	}
+		
+	public void addButton(String buttonTitle, JPanel panel){
+		JButton button = null;
+		button = ButtonFactory.createButton(buttonTitle);
+		button.setActionCommand(buttonTitle.toLowerCase());
+		button.addActionListener(this);
+		panel.add(button);
+	}
 
 	public static PageBuilder assignLoginBuilder(User user, LoginListener loginListener) {
 		return new LoginPageBuilder(user, loginListener);
@@ -68,6 +80,10 @@ public abstract class PageBuilder {
 
 	public static PageBuilder AssignAddCorePageBuilder(Core core, CoreListener coreListener) {
 		return new AddCorePageBuilder(core, coreListener);
+	}
+
+	public static PageBuilder AssignEditCorePageBuilder(Core core, CoreListener coreListener) {
+		return new EditCorePageBuilder(core, coreListener);
 	}
 	
 	

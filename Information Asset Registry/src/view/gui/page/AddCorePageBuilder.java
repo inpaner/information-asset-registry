@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import controller.AddCoreController;
+import controller.CoreListController;
 import model.Core;
 import view.eventhandling.CoreListener;
 import view.gui.ButtonFactory;
@@ -29,27 +31,35 @@ public class AddCorePageBuilder extends PageBuilder implements ActionListener{
 
 	@Override
 	public void buildHeader(JPanel header) {
-		header.add( LabelFactory.createHeader("Add " ) );
+		header.add( LabelFactory.createHeader("Add new " + CapitalizeCore(core)) );
 		
 	}
 
 	@Override
 	public Content createContent() {
-		return ContentBuilder.buildAddForm(null);
+		return ContentBuilder.buildAddForm(core);
 	}
 
 	@Override
 	public void buildFooter(JPanel footer) {
-		JButton add = ButtonFactory.createButton("Add");
-		add.addActionListener(this);
-		footer.add(add);
-		
+		addButton("Reset", footer);
+		addButton("Back", footer);
+		addButton("Add", footer);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+		JButton btn = (JButton) e.getSource();
+		if (btn.getActionCommand().equals("back"))
+		{
+			new CoreListController(core);
+		}else if (btn.getActionCommand().equals("reset"))
+		{
+			// TODO 
+		}else if (btn.getActionCommand().equals("add"))
+		{
+			new AddCoreController(core);
+		}
 	}
 
 }

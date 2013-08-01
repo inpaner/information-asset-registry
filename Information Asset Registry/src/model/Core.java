@@ -105,6 +105,10 @@ public class Core {
     public String getUniqueString() {
         return uniqueAttribute.getStringValue();
     }
+    
+    public String toString(){
+    	return attributes.get(0).getStringValue();
+    }
 }
     
 
