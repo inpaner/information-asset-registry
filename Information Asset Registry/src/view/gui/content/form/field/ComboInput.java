@@ -33,6 +33,7 @@ public class ComboInput extends Input{
     @Override
     public void setEditable(boolean editable) {
         comboBox.setEditable(editable);
+        comboBox.setEnabled(editable);
     }
 	
 }
