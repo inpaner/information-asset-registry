@@ -1,26 +1,33 @@
 package controller;
 
+<<<<<<< HEAD
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import model.Session;
+=======
+>>>>>>> branch 'master' of https://github.com/inpaner/information-asset-registry.git
 import view.MainFrame;
+<<<<<<< HEAD
 import view.eventhandling.CoreEvent;
 import view.eventhandling.CoreListener;
 import view.gui.page.MainPageBuilder;
 
+=======
+>>>>>>> branch 'master' of https://github.com/inpaner/information-asset-registry.git
 
 public class MainController extends Controller{
-
-    // views
-    private MainFrame mainFrame;
     
     public MainController() {
+<<<<<<< HEAD
     	MainPageBuilder builder = new MainPageBuilder();
     	builder.setLogoutListener(new Back());
     	builder.setLogsListener(new ViewLogs());
     	builder.setCoreListener(new MainMenu());
     	Driver.view.setPanel(builder.build());
+=======
+    	new MainFrame();
+>>>>>>> branch 'master' of https://github.com/inpaner/information-asset-registry.git
     }
 
     // move to DeleteAssetController

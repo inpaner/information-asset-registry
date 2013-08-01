@@ -6,23 +6,17 @@ import java.util.ArrayList;
 
 import model.Core;
 import model.CoreUtil;
-import model.Session;
-import view.LogsFrame;
+
 import view.ViewCoreListFrame;
 import view.eventhandling.CoreEvent;
 import view.eventhandling.CoreListener;
 import view.gui.page.CoreListPageBuilder;
 import view.gui.page.MainPageBuilder;
 
+
 public class CoreListController extends Controller {
     private ViewCoreListFrame viewCoreListFrame;
-    
-   /* 
-    public CoreListController(ArrayList<Core> core){
-    	viewCoreListFrame = new ViewCoreListFrame(this, core);
-    }
-    */
-    
+
     public CoreListController(Core core) {
     	ArrayList<Core> allCores = CoreUtil.getAll(core.getName());
         CoreListPageBuilder builder = new CoreListPageBuilder(allCores);
@@ -33,6 +27,7 @@ public class CoreListController extends Controller {
         
         builder.setBackListener(new Back());
         Driver.view.setPanel(builder.build());
+
     }
 
     private class AddListener implements CoreListener {
