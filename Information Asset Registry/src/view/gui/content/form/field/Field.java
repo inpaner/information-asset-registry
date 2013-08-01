@@ -36,57 +36,6 @@ public class Field{
 		return newField;
 	}
 	
-	/**
-	 * This method creates the necessary field depending on
-	 * the type of the attribute passed. This changes the 
-	 * input, varying between ComboInput, TextInput, or DateInput
-	 * @param attribute - this is the attribute to be turned into a field
-	 * @return field - the newly constructed Field object
-	 */
-	public static Field BuildField(StringAttribute attribute){
-		Input input = Input.CreateInput(attribute);
-		Field newField = new Field(input);
-		return newField;
-	}
-	
-	/**
-	 * This method creates the necessary field depending on
-	 * the type of the attribute passed. This changes the 
-	 * input, varying between ComboInput, TextInput, or DateInput
-	 * @param attribute - this is the attribute to be turned into a field
-	 * @return field - the newly constructed Field object
-	 */
-	public static Field BuildField(DateAttribute attribute){
-		Input input = Input.CreateInput(attribute);
-		Field newField = new Field(input);
-		return newField;
-	}
-	
-	/**
-	 * This method creates the necessary field depending on
-	 * the type of the attribute passed. This changes the 
-	 * input, varying between ComboInput, TextInput, or DateInput
-	 * @param attribute - this is the attribute to be turned into a field
-	 * @return field - the newly constructed Field object
-	 */
-	public static Field BuildField(IntegerAttribute attribute){
-		Input input = Input.CreateInput(attribute);
-		Field newField = new Field(input);
-		return newField;
-	}
-	
-	/**
-	 * This method creates the necessary field depending on
-	 * the type of the attribute passed. This changes the 
-	 * input, varying between ComboInput, TextInput, or DateInput
-	 * @param attribute - this is the attribute to be turned into a field
-	 * @return field - the newly constructed Field object
-	 */
-	public static Field BuildField(PrimaryAttribute attribute){
-		Input input = Input.CreateInput(attribute);
-		Field newField = new Field(input);
-		return newField;
-	}
 	
 	/**
 	 * The constructor of the field object
