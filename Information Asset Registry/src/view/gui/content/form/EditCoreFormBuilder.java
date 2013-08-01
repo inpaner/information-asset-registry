@@ -12,6 +12,7 @@ public class EditCoreFormBuilder extends ViewCoreFormBuilder{
 	@Override
 	public Content buildContent() {
 		super.buildContent();
+		setFieldsEditable(true);
 		return content;
 	}
 	

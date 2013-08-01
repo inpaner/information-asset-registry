@@ -1,7 +1,5 @@
 package view.gui.content.form;
 import model.User;
-import model.attribute.AttributeUtil;
-import model.attribute.StringAttribute;
 import view.gui.content.Content;
 import view.gui.content.LoginForm;
 import view.gui.content.contentbuilder.FormBuilder;

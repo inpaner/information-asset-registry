@@ -1,12 +1,11 @@
 package view.gui.content.form;
 
-import view.gui.content.CoreForm;
-import view.gui.content.Content;
-import view.gui.content.Form;
-import view.gui.content.contentbuilder.FormBuilder;
-import view.gui.content.form.field.Field;
 import model.Core;
 import model.attribute.Attribute;
+import view.gui.content.Content;
+import view.gui.content.CoreForm;
+import view.gui.content.contentbuilder.FormBuilder;
+import view.gui.content.form.field.Field;
 
 public class AddCoreFormBuilder extends FormBuilder{
 	protected Core core;
