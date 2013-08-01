@@ -58,5 +58,10 @@ public class TextInput extends Input{
 		else
 			((CoreAttribute)attribute).setValue(value);
 	}
+
+    @Override
+    public void setEditable(boolean editable) {
+        jComboBox.setEnabled(editable);
+    }
 	
 }

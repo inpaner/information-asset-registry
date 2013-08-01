@@ -70,7 +70,8 @@ public class Field{
 				throw new RegException("InvalidInputException: The input was null.");
 			form.add(inputField.getComponent(), "grow");
 			form.add(errorLabel, "wrap");
-		}catch(RegException e){
+		}
+		catch(RegException e){
 			e.printStackTrace();
 		}
 	}
@@ -79,10 +80,15 @@ public class Field{
 		boolean noErrors = true;
 	    try {
 			inputField.setInput();
-		}catch (RegException e){
+		}
+	    catch (RegException e){
 		    noErrors = false;
 			errorLabel.setText(e.getMessage());
 		}
 		return noErrors;
+	}
+	
+	public void setEditable(boolean editable) {
+	    inputField.setEditable(editable);
 	}
 }

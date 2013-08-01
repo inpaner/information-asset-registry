@@ -20,7 +20,6 @@ public abstract class Input {
 	public abstract void setInput() throws RegException;
 
 	public Input(){
-		
 	}
 
 	
@@ -49,6 +48,7 @@ public abstract class Input {
 	 * it will have.
 	 */
 	public abstract void initialize();
+	public abstract void setEditable(boolean editable);
 	
 	public JComponent getComponent() {
 		if (component == null){

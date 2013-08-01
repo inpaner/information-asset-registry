@@ -26,5 +26,11 @@ public class DateInput extends Input{
 		// TODO Auto-generated method stub
 
 	}
+
+    @Override
+    public void setEditable(boolean editable) {
+        // TODO Auto-generated method stub
+        
+    }
 	
 }
