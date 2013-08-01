@@ -24,10 +24,9 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.border.BevelBorder;
 
-import model.Asset;
 import model.Log;
 import view.eventhandling.CoreEvent;
-import view.eventhandling.AssetListener;
+import view.eventhandling.CoreListener;
 import view.eventhandling.ControlListener;
 import view.eventhandling.LogListener;
 
@@ -42,7 +41,7 @@ public class LogsFrame extends View implements ActionListener {
 	private JPanel contentPane;
 	private JTable tableData;
 	private JTextField txtSearchPanel;
-	private AssetListener assetListener;
+	private CoreListener coreListener;
 	private LogListener logListener;
 	private DefaultTableModel tableModel;
 	private ControlListener controlListener;
@@ -167,7 +166,7 @@ public class LogsFrame extends View implements ActionListener {
 	}
 	
 	public void initialize(){
-		Vector<Log> logs = Log.getAll();
+		ArrayList<Log> logs = Log.getAll();
 		String[][] data = new String[logs.size()][1];
 		
 		// Remove all rows of logs
@@ -175,14 +174,14 @@ public class LogsFrame extends View implements ActionListener {
 			tableModel.removeRow(0);
 		
 		for (int i = 0; i < data.length; i++){
-			data[i][0] = logs.elementAt(i).plaintext();
+			data[i][0] = logs.get(i).plaintext();
 			tableModel.addRow(data[i]);
 		}
 	}
 
 	
-	public void setAssetListener(AssetListener assetListener) {
-		this.assetListener = assetListener;
+	public void setAssetListener(CoreListener coreListener) {
+		this.coreListener = coreListener;
 	}
 
 	public void setLogListener(LogListener listener) {

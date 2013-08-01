@@ -3,7 +3,7 @@ package view.gui.page;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import view.eventhandling.AssetListener;
+import view.eventhandling.CoreListener;
 import view.gui.ButtonFactory;
 import view.gui.LabelFactory;
 import view.gui.content.Content;
@@ -12,11 +12,11 @@ import view.gui.content.contentbuilder.ContentBuilder;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class AssetListPageBuilder extends PageBuilder implements ActionListener {
-	private AssetListener assetListener;
+public class CoreListPageBuilder extends PageBuilder implements ActionListener {
+	private CoreListener coreListener;
 
-	public AssetListPageBuilder(AssetListener assetListener) {
-	this.assetListener = assetListener;
+	public CoreListPageBuilder(CoreListener coreListener) {
+	this.coreListener = coreListener;
 	}
 
 	@Override

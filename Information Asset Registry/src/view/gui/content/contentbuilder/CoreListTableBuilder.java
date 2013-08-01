@@ -11,10 +11,10 @@ import model.Asset;
 import model.Session;
 import model.User;
 
-public class AssetListTableBuilder extends TableBuilder{
+public class CoreListTableBuilder extends TableBuilder{
 	protected User user;
 	
-	protected AssetListTableBuilder() {
+	protected CoreListTableBuilder() {
 		this.user = Session.currentUser();
 	}
 

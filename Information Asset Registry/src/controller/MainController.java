@@ -2,18 +2,18 @@ package controller;
 
 import model.Session;
 import view.LogInFrame;
-import view.ViewAssetListFrame;
+import view.ViewCoreListFrame;
 import view.eventhandling.CoreEvent;
-import view.eventhandling.AssetListener;
-import view.gui.page.AddAssetPageBuilder;
+import view.eventhandling.CoreListener;
+import view.gui.page.AddCorePageBuilder;
 
-public class MainController extends Controller implements AssetListener {
+public class MainController extends Controller implements CoreListener {
 
     // views
-    private ViewAssetListFrame viewAssetListFrame;
+    private ViewCoreListFrame viewCoreListFrame;
     
     protected MainController() {
-    	viewAssetListFrame = new ViewAssetListFrame(this);
+    	viewCoreListFrame = new ViewCoreListFrame(this);
     }
 
     // move to DeleteAssetController
@@ -31,7 +31,7 @@ public class MainController extends Controller implements AssetListener {
 
 
 	@Override
-	public void savedAsset(CoreEvent event) {
+	public void savedCore(CoreEvent event) {
 		// TODO Auto-generated method stub
 		
 	}

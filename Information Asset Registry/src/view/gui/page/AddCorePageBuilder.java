@@ -8,27 +8,34 @@ import javax.swing.JPanel;
 
 import view.gui.ButtonFactory;
 import view.gui.LabelFactory;
+import view.gui.content.CoreForm;
 import view.gui.content.Content;
 import view.gui.content.contentbuilder.ContentBuilder;
+import view.gui.content.form.AddCoreFormBuilder;
+import view.gui.content.form.ViewCoreFormBuilder;
 
-public class EditAssetPageBuilder extends PageBuilder implements ActionListener{
+public class AddCorePageBuilder extends PageBuilder implements ActionListener{
+
+	public Page BuildPage() {
+		return new Page();
+	}
 
 	@Override
 	public void BuildHeader(JPanel header) {
-		header.add( LabelFactory.CreateHeader("Edit page") );
+		header.add( LabelFactory.CreateHeader("Add page") );
 		
 	}
 
 	@Override
 	public Content CreateContent() {
-		return ContentBuilder.BuildEditForm(null);
+		return ContentBuilder.BuildAddForm(null);
 	}
 
 	@Override
 	public void BuildFooter(JPanel footer) {
-		JButton edit = ButtonFactory.CreateButton("Edit");
-		edit.addActionListener(this);
-		footer.add(edit);
+		JButton add = ButtonFactory.CreateButton("Add");
+		add.addActionListener(this);
+		footer.add(add);
 		
 	}
 

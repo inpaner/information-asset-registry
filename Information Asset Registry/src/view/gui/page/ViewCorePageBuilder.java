@@ -6,36 +6,39 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import model.User;
 import view.gui.ButtonFactory;
 import view.gui.LabelFactory;
-import view.gui.content.CoreForm;
 import view.gui.content.Content;
 import view.gui.content.contentbuilder.ContentBuilder;
-import view.gui.content.form.AddAssetFormBuilder;
-import view.gui.content.form.ViewAssetFormBuilder;
 
-public class AddAssetPageBuilder extends PageBuilder implements ActionListener{
+public class ViewCorePageBuilder extends PageBuilder implements ActionListener{
+	private User user;
 
-	public Page BuildPage() {
-		return new Page();
+	public ViewCorePageBuilder(User user){
+		this.user = user;
 	}
-
+	
 	@Override
 	public void BuildHeader(JPanel header) {
-		header.add( LabelFactory.CreateHeader("Add page") );
+		header.add( LabelFactory.CreateHeader("View asset") );
 		
 	}
 
 	@Override
 	public Content CreateContent() {
-		return ContentBuilder.BuildAddForm(null);
+		return ContentBuilder.BuildAssetList();
 	}
 
 	@Override
 	public void BuildFooter(JPanel footer) {
-		JButton add = ButtonFactory.CreateButton("Add");
-		add.addActionListener(this);
-		footer.add(add);
+		JButton delete = ButtonFactory.CreateButton("Delete");
+		delete.addActionListener(this);
+		footer.add(delete);
+		
+		JButton edit = ButtonFactory.CreateButton("Edit");
+		edit.addActionListener(this);
+		footer.add(edit);
 		
 	}
 
@@ -44,5 +47,5 @@ public class AddAssetPageBuilder extends PageBuilder implements ActionListener{
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 }

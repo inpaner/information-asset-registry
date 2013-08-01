@@ -6,36 +6,26 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import model.User;
 import view.gui.ButtonFactory;
 import view.gui.LabelFactory;
 import view.gui.content.Content;
 import view.gui.content.contentbuilder.ContentBuilder;
 
-public class ViewAssetPageBuilder extends PageBuilder implements ActionListener{
-	private User user;
+public class EditCorePageBuilder extends PageBuilder implements ActionListener{
 
-	public ViewAssetPageBuilder(User user){
-		this.user = user;
-	}
-	
 	@Override
 	public void BuildHeader(JPanel header) {
-		header.add( LabelFactory.CreateHeader("View asset") );
+		header.add( LabelFactory.CreateHeader("Edit page") );
 		
 	}
 
 	@Override
 	public Content CreateContent() {
-		return ContentBuilder.BuildAssetList();
+		return ContentBuilder.BuildEditForm(null);
 	}
 
 	@Override
 	public void BuildFooter(JPanel footer) {
-		JButton delete = ButtonFactory.CreateButton("Delete");
-		delete.addActionListener(this);
-		footer.add(delete);
-		
 		JButton edit = ButtonFactory.CreateButton("Edit");
 		edit.addActionListener(this);
 		footer.add(edit);
@@ -47,5 +37,5 @@ public class ViewAssetPageBuilder extends PageBuilder implements ActionListener{
 		// TODO Auto-generated method stub
 		
 	}
-	
+
 }

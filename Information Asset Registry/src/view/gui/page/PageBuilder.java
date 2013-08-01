@@ -3,7 +3,7 @@ import javax.swing.JPanel;
 
 import model.RegException;
 import model.User;
-import view.eventhandling.AssetListener;
+import view.eventhandling.CoreListener;
 import view.eventhandling.LoginListener;
 import view.gui.content.Content;
 
@@ -47,8 +47,8 @@ public abstract class PageBuilder {
 		return new LoginPageBuilder(user, loginListener);
 	}
 
-	public static PageBuilder AssignAssetListPageBuilder(AssetListener assetListener) {
-		return new AssetListPageBuilder(assetListener);
+	public static PageBuilder AssignAssetListPageBuilder(CoreListener coreListener) {
+		return new CoreListPageBuilder(coreListener);
 	}
 	
 	

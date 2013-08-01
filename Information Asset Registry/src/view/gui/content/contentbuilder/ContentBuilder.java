@@ -2,16 +2,16 @@ package view.gui.content.contentbuilder;
 
 import model.Core;
 import model.User;
-import view.eventhandling.AssetListener;
+import view.eventhandling.CoreListener;
 import view.gui.content.CoreForm;
 import view.gui.content.CoreTable;
 import view.gui.content.Content;
 import view.gui.content.LoginForm;
-import view.gui.content.form.AddAssetFormBuilder;
-import view.gui.content.form.EditAssetFormBuilder;
+import view.gui.content.form.AddCoreFormBuilder;
+import view.gui.content.form.EditCoreFormBuilder;
 import view.gui.content.form.LoginFormBuilder;
-import view.gui.content.form.ViewAssetFormBuilder;
-import view.gui.page.AssetListPageBuilder;
+import view.gui.content.form.ViewCoreFormBuilder;
+import view.gui.page.CoreListPageBuilder;
 
 public abstract class ContentBuilder {
 	protected Content content;
@@ -23,22 +23,22 @@ public abstract class ContentBuilder {
 	} 
 	
 	public static CoreForm BuildAddForm(Core core){
-		AddAssetFormBuilder builder = new AddAssetFormBuilder(core);
+		AddCoreFormBuilder builder = new AddCoreFormBuilder(core);
 		return (CoreForm)builder.BuildContent();
 	}
 	
 	public static CoreForm BuildEditForm(Core core){
-		EditAssetFormBuilder builder = new EditAssetFormBuilder(core);
+		EditCoreFormBuilder builder = new EditCoreFormBuilder(core);
 		return (CoreForm)builder.BuildContent();
 	}
 	
 	public static CoreForm BuildViewForm(Core core){
-		ViewAssetFormBuilder builder = new ViewAssetFormBuilder(core);
+		ViewCoreFormBuilder builder = new ViewCoreFormBuilder(core);
 		return (CoreForm)builder.BuildContent();
 	}
 
 	public static CoreTable BuildAssetList() {
-		AssetListTableBuilder builder = new AssetListTableBuilder();
+		CoreListTableBuilder builder = new CoreListTableBuilder();
 		return (CoreTable)builder.BuildContent();
 	}
 }

@@ -3,19 +3,19 @@ package controller;
 import model.Core;
 import model.Log;
 import model.RegException;
-import view.ViewAssetListFrame;
+import view.ViewCoreListFrame;
 import view.eventhandling.CoreEvent;
-import view.eventhandling.AssetListener;
+import view.eventhandling.CoreListener;
 
-public class AddAssetController extends Controller implements AssetListener {
-    private ViewAssetListFrame viewAssetFrame;
+public class AddCoreController extends Controller implements CoreListener {
+    private ViewCoreListFrame viewAssetFrame;
     
-    protected AddAssetController() {
+    protected AddCoreController() {
         Driver.display(null);
     }
     
     @Override
-    public void savedAsset(CoreEvent event) {
+    public void savedCore(CoreEvent event) {
         Core core = event.getCore();
         core.add();
     }

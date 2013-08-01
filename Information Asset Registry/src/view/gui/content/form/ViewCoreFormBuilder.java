@@ -1,12 +1,15 @@
 package view.gui.content.form;
+import com.mysql.jdbc.Field;
 
 import view.gui.content.Content;
 import model.Core;
 
-public class EditAssetFormBuilder extends ViewAssetFormBuilder{
+public class ViewCoreFormBuilder extends AddCoreFormBuilder{
+	private Core core;
 	
-	public EditAssetFormBuilder(Core core){
+	public ViewCoreFormBuilder(Core core){
 		super(core);
+		this.core = core;
 	}
 	
 	@Override
