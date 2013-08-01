@@ -25,12 +25,6 @@ public class Log implements Comparable<Log> {
     private String previous;
     private String value;
     
-    public static void main(String[] args) {
-        for (Log l : Log.getAll()) {
-            System.out.println(l.plaintext());
-        }
-    }
-    
     private Log() {
     }    
     
@@ -63,8 +57,8 @@ public class Log implements Comparable<Log> {
     }
     
     public String plaintext() {
-        //String text = user.getUsername() + " - " + timestamp.toString() + " - ";
-        String text = "";
+        String text = user.getUsername() + " - " + timestamp.toString() + " - ";
+        //String text = "";
         switch (action) {
             case "Login" :  text += " logged in.";
                             break;
@@ -91,7 +85,7 @@ public class Log implements Comparable<Log> {
         try {
             while (rs.next()) {
                 Log log = new Log();
-                //log.user = User.getUser(rs.getInt("userFk"));
+                log.user = User.getUser(rs.getInt("userFk"));
                 log.action = rs.getString("action");
                 
                 //String coreName = rs.getString("core");
@@ -130,6 +124,7 @@ public class Log implements Comparable<Log> {
         for (Attribute attribute : core.getAttributes()) {
             if (attribute.isUpdated()) {
                 SQLBuilder builder = new EditAttributeLog(core, attribute, dateTime);
+                System.out.println(builder.getResult());
                 DBUtil.executeUpdate(builder.getResult());
             }
         }

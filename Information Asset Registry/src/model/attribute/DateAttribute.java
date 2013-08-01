@@ -138,6 +138,10 @@ public class DateAttribute extends PrimaryAttribute {
         
         return contains;
     }
+
+    public Date getValue() {
+        return value;
+    }
     
 
 }

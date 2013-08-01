@@ -26,11 +26,12 @@ public class SQLUpdate extends SQLStatement {
     }
 
     public void addValue(String projection, String value) {
-        values.add(projection + "=" + value);
+        values.add("`" + projection + "`" 
+                    + "=" + "'" + value + "'");
     }
 
     public void addCondition(String condition) {
-        values.add(condition);
+        conditions.add(condition);
     }
 
     

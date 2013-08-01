@@ -18,7 +18,7 @@ public class DateInput extends Input{
 	}
 
     public void initialize() {
-		
+		datePicker.setDate(attribute.getValue());
 	}
 
 	public void setInput() throws RegException {

@@ -4,6 +4,7 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import model.Log;
 import model.Session;
 
 
@@ -45,6 +46,7 @@ public class MainController extends Controller{
     private class Back implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            Log.loggedOut();
             Session.currentUser().logOut();
             new LoginController();
         }

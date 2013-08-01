@@ -27,7 +27,7 @@ public class EditCoreController extends Controller {
             CoreForm form = event.getForm();
             if (form.setFields()) {
                 Core core = event.getCore();
-                core.add();
+                core.edit();
                 core.commit();
                 new MainController();
                 // TODO show success

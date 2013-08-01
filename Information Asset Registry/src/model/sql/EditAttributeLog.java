@@ -5,10 +5,10 @@ import model.Session;
 import model.attribute.Attribute;
 
 public class EditAttributeLog extends SQLBuilder {
-    private SQLUpdate statement;
+    private SQLInsert statement;
 
     public EditAttributeLog(Core core, Attribute attribute, String dateTime) {
-        statement = new SQLUpdate();
+        statement = new SQLInsert();
         
         String userPk = String.valueOf(Session.currentUser().getPk());
         String corePk = String.valueOf(core.getPk());
@@ -20,7 +20,6 @@ public class EditAttributeLog extends SQLBuilder {
         statement.addValue("coreFk", corePk);
         statement.addValue("previousValue", attribute.getStringPreviousValue());
         statement.addValue("value", attribute.getStringValue());
-        
     }
     
     @Override

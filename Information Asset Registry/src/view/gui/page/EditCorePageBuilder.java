@@ -44,7 +44,8 @@ public class EditCorePageBuilder extends PageBuilder implements ActionListener {
 
 	@Override
 	public Content createContent() {
-		return ContentBuilder.buildEditForm(core);
+       coreForm = ContentBuilder.buildEditForm(core);
+        return coreForm;
 	}
 
 	@Override
@@ -72,16 +73,6 @@ public class EditCorePageBuilder extends PageBuilder implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		JButton btn = (JButton) e.getSource();
-		if (btn.getActionCommand().equals("back"))
-		{
-			new CoreListController(core);
-		}else if (btn.getActionCommand().equals("reset"))
-		{
-			// TODO 
-		}else if (btn.getActionCommand().equals("update"))
-		{
-			new EditCoreController(core); 
-		}
+
 	}
 }

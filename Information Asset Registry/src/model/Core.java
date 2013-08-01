@@ -50,7 +50,6 @@ public class Core {
     public void add() {
         // TODO check if all attributes are valid
         SQLBuilder builder = new AddCore(this);
-        System.out.println(builder.getResult());
         DBUtil.executeUpdate(builder.getResult());
         Log.addCore(this);
         for (Attribute attribute : attributes) {
@@ -60,6 +59,8 @@ public class Core {
     
     public void edit() {
         SQLBuilder builder = new EditCore(this);
+        System.out.println(builder.getResult());
+        
         DBUtil.executeUpdate(builder.getResult());
         Log.editCore(this);
         for (Attribute attribute : attributes) {
