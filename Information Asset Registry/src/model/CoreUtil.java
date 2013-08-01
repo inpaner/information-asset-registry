@@ -26,8 +26,10 @@ public class CoreUtil {
     
     public static void main(String[] args) {
         init();
-        Core core = getAddable("asset");
-        CoreUtil.getCore("asset", 1);
+        // Core core = getAddable("asset");
+        for (Core core :CoreUtil.search("asset", "2332")) {
+            System.out.println(core.getName());
+        }
     }
     
     public static ArrayList<Core> getModels() {
@@ -149,5 +151,23 @@ public class CoreUtil {
         }
     }
     
+    public static ArrayList<Core> search(String name, String substring) {
+        ArrayList<Core> contains = new ArrayList<>();
+        for (Core core : getAll(name)) {
+            if (core.contains(substring)) {
+                contains.add(core);
+            }
+        }
+        
+        return contains;
+    }
+    
+    public static ArrayList<Core> searchAll(String substring) {
+        ArrayList<Core> contains = new ArrayList<>();
+        for (Core model : models.values()) {
+            contains.addAll(search(model.getName(), substring));
+        }
 
+        return contains;
+    }
 }

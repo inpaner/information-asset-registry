@@ -25,5 +25,4 @@ public class ViewCoreController extends Controller implements CoreListener {
     public void goToMain() {
         new MainController();
     }
-
 }

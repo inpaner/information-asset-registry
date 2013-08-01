@@ -6,12 +6,13 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JTextField;
 
+import model.Core;
+
 import org.jdesktop.swingx.JXDatePicker;
 
 import view.gui.content.Content;
 import view.gui.content.CoreForm;
 import view.gui.content.form.field.Field;
-import model.Core;
 
 public class ViewCoreFormBuilder extends AddCoreFormBuilder{
 	
@@ -26,6 +27,7 @@ public class ViewCoreFormBuilder extends AddCoreFormBuilder{
 		return content;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	protected void setFieldsEditable(boolean b){
 		CoreForm form = (CoreForm)content;
 		ArrayList<Field>fields = form.getFields();

@@ -130,4 +130,9 @@ public class RestrictedAttribute extends Attribute {
     public void setValue(int pk) throws RegException {
         
     }
+
+    @Override
+    public boolean contains(String substring) {
+        return value.contains(substring);
+    }
 }

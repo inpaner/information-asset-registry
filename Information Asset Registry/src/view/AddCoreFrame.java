@@ -13,5 +13,4 @@ public class AddCoreFrame{
 	public AddCoreFrame(Core core, CoreListener coreListener){
 		Driver.view.setPanel ( PageBuilder.AssignAddCorePageBuilder(core, coreListener) );
 	}
-
 }

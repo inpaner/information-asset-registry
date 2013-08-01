@@ -106,8 +106,20 @@ public class Core {
         return uniqueAttribute.getStringValue();
     }
     
+
     public String toString(){
     	return attributes.get(0).getStringValue();
+    }
+    
+	public boolean contains(String substring) {
+        boolean contains = false;
+        for (Attribute attribute : attributes) {
+            if (attribute.contains(substring)) {
+                contains = true;
+                break;
+            }   
+        }
+        return contains;
     }
 }
     

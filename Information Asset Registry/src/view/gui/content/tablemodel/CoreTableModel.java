@@ -71,7 +71,14 @@ public class CoreTableModel extends DefaultTableModel  {
     }
 
 	public Core getSelected(JTable table) {
-		return coreList.get(table.getSelectedRow());
+		int selectedRow = table.getSelectedRow();
+		
+		// Check if a row has been selected
+		if (selectedRow != -1) {
+			return coreList.get(table.getSelectedRow());
+		}
+		
+		return null;
 	}
     
 }
