@@ -14,7 +14,7 @@ public class LoginController extends Controller implements LoginListener {
     User user;
     LogInFrame loginFrame;
     
-    protected LoginController() {
+    public LoginController() {
     	 loginFrame = new LogInFrame(this);
     	 user = Session.currentUser();
     }

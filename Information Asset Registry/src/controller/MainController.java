@@ -13,7 +13,7 @@ public class MainController extends Controller implements CoreListener {
     // views
     private MainFrame mainFrame;
     
-    protected MainController() {
+    public MainController() {
     	mainFrame = new MainFrame(this);
     }
 

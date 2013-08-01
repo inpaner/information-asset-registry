@@ -100,7 +100,12 @@ public class User {
         catch (SQLException ex) {
             ex.printStackTrace();
         }
-    }    
+    }
+
+	public void logOut() {
+		// TODO Ivan, please implement log out here
+		
+	}    
     
 }
 

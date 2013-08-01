@@ -1,18 +1,24 @@
 package view.gui.page;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import controller.Driver;
+import controller.LoginController;
 import model.Core;
 import model.CoreUtil;
+import model.Session;
 import view.eventhandling.CoreListener;
 import view.gui.ButtonFactory;
 import view.gui.LabelFactory;
 import view.gui.content.BasicContent;
 import view.gui.content.Content;
 
-public class MainPageBuilder extends PageBuilder {
+public class MainPageBuilder extends PageBuilder implements ActionListener{
 	private CoreListener coreListener;
 	
 	public MainPageBuilder(CoreListener coreListener) {
@@ -36,10 +42,24 @@ public class MainPageBuilder extends PageBuilder {
 		ArrayList<Core> models = CoreUtil.getModels();
 		for(Core core : models){
 			String name = core.getName();
-			footer.add( ButtonFactory.CreateButton(name) );
+			JButton button = ButtonFactory.CreateButton(name);
+			button.addActionListener(this);
+			footer.add( button );
+			
 		}
 		
-
+		JButton button = ButtonFactory.CreateButton("Logout");
+		button.addActionListener(this);
+		button.setActionCommand("logout");
+		footer.add( button );
+	}
+	
+	public void actionPerformed(ActionEvent e) {
+		JButton btn = (JButton)e.getSource();
+		if (btn.getActionCommand().equals("back")){
+			Session.currentUser().logOut();
+			new LoginController();
+		}
 	}
 
 }
