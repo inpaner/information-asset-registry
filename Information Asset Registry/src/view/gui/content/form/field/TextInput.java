@@ -17,10 +17,9 @@ public class TextInput extends Input{
 		
 	}
 
-	public boolean setInput() throws RegException{
+	public void setInput() throws RegException{
 		String value = ((JTextField)component).getText();
 		((StringAttribute)attribute).setValue(value);
-		return true;
 	}
 	
 }

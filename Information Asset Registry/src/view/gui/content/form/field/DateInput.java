@@ -1,6 +1,7 @@
 package view.gui.content.form.field;
 import javax.swing.JComboBox;
 
+import model.attribute.DateAttribute;
 import model.attribute.RestrictedAttribute;
 
 public class DateInput extends Input{
@@ -10,13 +11,18 @@ public class DateInput extends Input{
 		component = new JComboBox<String>();
 	}
 	
-	public void Initialize() {
+	public DateInput(DateAttribute attribute) {
+        super(attribute);
+        
+    }
+
+    public void Initialize() {
 		
 	}
 
-	public boolean setInput() {
+	public void setInput() {
 		// TODO Auto-generated method stub
-		return false;
+
 	}
 	
 }

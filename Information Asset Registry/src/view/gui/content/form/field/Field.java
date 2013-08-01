@@ -130,11 +130,13 @@ public class Field{
 	}
 
 	public boolean setField() {
-		try {
-			return inputField.setInput();
+		boolean noErrors = true;
+	    try {
+			inputField.setInput();
 		}catch (RegException e){
+		    noErrors = false;
 			errorLabel.setText(e.getMessage());
 		}
-		return false;
+		return noErrors;
 	}
 }
