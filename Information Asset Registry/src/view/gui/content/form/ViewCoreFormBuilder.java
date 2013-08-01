@@ -32,7 +32,7 @@ public class ViewCoreFormBuilder extends AddCoreFormBuilder{
 		CoreForm form = (CoreForm)content;
 		ArrayList<Field>fields = form.getFields();
 		for (Field field : fields){
-			field.getInput().initialize();
+			field.initialize();
 			
 			field.setEditable(editable);
 			

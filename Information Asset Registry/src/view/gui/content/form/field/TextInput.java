@@ -25,11 +25,13 @@ public class TextInput extends Input{
 	public TextInput(StringAttribute attribute){
 		super(attribute);
 		stringAttribute = attribute;
-		if (stringAttribute.getName().contains("password") || stringAttribute.getName().startsWith("pw") || stringAttribute.getName().endsWith("pw"))
+		if (stringAttribute.getName().contains("password") 
+		        || stringAttribute.getName().startsWith("pw") 
+		        || stringAttribute.getName().endsWith("pw"))
 		{
 			component = jTextField = new JPasswordField();
-		}else
-		{
+		}
+		else {
 			component = jTextField = new JTextField();
 		}
 		component.setPreferredSize(Input.textInputDimension);
@@ -40,35 +42,21 @@ public class TextInput extends Input{
 		coreAttribute = attribute;
 		component = jComboBox = new JComboBox<String>();
 		AutoCompleteDecorator.decorate(jComboBox);
-		
 		component.setPreferredSize(Input.textInputDimension);
 	}
+	
 	public void initialize() {
-		if (attribute instanceof StringAttribute){
-			jTextField.setText(((StringAttribute) attribute).getValue());
-			
-			
-			
-		}else{
-			Core core = coreAttribute.getValue();
-			List<Core> list = java.util.Collections.unmodifiableList(CoreUtil.getAll(core.getName()));
-			jComboBox.setModel(new ListComboBoxModel<Core>(list));
-			jComboBox.setSelectedItem(core);
-		}
+		jTextField.setText(stringAttribute.getValue());
 	}
 
 	public void setInput() throws RegException{
 		String value = jTextField.getText();
-		
-		if (attribute instanceof StringAttribute)
-			((StringAttribute)attribute).setValue(value);
-		else
-			((CoreAttribute)attribute).setValue(value);
+	    stringAttribute.setValue(value);
 	}
 
     @Override
     public void setEditable(boolean editable) {
-        jComboBox.setEnabled(editable);
+        jTextField.setEditable(editable);
     }
 	
 }
