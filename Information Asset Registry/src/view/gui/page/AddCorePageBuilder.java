@@ -23,24 +23,24 @@ public class AddCorePageBuilder extends PageBuilder implements ActionListener{
 		this.coreListener = coreListener;
 	}
 
-	public Page BuildPage() {
+	public Page buildPage() {
 		return new Page();
 	}
 
 	@Override
-	public void BuildHeader(JPanel header) {
-		header.add( LabelFactory.CreateHeader("Add " ) );
+	public void buildHeader(JPanel header) {
+		header.add( LabelFactory.createHeader("Add " ) );
 		
 	}
 
 	@Override
-	public Content CreateContent() {
-		return ContentBuilder.BuildAddForm(null);
+	public Content createContent() {
+		return ContentBuilder.buildAddForm(null);
 	}
 
 	@Override
-	public void BuildFooter(JPanel footer) {
-		JButton add = ButtonFactory.CreateButton("Add");
+	public void buildFooter(JPanel footer) {
+		JButton add = ButtonFactory.createButton("Add");
 		add.addActionListener(this);
 		footer.add(add);
 		

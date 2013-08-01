@@ -27,17 +27,17 @@ public class CoreListPageBuilder extends PageBuilder implements ActionListener {
 	this.core = core;
 	}
 
-	public void BuildHeader(JPanel header) {
-		header.add( LabelFactory.CreateHeader(CapitalizeCore(core) + " list") );
+	public void buildHeader(JPanel header) {
+		header.add( LabelFactory.createHeader(CapitalizeCore(core) + " list") );
 	}
 
-	public Content CreateContent() {
-		return ContentBuilder.BuildAssetList(core);
+	public Content createContent() {
+		return ContentBuilder.buildAssetList(core);
 	}
 
-	public void BuildFooter(JPanel footer) {
+	public void buildFooter(JPanel footer) {
 		JButton button;
-		button = ButtonFactory.CreateButton("View");
+		button = ButtonFactory.createButton("View");
 		button.setActionCommand("view");
 		button.addActionListener(this);
 		footer.add(button);
@@ -48,7 +48,7 @@ public class CoreListPageBuilder extends PageBuilder implements ActionListener {
 		
 		if (e.getActionCommand().equals("view")){
 			CoreTable coreTable = (CoreTable)PageReference.getContent();
-			Core core = coreTable.GetSelected();
+			Core core = coreTable.getSelected();
 			// Fires up a new core list
 			new ViewCoreController(core);
 		}

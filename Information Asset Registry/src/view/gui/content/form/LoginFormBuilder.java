@@ -19,16 +19,16 @@ public class LoginFormBuilder extends FormBuilder{
 	/**
 	 *  This class creates a login form. 
 	 */
-	public Content BuildContent() {
+	public Content buildContent() {
 		Field field;
 		LoginForm content = (LoginForm)this.content;
 		
 		// Username
-		field = Field.BuildField(user.getUsername());
+		field = Field.buildField(user.getUsername());
 		field.addTo(content);
 		
 		// Password
-		field = Field.BuildField(user.getPassword());
+		field = Field.buildField(user.getPassword());
 		field.addTo(content);
 		
 		return content;

@@ -16,5 +16,5 @@ public abstract class Content extends JPanel {
 	 * constructor, it creates the necessary
 	 * Content.
 	 */
-	public abstract void Initialize();
+	public abstract void initialize();
 }

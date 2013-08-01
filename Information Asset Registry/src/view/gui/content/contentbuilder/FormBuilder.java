@@ -11,7 +11,7 @@ public abstract class FormBuilder extends ContentBuilder{
 	 * FieldFactory, and add it into the
 	 * content file to be returned.
 	 */
-	public Content BuildContent() {
+	public Content buildContent() {
 		
 		return content;
 	}

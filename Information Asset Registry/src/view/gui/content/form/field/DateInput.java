@@ -135,7 +135,7 @@ public class DateInput extends Input{
 		
 	}
 
-    public void Initialize() {
+    public void initialize() {
 		
 	}
 

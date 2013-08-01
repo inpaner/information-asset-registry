@@ -24,30 +24,30 @@ public class MainPageBuilder extends PageBuilder implements ActionListener{
 	}
 
 	@Override
-	public void BuildHeader(JPanel header) {
-		header.add( LabelFactory.CreateHeader("Main menu") );
+	public void buildHeader(JPanel header) {
+		header.add( LabelFactory.createHeader("Main menu") );
 	}
 
 	@Override
-	public Content CreateContent() {
+	public Content createContent() {
 		BasicContent content = new BasicContent();
-		content.add(LabelFactory.CreateLabel("Please select below which list you would like to view."));
+		content.add(LabelFactory.createLabel("Please select below which list you would like to view."));
 		return content;
 	}
 
 	@Override
-	public void BuildFooter(JPanel footer) {
+	public void buildFooter(JPanel footer) {
 		ArrayList<Core> models = CoreUtil.getModels();
 		for(Core core : models){
 			String name = core.getName();
-			JButton button = ButtonFactory.CreateButton(name);
+			JButton button = ButtonFactory.createButton(name);
 			button.addActionListener(this);
 			button.setActionCommand(name);
 			footer.add( button );
 			
 		}
 		
-		JButton button = ButtonFactory.CreateButton("Logout");
+		JButton button = ButtonFactory.createButton("Logout");
 		button.addActionListener(this);
 		button.setActionCommand("logout");
 		footer.add( button );

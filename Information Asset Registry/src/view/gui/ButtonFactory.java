@@ -6,11 +6,11 @@ import javax.swing.JButton;
 
 public class ButtonFactory {
 	
-	private static Font ButtonFont = new Font("Verdana", Font.PLAIN, 12);
+	private static Font buttonFont = new Font("Verdana", Font.PLAIN, 12);
 	
-	public static JButton CreateButton(String text){
+	public static JButton createButton(String text){
 		JButton button = new JButton(text);
-		button.setFont(ButtonFont);
+		button.setFont(buttonFont);
 		button.setFocusable(false);
 		button.setPreferredSize(new Dimension(100, 28));
 		return button;

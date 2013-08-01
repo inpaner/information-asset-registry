@@ -12,14 +12,14 @@ public class TextInput extends Input{
 	public TextInput(StringAttribute attribute){
 		super(attribute);
 		component = new JTextField();
-		component.setPreferredSize(Input.TextInputDimension);
+		component.setPreferredSize(Input.textInputDimension);
 	}
 	
 	public TextInput(Core core){
 		
 	}
 	
-	public void Initialize() {
+	public void initialize() {
 		
 	}
 

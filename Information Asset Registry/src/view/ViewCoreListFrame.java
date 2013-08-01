@@ -11,6 +11,6 @@ public class ViewCoreListFrame {
 	 * @param core 
 	 */
 	public ViewCoreListFrame(CoreListener coreListener, Core core) {
-		Driver.view.setPanel ( PageBuilder.AssignCoreListPageBuilder(coreListener, core) );
+		Driver.view.setPanel ( PageBuilder.assignCoreListPageBuilder(coreListener, core) );
 	}
 }

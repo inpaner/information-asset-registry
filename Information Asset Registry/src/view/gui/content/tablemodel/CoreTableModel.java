@@ -62,12 +62,13 @@ public class CoreTableModel extends DefaultTableModel  {
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-		public Class getColumnClass(int columnIndex) {
-			return columnTypes[columnIndex];
-		}
+	public Class getColumnClass(int columnIndex) {
+		return columnTypes[columnIndex];
+	}
     
-    public boolean isCellEditable(int row, int col)
-        { return false; }
+    public boolean isCellEditable(int row, int col) { 
+        return false; 
+    }
 
 	public Core getSelected(JTable table) {
 		return coreList.get(table.getSelectedRow());

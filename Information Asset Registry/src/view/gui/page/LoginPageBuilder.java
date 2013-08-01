@@ -28,13 +28,13 @@ public class LoginPageBuilder extends PageBuilder implements ActionListener, Key
 		this.loginListener = loginListener;
 	}
 
-	public void BuildHeader(JPanel header) {
-		header.add( LabelFactory.CreateHeader("Login page") );
+	public void buildHeader(JPanel header) {
+		header.add( LabelFactory.createHeader("Login page") );
 	}
 
 
-	public Content CreateContent() {
-		content = ContentBuilder.BuildLoginForm(user);
+	public Content createContent() {
+		content = ContentBuilder.buildLoginForm(user);
 		
 		for(Field f : content.getFields())
 			f.getInput().getComponent().addKeyListener(this);
@@ -42,8 +42,8 @@ public class LoginPageBuilder extends PageBuilder implements ActionListener, Key
 		return content;
 	}
 	
-	public void BuildFooter(JPanel footer) {
-		JButton login = ButtonFactory.CreateButton("Login");
+	public void buildFooter(JPanel footer) {
+		JButton login = ButtonFactory.createButton("Login");
 		login.addActionListener(this);
 		footer.add(login);
 	}

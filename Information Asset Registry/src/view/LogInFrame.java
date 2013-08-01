@@ -21,7 +21,7 @@ public class LogInFrame {
 		Driver.view.setPanel(new LoginPageBuilder(Session.currentUser(), loginListener));
 	}
 	
-	public void HandleException(RegException e){
+	public void handleException(RegException e){
 		LoginForm form = ((LoginForm)Driver.view.currentPage.getContent());
 		ArrayList<Field> fields = form.getFields();
 		

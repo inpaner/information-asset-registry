@@ -15,30 +15,30 @@ import view.gui.page.CoreListPageBuilder;
 
 public abstract class ContentBuilder {
 	protected Content content;
-	public abstract Content BuildContent();
+	public abstract Content buildContent();
 	
-	public static LoginForm BuildLoginForm(User user) {
+	public static LoginForm buildLoginForm(User user) {
 		LoginFormBuilder builder = new LoginFormBuilder(user);
-		return (LoginForm)builder.BuildContent();
+		return (LoginForm)builder.buildContent();
 	} 
 	
-	public static CoreForm BuildAddForm(Core core){
+	public static CoreForm buildAddForm(Core core){
 		AddCoreFormBuilder builder = new AddCoreFormBuilder(core);
-		return (CoreForm)builder.BuildContent();
+		return (CoreForm)builder.buildContent();
 	}
 	
-	public static CoreForm BuildEditForm(Core core){
+	public static CoreForm buildEditForm(Core core){
 		EditCoreFormBuilder builder = new EditCoreFormBuilder(core);
-		return (CoreForm)builder.BuildContent();
+		return (CoreForm)builder.buildContent();
 	}
 	
-	public static CoreForm BuildViewForm(Core core){
+	public static CoreForm buildViewForm(Core core){
 		ViewCoreFormBuilder builder = new ViewCoreFormBuilder(core);
-		return (CoreForm)builder.BuildContent();
+		return (CoreForm)builder.buildContent();
 	}
 
-	public static CoreTable BuildAssetList(Core core) {
+	public static CoreTable buildAssetList(Core core) {
 		CoreListTableBuilder builder = new CoreListTableBuilder(core);
-		return (CoreTable)builder.BuildContent();
+		return (CoreTable)builder.buildContent();
 	}
 }

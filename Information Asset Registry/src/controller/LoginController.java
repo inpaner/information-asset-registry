@@ -33,7 +33,7 @@ public class LoginController extends Controller implements LoginListener {
             new MainController();
         } 
         catch (RegException e){
-        	loginFrame.HandleException(e);
+        	loginFrame.handleException(e);
         	
         }
     }

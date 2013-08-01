@@ -21,8 +21,8 @@ public class Field{
 	 * @param attribute - this is the attribute to be turned into a field
 	 * @return field - the newly constructed Field object
 	 */
-	public static Field BuildField(Attribute attribute){
-		Input input = Input.CreateInput(attribute);
+	public static Field buildField(Attribute attribute){
+		Input input = Input.createInput(attribute);
 		Field newField = new Field(input);
 		return newField;
 	}
@@ -36,9 +36,9 @@ public class Field{
 	 */
 	private Field(Input input) {
 		String label = input.attribute.getName();
-		inputLabel = LabelFactory.CreateFormLabel(label + ":");
+		inputLabel = LabelFactory.createFormLabel(label + ":");
 		inputField = input; 
-		errorLabel = LabelFactory.CreateFormErrorLabel("");
+		errorLabel = LabelFactory.createFormErrorLabel("");
 	}
 
 	public JLabel getLabel() {

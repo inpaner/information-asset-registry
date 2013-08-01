@@ -14,19 +14,19 @@ import view.gui.content.contentbuilder.ContentBuilder;
 public class EditCorePageBuilder extends PageBuilder implements ActionListener{
 
 	@Override
-	public void BuildHeader(JPanel header) {
-		header.add( LabelFactory.CreateHeader("Edit page") );
+	public void buildHeader(JPanel header) {
+		header.add( LabelFactory.createHeader("Edit page") );
 		
 	}
 
 	@Override
-	public Content CreateContent() {
-		return ContentBuilder.BuildEditForm(null);
+	public Content createContent() {
+		return ContentBuilder.buildEditForm(null);
 	}
 
 	@Override
-	public void BuildFooter(JPanel footer) {
-		JButton edit = ButtonFactory.CreateButton("Edit");
+	public void buildFooter(JPanel footer) {
+		JButton edit = ButtonFactory.createButton("Edit");
 		edit.addActionListener(this);
 		footer.add(edit);
 		

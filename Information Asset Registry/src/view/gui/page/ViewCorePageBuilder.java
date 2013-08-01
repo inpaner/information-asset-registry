@@ -23,23 +23,23 @@ public class ViewCorePageBuilder extends PageBuilder implements ActionListener{
 	}
 	
 	@Override
-	public void BuildHeader(JPanel header) {
-		header.add( LabelFactory.CreateHeader("View asset") );
+	public void buildHeader(JPanel header) {
+		header.add( LabelFactory.createHeader("View asset") );
 		
 	}
 
 	@Override
-	public Content CreateContent() {
-		return ContentBuilder.BuildViewForm(core);
+	public Content createContent() {
+		return ContentBuilder.buildViewForm(core);
 	}
 
 	@Override
-	public void BuildFooter(JPanel footer) {
-		JButton delete = ButtonFactory.CreateButton("Delete");
+	public void buildFooter(JPanel footer) {
+		JButton delete = ButtonFactory.createButton("Delete");
 		delete.addActionListener(this);
 		footer.add(delete);
 		
-		JButton edit = ButtonFactory.CreateButton("Edit");
+		JButton edit = ButtonFactory.createButton("Edit");
 		edit.addActionListener(this);
 		footer.add(edit);
 		

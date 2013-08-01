@@ -18,7 +18,7 @@ public class ComboInput extends Input{
 		}
 	}
 	
-	public void Initialize() {
+	public void initialize() {
 		
 	}
 

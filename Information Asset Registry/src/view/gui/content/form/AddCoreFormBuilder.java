@@ -18,11 +18,11 @@ public class AddCoreFormBuilder extends FormBuilder{
 	}
 	
 	   @Override
-	    public Content BuildContent() {
+	    public Content buildContent() {
 	       CoreForm content = (CoreForm) this.content;
 	       
 	       for (Attribute attribute : core.getAttributes()) {
-	           Field field = Field.BuildField(attribute);
+	           Field field = Field.buildField(attribute);
 	           field.addTo(content);
 	       }
 	       

@@ -10,8 +10,8 @@ public class EditCoreFormBuilder extends ViewCoreFormBuilder{
 	}
 	
 	@Override
-	public Content BuildContent() {
-		super.BuildContent();
+	public Content buildContent() {
+		super.buildContent();
 		return content;
 	}
 	

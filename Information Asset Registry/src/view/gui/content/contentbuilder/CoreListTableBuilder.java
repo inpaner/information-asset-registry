@@ -32,14 +32,14 @@ public class CoreListTableBuilder extends TableBuilder{
 	 *  
 	 *  This method creates the table
 	 */
-	public Content BuildContent() {
+	public Content buildContent() {
 		CoreTable content = new CoreTable(core);
-		content.Initialize();
+		content.initialize();
 		return content;
 	}
 
 
-	public void InitializeTableContents() {
+	public void initializeTableContents() {
 		
 	}
 	

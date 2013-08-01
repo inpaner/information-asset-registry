@@ -11,19 +11,19 @@ public class CoreForm extends Form {
 	}
 
 	@Override
-	public void Reset() {
+	public void reset() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void HandleException(RegException e) {
+	public void handleException(RegException e) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void Initialize() {
+	public void initialize() {
 		// TODO Auto-generated method stub
 		
 	}	

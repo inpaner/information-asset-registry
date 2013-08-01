@@ -21,11 +21,11 @@ public class CoreTable extends Table {
 		this.core = core;
 	}
 	
-	public Core GetSelected() {
+	public Core getSelected() {
 		return tableModel.getSelected(table);
 	}
 
-	public void Initialize() {
+	public void initialize() {
 		tableModel = new CoreTableModel(core);
 		table = new JTable(tableModel);
 		JScrollPane pane = new JScrollPane(table);

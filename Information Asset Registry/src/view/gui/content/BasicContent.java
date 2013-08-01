@@ -6,7 +6,7 @@ public class BasicContent extends Content {
 		super();
 	}
 	
-	public void Initialize(){
+	public void initialize(){
 		
 	}
 }

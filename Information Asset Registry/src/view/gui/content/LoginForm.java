@@ -16,18 +16,18 @@ public class LoginForm extends Form {
 		super();
 	}
 	
-	public void Reset() {
+	public void reset() {
 		
 	}
 
-	public void Initialize() {
+	public void initialize() {
 	}
 	
 	public boolean Validate(){
 		return false;
 	}
 
-	public void HandleException(RegException e) {
+	public void handleException(RegException e) {
 		
 	}
 	

@@ -23,7 +23,7 @@ public abstract class Form extends Content {
 	 * This method turns the whole
 	 * form into a blank form.
 	 */
-	public abstract void Reset();
+	public abstract void reset();
 	
 	public boolean setFields() {
 	    boolean noError = true; 
@@ -35,7 +35,7 @@ public abstract class Form extends Content {
 	    return noError;
 	}
 	
-	public abstract void HandleException(RegException e);
+	public abstract void handleException(RegException e);
 
 	public ArrayList<Field> getFields() {
 		return fields;

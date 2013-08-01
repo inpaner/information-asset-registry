@@ -12,5 +12,5 @@ public abstract class Table extends Content {
 	 * currently selected row of the table.
 	 * @return
 	 */
-	public abstract Core GetSelected();
+	public abstract Core getSelected();
 }

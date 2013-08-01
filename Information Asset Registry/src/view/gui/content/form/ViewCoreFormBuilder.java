@@ -10,8 +10,8 @@ public class ViewCoreFormBuilder extends AddCoreFormBuilder{
 	}
 	
 	@Override
-	public Content BuildContent() {
-		content = super.BuildContent();
+	public Content buildContent() {
+		content = super.buildContent();
 		return content;
 	}
 	
