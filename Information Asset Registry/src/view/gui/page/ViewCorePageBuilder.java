@@ -7,19 +7,19 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import model.Core;
-import model.User;
+import view.eventhandling.CoreListener;
 import view.gui.ButtonFactory;
 import view.gui.LabelFactory;
 import view.gui.content.Content;
 import view.gui.content.contentbuilder.ContentBuilder;
 
 public class ViewCorePageBuilder extends PageBuilder implements ActionListener{
-	private User user;
 	private Core core;
+	private CoreListener coreListener;
 
-	public ViewCorePageBuilder(User user, Core core){
-		this.user = user;
+	public ViewCorePageBuilder(Core core, CoreListener coreListener){
 		this.core = core;
+		this.coreListener = coreListener;
 	}
 	
 	@Override

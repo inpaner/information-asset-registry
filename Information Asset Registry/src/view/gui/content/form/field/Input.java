@@ -54,6 +54,9 @@ public abstract class Input {
 	public abstract void Initialize();
 	
 	public JComponent getComponent() {
+		if (component == null){
+			
+		}
 		return component;
 	}
 

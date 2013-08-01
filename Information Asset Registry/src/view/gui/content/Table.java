@@ -2,6 +2,8 @@ package view.gui.content;
 
 import java.awt.Dimension;
 
+import model.Core;
+
 public abstract class Table extends Content {
 	public static final Dimension tableDimension = new Dimension(750, 550);
 
@@ -10,5 +12,5 @@ public abstract class Table extends Content {
 	 * currently selected row of the table.
 	 * @return
 	 */
-	public abstract Object GetSelected();
+	public abstract Core GetSelected();
 }

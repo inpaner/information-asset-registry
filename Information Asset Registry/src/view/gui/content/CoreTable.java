@@ -6,25 +6,28 @@ import javax.swing.JTable;
 import view.View;
 import view.gui.content.tablemodel.CoreTableModel;
 import model.Core;
+import model.CoreUtil;
 import model.Session;
 import model.User;
 
 public class CoreTable extends Table {
 	protected User user;
 	private Core core;
+	private CoreTableModel tableModel;
+	private JTable table;
 	
 	public CoreTable(Core core){
 		this.user = Session.currentUser();
 		this.core = core;
 	}
 	
-	public Object GetSelected() {
-		return null;
+	public Core GetSelected() {
+		return tableModel.getSelected(table);
 	}
 
 	public void Initialize() {
-		CoreTableModel tableModel = new CoreTableModel(core);
-		JTable table = new JTable(tableModel);
+		tableModel = new CoreTableModel(core);
+		table = new JTable(tableModel);
 		JScrollPane pane = new JScrollPane(table);
 		pane.setPreferredSize(View.FrameDimension);
 		add(pane);

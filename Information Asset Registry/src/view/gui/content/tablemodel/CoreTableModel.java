@@ -1,9 +1,8 @@
 package view.gui.content.tablemodel;
 import java.util.ArrayList;
 
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
-
 import model.Core;
 import model.CoreUtil;
 import model.attribute.Attribute;
@@ -69,5 +68,9 @@ public class CoreTableModel extends DefaultTableModel  {
     
     public boolean isCellEditable(int row, int col)
         { return false; }
+
+	public Core getSelected(JTable table) {
+		return coreList.get(table.getSelectedRow());
+	}
     
 }

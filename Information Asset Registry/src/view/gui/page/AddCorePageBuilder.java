@@ -6,15 +6,22 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import model.Core;
+import view.eventhandling.CoreListener;
 import view.gui.ButtonFactory;
 import view.gui.LabelFactory;
-import view.gui.content.CoreForm;
 import view.gui.content.Content;
 import view.gui.content.contentbuilder.ContentBuilder;
-import view.gui.content.form.AddCoreFormBuilder;
-import view.gui.content.form.ViewCoreFormBuilder;
 
 public class AddCorePageBuilder extends PageBuilder implements ActionListener{
+	private Core core;
+	private CoreListener coreListener;
+	
+	public AddCorePageBuilder(Core core, CoreListener coreListener) {
+		super();
+		this.core = core;
+		this.coreListener = coreListener;
+	}
 
 	public Page BuildPage() {
 		return new Page();
@@ -22,7 +29,7 @@ public class AddCorePageBuilder extends PageBuilder implements ActionListener{
 
 	@Override
 	public void BuildHeader(JPanel header) {
-		header.add( LabelFactory.CreateHeader("Add page") );
+		header.add( LabelFactory.CreateHeader("Add " ) );
 		
 	}
 

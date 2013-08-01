@@ -43,6 +43,12 @@ public abstract class PageBuilder {
 	 * @param footer
 	 */
 	public abstract void BuildFooter(JPanel footer);
+	
+	public String CapitalizeCore(Core core){
+		String name = core.getName();
+		name = Character.toUpperCase(name.charAt(0)) + name.substring(1);
+		return name;
+	}
 
 	public static PageBuilder AssignLoginBuilder(User user, LoginListener loginListener) {
 		return new LoginPageBuilder(user, loginListener);
@@ -54,6 +60,14 @@ public abstract class PageBuilder {
 
 	public static PageBuilder AssignMainPageBuilder() {
 		return new MainPageBuilder();
+	}
+	
+	public static PageBuilder AssignViewCorePageBuilder(Core core, CoreListener coreListener) {
+		return new ViewCorePageBuilder(core, coreListener);
+	}
+
+	public static PageBuilder AssignAddCorePageBuilder(Core core, CoreListener coreListener) {
+		return new AddCorePageBuilder(core, coreListener);
 	}
 	
 	

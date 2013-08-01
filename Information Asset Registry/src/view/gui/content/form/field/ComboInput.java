@@ -12,7 +12,7 @@ public class ComboInput extends Input{
 	public ComboInput(RestrictedAttribute attribute){
 		super(attribute);
 		this.attribute = attribute;
-		component = new JComboBox<String>();
+		component = comboBox = new JComboBox<String>();
 		for (PrimaryAttribute possible : attribute.getPossibleAttributes()) {
 		    comboBox.addItem(possible.getStringValue());
 		}

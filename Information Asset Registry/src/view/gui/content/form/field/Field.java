@@ -62,10 +62,16 @@ public class Field{
 	}
 	
 	public void addTo(Form form){
-		form.getFields().add(this);
-		form.add(inputLabel);
-		form.add(inputField.getComponent(), "grow");
-		form.add(errorLabel, "wrap");
+		try {
+			form.getFields().add(this);
+			form.add(inputLabel);
+			if (inputField == null)
+				throw new RegException("InvalidInputException: The input was null.");
+			form.add(inputField.getComponent(), "grow");
+			form.add(errorLabel, "wrap");
+		}catch(RegException e){
+			e.printStackTrace();
+		}
 	}
 
 	public boolean setField() {
