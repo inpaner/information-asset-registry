@@ -28,14 +28,7 @@ public class User {
     private boolean loggedIn;
     
     public User() {
-        user = CoreUtil.getAddable("user");
-        for (Attribute attribute : user.getAttributes()) {
-            if (attribute.getName().equals("username"))
-                username = (StringAttribute) attribute;
-            else if (attribute.getName().equals("password"))
-                password = (StringAttribute) attribute;
-        }
-        loggedIn = false;
+        logOut();
     }
     
     private User(int pk) {
@@ -103,9 +96,14 @@ public class User {
     }
 
 	public void logOut() {
-		// TODO Ivan, please implement log out here
-		
+        user = CoreUtil.getAddable("user");
+        for (Attribute attribute : user.getAttributes()) {
+            if (attribute.getName().equals("username"))
+                username = (StringAttribute) attribute;
+            else if (attribute.getName().equals("password"))
+                password = (StringAttribute) attribute;
+        }
+        loggedIn = false;
 	}    
-    
 }
 
