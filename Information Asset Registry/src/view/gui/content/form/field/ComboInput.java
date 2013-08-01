@@ -27,5 +27,11 @@ public class ComboInput extends Input{
 	public void setInput() throws RegException {
 		attribute.setValue(comboBox.getSelectedIndex());
 	}
+
+    @Override
+    public void setEditable(boolean editable) {
+        // TODO Auto-generated method stub
+        
+    }
 	
 }
