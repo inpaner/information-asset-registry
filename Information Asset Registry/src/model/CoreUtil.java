@@ -30,6 +30,10 @@ public class CoreUtil {
         CoreUtil.getCore("asset", 1);
     }
     
+    public ArrayList<Core> getModels() {
+        return new ArrayList<>(models.values());
+    }
+    
     protected static void init() {
         models = new HashMap<>();
         coreCache = new HashMap<>();
